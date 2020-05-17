@@ -1,7 +1,5 @@
 import React from 'react';
 import {Button, Text, View, TextInput, StyleSheet} from 'react-native';
-// import {Tab} from '../../components';
-
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const TopTab = createMaterialTopTabNavigator();
@@ -17,25 +15,15 @@ const Item2 = () => (
     <Text>Item2</Text>
   </View>
 );
-
-export default class BBS extends React.Component {
+export default class Tab extends React.Component {
   render() {
-    const {navigation} = this.props;
     return (
       <View>
-        <Text style={styles.text}>Welcome To Page BBS</Text>
-        <TextInput
-          style={{
-            width: 200,
-            height: 40,
-          }}
-          placeholder="请输入"
-          onChangeText={text => {
-            navigation.setParams({
-              iTitle: text,
-            });
-          }}
-        />
+        <Text>tab 组件</Text>
+        <TopTab.Navigator initialRouteName="Item1">
+          <TopTab.Screen title="sss" name="Item1" component={Item1} />
+          <TopTab.Screen title="ss2s" name="Item2" component={Item2} />
+        </TopTab.Navigator>
       </View>
     );
   }
@@ -44,6 +32,5 @@ export default class BBS extends React.Component {
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
-    // color: '#ddd',
   },
 });
