@@ -15,6 +15,7 @@ import {
   Text,
   StatusBar,
   Button,
+  TextInput,
 } from 'react-native';
 
 import {
@@ -28,14 +29,47 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Home: () => React$Node = props => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
+// const Home: () => React$Node = props => {
+export default class Home extends React.Component {
+  state = {
+    txt: '1',
+  };
+  componentDidMount() {
+    // alert(JSON.stringify(this));
+  }
+
+  render() {
+    const {navigation} = this.props;
+    return (
       <>
+        <StatusBar barStyle="dark-content" />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
+          <View style={styles.ipt_wrapper}>
+            <Ionicons
+              name={'icon-analytics'}
+              size={50}
+              style={{color: 'red'}}
+            />
+            <TextInput
+              style={{
+                width: 200,
+                height: 40,
+              }}
+              onChangeText={text => {
+                this.setState({
+                  txt: text,
+                });
+              }}
+            />
+            <Ionicons
+              name={'icon-analytics'}
+              size={50}
+              style={{color: 'red'}}
+            />
+          </View>
+
           <Header />
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
@@ -43,17 +77,18 @@ const Home: () => React$Node = props => {
             </View>
           )}
           <View style={styles.body}>
+            <Text>{this.state.txt}</Text>
             <Button
               title={'我的'}
               onPress={() => {
-                props.navigation.navigate('My');
+                navigation.navigate('My');
               }}
             />
 
             <Button
               title={'Find'}
               onPress={() => {
-                props.navigation.navigate('Find');
+                navigation.navigate('Find');
               }}
             />
             <View>
@@ -100,13 +135,17 @@ const Home: () => React$Node = props => {
           </View>
         </ScrollView>
       </>
-    </>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
+  },
+  ipt_wrapper: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   engine: {
     position: 'absolute',
@@ -142,5 +181,3 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
-
-export default Home;

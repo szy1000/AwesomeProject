@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
   Button,
@@ -16,10 +8,12 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Link} from '@react-navigation/native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class My extends React.Component {
   render() {
     const {navigation} = this.props;
+    // navigation.setOption({title: '我的'});
     return (
       <ScrollView>
         <View style={styles.login}>
@@ -29,23 +23,41 @@ export default class My extends React.Component {
               source={require('./logo.jpeg')}
               style={styles.avatar}
             />
-            <View>
+            <View style={{flex: 1}}>
               <Text style={styles.link}>
-                <Link to="/login">登录</Link>
+                <Link to="/Login">登录</Link>
                 <Text>/</Text>
-                <Link to="/register">注册</Link>
+                <Link to="/Register">注册</Link>
               </Text>
               <Text style={styles.text}>一键登录，享受更多精彩信息！</Text>
             </View>
+            <AntDesign
+              name="right"
+              color="#fff"
+              style={{fontWeight: '100'}}
+              size={40}
+            />
+          </View>
+          <View style={styles.statistics}>
+            <View style={styles.item}>
+              <Text style={styles.count}>10</Text>
+              <Text style={styles.title}>加入</Text>
+            </View>
+            <View style={styles.item}>
+              <Text style={styles.count}>10</Text>
+              <Text style={styles.title}>发布</Text>
+            </View>
+            <View style={styles.item}>
+              <Text style={styles.count}>10</Text>
+              <Text style={styles.title}>关注</Text>
+            </View>
+            <View style={styles.item}>
+              <Text style={styles.count}>10</Text>
+              <Text style={styles.title}>收藏</Text>
+            </View>
           </View>
         </View>
-        <Button
-          title={'Go Back'}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          返回
-        </Button>
+        <Text>{JSON.stringify(this.props)}</Text>
       </ScrollView>
     );
   }
@@ -54,12 +66,11 @@ export default class My extends React.Component {
 const styles = StyleSheet.create({
   login: {
     paddingTop: 110,
-    paddingBottom: 30,
-    paddingHorizontal: 30,
-    height: 400,
+    // height: 400,
     backgroundColor: '#17a5e1',
   },
   loginWrapper: {
+    paddingHorizontal: 20,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -81,5 +92,26 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#fff',
     fontSize: 12,
+  },
+
+  statistics: {
+    marginTop: 20,
+    paddingBottom: 20,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  item: {
+    width: '25%',
+  },
+  count: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 14,
+  },
+  title: {
+    marginTop: 5,
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
   },
 });

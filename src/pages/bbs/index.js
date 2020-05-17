@@ -1,13 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {Button, Text, View, StyleSheet} from 'react-native';
+import {Button, Text, View, TextInput, StyleSheet} from 'react-native';
 
 export default class BBS extends React.Component {
   render() {
@@ -15,6 +7,19 @@ export default class BBS extends React.Component {
     return (
       <View>
         <Text style={styles.text}>Welcome To Page BBS</Text>
+        <TextInput
+          style={{
+            width: 200,
+            height: 40,
+          }}
+          placeholder="请输入"
+          onChangeText={text => {
+            navigation.setParams({
+              iTitle: text,
+            });
+          }}
+        />
+
         <Button
           title={'Go Back'}
           onPress={() => {
