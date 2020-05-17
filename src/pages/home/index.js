@@ -26,12 +26,13 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Home: () => React$Node = (props) => {
+const Home: () => React$Node = props => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
@@ -49,6 +50,12 @@ const Home: () => React$Node = (props) => {
               }}
             />
 
+            <Button
+              title={'Find'}
+              onPress={() => {
+                props.navigation.navigate('Find');
+              }}
+            />
             <View>
               <Text>矢量图</Text>
               <Ionicons
@@ -56,6 +63,9 @@ const Home: () => React$Node = (props) => {
                 size={50}
                 style={{color: 'red'}}
               />
+            </View>
+            <View>
+              <MaterialCommunityIcons name={'file'} />
             </View>
             <View>
               <Text>矢量图</Text>
@@ -89,7 +99,7 @@ const Home: () => React$Node = (props) => {
             <LearnMoreLinks />
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </>
     </>
   );
 };

@@ -1,2 +1,0 @@
-# AwesomeProject
-learning for ReactNative
