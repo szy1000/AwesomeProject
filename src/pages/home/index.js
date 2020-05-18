@@ -19,7 +19,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Swiper from './page-components/swiper';
+
+import Banner from './page-components/banner';
+import Link from './page-components/link';
+import Panel from './page-components/Panel';
+
 import {homeInit} from './redux';
 
 class Home extends React.Component {
@@ -59,44 +63,41 @@ class Home extends React.Component {
             <Text style={styles.badge}>3</Text>
           </View>
         </View>
-        <Swiper />
-        <Header />
-        {global.HermesInternal == null ? null : (
-          <View style={styles.engine}>
-            <Text style={styles.footer}>Engine: Hermes</Text>
+        <Banner />
+        <Link />
+        <View style={styles.whiteSpace} />
+        <Panel title="热门院校" tips="看看其他小伙伴">
+          <View style={styles.hot_school}>
+            {list.map((v, i) => (
+              <View style={styles.item} key={i}>
+                <Image
+                  accessibilityRole={'image'}
+                  source={{uri: v.cover}}
+                  style={styles.pic}
+                />
+                <Text style={styles.name}>{v.title.split(0, 4)}</Text>
+              </View>
+            ))}
           </View>
-        )}
-        {list.map((v, i) => (
-          <View key={i}>
-            <Image
-              accessibilityRole={'image'}
-              source={{uri: v.cover}}
-              style={styles.pic}
-            />
-            <Text>{v.title}</Text>
+        </Panel>
+        <View style={styles.whiteSpace} />
+        <Panel title="热门专业" tips="看看其他小伙伴">
+          <View style={styles.hot_school}>
+            {list.map((v, i) => (
+              <View style={styles.item} key={i}>
+                <Image
+                  accessibilityRole={'image'}
+                  source={{uri: v.cover}}
+                  style={styles.pic}
+                />
+                <Text style={styles.name}>{v.title.split(0, 4)}</Text>
+              </View>
+            ))}
           </View>
-        ))}
-        <View style={styles.body}>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>See Your Changes</Text>
-            <Text style={styles.sectionDescription}>
-              <ReloadInstructions />
-            </Text>
-          </View>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Debug</Text>
-            <Text style={styles.sectionDescription}>
-              <DebugInstructions />
-            </Text>
-          </View>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Learn More</Text>
-            <Text style={styles.sectionDescription}>
-              Read the docs to discover what to do next:
-            </Text>
-          </View>
-          <LearnMoreLinks />
-        </View>
+        </Panel>
+        <ReloadInstructions />
+        <LearnMoreLinks />
+        <DebugInstructions />
       </ScrollView>
     );
   }
@@ -106,7 +107,6 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
-
   ipt_wrapper: {
     paddingHorizontal: 15,
     display: 'flex',
@@ -130,11 +130,9 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
   },
-
   msg_box: {
     position: 'relative',
   },
-
   badge: {
     width: 18,
     height: 18,
@@ -149,42 +147,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
 
+  whiteSpace: {
+    height: 5,
+    backgroundColor: '#ddd',
+  },
+  hot_school: {
+    flexDirection: 'row',
+  },
+  item: {
+    marginRight: 15,
+    width: 160,
+  },
   pic: {
-    width: 200,
-    height: 200,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+    width: 120,
+    height: 160,
+    borderRadius: 5,
   },
 });
 
