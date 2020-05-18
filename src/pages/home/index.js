@@ -26,20 +26,20 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {homeInit} from './redux';
 // const Home: () => React$Node = props => {
-export default class Home extends React.Component {
-  state = {
-    txt: '1',
-  };
+class Home extends React.Component {
   componentDidMount() {
-    // alert(JSON.stringify(this));
+    console.warn(this.props);
   }
 
   render() {
-    const {navigation} = this.props;
+    const {init, data} = this.props;
+    const {name} = data;
     return (
       <>
         <StatusBar barStyle="dark-content" />
@@ -76,36 +76,9 @@ export default class Home extends React.Component {
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
+          <Text>{name || 'none name'}</Text>
+          <Button title='ajax' onPress={() => this.props.homeInit()} />
           <View style={styles.body}>
-            <Text>{this.state.txt}</Text>
-            <Button
-              title={'我的'}
-              onPress={() => {
-                navigation.navigate('My');
-              }}
-            />
-
-            <Button
-              title={'Find'}
-              onPress={() => {
-                navigation.navigate('Find');
-              }}
-            />
-            <View>
-              <Text>矢量图</Text>
-              <Ionicons
-                name={'icon-analytics'}
-                size={50}
-                style={{color: 'red'}}
-              />
-            </View>
-            <View>
-              <MaterialCommunityIcons name={'file'} />
-            </View>
-            <View>
-              <Text>矢量图</Text>
-              <Ionicons name={'ios-apps'} size={50} style={{color: 'red'}} />
-            </View>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
@@ -181,3 +154,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+export default connect(
+  state => state.home,
+  dispatch => bindActionCreators({homeInit}, dispatch),
+)(Home);
