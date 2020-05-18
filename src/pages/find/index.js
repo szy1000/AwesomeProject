@@ -1,46 +1,44 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import {View, StyleSheet} from 'react-native';
+
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Feather from 'react-native-vector-icons/Feather';
-import TabPanel from '../bbs/panelOne';
-import BBS from '../bbs';
+const TabTop = createMaterialTopTabNavigator();
+import PanelOne from './PanelOne';
+import PanelTwo from './PanelTwo';
+import PanelThree from './PanelThree';
 
 export default class Find extends React.Component {
   render() {
-    const _Tab = createStackNavigator(
-      createMaterialTopTabNavigator({
-        TabOne: {
-          screen: TabPanel,
-        },
-        TabTwo: {
-          screen: BBS,
-        },
-      }),
-    );
     return (
-      <View style={styles.find}>
-        <Text>sss</Text>
-        <_Tab />
-        {/*<_Stack.Screen className="Screen">*/}
-        {/*  <_Tab.Navigator className="Navigator">*/}
-        {/*    <_Tab.Screen name="Item1" component={TabPanel} />*/}
-        {/*    <_Tab.Screen name="Item2" component={BBS} />*/}
-        {/*  </_Tab.Navigator>*/}
-        {/*</_Stack.Screen>*/}
-      </View>
+      <TabTop.Navigator
+        tabBarOptions={{
+          labelStyle: {
+            fontSize: 14,
+          },
+          tabStyle: {
+            position: 'relative',
+          },
+          activeTintColor: 'red',
+          activeTintSize: '30',
+          inactiveTintColor: '#aaa',
+          indicatorStyle: {
+            marginLeft: '10%',
+            width: 20,
+            height: 4,
+          },
+          style: styles.find,
+        }}>
+        <TabTop.Screen name="关注" component={PanelOne} />
+        <TabTop.Screen name="发现" component={PanelTwo} />
+        <TabTop.Screen name="我的" component={PanelThree} />
+      </TabTop.Navigator>
     );
   }
 }
 
 const styles = StyleSheet.create({
   find: {
-    paddingTop: 80,
-    // paddingBottom: 20,
-    // paddingHorizontal: 15,
-    // backgroundColor: '#ccc',
+    paddingTop: 30,
   },
 });

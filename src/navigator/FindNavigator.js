@@ -1,13 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
@@ -18,12 +10,8 @@ import TabPanel from '../pages/bbs/panelOne';
 export default class FindTab extends React.Component {
   render() {
     return (
-      <TabTop.Navigator
-        screenOptions={{
-          backgroundColor: '#fff',
-        }}
-        style={styles.find}>
-        <TabTop.Screen name="Item1" component={TabPanel} />
+      <TabTop.Navigator>
+        <TabTop.Screen name="tem1" component={TabPanel} />
         <TabTop.Screen name="Item2" component={BBS} />
       </TabTop.Navigator>
     );

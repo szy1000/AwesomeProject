@@ -12,13 +12,15 @@ import Feather from 'react-native-vector-icons/Feather';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import FindTab from './FindNavigator';
+// import FindTab from './FindNavigator';
 
 import WelcomePage from '../pages/welcomePage';
 import Home from '../pages/home';
 import My from '../pages/my';
 import Find from '../pages/find';
 import BBS from '../pages/bbs';
+import Login from '../pages/login';
+import Register from '../pages/register';
 
 const TabBottom = e => {
   return (
@@ -40,10 +42,9 @@ const TabBottom = e => {
       />
       <Tab.Screen
         name="Find"
-        component={FindTab}
+        component={Find}
         options={{
           tabBarLabel: '发现',
-          headerShown: false,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="magnify" color={color} size={size} />
           ),
@@ -91,6 +92,7 @@ function getHeaderTitle(_params) {
   const routeState =
     route.state && route.state.routes[route.state.index].params;
   const {iTitle} = routeState || {};
+
   switch (routeName) {
     case 'Home':
     default:
@@ -100,6 +102,7 @@ function getHeaderTitle(_params) {
       };
     case 'Find':
       return {
+        title: '发现',
         headerShown: false,
       };
     case 'BBS':
@@ -150,6 +153,25 @@ export default class AppNavigator extends React.Component {
             name="Main"
             component={TabBottom}
             options={e => getHeaderTitle(e)}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              title: null,
+              headerBackTitle: null,
+              headerBackIcon: null,
+              headerTruncatedBackTitle: null,
+              headerTransparent: true, //设置头部透明
+            }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              title: '注册',
+              headerShown: false, //删除头部
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
