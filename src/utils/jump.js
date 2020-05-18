@@ -6,4 +6,7 @@ export default class Jump {
       routes: [{name: 'Main'}],
     });
   }
+  static linkTo(params) {
+    console.log(params);
+  }
 }

@@ -1,4 +1,4 @@
-// import { getHomePageReq } from './api'
+import {getHomeReq} from './api';
 // Actions
 const UPDATE = 'HOME_UPDATE';
 
@@ -26,16 +26,15 @@ export const homeUpdate = params => ({
   type: UPDATE,
 });
 
-export const homeInit = callback => async dispatch => {
+export const homeInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  // const data = await getHomePageReq({
-  //   cmd: 'homePage',
-  // });
+  const data = await getHomeReq(params || {});
   dispatch(
     homeUpdate({
       init: true,
       data: {
+        ...data,
         name: 'shenzhiyong',
       },
     }),

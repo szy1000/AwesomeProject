@@ -1,4 +1,5 @@
 import React from 'react';
+import Jump from '../../utils/jump';
 import {Button, Text, View, TextInput, StyleSheet} from 'react-native';
 
 export default class Login extends React.Component {
@@ -32,7 +33,7 @@ export default class Login extends React.Component {
           }}
         />
 
-        <Button title="登录" onPress={() => navigation.replace('Init')} />
+        <Button title="登录" onPress={() => Jump.resetToHome(this.props)} />
       </View>
     );
   }
