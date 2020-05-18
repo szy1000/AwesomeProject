@@ -5,7 +5,7 @@ export default class Login extends React.Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View>
+      <View style={styles.login}>
         <Text style={styles.text}>Welcome To Page login</Text>
         <TextInput
           style={{
@@ -32,14 +32,15 @@ export default class Login extends React.Component {
           }}
         />
 
-        <Button title="登录" onPress={() => console.log(1)} />
+        <Button title="登录" onPress={() => navigation.replace('Init')} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  text: {
+  login: {
+    paddingTop: 80,
     fontSize: 20,
     // color: '#ddd',
   },

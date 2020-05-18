@@ -1,44 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button, Text} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const TabTop = createMaterialTopTabNavigator();
 
-import Home from './src/pages/home';
-import My from './src/pages/my';
-import Find from './src/pages/find';
-import BBS from './src/pages/bbs';
-import TabPanel from './src/pages/bbs/panelOne';
-import Login from './src/pages/login';
-import Register from './src/pages/register';
+import FindTab from './FindNavigator';
 
-const TabTopItem = e => {
-  return (
-    <TabTop.Navigator className="Navigator">
-      <TabTop.Screen name="Item1" component={TabPanel} />
-      <TabTop.Screen name="Item2" component={BBS} />
-    </TabTop.Navigator>
-  );
-};
+import WelcomePage from '../pages/welcomePage';
+import Home from '../pages/home';
+import My from '../pages/my';
+import Find from '../pages/find';
+import BBS from '../pages/bbs';
+
 const TabBottom = e => {
   return (
     <Tab.Navigator>
@@ -59,9 +40,10 @@ const TabBottom = e => {
       />
       <Tab.Screen
         name="Find"
-        component={Find}
+        component={FindTab}
         options={{
           tabBarLabel: '发现',
+          headerShown: false,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="magnify" color={color} size={size} />
           ),
@@ -69,7 +51,7 @@ const TabBottom = e => {
       />
       <Tab.Screen
         name="BBS"
-        component={TabTopItem}
+        component={BBS}
         options={{
           tabBarLabel: '论坛',
           tabBarIcon: ({color, size}) => (
@@ -118,8 +100,7 @@ function getHeaderTitle(_params) {
       };
     case 'Find':
       return {
-        title: '发现小组',
-        headerTransparent: true,
+        headerShown: false,
       };
     case 'BBS':
       return {
@@ -153,77 +134,24 @@ function getHeaderTitle(_params) {
 
 // const App: () => React$Node = () => {
 
-export default class App extends React.Component {
+export default class AppNavigator extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Init">
+        <Stack.Navigator initialRouteName="Welcome">
           <Stack.Screen
-            name="Init"
+            name="Welcome"
+            component={WelcomePage}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Main"
             component={TabBottom}
             options={e => getHeaderTitle(e)}
           />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={props => {
-              return {
-                title: null,
-                headerBackTitle: null,
-                headerBackIcon: null,
-                headerTruncatedBackTitle: null,
-                headerTransparent: true, //删除头
-              };
-            }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{
-              title: '注册',
-            }}
-          />
         </Stack.Navigator>
-        {/*  <Stack.Screen*/}
-        {/*    name="My"*/}
-        {/*    component={My}*/}
-        {/*    options={({route: {params}}) => {*/}
-        {/*      return {*/}
-        {/*        title: (params && params.name) || '我的',*/}
-        {/*        headerBackTitle: null,*/}
-        {/*        headerTruncatedBackTitle: null,*/}
-        {/*        headerTransparent: true,*/}
-        {/*        headerTintColor: '#fff',*/}
-        {/*        headerTitleStyle: {*/}
-        {/*          color: '#fff',*/}
-        {/*        },*/}
-        {/*      };*/}
-        {/*    }}*/}
-        {/*  />*/}
-        {/*  <Stack.Screen*/}
-        {/*    name="Find"*/}
-        {/*    component={Find}*/}
-        {/*    options={props => {*/}
-        {/*      const {*/}
-        {/*        navigation,*/}
-        {/*        route: {params},*/}
-        {/*      } = props;*/}
-        {/*      return {*/}
-        {/*        title: '发现',*/}
-        {/*        headerRight: () => (*/}
-        {/*          <Button*/}
-        {/*            title={params && params.mode === 'eidt' ? '保存' : '编辑'}*/}
-        {/*            onPress={() =>*/}
-        {/*              navigation.seParams({*/}
-        {/*                state: 'ss',*/}
-        {/*              })*/}
-        {/*            }*/}
-        {/*          />*/}
-        {/*        ),*/}
-        {/*      };*/}
-        {/*    }}*/}
-        {/*  />*/}
-        {/*</Stack.Navigator>*/}
       </NavigationContainer>
     );
   }
