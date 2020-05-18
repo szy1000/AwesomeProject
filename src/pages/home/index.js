@@ -77,7 +77,7 @@ class Home extends React.Component {
             </View>
           )}
           <Text>{name || 'none name'}</Text>
-          <Button title='ajax' onPress={() => this.props.homeInit()} />
+          <Button title="ajax" onPress={() => this.props.homeInit()} />
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
