@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   Image,
+  FlatList,
 } from 'react-native';
 
 import {
@@ -82,18 +83,21 @@ class Home extends React.Component {
         </Panel>
         <View style={styles.whiteSpace} />
         <Panel title="热门专业" tips="看看其他小伙伴">
-          <View style={styles.hot_school}>
-            {list.map((v, i) => (
-              <View style={styles.item} key={i}>
+          <FlatList
+            data={list}
+            horizontal
+            // style={styles.hot_school}
+            renderItem={({item, index}) => (
+              <View style={styles.item} key={index}>
                 <Image
                   accessibilityRole={'image'}
-                  source={{uri: v.cover}}
+                  source={{uri: item.cover}}
                   style={styles.pic}
                 />
-                <Text style={styles.name}>{v.title.split(0, 4)}</Text>
+                <Text style={styles.name}>{item.title}</Text>
               </View>
-            ))}
-          </View>
+            )}
+          />
         </Panel>
         <ReloadInstructions />
         <LearnMoreLinks />
@@ -159,7 +163,7 @@ const styles = StyleSheet.create({
     width: 160,
   },
   pic: {
-    width: 120,
+    width: 160,
     height: 160,
     borderRadius: 5,
   },
