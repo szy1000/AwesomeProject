@@ -57,8 +57,22 @@ export default class Login extends React.Component {
             <Text style={styles.white}>登录</Text>
           </TouchableOpacity>
           <View style={styles.linkToRegister}>
-            <Text>还没有账号？</Text>
-            <Link to="/Register">立即注册</Link>
+            <Text style={styles.noAccount}>还没有账号？</Text>
+            <Link style={styles.register} to="/Register">
+              立即注册
+            </Link>
+          </View>
+
+          <View style={styles.loginWays}>
+            <View style={styles.way}>
+              <Feather name="user" color="#d8d8d8" size={20} />
+              <Text style={styles.wayName}>QQ登录</Text>
+            </View>
+            <View style={styles.line} />
+            <View style={styles.way}>
+              <Feather name="user" color="#d8d8d8" size={20} />
+              <Text style={styles.wayName}>微信登录</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -93,6 +107,7 @@ const styles = StyleSheet.create({
     marginRight: 30,
     borderRadius: 30,
     paddingTop: 50,
+    paddingBottom: 30,
     paddingHorizontal: 20,
     backgroundColor: '#fdfdfd',
   },
@@ -118,5 +133,34 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+
+  noAccount: {
+    color: '#c0c0c0',
+  },
+  register: {
+    color: '#fd6868',
+  },
+
+  loginWays: {
+    marginLeft: 40,
+    marginRight: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  line: {
+    width: 1,
+    height: 20,
+    backgroundColor: '#ccc',
+  },
+  way: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  wayName: {
+    marginLeft: 5,
+    fontSize: 16,
+    color: '#222',
   },
 });
