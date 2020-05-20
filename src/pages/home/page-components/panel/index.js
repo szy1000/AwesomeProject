@@ -7,9 +7,12 @@ export default class Panel extends React.Component {
     return (
       <View style={styles.panel}>
         <View style={styles.header}>
-          <View style={styles.icon} />
-          <Text style={styles.title}>{title || 'title'}</Text>
-          <Text style={styles.tips}>{tips || 'ss'}</Text>
+          <View style={styles.holder} />
+          <Text style={styles.title}>{title}</Text>
+          <View style={styles.more}>
+            <Text style={styles.tips}>{tips}</Text>
+            <Image style={styles.icon} source={require('./more.png')} />
+          </View>
         </View>
         <View style={styles.content}>{children}</View>
       </View>
@@ -23,28 +26,36 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingHorizontal: 15,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
-  icon: {
+  holder: {
     position: 'absolute',
     left: 15,
     top: 15,
     width: 4,
     height: 20,
-    backgroundColor: 'red',
+    backgroundColor: '#11a8cd',
   },
   title: {
     marginLeft: 15,
     fontSize: 20,
     fontWeight: '500',
   },
+  more: {
+    flexDirection: 'row',
+  },
   tips: {
     fontSize: 12,
-    color: '#666',
+    color: '#999',
+  },
+  icon: {
+    width: 12,
+    height: 12,
   },
   content: {
     paddingTop: 20,
     paddingBottom: 20,
-    paddingHorizontal: 15,
-  }
+    // paddingHorizontal: 15,
+  },
 });

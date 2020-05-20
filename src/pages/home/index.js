@@ -22,9 +22,11 @@ import {bindActionCreators} from 'redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import Banner from './page-components/banner';
-import Link from './page-components/link';
-import Panel from './page-components/Panel';
+import Banner from './page-components/banner/banner';
+import Link from './page-components/Link/link';
+import Panel from './page-components/panel';
+import Case from './page-components/case';
+import Course from './page-components/course';
 
 import {homeInit} from './redux';
 
@@ -68,26 +70,10 @@ class Home extends React.Component {
         <Banner />
         <Link />
         <View style={styles.whiteSpace} />
-        <Panel title="热门院校" tips="看看其他小伙伴">
-          <View style={styles.hot_school}>
-            {list.map((v, i) => (
-              <View style={styles.item} key={i}>
-                <Image
-                  accessibilityRole={'image'}
-                  source={{uri: v.cover}}
-                  style={styles.pic}
-                />
-                <Text style={styles.name}>{v.title.split(0, 4)}</Text>
-              </View>
-            ))}
-          </View>
-        </Panel>
-        <View style={styles.whiteSpace} />
-        <Panel title="热门专业" tips="看看其他小伙伴">
+        <Panel title="热门院校" tips="看看小伙伴们都热衷于哪些院校吧！">
           <FlatList
             data={list}
             horizontal
-            // style={styles.hot_school}
             renderItem={({item, index}) => (
               <View style={styles.item} key={index}>
                 <Image
@@ -100,18 +86,23 @@ class Home extends React.Component {
             )}
           />
         </Panel>
-        <ReloadInstructions />
-        <LearnMoreLinks />
-        <DebugInstructions />
+        <View style={styles.whiteSpace} />
+        <Panel title="热门专业" tips="看看当下最流行的专业！">
+          <Course />
+        </Panel>
+        <Panel title="案例分享" tips="以下案例均已获得用户授权">
+          <Case data={[1, 2]} />
+        </Panel>
+        {/*<ReloadInstructions />*/}
+        {/*<LearnMoreLinks />*/}
+        {/*<DebugInstructions />*/}
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
+  scrollView: {},
   ipt_wrapper: {
     paddingHorizontal: 15,
     display: 'flex',
@@ -160,11 +151,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   item: {
-    marginRight: 15,
-    width: 160,
+    marginLeft: 15,
+    width: 113,
   },
   pic: {
-    width: 160,
+    width: 113,
     height: 160,
     borderRadius: 5,
   },

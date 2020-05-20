@@ -4,7 +4,7 @@ import {Button, Text, View, StyleSheet} from 'react-native';
 export default class Register extends React.Component {
   render() {
     return (
-      <View>
+      <View style={styles.register}>
         <Text style={styles.text}>Welcome To Page Register</Text>
       </View>
     );
@@ -12,7 +12,8 @@ export default class Register extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  text: {
+  register: {
+    paddingTop: 30,
     fontSize: 20,
     // color: '#ddd',
   },

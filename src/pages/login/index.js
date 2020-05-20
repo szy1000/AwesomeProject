@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ImageBackground,
 } from 'react-native';
 import {Link} from '@react-navigation/native';
 
@@ -18,7 +19,8 @@ export default class Login extends React.Component {
     const {navigation} = this.props;
     return (
       <View style={styles.login}>
-        <Image style={styles.bg} source={require('./one.jpeg')} />
+        <ImageBackground style={styles.bg} source={require('./login.png')} />
+        {/*<Image style={styles.bg} />*/}
         <View style={styles.main}>
           <View style={styles.ipt_wrapper}>
             <Feather name="user" color="#d8d8d8" size={20} />
@@ -65,12 +67,12 @@ export default class Login extends React.Component {
 
           <View style={styles.loginWays}>
             <View style={styles.way}>
-              <Feather name="user" color="#d8d8d8" size={20} />
+              <Image style={styles.icon} source={require('./pic47.png')} />
               <Text style={styles.wayName}>QQ登录</Text>
             </View>
             <View style={styles.line} />
             <View style={styles.way}>
-              <Feather name="user" color="#d8d8d8" size={20} />
+              <Image style={styles.icon} source={require('./pic48.png')} />
               <Text style={styles.wayName}>微信登录</Text>
             </View>
           </View>
@@ -82,11 +84,15 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   login: {
-    backgroundColor: '#def2f6',
+    // backgroundColor: '#def2f6',
     flex: 1,
   },
   bg: {
-    height: 300,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   ipt_wrapper: {
     marginBottom: 30,
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   main: {
-    marginTop: -50,
+    marginTop: 280,
     marginLeft: 30,
     marginRight: 30,
     borderRadius: 30,
@@ -162,5 +168,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 16,
     color: '#222',
+  },
+  icon: {
+    width: 25,
+    height: 25,
   },
 });

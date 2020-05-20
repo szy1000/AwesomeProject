@@ -7,14 +7,11 @@ export default class Banner extends React.Component {
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
-          <View style={styles.slide1}>
-            <Image style={styles.item} source={require('./one.jpeg')} />
+          <View style={styles.slide}>
+            <Image style={styles.item} source={require('./banner1.png')} />
           </View>
-          <View style={styles.slide2}>
-            <Image style={styles.item} source={require('./two.jpg')} />
-          </View>
-          <View style={styles.slide3}>
-            <Image style={styles.item} source={require('./three.jpg')} />
+          <View style={styles.slide}>
+            <Image style={styles.item} source={require('./banner2.png')} />
           </View>
         </Swiper>
       </View>
@@ -29,29 +26,18 @@ const styles = StyleSheet.create({
     marginTop: -90,
   },
   wrapper: {
+    paddingTop: 48,
+    backgroundColor: '#e6fffe',
     height: 300,
   },
   item: {
     width: '100%',
-    height: 300
+    height: 200,
   },
-  slide1: {
+  slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
   },
   text: {
     color: '#fff',

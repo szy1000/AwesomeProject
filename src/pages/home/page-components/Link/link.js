@@ -8,27 +8,27 @@ export default class Link extends React.Component {
         <View style={styles.schoolAndProject}>
           <Image
             accessibilityRole={'image'}
-            source={require('./book.jpg')}
+            source={require('./zyk.png')}
             style={styles.linkItem}
           />
           <View style={styles.holder} />
           <Image
             accessibilityRole={'image'}
-            source={require('./school.jpg')}
+            source={require('./yxk.png')}
             style={styles.linkItem}
           />
         </View>
         <View style={styles.block}>
           <View style={styles.item}>
-            <View style={styles.icon} />
+            <Image style={styles.icon} source={require('./bgts.png')} />
             <Text style={styles.txt}>背景提升</Text>
           </View>
           <View style={styles.item}>
-            <View style={styles.icon} />
+            <Image style={styles.icon} source={require('./sqxm.png')} />
             <Text style={styles.txt}>背景提升</Text>
           </View>
           <View style={styles.item}>
-            <View style={styles.icon} />
+            <Image style={styles.icon} source={require('./qqal.png')} />
             <Text style={styles.txt}>背景提升</Text>
           </View>
         </View>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
 
   block: {
-    marginTop: 20,
+    paddingHorizontal: 15,
     paddingBottom: 15,
     display: 'flex',
     flexDirection: 'row',
@@ -66,10 +66,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'blue',
+    width: 110,
+    height: 83,
   },
   txt: {
     marginTop: 5,
