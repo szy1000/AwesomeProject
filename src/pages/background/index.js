@@ -18,7 +18,7 @@ const Item2 = () => (
   </View>
 );
 
-export default class BBS extends React.Component {
+export default class Background extends React.Component {
   render() {
     const {navigation} = this.props;
     return (
@@ -36,6 +36,7 @@ export default class BBS extends React.Component {
             });
           }}
         />
+        <Text>背景提升Background</Text>
       </View>
     );
   }

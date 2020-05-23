@@ -8,14 +8,6 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -43,7 +35,7 @@ class Home extends React.Component {
     if (!init) {
       return <Text>Loading</Text>;
     }
-    const {total, list} = data;
+    const {total, list = []} = data;
     return (
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -68,13 +60,13 @@ class Home extends React.Component {
           </View>
         </View>
         <Banner />
-        <Link />
+        <Link navigation={this.props.navigation} />
         <View style={styles.whiteSpace} />
         <Panel title="热门院校" tips="看看小伙伴们都热衷于哪些院校吧！">
-          <FlatList
-            data={list}
-            horizontal
-            renderItem={({item, index}) => (
+          <ScrollView
+            horizontal={true} // 横向
+            showsHorizontalScrollIndicator={false}>
+            {list.map((item, index) => (
               <View style={styles.item} key={index}>
                 <Image
                   accessibilityRole={'image'}
@@ -83,8 +75,8 @@ class Home extends React.Component {
                 />
                 <Text style={styles.name}>{item.title}</Text>
               </View>
-            )}
-          />
+            ))}
+          </ScrollView>
         </Panel>
         <View style={styles.whiteSpace} />
         <Panel title="热门专业" tips="看看当下最流行的专业！">
@@ -93,9 +85,6 @@ class Home extends React.Component {
         <Panel title="案例分享" tips="以下案例均已获得用户授权">
           <Case data={[1, 2]} />
         </Panel>
-        {/*<ReloadInstructions />*/}
-        {/*<LearnMoreLinks />*/}
-        {/*<DebugInstructions />*/}
       </ScrollView>
     );
   }

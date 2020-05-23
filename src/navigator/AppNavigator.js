@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Text, StyleSheet} from 'react-native';
-
+import router from './routeMap';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -18,8 +18,6 @@ import Home from '../pages/home';
 import My from '../pages/my';
 import Find from '../pages/find';
 import BBS from '../pages/bbs';
-import Login from '../pages/login';
-import Register from '../pages/register';
 
 const TabBottom = e => {
   return (
@@ -134,13 +132,11 @@ function getHeaderTitle(_params) {
   }
 }
 
-// const App: () => React$Node = () => {
-
 export default class AppNavigator extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Navigator initialRouteName="Main">
           <Stack.Screen
             name="Welcome"
             component={WelcomePage}
@@ -153,25 +149,19 @@ export default class AppNavigator extends React.Component {
             component={TabBottom}
             options={e => getHeaderTitle(e)}
           />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              title: null,
-              headerBackTitle: null,
-              headerBackIcon: null,
-              headerTruncatedBackTitle: null,
-              headerTransparent: true, //设置头部透明
-            }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{
-              title: '注册',
-              headerShown: false, //删除头部
-            }}
-          />
+          {router.map(({name, component, options}) => (
+            <Stack.Screen
+              name={name}
+              component={component}
+              options={() => {
+                return {
+                  // default options
+                  headerTruncatedBackTitle: null,
+                  ...options,
+                };
+              }}
+            />
+          ))}
         </Stack.Navigator>
       </NavigationContainer>
     );

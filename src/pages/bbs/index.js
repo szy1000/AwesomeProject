@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Text, View, TextInput, StyleSheet} from 'react-native';
 // import {Tab} from '../../components';
+import {Link} from '@react-navigation/native';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
@@ -24,6 +25,8 @@ export default class BBS extends React.Component {
     return (
       <View>
         <Text style={styles.text}>Welcome To Page BBS</Text>
+        <Link to={'/Register'}>sss</Link>
+
         <TextInput
           style={{
             width: 200,

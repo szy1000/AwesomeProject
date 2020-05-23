@@ -1,13 +1,12 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
-
-export default class Libary extends React.Component {
+export default class Library extends React.Component {
   render() {
     return (
-      <TabTop.Navigator
-
-      </TabTop.Navigator>
+      <View>
+        <Text>library</Text>
+      </View>
     );
   }
 }

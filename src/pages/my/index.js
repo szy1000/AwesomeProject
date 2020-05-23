@@ -6,8 +6,10 @@ import {
   ScrollView,
   ImageBackground,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import {Link} from '@react-navigation/native';
+import Jump from '../../utils/jump';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class My extends React.Component {
@@ -39,18 +41,36 @@ export default class My extends React.Component {
             />
           </View>
           <View style={styles.statistics}>
-            <View style={styles.item}>
-              <Text style={styles.count}>10</Text>
-              <Text style={styles.title}>加入</Text>
-            </View>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => {
+                Jump.linkToPage({
+                  navigation: navigation,
+                  url: 'Concern',
+                });
+              }}>
+              <View>
+                <Text style={styles.count}>10</Text>
+                <Text style={styles.title}>加入</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.item}>
               <Text style={styles.count}>10</Text>
               <Text style={styles.title}>发布</Text>
             </View>
-            <View style={styles.item}>
-              <Text style={styles.count}>10</Text>
-              <Text style={styles.title}>关注</Text>
-            </View>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => {
+                Jump.linkToPage({
+                  navigation: navigation,
+                  url: 'Concern',
+                });
+              }}>
+              <View>
+                <Text style={styles.count}>10</Text>
+                <Text style={styles.title}>关注</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.item}>
               <Text style={styles.count}>10</Text>
               <Text style={styles.title}>收藏</Text>

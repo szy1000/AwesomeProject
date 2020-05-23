@@ -1,3 +1,5 @@
+// import { navigation } from 'react-navigation'
+
 export default class Jump {
   static resetToHome(params) {
     const {navigation} = params;
@@ -6,7 +8,8 @@ export default class Jump {
       routes: [{name: 'Main'}],
     });
   }
-  static linkTo(params) {
-    console.log(params);
+  static linkToPage(params) {
+    const {navigation, url} = params;
+    navigation.navigate(url);
   }
 }

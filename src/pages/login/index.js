@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   main: {
-    marginTop: 280,
+    marginTop: 180,
     marginLeft: 30,
     marginRight: 30,
     borderRadius: 30,

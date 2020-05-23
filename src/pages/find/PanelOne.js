@@ -7,7 +7,9 @@ import {
   RefreshControl,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
 } from 'react-native';
+import Jump from '../../utils/jump';
 
 export default class PanelOne extends React.Component {
   state = {
@@ -46,10 +48,13 @@ export default class PanelOne extends React.Component {
 
   render() {
     const {dataArr, refreshLoading, loading} = this.state;
+    const {navigation} = this.props;
     return (
-      <View style={styles.findOne}>
+      <View style={styles.find}>
         <FlatList
           data={dataArr}
+          numColumns={2}
+          // style={styles.find}
           renderItem={({item, index}) => (
             <TouchableOpacity
               style={styles.item}
@@ -57,7 +62,23 @@ export default class PanelOne extends React.Component {
               onPress={() => {
                 this._onPressItem(item);
               }}>
-              <Text style={styles.name}>{item}</Text>
+              <Image style={styles.pic} source={require('./alfx1.png')} />
+              <Text style={styles.title} numberOfLines={2}>
+                专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得
+              </Text>
+              <View style={styles.auth}>
+                <View style={styles.auth}>
+                  <Image style={styles.avatar} source={require('./tx1.png')} />
+                  <Text style={styles.name}>张三</Text>
+                </View>
+                <View style={styles.auth}>
+                  <Image
+                    style={styles.icon}
+                    source={require('./collect.png')}
+                  />
+                  <Text style={styles.count}>20</Text>
+                </View>
+              </View>
             </TouchableOpacity>
           )}
           ItemSeparatorComponent={({highlighted}) => (
@@ -80,15 +101,29 @@ export default class PanelOne extends React.Component {
           }
           onEndReached={this.getMore}
         />
+
+        <TouchableOpacity
+          style={styles.note}
+          onPress={() => {
+            Jump.linkToPage({
+              navigation,
+              url: 'Note',
+            });
+          }}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  findOne: {
+  find: {
+    position: 'relative',
     paddingTop: 15,
     paddingBottom: 15,
+    paddingHorizontal: 7,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   separator: {
     height: 10,
@@ -106,12 +141,50 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#bbb',
   },
+
   item: {
-    marginLeft: 15,
-    marginRight: 15,
-    height: 200,
-    backgroundColor: '#ccc',
-    justifyContent: 'center',
+    paddingHorizontal: 8,
+    width: '50%',
+  },
+  pic: {
+    height: 150,
+    width: '100%',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    overflow: 'hidden',
+  },
+  title: {
+    margin: 5,
+    fontSize: 15,
+    lineHeight: 20,
+  },
+  auth: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+  },
+  name: {
+    marginLeft: 10,
+    color: '#666666',
+  },
+  icon: {
+    width: 15,
+    height: 15,
+  },
+  count: {
+    marginLeft: 5,
+    fontSize: 15,
+  },
+  note: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    backgroundColor: 'blue',
+    right: 0,
+    bottom: 30,
   },
 });

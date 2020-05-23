@@ -30,6 +30,7 @@ import BBS from './src/pages/bbs';
 import TabPanel from './src/pages/bbs/panelOne';
 import Login from './src/pages/login';
 import Register from './src/pages/register';
+import Concern from './src/pages/concern';
 
 const TabTopItem = e => {
   return (
@@ -157,7 +158,7 @@ export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Init">
+        <Stack.Navigator initialRouteName="AAA">
           <Stack.Screen
             name="Init"
             component={TabBottom}
@@ -181,6 +182,13 @@ export default class App extends React.Component {
             component={Register}
             options={{
               title: '注册',
+            }}
+          />
+          <Stack.Screen
+            name="AAA"
+            component={Concern}
+            options={{
+              title: '我的关注',
             }}
           />
         </Stack.Navigator>
