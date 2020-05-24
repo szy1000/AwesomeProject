@@ -5,6 +5,8 @@ import Background from '../pages/background';
 import Library from '../pages/library';
 import Repository from '../pages/repository';
 import Note from '../pages/note';
+import Setting from '../pages/setting';
+import About from '../pages/about';
 
 const router = [
   {
@@ -59,6 +61,20 @@ const router = [
     component: Note,
     options: {
       title: '笔记',
+    },
+  },
+  {
+    name: 'Setting',
+    component: Setting,
+    options: {
+      title: '系统设置',
+    },
+  },
+  {
+    name: 'About',
+    component: About,
+    options: {
+      title: '关于我们',
     },
   },
 ];

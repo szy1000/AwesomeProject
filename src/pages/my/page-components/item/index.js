@@ -44,7 +44,7 @@ export default class Item extends React.Component {
         const {navigation} = this.props;
         Jump.linkToPage({
           navigation: navigation,
-          url: 'Concern',
+          url: 'About',
         });
       },
     },
@@ -55,7 +55,7 @@ export default class Item extends React.Component {
         const {navigation} = this.props;
         Jump.linkToPage({
           navigation: navigation,
-          url: 'Concern',
+          url: 'Setting',
         });
       },
     },
@@ -76,19 +76,22 @@ export default class Item extends React.Component {
     return (
       <View>
         {this.itemArr.map(({icon, title, clickFn}, index) => (
-          <TouchableOpacity key={index} style={styles.item} onPress={clickFn}>
-            <View style={styles.link}>
-              <View>
-                <Image style={styles.icon} source={icon} />
+          <View>
+            <TouchableOpacity key={index} style={styles.item} onPress={clickFn}>
+              <View style={styles.link}>
+                <View>
+                  <Image style={styles.icon} source={icon} />
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.content}>{title}</Text>
+                </View>
+                <View>
+                  <Image style={styles.more} source={require('./more.png')} />
+                </View>
               </View>
-              <View style={styles.title}>
-                <Text style={styles.content}>{title}</Text>
-              </View>
-              <View>
-                <Image style={styles.more} source={require('./more.png')} />
-              </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            {index === 2 && <View style={styles.separate} />}
+          </View>
         ))}
       </View>
     );
@@ -98,6 +101,7 @@ export default class Item extends React.Component {
 const styles = StyleSheet.create({
   item: {
     paddingHorizontal: 20,
+    backgroundColor: '#fff',
   },
   link: {
     paddingTop: 20,
@@ -124,5 +128,9 @@ const styles = StyleSheet.create({
   more: {
     width: 10,
     height: 18,
+  },
+  separate: {
+    height: 5,
+    backgroundColor: '#f0f0f0',
   },
 });
