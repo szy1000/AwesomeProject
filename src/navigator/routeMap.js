@@ -8,6 +8,10 @@ import Note from '../pages/note';
 import Setting from '../pages/setting';
 import About from '../pages/about';
 
+import Summer from '../pages/summer';
+import SummerDetail from '../pages/summer-detail';
+import Case from '../pages/case';
+
 const router = [
   {
     name: 'Login',
@@ -75,6 +79,27 @@ const router = [
     component: About,
     options: {
       title: '关于我们',
+    },
+  },
+  {
+    name: 'Case',
+    component: Case,
+    options: {
+      title: '全球案例',
+    },
+  },
+  {
+    name: 'Summer',
+    component: Summer,
+    options: {
+      title: '暑假项目',
+    },
+  },
+  {
+    name: 'SummerDetail',
+    component: SummerDetail,
+    options: {
+      title: '项目详情',
     },
   },
 ];

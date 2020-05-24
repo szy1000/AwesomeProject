@@ -49,11 +49,25 @@ export default class LinkBlock extends React.Component {
             <Image style={styles.icon} source={require('./bgts.png')} />
             <Text style={styles.txt}>背景提升</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() =>
+              Jump.linkToPage({
+                navigation: this.props.navigation,
+                url: 'Summer',
+              })
+            }>
             <Image style={styles.icon} source={require('./sqxm.png')} />
             <Text style={styles.txt}>暑期项目</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() =>
+              Jump.linkToPage({
+                navigation: this.props.navigation,
+                url: 'Case',
+              })
+            }>
             <Image style={styles.icon} source={require('./qqal.png')} />
             <Text style={styles.txt}>全球案例</Text>
           </TouchableOpacity>
