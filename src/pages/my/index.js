@@ -1,15 +1,13 @@
 import React from 'react';
 import {
-  Button,
   Text,
   View,
   ScrollView,
   ImageBackground,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 import {Link} from '@react-navigation/native';
-import Jump from '../../utils/jump';
+import {Statistics, Item} from './page-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class My extends React.Component {
@@ -40,44 +38,9 @@ export default class My extends React.Component {
               size={40}
             />
           </View>
-          <View style={styles.statistics}>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => {
-                Jump.linkToPage({
-                  navigation: navigation,
-                  url: 'Concern',
-                });
-              }}>
-              <View>
-                <Text style={styles.count}>10</Text>
-                <Text style={styles.title}>加入</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.item}>
-              <Text style={styles.count}>10</Text>
-              <Text style={styles.title}>发布</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => {
-                Jump.linkToPage({
-                  navigation: navigation,
-                  url: 'Concern',
-                });
-              }}>
-              <View>
-                <Text style={styles.count}>10</Text>
-                <Text style={styles.title}>关注</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.item}>
-              <Text style={styles.count}>10</Text>
-              <Text style={styles.title}>收藏</Text>
-            </View>
-          </View>
+          <Statistics />
         </View>
-        <Text>{JSON.stringify(this.props)}</Text>
+        <Item {...this.props} />
       </ScrollView>
     );
   }
@@ -112,26 +75,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#fff',
     fontSize: 12,
-  },
-
-  statistics: {
-    marginTop: 20,
-    paddingBottom: 20,
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  item: {
-    width: '25%',
-  },
-  count: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 14,
-  },
-  title: {
-    marginTop: 5,
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 16,
   },
 });
