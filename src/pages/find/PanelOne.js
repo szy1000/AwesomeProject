@@ -42,8 +42,16 @@ export default class PanelOne extends React.Component {
     }, 2000);
   };
 
-  _onPressItem = item => {
-    alert(item);
+  _onPressItem = id => {
+    const {navigation} = this.props;
+
+    Jump.linkToPage({
+      navigation,
+      url: 'FindDetail',
+      params: {
+        id,
+      },
+    });
   };
 
   render() {

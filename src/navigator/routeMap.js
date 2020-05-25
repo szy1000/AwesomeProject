@@ -12,6 +12,7 @@ import Summer from '../pages/summer';
 import SummerDetail from '../pages/summer-detail';
 import Case from '../pages/case';
 import Group from '../pages/group';
+import FindDetail from '../pages/find-detail';
 
 const router = [
   {
@@ -109,6 +110,17 @@ const router = [
     component: Group,
     options: {
       title: '发现小组',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+      headerTransparent: true,
+    },
+  },
+
+  {
+    name: 'FindDetail',
+    component: FindDetail,
+    options: {
+      title: null,
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
       headerTransparent: true,
