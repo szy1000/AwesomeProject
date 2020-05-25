@@ -104,7 +104,8 @@ function getHeaderTitle(_params) {
       };
     case 'BBS':
       return {
-        title: iTitle || '论坛',
+        title: '论坛',
+        headerTransparent: true, //删除头部
       };
     case 'My':
       return {
