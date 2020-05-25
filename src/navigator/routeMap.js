@@ -11,6 +11,7 @@ import About from '../pages/about';
 import Summer from '../pages/summer';
 import SummerDetail from '../pages/summer-detail';
 import Case from '../pages/case';
+import Group from '../pages/group';
 
 const router = [
   {
@@ -21,7 +22,7 @@ const router = [
       headerBackTitle: null,
       headerBackIcon: null,
       headerTruncatedBackTitle: null,
-      headerTransparent: true, //设置头部透明}},
+      headerTransparent: true, //设置头部透明,
     },
   },
   {
@@ -100,6 +101,15 @@ const router = [
     component: SummerDetail,
     options: {
       title: '项目详情',
+    },
+  },
+
+  {
+    name: 'Group',
+    component: Group,
+    options: {
+      title: '项目详情',
+      headerTransparent: true,
     },
   },
 ];

@@ -3,9 +3,9 @@ import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 
 export default class Panel extends React.Component {
   render() {
-    const {title, more, moreFn, children} = this.props;
+    const {title, more, moreFn, children, style} = this.props;
     return (
-      <View style={styles.panel}>
+      <View style={[styles.panel, style]}>
         <View>
           <View style={styles.header}>
             <Text style={styles.title}>{title}</Text>
@@ -31,6 +31,9 @@ export default class Panel extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  panel: {
+    backgroundColor: '#fff',
+  },
   header: {
     paddingVertical: 15,
     paddingHorizontal: 15,
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     height: 12,
   },
   content: {
-    paddingHorizontal: 15,
-    paddingVertical: 20,
+    // paddingHorizontal: 15,
+    // paddingVertical: 20,
   },
 });

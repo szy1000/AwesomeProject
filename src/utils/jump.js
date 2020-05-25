@@ -8,8 +8,8 @@ export default class Jump {
       routes: [{name: 'Main'}],
     });
   }
-  static linkToPage(params) {
-    const {navigation, url} = params;
-    navigation.navigate(url);
+  static linkToPage(_params) {
+    const {navigation, url, params} = _params;
+    navigation.navigate(url, params);
   }
 }
