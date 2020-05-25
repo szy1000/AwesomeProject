@@ -7,7 +7,7 @@ export default class Note extends React.Component {
     const {navigation} = this.props;
     return (
       <View>
-        <Text style={styles.text}>Welcome To Note BBS</Text>
+        <Text style={styles.text}>Welcome To Note sBBssS</Text>
       </View>
     );
   }
