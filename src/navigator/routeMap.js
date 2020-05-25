@@ -108,7 +108,9 @@ const router = [
     name: 'Group',
     component: Group,
     options: {
-      title: '项目详情',
+      title: '发现小组',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
       headerTransparent: true,
     },
   },

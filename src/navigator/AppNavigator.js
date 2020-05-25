@@ -137,7 +137,7 @@ export default class AppNavigator extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Setting">
+        <Stack.Navigator initialRouteName="Main">
           <Stack.Screen
             name="Welcome"
             component={WelcomePage}
@@ -157,6 +157,7 @@ export default class AppNavigator extends React.Component {
               options={() => {
                 return {
                   // default options
+                  headerBackTitle: null,
                   headerTruncatedBackTitle: null,
                   ...options,
                 };
