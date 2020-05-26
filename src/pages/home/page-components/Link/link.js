@@ -26,7 +26,7 @@ export default class LinkBlock extends React.Component {
             onPress={() =>
               Jump.linkToPage({
                 navigation: this.props.navigation,
-                url: 'Library',
+                url: 'Repository',
               })
             }
             style={styles.linkItem}>

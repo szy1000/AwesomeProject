@@ -1,3 +1,4 @@
 import Tab from './tab';
+import SearchInput from './serchInput';
 
-export {Tab};
+export {Tab, SearchInput};
