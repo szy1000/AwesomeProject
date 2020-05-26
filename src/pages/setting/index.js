@@ -6,7 +6,8 @@ import ImagePicker from 'react-native-image-picker';
 
 export default class Setting extends React.Component {
   state = {
-    avatarSource: null,
+    avatarSource: '',
+    error: 'erroree',
   };
   getPhoto = async () => {
     const options = {
@@ -19,6 +20,7 @@ export default class Setting extends React.Component {
     };
     await ImagePicker.showImagePicker(options, response => {
       console.log('Response = ', response);
+      alert(1)
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -27,6 +29,8 @@ export default class Setting extends React.Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+        alert(JSON.stringify(response))
+
         const source = {uri: response.uri};
 
         // You can also display the image using data:
@@ -36,15 +40,20 @@ export default class Setting extends React.Component {
           avatarSource: source,
         });
       }
+    }).catch(e => {
+      this.setState({
+        error: JSON.stringify(e),
+      });
     });
   };
   render() {
     const {navigation} = this.props;
-    const {avatarSource} = this.state;
+    const {avatarSource, error} = this.state;
     return (
       <View>
-        <Text style={styles.text}>Welcome To Page Seeting</Text>
-        {avatarSource && (
+        <Text>{avatarSource}</Text>
+        <Text style={styles.text}>Welcome To Page Setting</Text>
+        {avatarSource.length > 0 && (
           <Image
             style={{width: '80%', height: 200, resizeMode: 'contain'}}
             source={avatarSource}

@@ -25,6 +25,7 @@ const TabBottom = e => {
       <Tab.Screen
         name="Home"
         component={Home}
+        key={'Home'}
         options={{
           title: '申请',
           tabBarLabel: '申请',
@@ -40,6 +41,7 @@ const TabBottom = e => {
       <Tab.Screen
         name="Find"
         component={Find}
+        key={'Find'}
         options={{
           tabBarLabel: '发现',
           tabBarIcon: ({color, size}) => (
@@ -50,6 +52,7 @@ const TabBottom = e => {
       <Tab.Screen
         name="BBS"
         component={BBS}
+        key={'BBS'}
         options={{
           tabBarLabel: '论坛',
           tabBarIcon: ({color, size}) => (
@@ -65,6 +68,7 @@ const TabBottom = e => {
       <Tab.Screen
         name="My"
         component={My}
+        key={'My'}
         options={{
           tabBarLabel: '我的',
           tabBarIcon: ({color, size}) => (

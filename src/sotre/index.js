@@ -5,13 +5,13 @@ import {home} from '../pages/home/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
-    console.warn('dispatching a function');
+    // console.warn('dispatching a function');
   } else {
-    console.warn('dispatching', action);
+    // console.warn('dispatching', action);
   }
 
   const result = next(action);
-  console.warn('nextState', store.getState());
+  // console.warn('nextState', store.getState());
   return result;
 };
 
