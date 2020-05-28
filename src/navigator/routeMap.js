@@ -25,6 +25,7 @@ import EditInfo from '../pages/edit-info';
 import Feedback from '../pages/feedback';
 import Message from '../pages/message';
 import Service from '../pages/service';
+import Collect from '../pages/collect';
 
 const router = [
   {
@@ -199,6 +200,15 @@ const router = [
     component: Service,
     options: {
       title: '客服中心',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
+  {
+    name: 'Collect',
+    component: Collect,
+    options: {
+      title: '我的收藏',
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
     },

@@ -15,7 +15,13 @@ export default class Message extends React.Component {
   render() {
     return (
       <View>
-        <Text>msg</Text>
+        <WhiteSpace size={'big'} />
+        <Item more={false}>
+          <Text>系统通知</Text>
+          <Text>暂时没有更多消息</Text>
+        </Item>
+        <WhiteSpace size={'big'} />
+        <View><Text>ss</Text></View>
       </View>
     );
   }

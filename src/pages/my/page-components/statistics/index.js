@@ -37,10 +37,19 @@ export default class Statistics extends React.Component {
             <Text style={styles.title}>关注</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.item}>
-          <Text style={styles.count}>10</Text>
-          <Text style={styles.title}>收藏</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => {
+            Jump.linkToPage({
+              navigation: navigation,
+              url: 'Collect',
+            });
+          }}>
+          <View>
+            <Text style={styles.count}>10</Text>
+            <Text style={styles.title}>收藏</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

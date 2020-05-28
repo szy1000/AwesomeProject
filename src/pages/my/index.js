@@ -50,7 +50,7 @@ export default class My extends React.Component {
               />
             </View>
           </TouchableWithoutFeedback>
-          <Statistics />
+          <Statistics {...this.props} />
         </View>
         <Item {...this.props} />
       </ScrollView>
