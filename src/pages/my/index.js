@@ -5,39 +5,51 @@ import {
   ScrollView,
   ImageBackground,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {Link} from '@react-navigation/native';
 import {Statistics, Item} from './page-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Jump from '../../utils/jump';
 
 export default class My extends React.Component {
+  editInfo = () => {
+    const {navigation} = this.props;
+
+    Jump.linkToPage({
+      navigation,
+      url: 'EditInfo',
+    });
+  };
   render() {
     const {navigation} = this.props;
     // navigation.setOption({title: '我的'});
     return (
       <ScrollView>
         <View style={styles.login}>
-          <View style={styles.loginWrapper}>
-            <ImageBackground
-              accessibilityRole={'image'}
-              source={require('./logo.jpeg')}
-              style={styles.avatar}
-            />
-            <View style={{flex: 1}}>
-              <Text style={styles.link}>
-                <Link to="/Login">登录</Link>
-                <Text>/</Text>
-                <Link to="/Register">注册</Link>
-              </Text>
-              <Text style={styles.text}>一键登录，享受更多精彩信息！</Text>
+          <TouchableWithoutFeedback onPress={this.editInfo}>
+            <View style={styles.loginWrapper}>
+              <ImageBackground
+                accessibilityRole={'image'}
+                source={require('./logo.jpeg')}
+                style={styles.avatar}
+              />
+              <View style={{flex: 1}}>
+                <Text style={styles.link}>
+                  <Link to="/Login">登录</Link>
+                  <Text>/</Text>
+                  <Link to="/Register">注册</Link>
+                </Text>
+                <Text style={styles.text}>一键登录，享受更多精彩信息！</Text>
+              </View>
+              <AntDesign
+                name="right"
+                color="#fff"
+                style={{fontWeight: '100'}}
+                size={40}
+              />
             </View>
-            <AntDesign
-              name="right"
-              color="#fff"
-              style={{fontWeight: '100'}}
-              size={40}
-            />
-          </View>
+          </TouchableWithoutFeedback>
           <Statistics />
         </View>
         <Item {...this.props} />

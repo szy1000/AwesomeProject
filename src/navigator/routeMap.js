@@ -13,6 +13,7 @@ import SummerDetail from '../pages/summer-detail';
 import Case from '../pages/case';
 import Group from '../pages/group';
 import FindDetail from '../pages/find-detail';
+import EditInfo from '../pages/edit-info';
 
 const router = [
   {
@@ -124,6 +125,15 @@ const router = [
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
       headerTransparent: true,
+    },
+  },
+  {
+    name: 'EditInfo',
+    component: EditInfo,
+    options: {
+      title: '编辑信息',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
     },
   },
 ];

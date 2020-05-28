@@ -1,0 +1,76 @@
+import React from 'react';
+import {
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
+
+export default class Item extends React.Component {
+  render() {
+    const {icon, title, clickFn, extra, more = true, style} = this.props;
+    return (
+      <TouchableWithoutFeedback onPress={clickFn}>
+        <View style={styles.item}>
+          <View style={styles.link}>
+            {icon && (
+              <View>
+                <Image style={styles.icon} source={icon} />
+              </View>
+            )}
+            <View style={[styles.title, {...style}]}>
+              <Text style={styles.content}>{title}</Text>
+            </View>
+            <View style={styles.right}>
+              {extra && <Text style={styles.extra}>{extra}</Text>}
+              {more && (
+                <Image style={styles.more} source={require('./more.png')} />
+              )}
+            </View>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  item: {
+    paddingLeft: 20,
+    backgroundColor: '#fff',
+  },
+  link: {
+    paddingRight: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomColor: '#eaeaea',
+    borderBottomWidth: 1,
+  },
+  icon: {
+    width: 14,
+    height: 14,
+  },
+
+  title: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  content: {
+    fontSize: 16,
+  },
+  right: {
+    flexDirection: 'row',
+  },
+  extra: {
+    marginRight: 10,
+    color: '#aaa',
+  },
+  more: {
+    width: 10,
+    height: 18,
+  },
+});

@@ -1,73 +1,50 @@
 import React from 'react';
-import {Button, Text, View, TextInput, Image, StyleSheet} from 'react-native';
-// import {Tab} from '../../components';
-import {Link} from '@react-navigation/native';
-import ImagePicker from 'react-native-image-picker';
+import {View, StyleSheet} from 'react-native';
+import {WhiteSpace, Item} from '../../components';
+import Jump from '../../utils/jump';
 
 export default class Setting extends React.Component {
-  state = {
-    avatarSource: '',
-    error: 'erroree',
-  };
-  getPhoto = async () => {
-    const options = {
-      title: 'Select Avatar',
-      // customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
+  arrMap = [
+    {
+      title: '检查更新',
+      clickFn: () => {
+        alert('当前已是最新版本');
       },
-    };
-    await ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-      alert(1)
+    },
+    {
+      title: '关于我们',
+      clickFn: () => this.linkTo('About'),
+    },
+  ];
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        alert(JSON.stringify(response))
-
-        const source = {uri: response.uri};
-
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        this.setState({
-          avatarSource: source,
-        });
-      }
-    }).catch(e => {
-      this.setState({
-        error: JSON.stringify(e),
-      });
+  linkTo = url => {
+    const {navigation} = this.props;
+    Jump.linkToPage({
+      navigation,
+      url,
     });
   };
+
   render() {
-    const {navigation} = this.props;
-    const {avatarSource, error} = this.state;
     return (
       <View>
-        <Text>{avatarSource}</Text>
-        <Text style={styles.text}>Welcome To Page Setting</Text>
-        {avatarSource.length > 0 && (
-          <Image
-            style={{width: '80%', height: 200, resizeMode: 'contain'}}
-            source={avatarSource}
-          />
-        )}
-        <Button title={'select'} onPress={this.getPhoto} />
+        <WhiteSpace />
+        {this.arrMap.map((v, i) => (
+          <Item title={v.title} clickFn={v.clickFn} />
+        ))}
+        <WhiteSpace size="big" />
+        <Item title="退出登录" style={styles.title} more={false} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  text: {
+  item: {
     fontSize: 20,
     // color: '#ddd',
+  },
+  title: {
+    justifyContent: 'center',
   },
 });
