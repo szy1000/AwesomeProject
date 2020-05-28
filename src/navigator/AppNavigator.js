@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // import FindTab from './FindNavigator';
-
+import Jump from '../utils/jump';
 import WelcomePage from '../pages/welcomePage';
 import Home from '../pages/home';
 import My from '../pages/my';
@@ -129,7 +129,11 @@ function getHeaderTitle(_params) {
             color="#fff"
             size={20}
             onPress={() => {
-              alert(JSON.stringify(navigation));
+              Jump.linkToPage({
+                navigation,
+                url: 'Message',
+              });
+              // alert(JSON.stringify(navigation));
             }}
           />
         ),
@@ -158,7 +162,13 @@ export default class AppNavigator extends React.Component {
             <Stack.Screen
               name={name}
               component={component}
-              options={() => {
+              options={props => {
+                if (
+                  options.headerLeft &&
+                  typeof options.headerLeft === 'function'
+                ) {
+                  console.warn(Object.keys(options.headerLeft(props)));
+                }
                 return {
                   // default options
                   headerBackTitle: null,

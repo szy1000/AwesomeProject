@@ -1,3 +1,11 @@
+import React from 'react';
+import {
+  View,
+  Image,
+  Button,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native';
 import Login from '../pages/login';
 import Register from '../pages/register';
 import Concern from '../pages/concern';
@@ -14,6 +22,9 @@ import Case from '../pages/case';
 import Group from '../pages/group';
 import FindDetail from '../pages/find-detail';
 import EditInfo from '../pages/edit-info';
+import Feedback from '../pages/feedback';
+import Message from '../pages/message';
+import Service from '../pages/service';
 
 const router = [
   {
@@ -136,6 +147,70 @@ const router = [
       headerTruncatedBackTitle: null,
     },
   },
+  {
+    name: 'Feedback',
+    component: Feedback,
+    options: {
+      title: '意见反馈',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+      // headerLeft: props => (
+      //   <View style={{flexDirection: 'row'}}>
+      //     <TouchableWithoutFeedback
+      //       onPress={() => {
+      //         // navigation.goBack();
+      //       }}>
+      //       <Image
+      //         style={styles.back}
+      //         source={require('../assets/images/back.png')}
+      //       />
+      //     </TouchableWithoutFeedback>
+      //     <TouchableWithoutFeedback
+      //       onPress={() => {
+      //         alert('退出');
+      //       }}>
+      //       <Image
+      //         style={styles.back}
+      //         source={require('../assets/images/close.png')}
+      //       />
+      //     </TouchableWithoutFeedback>
+      //   </View>
+      // ),
+      headerRight: () => (
+        <Button
+          onPress={() => alert('This is a button!')}
+          title="发送"
+          color="#ddd"
+        />
+      ),
+    },
+  },
+  {
+    name: 'Message',
+    component: Message,
+    options: {
+      title: '消息中心',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
+  {
+    name: 'Service',
+    component: Service,
+    options: {
+      title: '客服中心',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
 ];
 
+const styles = StyleSheet.create({
+  back: {
+    marginLeft: 10,
+    width: 18,
+    height: 17,
+    resizeMode: 'cover',
+  },
+});
 export default router;

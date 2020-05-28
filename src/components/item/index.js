@@ -9,7 +9,15 @@ import {
 
 export default class Item extends React.Component {
   render() {
-    const {icon, title, clickFn, extra, more = true, style} = this.props;
+    const {
+      icon,
+      title,
+      clickFn,
+      children,
+      extra,
+      more = true,
+      style,
+    } = this.props;
     return (
       <TouchableWithoutFeedback onPress={clickFn}>
         <View style={styles.item}>
@@ -20,7 +28,8 @@ export default class Item extends React.Component {
               </View>
             )}
             <View style={[styles.title, {...style}]}>
-              <Text style={styles.content}>{title}</Text>
+              {title && <Text style={styles.content}>{title}</Text>}
+              {children && <View style={styles.children}>{children}</View>}
             </View>
             <View style={styles.right}>
               {extra && <Text style={styles.extra}>{extra}</Text>}
@@ -58,6 +67,9 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     flexDirection: 'row',
+  },
+  children: {
+    marginLeft: 15,
   },
   content: {
     fontSize: 16,

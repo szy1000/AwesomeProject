@@ -11,21 +11,21 @@ export default class Item extends React.Component {
         const {navigation} = this.props;
         Jump.linkToPage({
           navigation: navigation,
-          url: 'Concern',
+          url: 'Service',
         });
       },
     },
-    {
-      icon: require('./pic34.png'),
-      title: '帮助中心',
-      clickFn: () => {
-        const {navigation} = this.props;
-        Jump.linkToPage({
-          navigation: navigation,
-          url: 'Concern',
-        });
-      },
-    },
+    // {
+    //   icon: require('./pic34.png'),
+    //   title: '帮助中心',
+    //   clickFn: () => {
+    //     const {navigation} = this.props;
+    //     Jump.linkToPage({
+    //       navigation: navigation,
+    //       url: 'Concern',
+    //     });
+    //   },
+    // },
     {
       icon: require('./pic35.png'),
       title: '意见反馈',
@@ -33,7 +33,7 @@ export default class Item extends React.Component {
         const {navigation} = this.props;
         Jump.linkToPage({
           navigation: navigation,
-          url: 'Concern',
+          url: 'Feedback',
         });
       },
     },
