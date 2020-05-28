@@ -6,13 +6,11 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
-  TouchableOpacity,
-  Image,
 } from 'react-native';
 import {WhiteSpace} from '../../components';
 import Item from './item';
 
-export default class Collect extends React.Component {
+export default class Publish extends React.Component {
   state = {
     dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,

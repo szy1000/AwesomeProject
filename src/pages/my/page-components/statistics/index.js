@@ -12,7 +12,7 @@ export default class Statistics extends React.Component {
           onPress={() => {
             Jump.linkToPage({
               navigation: navigation,
-              url: 'Concern',
+              url: 'Join',
             });
           }}>
           <View>
@@ -20,10 +20,19 @@ export default class Statistics extends React.Component {
             <Text style={styles.title}>加入</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.item}>
-          <Text style={styles.count}>10</Text>
-          <Text style={styles.title}>发布</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => {
+            Jump.linkToPage({
+              navigation: navigation,
+              url: 'Publish',
+            });
+          }}>
+          <View>
+            <Text style={styles.count}>10</Text>
+            <Text style={styles.title}>发布</Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.item}
           onPress={() => {

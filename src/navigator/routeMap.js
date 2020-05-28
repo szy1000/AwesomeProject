@@ -26,6 +26,8 @@ import Feedback from '../pages/feedback';
 import Message from '../pages/message';
 import Service from '../pages/service';
 import Collect from '../pages/collect';
+import Publish from '../pages/publish';
+import Join from '../pages/join';
 
 const router = [
   {
@@ -209,6 +211,24 @@ const router = [
     component: Collect,
     options: {
       title: '我的收藏',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
+  {
+    name: 'Publish',
+    component: Publish,
+    options: {
+      title: '我的发布',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
+  {
+    name: 'Join',
+    component: Join,
+    options: {
+      title: '加入',
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
     },
