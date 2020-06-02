@@ -158,9 +158,10 @@ export default class AppNavigator extends React.Component {
             component={TabBottom}
             options={e => getHeaderTitle(e)}
           />
-          {router.map(({name, component, options}) => (
+          {router.map(({name, component, options}, key) => (
             <Stack.Screen
               name={name}
+              key={key}
               component={component}
               options={props => {
                 if (

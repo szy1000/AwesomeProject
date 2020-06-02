@@ -21,11 +21,11 @@ export default class Join extends React.Component {
           activeTintColor: 'red',
           activeTintSize: '30',
           inactiveTintColor: '#aaa',
-          indicatorStyle: {
-            marginLeft: '10%',
-            width: 20,
-            height: 4,
-          },
+          // indicatorStyle: {
+          //   marginLeft: '10%',
+          //   width: 20,
+          //   height: 4,
+          // },
         }}>
         <TabTop.Screen name="我加入的" component={PanelOne} />
         <TabTop.Screen name="我管理的" component={PanelTwo} />
