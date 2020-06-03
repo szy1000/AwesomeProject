@@ -1,28 +1,21 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, Platform, StyleSheet} from 'react-native';
+import {Banner} from './page-components';
 export default class RepositoryDetail extends React.Component {
-  state = {
-    keys: '',
-  };
+  state = {};
 
   render() {
-    const {keys} = this.state;
     return (
-      <View style={styles.repository}>
-        <Text>sss</Text>
+      <View style={styles.repositoryDetail}>
+        <Text style={{height: 90}}>sss</Text>
+        <Banner />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  repository: {},
-  selectArea: {
-    paddingTop: 10,
-    backgroundColor: '#fff',
+  repositoryDetail: {
+    // paddingTop: Platform.OS && 30,
   },
 });

@@ -82,7 +82,7 @@ const router = [
     name: 'RepositoryDetail',
     component: RepositoryDetail,
     options: {
-      title: '测试',
+      headerShown: false, //删除头部
     },
   },
   {
