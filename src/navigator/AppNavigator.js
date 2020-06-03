@@ -145,7 +145,7 @@ export default class AppNavigator extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="My">
+        <Stack.Navigator initialRouteName="RepositoryDetail">
           <Stack.Screen
             name="Welcome"
             component={WelcomePage}

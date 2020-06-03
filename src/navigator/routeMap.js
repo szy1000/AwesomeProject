@@ -12,6 +12,7 @@ import Concern from '../pages/concern';
 import Background from '../pages/background';
 import Library from '../pages/library';
 import Repository from '../pages/repository';
+import RepositoryDetail from '../pages/repository-detail';
 import Note from '../pages/note';
 import Setting from '../pages/setting';
 import About from '../pages/about';
@@ -75,6 +76,13 @@ const router = [
     component: Repository,
     options: {
       title: '院校库',
+    },
+  },
+  {
+    name: 'RepositoryDetail',
+    component: RepositoryDetail,
+    options: {
+      title: '测试',
     },
   },
   {

@@ -7,7 +7,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import {SearchInput} from '../../components';
+import {SearchInput, Popover} from '../../components';
 import Item from './Item/item';
 export default class Repository extends React.Component {
   state = {
@@ -57,7 +57,17 @@ export default class Repository extends React.Component {
             onChangeText={e => this.onChangeText(e)}
           />
           <View>
-            <Text>sss</Text>
+            <Popover
+              // style={}
+              item={[<Text>1</Text>, <Text>2</Text>]}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{width: '50%'}}>全球</Text>
+                <Text style={{width: '50%'}}>QS排名</Text>
+              </View>
+            </Popover>
+            {/*<Popover>*/}
+            {/*  <Text>QS排名</Text>*/}
+            {/*</Popover>*/}
           </View>
         </View>
 
