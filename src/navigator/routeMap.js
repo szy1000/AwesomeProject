@@ -10,6 +10,7 @@ import Login from '../pages/login';
 import Register from '../pages/register';
 import Concern from '../pages/concern';
 import Background from '../pages/background';
+import BackgroundDetail from '../pages/background-detail';
 import Library from '../pages/library';
 import Repository from '../pages/repository';
 import RepositoryDetail from '../pages/repository-detail';
@@ -45,6 +46,14 @@ const router = [
   {
     name: 'Background',
     component: Background,
+    options: {
+      title: '背景提升',
+      // headerShown: false, //删除头部
+    },
+  },
+  {
+    name: 'BackgroundDetail',
+    component: BackgroundDetail,
     options: {
       title: '背景提升',
       // headerShown: false, //删除头部
@@ -124,7 +133,7 @@ const router = [
     name: 'SummerDetail',
     component: SummerDetail,
     options: {
-      title: '项目详情',
+      title: '暑假项目详情',
     },
   },
 
