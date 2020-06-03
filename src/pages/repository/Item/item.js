@@ -6,11 +6,22 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import Jump from '../../../utils/jump';
 export default class Item extends React.Component {
+  linkToDetail = id => {
+    const {navigation} = this.props;
+    Jump.linkToPage({
+      url: 'RepositoryDetail',
+      navigation,
+      params: {
+        id,
+      },
+    });
+  };
   render() {
     const {styles} = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => alert(1)}>
+      <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
         <View style={[_styles.school, styles]}>
           <Image style={_styles.logo} source={require('./pic25.png')} />
           <View style={{flex: 1}}>
