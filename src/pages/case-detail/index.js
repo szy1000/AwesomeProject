@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {SearchInput, Popover} from '../../components';
 import Item from './Item/item';
-export default class Case extends React.Component {
+export default class CaseDetail extends React.Component {
   state = {
     keys: '',
     currentOpen: '',
