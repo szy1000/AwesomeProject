@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Share,
 } from 'react-native';
-import {WhiteSpace} from '../../components';
+import {Item, WhiteSpace} from '../../components';
 import ImagePicker from 'react-native-image-picker';
 
 export default class EditInfo extends React.Component {
@@ -86,6 +86,7 @@ export default class EditInfo extends React.Component {
     const {avatarSource, value, error} = this.state;
     return (
       <View>
+        <Item />
         <Text>{avatarSource}</Text>
         <WhiteSpace size={'big'} />
         <Text style={styles.text}>Welcome To Page Setting</Text>

@@ -1,41 +1,44 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
-const TabTop = createMaterialTopTabNavigator();
-import PanelOne from './PanelOne';
-import PanelTwo from './PanelTwo';
+import {View, Text, StyleSheet} from 'react-native';
+import {Tab} from '../../components';
+import {Item} from './page-components';
 
 export default class Join extends React.Component {
   render() {
+    const {navigation} = this.props;
+
     return (
-      <TabTop.Navigator
+      <Tab
         tabBarOptions={{
           labelStyle: {
             fontSize: 14,
           },
-          tabStyle: {
-            position: 'relative',
+          tabStyle: {width: 100},
+          indicatorStyle: {
+            left: 40,
+            width: 20,
+            height: 4,
+            borderRadius: 3,
+            backgroundColor: '#12a8cd',
           },
-          activeTintColor: 'red',
-          activeTintSize: '30',
-          inactiveTintColor: '#aaa',
-          // indicatorStyle: {
-          //   marginLeft: '10%',
-          //   width: 20,
-          //   height: 4,
-          // },
-        }}>
-        <TabTop.Screen name="我加入的" component={PanelOne} />
-        <TabTop.Screen name="我管理的" component={PanelTwo} />
-      </TabTop.Navigator>
+        }}
+        tabContent={[
+          {
+            name: '我加入的',
+            component: () => <Item navigation={navigation} />,
+          },
+          {
+            name: '我管理的',
+            component: () => <Item navigation={navigation} />,
+          },
+        ]}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  find: {
+  join: {
     paddingTop: 30,
   },
 });

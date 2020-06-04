@@ -1,0 +1,130 @@
+[
+  {
+    section: '热销',
+    data: [
+      {
+        name: '蟹黄汤包',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '20',
+        img: 'http://p1.meituan.net/deal/__39230311__3449301.jpg',
+      },
+      {
+        name: '小馄饨',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+          'http://p1.meituan.net/deal/849d8b59a2d9cc5864d65784dfd6fdc6105232.jpg',
+      },
+      {
+        name: '蟹黄汤包+牛杂粉丝汤套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '35',
+        img:
+          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },
+      {
+        name: '鸭血粉丝汤',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '15',
+        img:
+          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },
+    ],
+  },
+  {
+    section: '介绍我们',
+    data: [
+      {
+        name: '慎用差评！任何问题联系我们就可解决哦',
+        sale: '月售1',
+        favorite: '赞0',
+        money: '0',
+        img: 'http://p1.meituan.net/deal/__39230311__3449301.jpg',
+      },
+    ],
+  },
+  {
+    section: '折扣套餐',
+    data: [
+      {
+        name: '特色蟹黄汤包+鸭血粉丝汤+果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '50',
+        img: 'http://p1.meituan.net/deal/__39230311__3449301.jpg',
+      },
+      {
+        name: '蟹黄汤包+牛杂粉丝汤套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '35',
+        img:
+          'http://p1.meituan.net/deal/849d8b59a2d9cc5864d65784dfd6fdc6105232.jpg',
+      },
+      {
+        name: '蟹黄汤包+南瓜粥+果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },
+      {
+        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },
+      {
+        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },{
+        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },{
+        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },{
+        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },{
+        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },
+      {
+        name: '台式卤肉饭+南瓜粥套餐',
+        sale: '月售875',
+        favorite: '赞31',
+        money: '10',
+        img:
+          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+      },
+    ],
+  },
+];

@@ -16,7 +16,7 @@ export default class BBS extends React.Component {
 
     Jump.linkToPage({
       navigation,
-      url: 'Group',
+      url: 'GroupAll',
     });
   };
   render() {

@@ -104,7 +104,7 @@ function getHeaderTitle(_params) {
     case 'Find':
       return {
         title: '发现',
-        headerShown: false,
+        // headerShown: false,
       };
     case 'BBS':
       return {
