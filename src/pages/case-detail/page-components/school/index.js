@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import Jump from '../../../utils/jump';
+import Jump from '../../../../utils/jump';
 export default class Item extends React.Component {
   linkToDetail = id => {
     const {navigation} = this.props;

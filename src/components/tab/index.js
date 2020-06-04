@@ -1,36 +1,43 @@
 import React from 'react';
-import {Button, Text, View, TextInput, StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const TopTab = createMaterialTopTabNavigator();
 
-const Item1 = () => (
-  <View>
-    <Text>Item1</Text>
-  </View>
-);
-
-const Item2 = () => (
-  <View>
-    <Text>Item2</Text>
-  </View>
-);
 export default class Tab extends React.Component {
   render() {
+    const {common, tabContent, initialRouteName} = this.props;
+    const Width = Dimensions.get('window').width;
+    const left = Width / tabContent.length;
     return (
-      <View>
-        <Text>tab 组件</Text>
-        <TopTab.Navigator initialRouteName="Item1">
-          <TopTab.Screen title="sss" name="Item1" component={Item1} />
-          <TopTab.Screen title="ss2s" name="Item2" component={Item2} />
+      <>
+        {common}
+        <TopTab.Navigator
+          tabBarOptions={{
+            labelStyle: {
+              fontSize: 16,
+            },
+            activeTintColor: '#12a8cd',
+            inactiveTintColor: '#000',
+            indicatorStyle: {
+              // marginLeft: '10%',
+              left: (left - 20) / 2,
+              width: 20,
+              height: 4,
+              borderRadius: 3,
+              backgroundColor: '#12a8cd',
+            },
+          }}
+          initialRouteName={initialRouteName}>
+          {tabContent.map(({name, component}, i) => (
+            <TopTab.Screen keys={i} name={name} component={component} />
+          ))}
         </TopTab.Navigator>
-      </View>
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-  },
+  tabBarOptions: {},
 });

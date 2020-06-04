@@ -21,6 +21,8 @@ import About from '../pages/about';
 import Summer from '../pages/summer';
 import SummerDetail from '../pages/summer-detail';
 import Case from '../pages/case';
+import CaseDetail from '../pages/case-detail';
+import CaseList from '../pages/case-list';
 import Group from '../pages/group';
 import FindDetail from '../pages/find-detail';
 import EditInfo from '../pages/edit-info';
@@ -30,6 +32,7 @@ import Service from '../pages/service';
 import Collect from '../pages/collect';
 import Publish from '../pages/publish';
 import Join from '../pages/join';
+import Test from '../pages/test';
 
 const router = [
   {
@@ -122,6 +125,21 @@ const router = [
       title: '全球案例',
     },
   },
+  {
+    name: 'CaseList',
+    component: CaseList,
+    options: {
+      title: '申请案例',
+    },
+  },
+  {
+    name: 'CaseDetail',
+    component: CaseDetail,
+    options: {
+      title: '案例详情',
+    },
+  },
+
   {
     name: 'Summer',
     component: Summer,
@@ -246,6 +264,15 @@ const router = [
     component: Join,
     options: {
       title: '加入',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
+  {
+    name: 'Test',
+    component: Test,
+    options: {
+      title: 'Test',
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
     },

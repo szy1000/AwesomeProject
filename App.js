@@ -7,8 +7,7 @@
  */
 
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {Button, Text} from 'react-native';
+import {Button, StyleSheet, Text} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {NavigationContainer} from '@react-navigation/native';
