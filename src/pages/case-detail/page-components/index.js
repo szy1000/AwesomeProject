@@ -1,5 +1,4 @@
-import Item from './item';
-import School from './school';
-import Content from './content';
+import Header from './header';
+import Panel from './panel';
 
-export {Item, School, Content};
+export {Header, Panel};
