@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   ImageBackground,
+  Platform,
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -60,7 +61,7 @@ export default class My extends React.Component {
 
 const styles = StyleSheet.create({
   login: {
-    paddingTop: 110,
+    paddingTop: Platform.OS == 'ios' ? 110 : 60,
     // height: 400,
     backgroundColor: '#17a5e1',
   },

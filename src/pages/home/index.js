@@ -47,7 +47,11 @@ class Home extends React.Component {
           </View>
           <TextInput
             style={styles.ipt}
+            ref={this.ipt}
             placeholder="请输入关键词搜索"
+            onPress={() => {
+              this.refs.ipt.focus();
+            }}
             onChangeText={text => {
               this.setState({
                 txt: text,
@@ -92,29 +96,33 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   scrollView: {},
-  ipt_wrapper: {
-    paddingHorizontal: 15,
-    display: 'flex',
-    flexDirection: 'row',
-    height: 40,
-    alignItems: 'center',
-  },
   address_wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: 60,
+    // backgroundColor: 'red',
   },
   address: {
     fontSize: 16,
   },
+  ipt_wrapper: {
+    marginTop: 10,
+    paddingHorizontal: 15,
+    // flexDirection: 'row',
+    // height: 40,
+    // alignItems: 'center',
+  },
   ipt: {
+    position: 'relative',
+    zIndex: 1,
     marginLeft: 15,
     marginRight: 10,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     flex: 1,
     backgroundColor: '#fff',
-    height: 30,
-    borderRadius: 15,
+    borderRadius: 20,
   },
+
   msg_box: {
     position: 'relative',
   },

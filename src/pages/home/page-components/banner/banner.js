@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Platform, Image, StyleSheet} from 'react-native';
 import Swiper from 'react-native-swiper';
 
 export default class Banner extends React.Component {
@@ -23,25 +23,23 @@ const styles = StyleSheet.create({
   banner: {
     position: 'relative',
     zIndex: -1,
-    marginTop: -90,
+    marginTop: Platform.OS === 'ios' ? -84 : -120,
   },
   wrapper: {
-    paddingTop: 48,
-    backgroundColor: '#e6fffe',
+    paddingTop: Platform.OS === 'ios' ? 50 : 60,
     height: 300,
+    // backgroundColor: 'red',
+    backgroundColor: '#e6fffe',
+
   },
   item: {
     width: '100%',
-    height: 200,
+    height: 260,
+    resizeMode: 'contain',
   },
   slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
   },
 });

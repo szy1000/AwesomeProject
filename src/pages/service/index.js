@@ -29,6 +29,16 @@ export default class Service extends React.Component {
         type: 'customer',
         txt: '你好有什么我可以帮助的吗？',
       },
+      {
+        data: '22',
+        type: 'customer',
+        txt: '你好有什么我可以帮助的吗？',
+      },
+      {
+        data: '22',
+        type: 'customer',
+        txt: '你好有什么我可以帮助的吗？',
+      },
     ],
   };
 
@@ -47,7 +57,9 @@ export default class Service extends React.Component {
       talkList,
       value: '',
     });
+    _this.refs.scrollView.scrollToEnd();
   };
+
   changeText = e => {
     this.setState({
       value: e,
@@ -65,8 +77,10 @@ export default class Service extends React.Component {
   render() {
     const {talkList, value} = this.state;
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <ScrollView>
+      <SafeAreaView>
+        <ScrollView
+          onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
+          ref="scrollView">
           <View style={styles.main}>
             {talkList.map(({txt, type}, i) => {
               if (type === 'customer') {
@@ -97,17 +111,17 @@ export default class Service extends React.Component {
                 );
               }
             })}
+            <View style={styles.wrapper}>
+              <TextInput
+                style={styles.ipt}
+                value={value}
+                onChangeText={e => this.changeText(e)}
+                placeholder={'请输入你想咨询的问题'}
+              />
+              <Button onClick={this.sendMessage}>发送</Button>
+            </View>
           </View>
         </ScrollView>
-        <View style={styles.wrapper}>
-          <TextInput
-            style={styles.ipt}
-            value={value}
-            onChangeText={e => this.changeText(e)}
-            placeholder={'请输入你想咨询的问题'}
-          />
-          <Button onClick={this.sendMessage}>发送</Button>
-        </View>
       </SafeAreaView>
     );
   }

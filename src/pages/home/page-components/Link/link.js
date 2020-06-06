@@ -79,7 +79,7 @@ export default class LinkBlock extends React.Component {
 
 const styles = StyleSheet.create({
   link: {
-    paddingTop: 20,
+    paddingTop: 15,
   },
   schoolAndProject: {
     paddingHorizontal: 15,

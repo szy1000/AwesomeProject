@@ -114,9 +114,9 @@ function getHeaderTitle(_params) {
     case 'My':
       return {
         title: '我的',
-        headerBackTitle: null,
+        // headerBackTitle: null,
         // headerTruncatedBackTitle: null,
-        headerBackImage: null,
+        // headerBackImage: null,
         headerTransparent: true,
         // headerTintColor: '#fff',
         headerTitleStyle: {
