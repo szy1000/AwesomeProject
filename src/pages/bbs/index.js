@@ -5,6 +5,7 @@ import {
   ImageBackground,
   View,
   StyleSheet,
+  Image,
   Text,
 } from 'react-native';
 import {Item, Panel} from './page-components';
@@ -52,15 +53,17 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   bg: {
-    position: 'relative',
-    paddingTop: Platform.OS === 'ios' ? 70 : 0,
+    position: 'absolute',
+    // paddingTop: Platform.OS === 'ios' ? 0 : 0,
     top: 0,
-    left: 0,
-    right: 0,
-    height: 300,
+    width: '100%',
+    height: 270,
+    resizeMode: 'contain',
+    // backgroundColor: 'red',
   },
+
   content: {
-    marginTop: -50,
+    marginTop: 230,
     marginHorizontal: 15,
     borderRadius: 5,
   },

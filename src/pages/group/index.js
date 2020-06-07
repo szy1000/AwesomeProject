@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {Text, View, Image, StyleSheet} from 'react-native';
 import {Tab} from '../../components';
-import {GroupTitle} from './page-components';
+import {GroupTitle, Item, Discussion} from './page-components';
 
 export default class Group extends React.Component {
   componentDidMount() {
@@ -12,6 +12,7 @@ export default class Group extends React.Component {
   }
 
   render() {
+    const {navigation} = this.props;
     return (
       <Tab
         common={<GroupTitle {...this.props} />}
@@ -31,11 +32,17 @@ export default class Group extends React.Component {
         tabContent={[
           {
             name: '全部讨论',
-            component: () => <Text>s</Text>,
+            component: () => <Discussion navigation={navigation} />,
           },
           {
             name: '置顶',
-            component: () => <Text>s</Text>,
+            component: () => (
+              <View style={styles.top}>
+                <Item navigation={navigation} />
+                <Item />
+                <Item />
+              </View>
+            ),
           },
         ]}
       />
@@ -45,4 +52,7 @@ export default class Group extends React.Component {
 
 const styles = StyleSheet.create({
   group: {},
+  top: {
+    backgroundColor: '#fff',
+  },
 });

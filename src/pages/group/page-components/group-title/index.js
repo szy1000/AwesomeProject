@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  Button,
   Text,
+  Platform,
   ImageBackground,
   View,
   Image,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 export default class GroupTitle extends React.Component {
@@ -30,7 +31,11 @@ export default class GroupTitle extends React.Component {
             <Text style={styles.title}>学习方法分享小组</Text>
             <Text style={styles.subTitle}>20167 小叮当 ></Text>
           </View>
-          <Button title={'已加入'} />
+          <TouchableWithoutFeedback>
+            <View style={styles.btn}>
+              <Text style={styles.txt}>已加入</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <Text style={styles.desc}>
           小组简介：
@@ -45,7 +50,7 @@ export default class GroupTitle extends React.Component {
 
 const styles = StyleSheet.create({
   group: {
-    paddingTop: 110,
+    paddingTop: Platform.OS == 'ios' ? 110 : 60,
     paddingBottom: 20,
     paddingHorizontal: 15,
     backgroundColor: '#ccc',
@@ -70,11 +75,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: '#ddd',
     overflow: 'hidden',
+    resizeMode: 'contain',
   },
   title_wrapper: {
     paddingTop: 5,
     height: 60,
     display: 'flex',
+    flex: 1,
   },
   title: {
     color: '#fff',
@@ -92,5 +99,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#fff',
     lineHeight: 20,
+  },
+
+  btn: {
+    width: 58,
+    height: 26,
+    color: '#14a4c8',
+    backgroundColor: '#e7f6fa',
+    borderWidth: 1,
+    borderColor: '#14a4c8',
+    borderRadius: 4,
+    alignItems: 'center',
+  },
+  txt: {
+    color: '#14a4c8',
+    lineHeight: 26,
+    textAlign: 'center',
   },
 });

@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   Image,
+  Platform,
   FlatList,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -100,24 +101,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: 60,
-    // backgroundColor: 'red',
   },
   address: {
     fontSize: 16,
   },
   ipt_wrapper: {
-    marginTop: 10,
+    position: 'relative',
+    marginTop: 15,
     paddingHorizontal: 15,
-    // flexDirection: 'row',
-    // height: 40,
-    // alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   ipt: {
     position: 'relative',
     zIndex: 1,
     marginLeft: 15,
     marginRight: 10,
-    // paddingHorizontal: 15,
+    paddingHorizontal: 15,
+    paddingVertical: Platform.OS === 'ios' ? 10 : 5,
     flex: 1,
     backgroundColor: '#fff',
     borderRadius: 20,

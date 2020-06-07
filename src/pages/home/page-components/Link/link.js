@@ -79,28 +79,30 @@ export default class LinkBlock extends React.Component {
 
 const styles = StyleSheet.create({
   link: {
-    paddingTop: 15,
+    paddingTop: 10,
   },
   schoolAndProject: {
     paddingHorizontal: 15,
     display: 'flex',
     flexDirection: 'row',
+    // backgroundColor: 'blue',
   },
   holder: {
     width: 15,
   },
   linkItem: {
     width: '48%',
-    height: 100,
     borderRadius: 5,
   },
 
   linkImg: {
     width: '100%',
-    height: 100,
+    height: 110,
+    resizeMode: 'contain',
   },
 
   block: {
+    marginTop: -5,
     paddingHorizontal: 15,
     paddingBottom: 15,
     display: 'flex',
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 110,
     height: 83,
+    resizeMode: 'contain',
   },
   txt: {
     marginTop: 5,

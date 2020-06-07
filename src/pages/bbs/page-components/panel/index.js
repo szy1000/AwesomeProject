@@ -14,12 +14,7 @@ export default class Panel extends React.Component {
                 <View>
                   <Text style={styles.more}>全部</Text>
                 </View>
-                <View>
-                  <Image
-                    style={styles.moreIcon}
-                    source={require('./more.png')}
-                  />
-                </View>
+                <Image style={styles.moreIcon} source={require('./more.png')} />
               </TouchableOpacity>
             )}
           </View>
@@ -49,6 +44,8 @@ const styles = StyleSheet.create({
   },
   moreBox: {
     flexDirection: 'row',
+    alignItems: 'flex-end',
+    // backgroundColor: 'red',
   },
   more: {
     color: '#999999',
@@ -57,6 +54,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     width: 7,
     height: 12,
+    resizeMode: 'contain',
   },
   content: {
     // paddingHorizontal: 15,

@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     overflow: 'hidden',
+    // resizeMode: 'contain',
   },
   title: {
     margin: 5,
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 30,
     height: 30,
+    resizeMode: 'contain',
   },
   name: {
     marginLeft: 10,

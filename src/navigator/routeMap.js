@@ -25,6 +25,7 @@ import CaseDetail from '../pages/case-detail';
 import CaseList from '../pages/case-list';
 import Group from '../pages/group';
 import GroupAll from '../pages/group-all';
+import GroupDetail from '../pages/group-detail';
 import FindDetail from '../pages/find-detail';
 import EditInfo from '../pages/edit-info';
 import Feedback from '../pages/feedback';
@@ -172,6 +173,13 @@ const router = [
     component: GroupAll,
     options: {
       title: '分类找小组',
+    },
+  },
+  {
+    name: 'GroupDetail',
+    component: GroupDetail,
+    options: {
+      title: '小组详情',
     },
   },
   {

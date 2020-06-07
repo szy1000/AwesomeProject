@@ -5,15 +5,13 @@ export default class SearchInput extends React.Component {
   render() {
     const {placeholder, value, onChangeText, styles} = this.props;
     return (
-      <View>
-        <TextInput
-          style={[_styles.ipt, styles]}
-          placeholder={placeholder || '请输入关键字'}
-          {...this.props}
-          value={value}
-          onChangeText={e => onChangeText(e)}
-        />
-      </View>
+      <TextInput
+        style={[_styles.ipt, styles]}
+        placeholder={placeholder || '请输入关键字'}
+        {...this.props}
+        value={value}
+        onChangeText={e => onChangeText && onChangeText(e)}
+      />
     );
   }
 }

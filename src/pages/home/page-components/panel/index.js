@@ -26,13 +26,14 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingHorizontal: 15,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
+    // backgroundColor: '#ccc',
   },
   holder: {
     position: 'absolute',
     left: 15,
-    top: 15,
+    bottom: 0,
     width: 4,
     height: 20,
     backgroundColor: '#11a8cd',
@@ -40,10 +41,12 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: 15,
     fontSize: 20,
+    // lineHeight: 20,
     fontWeight: '500',
   },
   more: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   tips: {
     fontSize: 12,
@@ -52,6 +55,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 12,
     height: 12,
+    resizeMode: 'contain',
   },
   content: {
     paddingTop: 20,

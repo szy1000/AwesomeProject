@@ -9,8 +9,9 @@ import {
 import {Button} from '../index';
 
 export default class Item extends React.Component {
+
   render() {
-    const {onClick, children, style} = this.props;
+    const {onClick, type, children, style} = this.props;
     return (
       <TouchableWithoutFeedback onPress={onClick}>
         <View style={_styles.button}>
@@ -30,5 +31,6 @@ const _styles = StyleSheet.create({
   },
   word: {
     color: '#fff',
+    // fontSize: 30
   },
 });

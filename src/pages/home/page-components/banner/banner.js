@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     height: 300,
     // backgroundColor: 'red',
     backgroundColor: '#e6fffe',
-
   },
   item: {
     width: '100%',

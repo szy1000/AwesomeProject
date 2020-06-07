@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     width: 26,
     height: 31,
     textAlign: 'center',
+    resizeMode: 'contain',
   },
   content: {
     flex: 1,
