@@ -6,7 +6,7 @@ export default class Case extends React.Component {
     return (
       <View style={styles.case}>
         {this.props.data.map((item, index) => (
-          <View style={styles.item}>
+          <View style={styles.item} key={index}>
             <Image style={styles.pic} source={require('./alfx1.png')} />
             <Text style={styles.title} numberOfLines={2}>
               专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得

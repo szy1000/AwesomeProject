@@ -6,14 +6,52 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   Image,
 } from 'react-native';
 import Jump from '../../utils/jump';
 
 export default class PanelOne extends React.Component {
   state = {
-    dataArr: [1, 2, 3, 4, 5],
+    dataArr: [
+      {
+        id: 1,
+        title:
+          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
+        icon: require('./alfx1.png'),
+      },
+      {
+        id: 2,
+        title:
+          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
+        icon: require('./alfx1.png'),
+      },
+      {
+        id: 3,
+        title:
+          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
+        icon: require('./alfx1.png'),
+      },
+      {
+        id: 4,
+        title:
+          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
+        icon: require('./alfx1.png'),
+      },
+      {
+        id: 5,
+        title:
+          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
+        icon: require('./alfx1.png'),
+      },
+      {
+        id: 6,
+        title:
+          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
+        icon: require('./alfx1.png'),
+      },
+
+    ],
     refreshLoading: false,
     loading: false,
   };
@@ -62,32 +100,38 @@ export default class PanelOne extends React.Component {
         <FlatList
           data={dataArr}
           numColumns={2}
-          // style={styles.find}
           renderItem={({item, index}) => (
-            <TouchableOpacity
-              style={styles.item}
-              key={index}
-              onPress={() => {
-                this._onPressItem(item);
-              }}>
-              <Image style={styles.pic} source={require('./alfx1.png')} />
-              <Text style={styles.title} numberOfLines={2}>
-                专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得
-              </Text>
-              <View style={styles.auth}>
-                <View style={styles.auth}>
-                  <Image style={styles.avatar} source={require('./tx1.png')} />
-                  <Text style={styles.name}>张三</Text>
+            <View style={styles.item} key={index} keys={index}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  this._onPressItem(item.title);
+                }}>
+                <View>
+                  <Image style={styles.pic} source={require('./alfx1.png')} />
+                  <Text style={styles.title} numberOfLines={2}>
+                    {item.title}
+                  </Text>
                 </View>
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback>
                 <View style={styles.auth}>
-                  <Image
-                    style={styles.icon}
-                    source={require('./collect.png')}
-                  />
-                  <Text style={styles.count}>20</Text>
+                  <View style={styles.auth}>
+                    <Image
+                      style={styles.avatar}
+                      source={require('./tx1.png')}
+                    />
+                    <Text style={styles.name}>张三</Text>
+                  </View>
+                  <View style={styles.auth}>
+                    <Image
+                      style={styles.icon}
+                      source={require('./collect.png')}
+                    />
+                    <Text style={styles.count}>20</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableWithoutFeedback>
+            </View>
           )}
           ItemSeparatorComponent={({highlighted}) => (
             <View style={[styles.separator, highlighted && {marginLeft: 0}]} />
@@ -110,16 +154,17 @@ export default class PanelOne extends React.Component {
           onEndReached={this.getMore}
         />
 
-        <TouchableOpacity
-          style={styles.note}
+        <TouchableWithoutFeedback
           onPress={() => {
             Jump.linkToPage({
               navigation,
               url: 'Note',
             });
           }}>
-          <Image style={styles.edit} source={require('./edit.png')} />
-        </TouchableOpacity>
+          <View style={styles.note}>
+            <Image style={styles.edit} source={require('./edit.png')} />
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
@@ -128,8 +173,8 @@ export default class PanelOne extends React.Component {
 const styles = StyleSheet.create({
   find: {
     position: 'relative',
-    paddingTop: 15,
-    paddingBottom: 15,
+    // paddingTop: 15,
+    // paddingBottom: 15,
     paddingHorizontal: 7,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -152,6 +197,7 @@ const styles = StyleSheet.create({
   },
 
   item: {
+    marginTop: 15,
     paddingHorizontal: 8,
     width: '50%',
   },

@@ -76,8 +76,8 @@ export default class Item extends React.Component {
     return (
       <View>
         {this.itemArr.map(({icon, title, clickFn}, index) => (
-          <View>
-            <TouchableOpacity key={index} style={styles.item} onPress={clickFn}>
+          <View key={index}>
+            <TouchableOpacity style={styles.item} onPress={clickFn}>
               <View style={styles.link}>
                 <View>
                   <Image style={styles.icon} source={icon} />

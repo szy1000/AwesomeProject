@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-export default class Note extends React.Component {
+export default class GroupEdit extends React.Component {
   state = {
     imgArr: [require('./png.png')],
     avatarSourceMap: [],
@@ -87,13 +87,8 @@ export default class Note extends React.Component {
             placeholder={'填写正文'}
           />
         </View>
-        <View style={styles.address}>
-          <Image style={styles.addressIcon} source={require('./address.png')} />
-          <Text style={styles.text}>添加地址</Text>
-          <Image style={styles.more} source={require('./more.png')} />
-        </View>
         <TouchableOpacity style={styles.submit}>
-          <Text style={styles.txt}>发布笔记</Text>
+          <Text style={styles.txt}>发布小组</Text>
         </TouchableOpacity>
       </ScrollView>
     );
@@ -132,41 +127,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     minHeight: 200,
   },
-  address: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderTopColor: '#f0f0f0',
-    borderBottomColor: '#f0f0f0',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-  },
-  addressIcon: {
-    width: 12,
-    height: 14,
-  },
-
-  text: {
-    marginLeft: 10,
-    flex: 1,
-    fontSize: 15,
-  },
-  more: {
-    width: 7,
-    height: 12,
-  },
   submit: {
     marginTop: 100,
     alignItems: 'center',
-    marginHorizontal: 40,
-    height: 40,
-    backgroundColor: '#f42440',
-    borderRadius: 20,
+    marginHorizontal: 50,
+    height: 50,
+    backgroundColor: '#12a8cd',
+    borderRadius: 5,
   },
   txt: {
     color: '#fff',
     fontSize: 20,
-    lineHeight: 40,
+    lineHeight: 50,
   },
 });

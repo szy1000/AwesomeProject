@@ -11,7 +11,7 @@ export default class Item extends React.Component {
       case 2:
         return <Image style={styles.icon} source={require('./pic2.png')} />;
       default:
-        return <Text style={styles.icon}>{index + 1}</Text>;
+        return <Text style={styles.iconText}>{index + 1}</Text>;
     }
   };
 
@@ -30,7 +30,7 @@ export default class Item extends React.Component {
     return (
       <View>
         {list.map((v, index) => (
-          <View style={styles.item}>
+          <View style={styles.item} key={index}>
             <View>{this.calcIcon(index)}</View>
             <View style={styles.content}>
               <TouchableOpacity
@@ -81,8 +81,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
     width: 26,
     height: 31,
-    textAlign: 'center',
     resizeMode: 'contain',
+  },
+  iconText: {
+    marginRight: 10,
+    width: 26,
+    height: 31,
   },
   content: {
     flex: 1,

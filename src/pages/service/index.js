@@ -57,7 +57,6 @@ export default class Service extends React.Component {
       talkList,
       value: '',
     });
-    _this.refs.scrollView.scrollToEnd();
   };
 
   changeText = e => {
@@ -77,7 +76,7 @@ export default class Service extends React.Component {
   render() {
     const {talkList, value} = this.state;
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
         <ScrollView
           onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
           ref="scrollView">
@@ -111,17 +110,17 @@ export default class Service extends React.Component {
                 );
               }
             })}
-            <View style={styles.wrapper}>
-              <TextInput
-                style={styles.ipt}
-                value={value}
-                onChangeText={e => this.changeText(e)}
-                placeholder={'请输入你想咨询的问题'}
-              />
-              <Button onClick={this.sendMessage}>发送</Button>
-            </View>
           </View>
         </ScrollView>
+        <View style={styles.wrapper}>
+          <TextInput
+            style={styles.ipt}
+            value={value}
+            onChangeText={e => this.changeText(e)}
+            placeholder={'请输入你想咨询的问题'}
+          />
+          <Button onClick={this.sendMessage}>发送</Button>
+        </View>
       </SafeAreaView>
     );
   }

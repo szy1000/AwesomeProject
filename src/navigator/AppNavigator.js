@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, Text, StyleSheet} from 'react-native';
+import {Button, YellowBox, Text, StyleSheet} from 'react-native';
+
 import router from './routeMap';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -142,6 +143,14 @@ function getHeaderTitle(_params) {
 }
 
 export default class AppNavigator extends React.Component {
+  componentDidMount(): void {
+    YellowBox.ignoreWarnings([
+      'Warning: componentWillMount is deprecated',
+      'Warning: componentWillReceiveProps is deprecated',
+      'Module RCTImageLoader requires',
+    ]);
+  }
+
   render() {
     return (
       <NavigationContainer>

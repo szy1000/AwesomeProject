@@ -1,5 +1,5 @@
 import React from 'react';
-import {Item, Comment} from './page-components';
+import {Item, Comment, Leave} from './page-components';
 import {Text, View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import {WhiteSpace} from '../../components';
 
@@ -17,6 +17,11 @@ export default class GroupDetail extends React.Component {
         <ScrollView style={styles.groupDetail}>
           <Item />
           <WhiteSpace size={'big'} />
+          <Leave />
+          <Leave />
+          <Leave />
+          <Leave />
+          <Leave />
         </ScrollView>
         <Comment />
       </SafeAreaView>

@@ -26,6 +26,7 @@ import CaseList from '../pages/case-list';
 import Group from '../pages/group';
 import GroupAll from '../pages/group-all';
 import GroupDetail from '../pages/group-detail';
+import GroupEdit from '../pages/group-edit';
 import FindDetail from '../pages/find-detail';
 import EditInfo from '../pages/edit-info';
 import Feedback from '../pages/feedback';
@@ -180,6 +181,13 @@ const router = [
     component: GroupDetail,
     options: {
       title: '小组详情',
+    },
+  },
+  {
+    name: 'GroupEdit',
+    component: GroupEdit,
+    options: {
+      title: '添加学习小组',
     },
   },
   {
