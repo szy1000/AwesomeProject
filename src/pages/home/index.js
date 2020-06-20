@@ -35,11 +35,12 @@ class Home extends React.Component {
   };
 
   render() {
-    const {init, data} = this.props;
+    const {init, navigation, data} = this.props;
+    console.log(this.props);
     if (!init) {
       return <Text>Loading</Text>;
     }
-    const {country, hotSchool, hotSubject} = data;
+    const {country, hotSchool, hotSubject, hotCase} = data;
     return (
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -90,10 +91,10 @@ class Home extends React.Component {
         </Panel>
         <View style={styles.whiteSpace} />
         <Panel title="热门专业" tips="看看当下最流行的专业！">
-          <Course hotSubject={hotSubject} />
+          <Course hotSubject={hotSubject} navigation={navigation} />
         </Panel>
         <Panel title="案例分享" tips="以下案例均已获得用户授权">
-          <Case data={[1, 2]} />
+          <Case data={hotCase} navigation={navigation} />
         </Panel>
       </ScrollView>
     );

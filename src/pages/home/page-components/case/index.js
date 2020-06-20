@@ -1,27 +1,52 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import Jump from '../../../../utils/jump';
 export default class Case extends React.Component {
+  linkTo = (id, navigation) => {
+    console.log(11111111)
+    Jump.linkToPage({
+      navigation,
+      url: 'CaseDetail',
+      params: {
+        id,
+      },
+    });
+  };
+
   render() {
+    const {data, navigation} = this.props;
     return (
       <View style={styles.case}>
-        {this.props.data.map((item, index) => (
-          <View style={styles.item} key={index}>
-            <Image style={styles.pic} source={require('./alfx1.png')} />
-            <Text style={styles.title} numberOfLines={2}>
-              专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得
-            </Text>
-            <View style={styles.auth}>
+        {data.map(item => (
+          <TouchableWithoutFeedback
+            key={item.id}
+            onPress={() => this.linkTo(item.id, navigation)}>
+            <View style={styles.item}>
+              <Image style={styles.pic} source={{uri: item.image}} />
+              <Text style={styles.title} numberOfLines={2}>
+                {item.title}
+              </Text>
               <View style={styles.auth}>
-                <Image style={styles.avatar} source={require('./tx1.png')} />
-                <Text style={styles.name}>张三</Text>
-              </View>
-              <View style={styles.auth}>
-                <Image style={styles.icon} source={require('./collect.png')} />
-                <Text style={styles.count}>20</Text>
+                <View style={styles.auth}>
+                  <Image style={styles.avatar} source={{uri: item.image}} />
+                  <Text style={styles.name}>{item.name}</Text>
+                </View>
+                <View style={styles.auth}>
+                  <Image
+                    style={styles.icon}
+                    source={require('./collect.png')}
+                  />
+                  <Text style={styles.count}>20</Text>
+                </View>
               </View>
             </View>
-          </View>
+          </TouchableWithoutFeedback>
         ))}
       </View>
     );
