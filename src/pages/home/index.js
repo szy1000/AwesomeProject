@@ -25,18 +25,21 @@ import {homeInit} from './redux';
 
 class Home extends React.Component {
   componentDidMount() {
+    this.homeInit();
+  }
+  homeInit = () => {
     this.props.homeInit({
       pageNum: 1,
       pageSize: 4,
     });
-  }
+  };
 
   render() {
     const {init, data} = this.props;
     if (!init) {
       return <Text>Loading</Text>;
     }
-    const {total, list = []} = data;
+    const {country, hotSchool, hotSubject} = data;
     return (
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -44,7 +47,7 @@ class Home extends React.Component {
         <View style={styles.ipt_wrapper}>
           <View style={styles.address_wrapper}>
             <EvilIcons name={'location'} size={26} />
-            <Text style={styles.address}>英国</Text>
+            <Text style={styles.address}>{country[0].name}</Text>
           </View>
           <TextInput
             style={styles.ipt}
@@ -71,21 +74,23 @@ class Home extends React.Component {
           <ScrollView
             horizontal={true} // 横向
             showsHorizontalScrollIndicator={false}>
-            {list.map((item, index) => (
-              <View style={styles.item} key={index}>
-                <Image
-                  accessibilityRole={'image'}
-                  source={{uri: item.cover}}
-                  style={styles.pic}
-                />
-                <Text style={styles.name}>{item.title}</Text>
-              </View>
-            ))}
+            {hotSchool.length > 0 &&
+              hotSchool.map((item, index) => (
+                <View style={styles.item} key={index}>
+                  <Image
+                    accessibilityRole={'image'}
+                    // source={{uri: `http://47.114.151.211:8081${item.imageUrl}`}}
+                    source={{uri: item.imageUrl}}
+                    style={styles.pic}
+                  />
+                  <Text style={styles.name}>{item.name}</Text>
+                </View>
+              ))}
           </ScrollView>
         </Panel>
         <View style={styles.whiteSpace} />
         <Panel title="热门专业" tips="看看当下最流行的专业！">
-          <Course />
+          <Course hotSubject={hotSubject} />
         </Panel>
         <Panel title="案例分享" tips="以下案例均已获得用户授权">
           <Case data={[1, 2]} />

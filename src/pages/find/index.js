@@ -152,6 +152,7 @@ export default class PanelOne extends React.Component {
             </View>
           }
           onEndReached={this.getMore}
+
         />
 
         <TouchableWithoutFeedback

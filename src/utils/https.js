@@ -5,7 +5,7 @@ const successCode = '0';
 const loginInOtherDevice = '-1';
 
 const instance = axios.create({
-  baseURL: 'http://iwillcloud.com/',
+  baseURL: 'http://47.114.151.211:8081',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -16,17 +16,18 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
   params.params = params.params || {};
   instance[method](url, params)
     .then(res => {
-      const {flag, statusCode, statusDescription, data} = res.data;
+      const {success, error, data} = res.data;
+      console.log(res.data)
       if (needCode) {
         resolve(res.data);
-      } else if (flag) {
+      } else if (success) {
         resolve(data);
       } else {
         // UIToast.error(resultNote, 1000, () => {
         //   if (resultNote === lostUuid || resultNote === deleteUser) {
         //   }
         // });
-        reject({statusDescription});
+        reject({error});
       }
     })
     .catch(err => {

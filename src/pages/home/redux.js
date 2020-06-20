@@ -1,4 +1,4 @@
-import {getHomeReq} from './api';
+import {getCountryReq, getHotSchoolReq, getHotSubjectReq} from './api';
 // Actions
 const UPDATE = 'HOME_UPDATE';
 
@@ -29,13 +29,20 @@ export const homeUpdate = params => ({
 export const homeInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  const data = await getHomeReq(params || {});
+  const country = await getCountryReq(params || {});
+  const hotSchool = await getHotSchoolReq({
+    country_id: country[0].id,
+  });
+  const hotSubject = await getHotSubjectReq({
+    country_id: country[0].id,
+  });
   dispatch(
     homeUpdate({
       init: true,
       data: {
-        ...data,
-        name: 'shenzhiyong',
+        country,
+        hotSchool,
+        hotSubject,
       },
     }),
   );

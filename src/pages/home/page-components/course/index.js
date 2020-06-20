@@ -15,31 +15,31 @@ export default class Course extends React.Component {
       y: 3,
       style: {marginVertical: 5},
     };
+    const {hotSubject} = this.props;
     return (
       <ScrollView
         horizontal={true} // 横向
         showsHorizontalScrollIndicator={false}
         style={styles.course}>
-        <View style={styles.item}>
-          <View style={styles.img_wrapper}>
-            <Image style={styles.bg} source={require('./pic12.png')} />
-            <Text style={styles.type}>会计与金融</Text>
-          </View>
-          <View style={styles.content}>
-            <View style={styles.school}>
-              <Text style={styles.name}>杜伦大学</Text>
-              <Text style={styles.en_name}>Durham University</Text>
+        <>
+          {hotSubject.map((v, i) => (
+            <View style={styles.item} key={i}>
+              <View style={styles.img_wrapper}>
+                <Image style={styles.bg} source={require('./pic12.png')} />
+                <Text style={styles.type}>{v.name}</Text>
+              </View>
+              <View style={styles.content}>
+                {v.universities.map(item => (
+                  <View style={styles.school} key={item.id}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Text style={styles.en_name}>{item.nameEn}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
-            <View style={styles.school}>
-              <Text style={styles.name}>帝国理工学院</Text>
-              <Text style={styles.en_name}>Imperial College</Text>
-            </View>
-            <View style={styles.school}>
-              <Text style={styles.name}>伦敦大学学院</Text>
-              <Text style={styles.en_name}>University College of London</Text>
-            </View>
-          </View>
-        </View>
+          ))}
+        </>
+
         <View style={styles.item}>
           <View style={styles.img_wrapper}>
             <Image style={styles.bg} source={require('./pic13.png')} />

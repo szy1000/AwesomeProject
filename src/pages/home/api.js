@@ -1,9 +1,7 @@
 import Https from '../../utils/https';
 
-const getHomeReq = params =>
-  Https.post(
-    'api/v1/content/vendorContent/selectVendorChosenTypicalCases',
-    params,
-  );
+const getCountryReq = () => Https.get('/api/app/country');
+const getHotSchoolReq = params => Https.get('/api/app/university/hot', params);
+const getHotSubjectReq = params => Https.get('/api/app/subject/hot', params);
 
-export {getHomeReq};
+export {getCountryReq, getHotSchoolReq, getHotSubjectReq};
