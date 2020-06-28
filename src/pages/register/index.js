@@ -7,7 +7,19 @@ import {
   StyleSheet,
 } from 'react-native';
 
-export default class Register extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {registerInit} from '../register/redux';
+
+class Register extends React.Component {
+  componentDidMount(): void {
+    console.warn(this.props);
+  }
+
+  registerReq = () => {
+    this.props.registerInit();
+  };
+
   render() {
     return (
       <View style={styles.register}>
@@ -22,7 +34,7 @@ export default class Register extends React.Component {
           secureTextEntry={true}
           placeholder={'请再次输入密码'}
         />
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={this.registerReq}>
           <Text style={styles.text}>注册</Text>
         </TouchableWithoutFeedback>
       </View>
@@ -38,3 +50,12 @@ const styles = StyleSheet.create({
   },
   text: {},
 });
+
+export default connect(
+  state => state.register,
+  dispatch => bindActionCreators({registerInit}, dispatch),
+)(Register);
+// export default connect(
+//   state => state.register,
+//   dispatch => bindActionCreators({registerInit}, dispatch),
+// )(Register);

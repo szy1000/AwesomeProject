@@ -27,10 +27,13 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
         //   if (resultNote === lostUuid || resultNote === deleteUser) {
         //   }
         // });
+        alert(JSON.stringify(res.data))
         reject({error});
       }
     })
     .catch(err => {
+      alert(JSON.stringify(err))
+
       const errorMsg = JSON.stringify(err.message);
       // UIToast.error('您的网络存在问题，请检查网络是否连接！');
       console.log(errorMsg);

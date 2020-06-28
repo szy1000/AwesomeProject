@@ -2,6 +2,7 @@ import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
 import thunk from 'redux-thunk';
 
 import {home} from '../pages/home/redux';
+import {register} from '../pages/register/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -18,6 +19,7 @@ const logger = store => next => action => {
 const store = createStore(
   combineReducers({
     home,
+    register,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

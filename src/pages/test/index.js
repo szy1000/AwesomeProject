@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -20,10 +21,37 @@ const TabPanel = () => (
 );
 
 export default class Test extends React.Component {
+  state = {
+    pos: '',
+  };
+  getCurrentPos = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        alert(JSON.stringify(position));
+      },
+      error => {
+        // See error code charts below.
+        alert(JSON.stringify(error));
+        console.warn(error.code, error.message);
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+    // navigator.geolocation.getCurrentPosition(location => {
+    //   this.setState({
+    //     pos: location.toString(),
+    //   });
+    // });
+  };
+
+  componentDidMount(): void {
+    this.getCurrentPos();
+  }
+
   render() {
     return (
       <>
-        <Text>Common Component</Text>
+        <Text>Common Component One</Text>
+        <Text>{this.state.pos}</Text>
         {/*<Stack.Screen name="Test" component={() => <Text>ssdsad</Text>} />*/}
         <TabTop.Navigator>
           <TabTop.Screen
