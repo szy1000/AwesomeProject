@@ -9,49 +9,15 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import {Loading} from '../../components/';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {findInit} from './redux';
+
 import Jump from '../../utils/jump';
 
-export default class PanelOne extends React.Component {
+class Find extends React.Component {
   state = {
-    dataArr: [
-      {
-        id: 1,
-        title:
-          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
-        icon: require('./alfx1.png'),
-      },
-      {
-        id: 2,
-        title:
-          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
-        icon: require('./alfx1.png'),
-      },
-      {
-        id: 3,
-        title:
-          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
-        icon: require('./alfx1.png'),
-      },
-      {
-        id: 4,
-        title:
-          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
-        icon: require('./alfx1.png'),
-      },
-      {
-        id: 5,
-        title:
-          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
-        icon: require('./alfx1.png'),
-      },
-      {
-        id: 6,
-        title:
-          '专升本背景申上澳洲八大硕士，一周获得专升本背景申上澳洲八大硕士，一周获得',
-        icon: require('./alfx1.png'),
-      },
-
-    ],
     refreshLoading: false,
     loading: false,
   };
@@ -60,21 +26,29 @@ export default class PanelOne extends React.Component {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [5, 4, 3, 2, 1],
-        refreshLoading: false,
-      });
-    }, 2000);
+
+    this.props.findInit(
+      {
+        pageSize: 8,
+        pageNum: 1,
+      },
+      () => {
+        this.setState({
+          refreshLoading: false,
+        });
+      },
+    );
   };
 
   getMore = () => {
+    console.log('more')
     this.setState({
       loading: true,
     });
+
     setTimeout(() => {
       this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
+        // dataArr: [...this.state.dataArr, 8, 9, 10],
         loading: false,
       });
     }, 2000);
@@ -82,7 +56,6 @@ export default class PanelOne extends React.Component {
 
   _onPressItem = id => {
     const {navigation} = this.props;
-
     Jump.linkToPage({
       navigation,
       url: 'FindDetail',
@@ -92,22 +65,37 @@ export default class PanelOne extends React.Component {
     });
   };
 
+  componentDidMount() {
+    this.props.findInit({
+      pageSize: 8,
+      pageNum: 1,
+    });
+  }
+
   render() {
-    const {dataArr, refreshLoading, loading} = this.state;
-    const {navigation} = this.props;
+    const {refreshLoading, loading} = this.state;
+    const {init, data, navigation} = this.props;
+    if (!init) {
+      return <Loading />;
+    }
+    const {note} = data;
     return (
       <View style={styles.find}>
         <FlatList
-          data={dataArr}
+          data={note.data}
           numColumns={2}
+          onEndReachedThreshold={0.3}
           renderItem={({item, index}) => (
             <View style={styles.item} key={index} keys={index}>
               <TouchableWithoutFeedback
                 onPress={() => {
-                  this._onPressItem(item.title);
+                  this._onPressItem(item.id);
                 }}>
                 <View>
-                  <Image style={styles.pic} source={require('./alfx1.png')} />
+                  <Image
+                    style={styles.pic}
+                    source={{uri: item.thumbnail || ''}}
+                  />
                   <Text style={styles.title} numberOfLines={2}>
                     {item.title}
                   </Text>
@@ -118,16 +106,16 @@ export default class PanelOne extends React.Component {
                   <View style={styles.auth}>
                     <Image
                       style={styles.avatar}
-                      source={require('./tx1.png')}
+                      source={{uri: item.user.avatarUrl}}
                     />
-                    <Text style={styles.name}>张三</Text>
+                    <Text style={styles.name}>{item.user.userName}</Text>
                   </View>
                   <View style={styles.auth}>
                     <Image
                       style={styles.icon}
                       source={require('./collect.png')}
                     />
-                    <Text style={styles.count}>20</Text>
+                    <Text style={styles.count}>{item.stars}</Text>
                   </View>
                 </View>
               </TouchableWithoutFeedback>
@@ -138,9 +126,9 @@ export default class PanelOne extends React.Component {
           )}
           refreshControl={
             <RefreshControl
-              title={'loading'}
-              tintColor={'orange'}
-              titleColor={'red'}
+              title="加载中"
+              // tintColor={'orange'}
+              // titleColor={'red'}
               refreshing={refreshLoading}
               onRefresh={this.getDate}
             />
@@ -152,7 +140,6 @@ export default class PanelOne extends React.Component {
             </View>
           }
           onEndReached={this.getMore}
-
         />
 
         <TouchableWithoutFeedback
@@ -201,6 +188,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 8,
     width: '50%',
+    // minHeight: 300,
   },
   pic: {
     height: 150,
@@ -245,3 +233,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
+
+export default connect(
+  state => state.find,
+  dispatch => bindActionCreators({findInit}, dispatch),
+)(Find);

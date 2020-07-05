@@ -1,7 +1,7 @@
 import React from 'react';
 import Jump from '../../utils/jump';
+import {AsyncStorage} from 'react-native';
 import {
-  Button,
   Image,
   Text,
   View,
@@ -10,13 +10,35 @@ import {
   StyleSheet,
   ImageBackground,
 } from 'react-native';
+import {loginReq} from './api';
 import {Link} from '@react-navigation/native';
-
 import Feather from 'react-native-vector-icons/Feather';
 
 export default class Login extends React.Component {
+  state = {
+    phoneNumber: '',
+    password: '',
+  };
+
+  saveIptValue = (key, value) => {
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  handleLogin = async () => {
+    // alert(JSON.stringify((await AsyncStorage.getItem('token')) || ''));
+    const res = await loginReq(this.state);
+    const {accessToken, profile} = res;
+    AsyncStorage.setItem('token', accessToken);
+    AsyncStorage.setItem('name', profile.name);
+    AsyncStorage.setItem('sid', profile.sid.toString());
+    Jump.resetToHome(this.props);
+  };
+
   render() {
     const {navigation} = this.props;
+    const {phoneNumber, password} = this.state;
     return (
       <View style={styles.login}>
         <ImageBackground style={styles.bg} source={require('./login.png')} />
@@ -26,13 +48,12 @@ export default class Login extends React.Component {
             <Feather name="user" color="#d8d8d8" size={20} />
             <TextInput
               style={styles.ipt}
-              placeholder="请输入用户"
+              placeholder="请输入手机号"
+              maxLength={11}
+              value={phoneNumber}
+              keyboardType="numeric"
               placeholderTextColor="#d8d8d8"
-              onChangeText={text => {
-                navigation.setParams({
-                  iTitle: text,
-                });
-              }}
+              onChangeText={text => this.saveIptValue('phoneNumber', text)}
             />
           </View>
           <View style={styles.ipt_wrapper}>
@@ -40,12 +61,9 @@ export default class Login extends React.Component {
             <TextInput
               style={styles.ipt}
               placeholder="请输入密码"
+              value={password}
               placeholderTextColor="#d8d8d8"
-              onChangeText={text => {
-                navigation.setParams({
-                  iTitle: text,
-                });
-              }}
+              onChangeText={text => this.saveIptValue('password', text)}
             />
           </View>
           <View style={styles.msg}>
@@ -55,7 +73,7 @@ export default class Login extends React.Component {
           <TouchableOpacity
             style={styles.btn}
             title="登录"
-            onPress={() => Jump.resetToHome(this.props)}>
+            onPress={this.handleLogin}>
             <Text style={styles.white}>登录</Text>
           </TouchableOpacity>
           <View style={styles.linkToRegister}>

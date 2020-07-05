@@ -3,6 +3,10 @@ import thunk from 'redux-thunk';
 
 import {home} from '../pages/home/redux';
 import {register} from '../pages/register/redux';
+import {bbs} from '../pages/bbs/redux';
+import {find} from '../pages/find/redux';
+import {my} from '../pages/my/redux';
+import {findDetail} from '../pages/find-detail/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -20,6 +24,10 @@ const store = createStore(
   combineReducers({
     home,
     register,
+    bbs,
+    find,
+    my,
+    findDetail,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

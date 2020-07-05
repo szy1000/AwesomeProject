@@ -22,6 +22,7 @@ export default class GroupDetail extends React.Component {
 
   render() {
     const {thumbUp, collect} = this.state;
+    const {starCount, favoriteCount} = this.props;
     return (
       <View style={styles.comment}>
         <SearchInput style={styles.ipt} placeholder={'写回复'} />
@@ -31,6 +32,7 @@ export default class GroupDetail extends React.Component {
             source={thumbUp ? require('./thumb-on.png') : require('./zan.png')}
           />
         </TouchableWithoutFeedback>
+        <Text>{starCount}</Text>
         <TouchableWithoutFeedback onPress={() => this.handleState('collect')}>
           <Image
             style={styles.img}
@@ -39,6 +41,7 @@ export default class GroupDetail extends React.Component {
             }
           />
         </TouchableWithoutFeedback>
+        <Text>{favoriteCount}</Text>
       </View>
     );
   }

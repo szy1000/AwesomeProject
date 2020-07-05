@@ -22,6 +22,7 @@ import Case from './page-components/case';
 import Course from './page-components/course';
 
 import {homeInit} from './redux';
+import Loading from '../../components/loading';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -38,7 +39,7 @@ class Home extends React.Component {
     const {init, navigation, data} = this.props;
     console.log(this.props);
     if (!init) {
-      return <Text>Loading</Text>;
+      return <Loading />;
     }
     const {country, hotSchool, hotSubject, hotCase} = data;
     return (

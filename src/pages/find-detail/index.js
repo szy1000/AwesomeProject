@@ -10,57 +10,68 @@ import {
 } from 'react-native';
 import {Header, Banner, Comment} from './page-components';
 
-export default class FindDetail extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {findDetailInit, followNote} from './redux';
+import Loading from '../../components/loading';
+
+class FindDetail extends React.Component {
+  componentDidMount(): void {
+    const {
+      findDetailInit,
+      route: {params},
+    } = this.props;
+    findDetailInit(params.id);
+  }
+
+  follow = () => {
+    const {params} = this.props.route;
+    this.props.followNote(params.id);
+  };
+
   render() {
+    const {init, data} = this.props;
+    if (!init) {
+      return <Loading />;
+    }
+    const {
+      content,
+      title,
+      files,
+      commentCount,
+      favoriteCount,
+      starCount,
+      user,
+    } = data.noteDetail;
+    console.log('data', data);
     return (
       <View style={styles.findDetail}>
         <SafeAreaView style={{flex: 1}}>
-          <Header />
+          <Header user={user} followFn={this.follow} />
           <ScrollView style={{flex: 1}}>
-            <Banner />
+            <Banner files={files} />
             <View>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
-              <Text>
-                呈现已关注人员发布的笔记，可对笔记执行关注、点赞、收藏等操作。点
-                击笔记内容可查看详情，在详情页面可对笔记发表评论。如下图:
-              </Text>
+              <Text>{title}</Text>
+              <Text>{content}</Text>
             </View>
           </ScrollView>
           <View style={styles.control}>
-            <Comment />
+            <Comment
+              starCount={starCount}
+              commentCount={commentCount}
+              favoriteCount={favoriteCount}
+            />
           </View>
         </SafeAreaView>
       </View>
     );
   }
 }
+
+export default connect(
+  state => state.findDetail,
+  dispatch => bindActionCreators({findDetailInit, followNote}, dispatch),
+)(FindDetail);
 
 const styles = StyleSheet.create({
   findDetail: {

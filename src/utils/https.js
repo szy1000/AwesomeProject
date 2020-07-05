@@ -1,8 +1,6 @@
 import axios from 'axios';
 import Jump from './jump';
-
-const successCode = '0';
-const loginInOtherDevice = '-1';
+import {AsyncStorage} from 'react-native';
 
 const instance = axios.create({
   baseURL: 'http://47.114.151.211:8081',
@@ -12,31 +10,32 @@ const instance = axios.create({
   },
 });
 
+instance.interceptors.request.use(async function(config) {
+  config.headers.Authorization =
+    'Basic ' + (await AsyncStorage.getItem('token'));
+  console.log(config);
+  return config;
+});
+
 const promiseFun = (method, url, params, needCode, resolve, reject) => {
   params.params = params.params || {};
   instance[method](url, params)
     .then(res => {
       const {success, error, data} = res.data;
-      console.log(res.data)
+      console.log(res.data);
       if (needCode) {
         resolve(res.data);
       } else if (success) {
+        console.log('data', res.data);
         resolve(data);
       } else {
-        // UIToast.error(resultNote, 1000, () => {
-        //   if (resultNote === lostUuid || resultNote === deleteUser) {
-        //   }
-        // });
-        alert(JSON.stringify(res.data))
+        console.log('error:', JSON.stringify(res.data));
         reject({error});
       }
     })
     .catch(err => {
-      alert(JSON.stringify(err))
-
-      const errorMsg = JSON.stringify(err.message);
-      // UIToast.error('您的网络存在问题，请检查网络是否连接！');
-      console.log(errorMsg);
+      alert(JSON.stringify(err));
+      console.log(err);
       reject();
     });
 };

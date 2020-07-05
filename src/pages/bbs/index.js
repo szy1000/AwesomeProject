@@ -11,8 +11,16 @@ import {
 } from 'react-native';
 import {Item, Panel} from './page-components';
 import Jump from '../../utils/jump';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {bbsInit} from './redux';
 
-export default class BBS extends React.Component {
+class BBS extends React.Component {
+  componentDidMount(): void {
+    this.props.bbsInit();
+    // console.log(this.props)
+  }
+
   linkToGroup = () => {
     const {navigation} = this.props;
 
@@ -22,7 +30,12 @@ export default class BBS extends React.Component {
     });
   };
   render() {
-    const {navigation} = this.props;
+    const {init, data, navigation} = this.props;
+    if (!init) {
+      return <Text>loading</Text>;
+    }
+    const {groupCategory, hotGroup} = data;
+    console.log(hotGroup)
     return (
       <View style={styles.bbs}>
         <ScrollView>
@@ -30,19 +43,16 @@ export default class BBS extends React.Component {
           <View style={styles.content}>
             <Panel title={'分类找小组'} more moreFn={this.linkToGroup}>
               <View style={styles.tagWrapper}>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
-                <Text style={styles.tag}>留学申请</Text>
+                {groupCategory.map(({id, name}) => (
+                  <Text key={id} style={styles.tag}>
+                    {name}
+                  </Text>
+                ))}
               </View>
             </Panel>
 
             <Panel title="本周热门榜TOP5" style={{marginTop: 20}}>
-              <Item list={[{}, {}, {}, {}, {}]} navigation={navigation} />
+              <Item list={hotGroup} navigation={navigation} />
             </Panel>
           </View>
         </ScrollView>
@@ -106,3 +116,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
+
+export default connect(
+  state => state.bbs,
+  dispatch => bindActionCreators({bbsInit}, dispatch),
+)(BBS);

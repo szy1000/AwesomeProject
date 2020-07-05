@@ -13,32 +13,21 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const TabTop = createMaterialTopTabNavigator();
 
 import Home from './src/pages/home';
 import My from './src/pages/my';
 import Find from './src/pages/find';
 import BBS from './src/pages/bbs';
-import TabPanel from './src/pages/bbs/panelOne';
 import Login from './src/pages/login';
 import Register from './src/pages/register';
 import Concern from './src/pages/concern';
 
-const TabTopItem = e => {
-  return (
-    <TabTop.Navigator className="Navigator">
-      <TabTop.Screen name="Item1" component={TabPanel} />
-      <TabTop.Screen name="Item2" component={BBS} />
-    </TabTop.Navigator>
-  );
-};
 const TabBottom = e => {
   return (
     <Tab.Navigator>
@@ -69,7 +58,7 @@ const TabBottom = e => {
       />
       <Tab.Screen
         name="BBS"
-        component={TabTopItem}
+        component={BBS}
         options={{
           tabBarLabel: '论坛',
           tabBarIcon: ({color, size}) => (

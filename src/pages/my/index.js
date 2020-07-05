@@ -7,24 +7,37 @@ import {
   Platform,
   StyleSheet,
   TouchableWithoutFeedback,
+  AsyncStorage,
 } from 'react-native';
 import {Link} from '@react-navigation/native';
 import {Statistics, Item} from './page-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Jump from '../../utils/jump';
 
-export default class My extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {myInit} from './redux';
+
+class My extends React.Component {
+  async componentDidMount() {
+    const id = await AsyncStorage.getItem('sid');
+    this.props.myInit(id);
+  }
+
   editInfo = () => {
     const {navigation} = this.props;
-
     Jump.linkToPage({
       navigation,
       url: 'EditInfo',
     });
   };
   render() {
-    const {navigation} = this.props;
-    // navigation.setOption({title: '我的'});
+    const {init, data, navigation} = this.props;
+    // if (!init) {
+    //   return <Text>loading</Text>;
+    // }
+    const {nickName} = data;
+    console.log(nickName);
     return (
       <ScrollView>
         <View style={styles.login}>
@@ -58,6 +71,11 @@ export default class My extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => state.my,
+  dispatch => bindActionCreators({myInit}, dispatch),
+)(My);
 
 const styles = StyleSheet.create({
   login: {

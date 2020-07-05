@@ -1,3 +1,4 @@
+import {AsyncStorage} from 'react-native';
 import {postRegisterReq} from './api';
 // Actions
 const UPDATE = 'REGISTER_UPDATE';
@@ -28,11 +29,18 @@ export const registerUpdate = params => ({
 
 export const registerInit = (params, callback) => async dispatch => {
   const res = await postRegisterReq(params || {});
-  alert(res)
+  const {
+    accessToken,
+    profile: {name, sid},
+  } = res;
+
+  await AsyncStorage.setItem('token', accessToken);
+  await AsyncStorage.setItem('name', name);
+  await AsyncStorage.setItem('sid', sid);
   dispatch(
     registerUpdate({
       data: {
-        res,
+        accessToken,
       },
     }),
   );

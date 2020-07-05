@@ -35,32 +35,38 @@ export default class Item extends React.Component {
             <View style={styles.content}>
               <TouchableOpacity
                 style={styles.nameAndAvatar}
-                onPress={() => this.linkTo(index)}>
-                <Image style={styles.avatar} source={require('./pic49.png')} />
+                onPress={() => this.linkTo(v.id)}>
+                <Image style={styles.avatar} source={{uri: v.image}} />
                 <View style={styles.titleBox}>
-                  <Text style={styles.title}>美国留学大本营</Text>
+                  <Text style={styles.title}>{v.name}</Text>
                   <View style={styles.count}>
                     <Image
                       style={styles.badge}
                       source={require('./pic58.png')}
                     />
-                    <Text style={styles.subTitle}>67位成员</Text>
+                    <Text style={styles.subTitle}>{v.userCount}位成员</Text>
                     <Image
                       style={[styles.badge, styles.next]}
                       source={require('./pic59.png')}
                     />
-                    <Text style={styles.subTitle}>41内容记录</Text>
+                    <Text style={styles.subTitle}>
+                      {v.discussionCount}内容记录
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.btnWrapper}>
-                  <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.txt}>加入</Text>
-                  </TouchableOpacity>
+                  {v.join ? (
+                    <TouchableOpacity style={styles.btn}>
+                      <Text style={styles.txt}>加入</Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity style={styles.unjoin}>
+                      <Text style={styles.txt}>未加入</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
               </TouchableOpacity>
-              <Text style={styles.desc}>
-                分享美国高中&香港&英国硕士生活和申请相关学历和申请相关学历
-              </Text>
+              <Text style={styles.desc}>{v.description}</Text>
             </View>
           </View>
         ))}
@@ -144,6 +150,17 @@ const styles = StyleSheet.create({
     color: '#14a4c8',
     lineHeight: 26,
     textAlign: 'center',
+  },
+
+  unjoin: {
+    width: 58,
+    height: 26,
+    color: '#14a4c8',
+    // backgroundColor: '#e7f6fa',
+    borderWidth: 1,
+    borderColor: '#14a4c8',
+    borderRadius: 13,
+    alignItems: 'center',
   },
   desc: {
     padding: 10,

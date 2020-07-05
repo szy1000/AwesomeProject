@@ -7,12 +7,12 @@ export default class Index extends React.Component {
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
-          <View style={styles.slide}>
-            <Image style={styles.item} source={require('./banner1.png')} />
-          </View>
-          <View style={styles.slide}>
-            <Image style={styles.item} source={require('./banner2.png')} />
-          </View>
+          {this.props.files.length > 0 &&
+            this.props.files.map(item => (
+              <View style={styles.slide} key={item}>
+                <Image style={styles.item} source={{uri: item}} />
+              </View>
+            ))}
         </Swiper>
       </View>
     );
@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   wrapper: {
-    paddingTop: 48,
+    // paddingTop: 48,
     backgroundColor: '#e6fffe',
-    height: 300,
+    height: 150,
   },
   item: {
     width: '100%',

@@ -1,23 +1,31 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Image,
+  TouchableWithoutFeedback,
+  Text,
+  StyleSheet,
+} from 'react-native';
 
 export default class Header extends React.Component {
   render() {
+    const {avatarUrl, userName, address} = this.props.user;
     return (
       <View style={styles.header}>
-        <Image style={styles.avatar} source={require('./tx1.png')} />
+        <Image style={styles.avatar} source={{uri: avatarUrl}} />
         <View style={{flex: 1}}>
           <Text style={styles.name} numberOfLines={1}>
-            多啦A梦
+            {userName}
           </Text>
           <View style={styles.addressWrapper} numberOfLines={1}>
             <Image style={styles.icon} source={require('./address.png')} />
-            <Text style={styles.address}>东京大学</Text>
+            <Text style={styles.address}>{address}</Text>
           </View>
         </View>
         <View>
-          <Text>关注</Text>
-          <Image style={styles.share} source={require('./')} />
+          <TouchableWithoutFeedback onPress={this.props.followFn}>
+            <Text>关注</Text>
+          </TouchableWithoutFeedback>
         </View>
       </View>
     );
