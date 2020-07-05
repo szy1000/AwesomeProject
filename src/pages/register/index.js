@@ -2,9 +2,10 @@ import React from 'react';
 import {
   TextInput,
   Text,
-  TouchableWithoutFeedback,
+  // TouchableWithoutFeedback,
   View,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -95,9 +96,9 @@ class Register extends React.Component {
           placeholder={'请再次输入密码'}
           onChangeText={e => this.saveTextValue('repeatPassword', e)}
         />
-        <TouchableWithoutFeedback onPress={this.registerReq}>
-          <Text style={styles.text}>注册</Text>
-        </TouchableWithoutFeedback>
+        <TouchableOpacity style={styles.btn} onPress={this.registerReq}>
+          <Text style={styles.white}>注册</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -107,7 +108,30 @@ const styles = StyleSheet.create({
   register: {
     flex: 1,
     paddingTop: 30,
+    paddingHorizontal: 30,
     backgroundColor: '#fff',
+  },
+
+  ipt: {
+    marginVertical: 10,
+    // flex: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+
+  btn: {
+    marginTop: 50,
+    height: 40,
+    backgroundColor: '#11a8cd',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  white: {
+    color: '#fff',
   },
   text: {},
 });

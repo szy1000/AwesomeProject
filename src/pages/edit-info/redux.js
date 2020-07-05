@@ -1,6 +1,6 @@
-import {getUserInfoReq, getUserStatReq} from './api';
+import {getUserInfoReq} from './api';
 // Actions
-const UPDATE = 'MY_UPDATE';
+const UPDATE = 'EDIT_INFO_UPDATE';
 
 // Reducer
 const initState = {
@@ -8,7 +8,7 @@ const initState = {
   data: [],
 };
 
-export const my = (state = initState, action) => {
+export const editInfo = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -21,20 +21,18 @@ export const my = (state = initState, action) => {
 };
 
 // Action Creators
-export const myUpdate = params => ({
+export const editInfoUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const myInit = (params, callback) => async dispatch => {
+export const editInfoInit = (params, callback) => async dispatch => {
   const userInfo = await getUserInfoReq(params || {});
-  const userStat = await getUserStatReq(params || {});
   dispatch(
-    myUpdate({
+    editInfoUpdate({
       init: true,
       data: {
-        userInfo,
-        userStat,
+        ...userInfo,
       },
     }),
   );

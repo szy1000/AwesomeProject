@@ -4,7 +4,8 @@ import Jump from '../../../../utils/jump';
 
 export default class Statistics extends React.Component {
   render() {
-    const {navigation} = this.props;
+    const {navigation, userStat} = this.props;
+    const {joinCount, publishCount, followCount, favoriteCount} = userStat;
     return (
       <View style={styles.statistics}>
         <TouchableOpacity
@@ -16,7 +17,7 @@ export default class Statistics extends React.Component {
             });
           }}>
           <View>
-            <Text style={styles.count}>10</Text>
+            <Text style={styles.count}>{joinCount}</Text>
             <Text style={styles.title}>加入</Text>
           </View>
         </TouchableOpacity>
@@ -29,7 +30,7 @@ export default class Statistics extends React.Component {
             });
           }}>
           <View>
-            <Text style={styles.count}>10</Text>
+            <Text style={styles.count}>{publishCount}</Text>
             <Text style={styles.title}>发布</Text>
           </View>
         </TouchableOpacity>
@@ -42,7 +43,7 @@ export default class Statistics extends React.Component {
             });
           }}>
           <View>
-            <Text style={styles.count}>10</Text>
+            <Text style={styles.count}>{followCount}</Text>
             <Text style={styles.title}>关注</Text>
           </View>
         </TouchableOpacity>
@@ -55,7 +56,7 @@ export default class Statistics extends React.Component {
             });
           }}>
           <View>
-            <Text style={styles.count}>10</Text>
+            <Text style={styles.count}>{favoriteCount}</Text>
             <Text style={styles.title}>收藏</Text>
           </View>
         </TouchableOpacity>

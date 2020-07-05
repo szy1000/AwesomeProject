@@ -13,13 +13,16 @@ import {Link} from '@react-navigation/native';
 import {Statistics, Item} from './page-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Jump from '../../utils/jump';
-
+import {Loading} from '../../components/';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {myInit} from './redux';
+import Tools from '../../utils/tool';
 
 class My extends React.Component {
   async componentDidMount() {
+    this.isLogin = await Tools.isLogin();
+    this.userName = await AsyncStorage.getItem('name');
     const id = await AsyncStorage.getItem('sid');
     this.props.myInit(id);
   }
@@ -33,38 +36,55 @@ class My extends React.Component {
   };
   render() {
     const {init, data, navigation} = this.props;
-    // if (!init) {
-    //   return <Text>loading</Text>;
-    // }
-    const {nickName} = data;
-    console.log(nickName);
+    if (!init) {
+      return <Loading />;
+    }
+
+    const {nickName, userStat} = data;
+    console.log('mydata', data);
     return (
       <ScrollView>
         <View style={styles.login}>
-          <TouchableWithoutFeedback onPress={this.editInfo}>
-            <View style={styles.loginWrapper}>
-              <ImageBackground
-                accessibilityRole={'image'}
-                source={require('./logo.jpeg')}
-                style={styles.avatar}
-              />
-              <View style={{flex: 1}}>
-                <Text style={styles.link}>
-                  <Link to="/Login">登录</Link>
-                  <Text>/</Text>
-                  <Link to="/Register">注册</Link>
-                </Text>
-                <Text style={styles.text}>一键登录，享受更多精彩信息！</Text>
+          {this.isLogin ? (
+            <TouchableWithoutFeedback onPress={this.editInfo}>
+              <View style={styles.loginWrapper}>
+                <ImageBackground
+                  accessibilityRole={'image'}
+                  source={require('./logo.jpeg')}
+                  style={styles.avatar}
+                />
+                <View style={{flex: 1}}>
+                  <Text style={styles.link}>{this.userName}</Text>
+                  {/*<Text style={styles.text}>一键登录，享受更多精彩信息！</Text>*/}
+                </View>
+                <AntDesign
+                  name="right"
+                  color="#fff"
+                  style={{fontWeight: '100'}}
+                  size={40}
+                />
               </View>
-              <AntDesign
-                name="right"
-                color="#fff"
-                style={{fontWeight: '100'}}
-                size={40}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <Statistics {...this.props} />
+            </TouchableWithoutFeedback>
+          ) : (
+            <TouchableWithoutFeedback>
+              <View style={styles.loginWrapper}>
+                <ImageBackground
+                  accessibilityRole={'image'}
+                  source={require('./logo.jpeg')}
+                  style={styles.avatar}
+                />
+                <View style={{flex: 1}}>
+                  <Text style={styles.link}>
+                    <Link to="/Login">登录</Link>
+                    <Text>/</Text>
+                    <Link to="/Register">注册</Link>
+                  </Text>
+                  <Text style={styles.text}>一键登录，享受更多精彩信息！</Text>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          )}
+          <Statistics {...this.props} userStat={userStat} />
         </View>
         <Item {...this.props} />
       </ScrollView>
