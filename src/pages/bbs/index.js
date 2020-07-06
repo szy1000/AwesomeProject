@@ -14,6 +14,7 @@ import Jump from '../../utils/jump';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {bbsInit} from './redux';
+import {Loading} from '../../components';
 
 class BBS extends React.Component {
   componentDidMount(): void {
@@ -32,10 +33,10 @@ class BBS extends React.Component {
   render() {
     const {init, data, navigation} = this.props;
     if (!init) {
-      return <Text>loading</Text>;
+      return <Loading />;
     }
     const {groupCategory, hotGroup} = data;
-    console.log(hotGroup)
+    console.log(hotGroup);
     return (
       <View style={styles.bbs}>
         <ScrollView>

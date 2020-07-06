@@ -22,9 +22,11 @@ import Tools from '../../utils/tool';
 class My extends React.Component {
   async componentDidMount() {
     this.isLogin = await Tools.isLogin();
-    this.userName = await AsyncStorage.getItem('name');
-    const id = await AsyncStorage.getItem('sid');
-    this.props.myInit(id);
+    if (this.isLogin) {
+      this.userName = await AsyncStorage.getItem('name');
+      const id = await AsyncStorage.getItem('sid');
+      this.props.myInit(id);
+    }
   }
 
   editInfo = () => {
@@ -36,9 +38,9 @@ class My extends React.Component {
   };
   render() {
     const {init, data, navigation} = this.props;
-    if (!init) {
-      return <Loading />;
-    }
+    // if (!init) {
+    //   return <Loading />;
+    // }
 
     const {nickName, userStat} = data;
     console.log('mydata', data);

@@ -5,7 +5,10 @@ const UPDATE = 'MY_UPDATE';
 // Reducer
 const initState = {
   init: false,
-  data: [],
+  data: {
+    userInfo: {},
+    userStat: {},
+  },
 };
 
 export const my = (state = initState, action) => {

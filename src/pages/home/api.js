@@ -5,4 +5,4 @@ const getHotSchoolReq = params => Https.get('/api/app/university/hot', params);
 const getHotSubjectReq = params => Https.get('/api/app/subject/hot', params);
 const getCaseReq = params => Https.get('/api/app/case/hot', params);
 
-export {getCountryReq, getHotSchoolReq, getHotSubjectReq,getCaseReq};
+export {getCountryReq, getHotSchoolReq, getHotSubjectReq, getCaseReq};

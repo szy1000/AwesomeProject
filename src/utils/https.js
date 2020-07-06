@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Jump from './jump';
+
 import {AsyncStorage} from 'react-native';
 
 const instance = axios.create({
@@ -10,6 +11,8 @@ const instance = axios.create({
   },
 });
 
+let navigation = null;
+
 instance.interceptors.request.use(async function(config) {
   config.headers.Authorization =
     'Basic ' + (await AsyncStorage.getItem('token'));
@@ -19,10 +22,12 @@ instance.interceptors.request.use(async function(config) {
 
 const promiseFun = (method, url, params, needCode, resolve, reject) => {
   params.params = params.params || {};
+  if (params.params.navigation) {
+    navigation = params.params.navigation;
+  }
   instance[method](url, params)
     .then(res => {
       const {success, error, data} = res.data;
-      console.log(res.data);
       if (needCode) {
         resolve(res.data);
       } else if (success) {
@@ -34,9 +39,17 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
       }
     })
     .catch(err => {
-      alert(JSON.stringify(err));
-      console.log(err);
-      reject();
+      console.log('navigation', navigation);
+      AsyncStorage.clear();
+      const {message} = err;
+      if (message.indexOf(401)) {
+        alert(JSON.stringify('未登录,请先登录'));
+        navigation.replace('Login');
+      } else {
+        alert(JSON.stringify(err));
+      }
+      throw err;
+      // reject();
     });
 };
 

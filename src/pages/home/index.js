@@ -7,7 +7,7 @@ import {
   TextInput,
   Image,
   Platform,
-  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -22,7 +22,6 @@ import Case from './page-components/case';
 import Course from './page-components/course';
 
 import {homeInit} from './redux';
-import Loading from '../../components/loading';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -32,14 +31,14 @@ class Home extends React.Component {
     this.props.homeInit({
       pageNum: 1,
       pageSize: 4,
+      navigation: this.props.navigation,
     });
   };
 
   render() {
     const {init, navigation, data} = this.props;
-    console.log(this.props);
     if (!init) {
-      return <Loading />;
+      return <ActivityIndicator />;
     }
     const {country, hotSchool, hotSubject, hotCase} = data;
     return (
@@ -81,7 +80,6 @@ class Home extends React.Component {
                 <View style={styles.item} key={index}>
                   <Image
                     accessibilityRole={'image'}
-                    // source={{uri: `http://47.114.151.211:8081${item.imageUrl}`}}
                     source={{uri: item.imageUrl}}
                     style={styles.pic}
                   />

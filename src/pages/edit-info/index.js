@@ -91,7 +91,7 @@ class EditInfo extends React.Component {
         <Item
           title="个性签名"
           extra={
-            <Text>{personalSignature || '书写前面有助你认识更多好友'}</Text>
+            <Text>{personalSignature || '书写签名有助你认识更多好友'}</Text>
           }
         />
         {avatarSource.length > 0 && (

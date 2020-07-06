@@ -35,8 +35,10 @@ export const homeInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
   const country = await getCountryReq(params || {});
-
-  const countyParams = {country_id: country[0].id};
+  const countyParams = {
+    country_id: country[0].id,
+    navigation: params.navigation,
+  };
   const hotSchool = await getHotSchoolReq(countyParams);
   const hotSubject = await getHotSubjectReq(countyParams);
   const hotCase = await getCaseReq(countyParams);

@@ -29,11 +29,19 @@ export default class Login extends React.Component {
   handleLogin = async () => {
     // alert(JSON.stringify((await AsyncStorage.getItem('token')) || ''));
     const res = await loginReq(this.state);
-    const {accessToken, profile} = res;
-    AsyncStorage.setItem('token', accessToken);
-    AsyncStorage.setItem('name', profile.name);
-    AsyncStorage.setItem('sid', profile.sid.toString());
-    Jump.resetToHome(this.props);
+    const {success, data} = res;
+    if (success) {
+      const {accessToken, profile} = data;
+
+      await AsyncStorage.setItem('token', accessToken);
+      await AsyncStorage.setItem('name', profile.name);
+      await AsyncStorage.setItem('sid', profile.sid.toString());
+      Jump.resetToHome(this.props);
+    } else {
+      alert('登录失败');
+    }
+
+    console.log('login res', res);
   };
 
   render() {

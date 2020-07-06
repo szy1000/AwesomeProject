@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, Image, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  AsyncStorage,
+  TouchableOpacity,
+} from 'react-native';
 import Jump from '../../../../utils/jump';
 
 export default class Item extends React.Component {
@@ -62,11 +69,11 @@ export default class Item extends React.Component {
     {
       icon: require('./pic38.png'),
       title: '退出登录',
-      clickFn: () => {
+      clickFn: async () => {
+        await AsyncStorage.clear();
         const {navigation} = this.props;
-        Jump.linkToPage({
+        Jump.resetToHome({
           navigation: navigation,
-          url: 'Concern',
         });
       },
     },
