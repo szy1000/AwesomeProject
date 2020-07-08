@@ -87,13 +87,9 @@ export default class Library extends Component {
         <Image style={styles.icon} source={{uri: item.item.img}} />
         <View style={styles.rItemDetail}>
           <Text style={styles.foodName}>{item.item.name}</Text>
-          <View style={styles.saleFavorite}>
-            <Text style={styles.saleFavoriteText}>{item.item.sale}</Text>
-            <Text style={[styles.saleFavoriteText, {marginLeft: 15}]}>
-              {item.item.favorite}
-            </Text>
-          </View>
-          <Text style={styles.moneyText}>￥{item.item.money}</Text>
+          <View style={styles.saleFavorite} />
+          <Text style={styles.saleFavoriteText}>{item.item.sale}</Text>
+          {/*<Text style={styles.moneyText}>￥{item.item.money}</Text>*/}
         </View>
       </View>
     );
@@ -166,9 +162,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   rItemDetail: {
+    paddingBottom: 10,
     flex: 1,
     marginTop: 10,
     marginLeft: 5,
+    justifyContent: 'space-between',
   },
   icon: {
     height: 60,

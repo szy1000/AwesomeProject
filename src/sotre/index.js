@@ -8,6 +8,7 @@ import {find} from '../pages/find/redux';
 import {my} from '../pages/my/redux';
 import {findDetail} from '../pages/find-detail/redux';
 import {editInfo} from '../pages/edit-info/redux';
+import {join} from '../pages/join/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -30,6 +31,7 @@ const store = createStore(
     my,
     findDetail,
     editInfo,
+    join,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

@@ -1,5 +1,8 @@
 import Https from '../../utils/https';
 
-const getAllNoteReq = params => Https.get('/api/app/note', params);
+const getJoinReq = params => Https.get('/api/app/forum/group/mine', params);
 
-export {getAllNoteReq};
+const getMangeGroupReq = params =>
+  Https.get('/api/app/forum/discussion/mine', params);
+
+export {getJoinReq, getMangeGroupReq};

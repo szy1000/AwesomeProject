@@ -1,6 +1,6 @@
-import {getAllNoteReq} from './api';
+import {getJoinReq, getMangeGroupReq} from './api';
 // Actions
-const UPDATE = 'FIND_UPDATE';
+const UPDATE = 'JOIN_UPDATE';
 
 // Reducer
 const initState = {
@@ -8,7 +8,7 @@ const initState = {
   data: [],
 };
 
-export const find = (state = initState, action) => {
+export const join = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -21,20 +21,20 @@ export const find = (state = initState, action) => {
 };
 
 // Action Creators
-export const findUpdate = params => ({
+export const joinUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const findInit = (params, callback) => async dispatch => {
+export const joinInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  const note = await getAllNoteReq(params || {});
+  const join = await getJoinReq(params || {});
   dispatch(
-    findUpdate({
+    joinUpdate({
       init: true,
       data: {
-        note,
+        join,
       },
     }),
   );

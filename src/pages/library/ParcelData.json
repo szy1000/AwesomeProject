@@ -1,129 +1,91 @@
 [
   {
-    section: '热销',
+    section: '摄影',
     data: [
       {
-        name: '蟹黄汤包',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '20',
-        img: 'http://p1.meituan.net/deal/__39230311__3449301.jpg',
+        name: '我是新闻',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '小馄饨',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-          'http://p1.meituan.net/deal/849d8b59a2d9cc5864d65784dfd6fdc6105232.jpg',
+        name: '我是新闻',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '蟹黄汤包+牛杂粉丝汤套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '35',
-        img:
-          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+        name: '我是新闻',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '鸭血粉丝汤',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '15',
-        img:
-          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+        name: '我是新闻',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
+      {
+        name: '我是新闻',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
+      }
     ],
   },
   {
-    section: '介绍我们',
+    section: '人文',
     data: [
       {
-        name: '慎用差评！任何问题联系我们就可解决哦',
-        sale: '月售1',
-        favorite: '赞0',
-        money: '0',
-        img: 'http://p1.meituan.net/deal/__39230311__3449301.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
+      {
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
+      },
+      {
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
+      },
+      {
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
+      }
     ],
   },
   {
-    section: '折扣套餐',
+    section: '艺术',
     data: [
       {
-        name: '特色蟹黄汤包+鸭血粉丝汤+果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '50',
-        img: 'http://p1.meituan.net/deal/__39230311__3449301.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '蟹黄汤包+牛杂粉丝汤套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '35',
-        img:
-          'http://p1.meituan.net/deal/849d8b59a2d9cc5864d65784dfd6fdc6105232.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '蟹黄汤包+南瓜粥+果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
-      },{
-        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
-      },{
-        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
-      },{
-        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
-      },{
-        name: '金牌蟹黄汤包+紫米粥+柠檬果汁套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-        'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
       {
-        name: '台式卤肉饭+南瓜粥套餐',
-        sale: '月售875',
-        favorite: '赞31',
-        money: '10',
-        img:
-          'http://p0.meituan.net/deal/ed3025663342b126eaae24764704b017136487.jpg',
+        name: '学校那些事情',
+        sale: '1.5个会员',
+        img: 'http://47.114.151.211:8081/static/xxx-xxx-xxx-xvvvv.png',
       },
     ],
   },

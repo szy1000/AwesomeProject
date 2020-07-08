@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Jump from '../../../../utils/jump';
 
-export default class Item extends React.Component {
+export default class Join extends React.Component {
   linkToDetail = id => {
     const {navigation} = this.props;
     Jump.linkToPage({

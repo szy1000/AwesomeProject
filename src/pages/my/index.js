@@ -78,8 +78,8 @@ class My extends React.Component {
                 <View style={{flex: 1}}>
                   <Text style={styles.link}>
                     <Link to="/Login">登录</Link>
-                    <Text>/</Text>
-                    <Link to="/Register">注册</Link>
+                    {/*<Text>/</Text>*/}
+                    {/*<Link to="/Register">注册</Link>*/}
                   </Text>
                   <Text style={styles.text}>一键登录，享受更多精彩信息！</Text>
                 </View>

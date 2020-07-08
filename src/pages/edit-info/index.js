@@ -74,7 +74,8 @@ class EditInfo extends React.Component {
             <Image
               style={styles.select}
               source={
-                avatarUrl ? {uri: avatarUrl || ''} : require('./logo.jpeg')
+                avatarSource ? avatarSource : {uri: avatarUrl || ''}
+                // avatarUrl ? {uri: avatarUrl || ''} :
               }
             />
           }

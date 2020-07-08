@@ -143,7 +143,7 @@ function getHeaderTitle(_params) {
 }
 
 export default class AppNavigator extends React.Component {
-  componentDidMount(): void {
+  componentDidMount() {
     YellowBox.ignoreWarnings([
       'Warning: componentWillMount is deprecated',
       'Warning: componentWillReceiveProps is deprecated',

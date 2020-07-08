@@ -32,7 +32,6 @@ export default class Login extends React.Component {
     const {success, data} = res;
     if (success) {
       const {accessToken, profile} = data;
-
       await AsyncStorage.setItem('token', accessToken);
       await AsyncStorage.setItem('name', profile.name);
       await AsyncStorage.setItem('sid', profile.sid.toString());
@@ -84,24 +83,24 @@ export default class Login extends React.Component {
             onPress={this.handleLogin}>
             <Text style={styles.white}>登录</Text>
           </TouchableOpacity>
-          <View style={styles.linkToRegister}>
-            <Text style={styles.noAccount}>还没有账号？</Text>
-            <Link style={styles.register} to="/Register">
-              立即注册
-            </Link>
-          </View>
+          {/*<View style={styles.linkToRegister}>*/}
+          {/*  <Text style={styles.noAccount}>还没有账号？</Text>*/}
+          {/*  <Link style={styles.register} to="/Register">*/}
+          {/*    立即注册*/}
+          {/*  </Link>*/}
+          {/*</View>*/}
 
-          <View style={styles.loginWays}>
-            <View style={styles.way}>
-              <Image style={styles.icon} source={require('./pic47.png')} />
-              <Text style={styles.wayName}>QQ登录</Text>
-            </View>
-            <View style={styles.line} />
-            <View style={styles.way}>
-              <Image style={styles.icon} source={require('./pic48.png')} />
-              <Text style={styles.wayName}>微信登录</Text>
-            </View>
-          </View>
+          {/*<View style={styles.loginWays}>*/}
+          {/*  <View style={styles.way}>*/}
+          {/*    <Image style={styles.icon} source={require('./pic47.png')} />*/}
+          {/*    <Text style={styles.wayName}>QQ登录</Text>*/}
+          {/*  </View>*/}
+          {/*  <View style={styles.line} />*/}
+          {/*  <View style={styles.way}>*/}
+          {/*    <Image style={styles.icon} source={require('./pic48.png')} />*/}
+          {/*    <Text style={styles.wayName}>微信登录</Text>*/}
+          {/*  </View>*/}
+          {/*</View>*/}
         </View>
       </View>
     );

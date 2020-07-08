@@ -1,12 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
 import {Tab} from '../../components';
 import {Item} from './page-components';
 
-export default class Join extends React.Component {
-  render() {
-    const {navigation} = this.props;
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {joinInit} from './redux';
 
+class Join extends React.Component {
+  componentDidMount(): void {
+    this.props.joinInit()
+  }
+
+  render() {
+    const {init, data, navigation} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    console.log(data)
     return (
       <Tab
         tabBarOptions={{
@@ -36,6 +47,11 @@ export default class Join extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => state.join,
+  dispatch => bindActionCreators({joinInit}, dispatch),
+)(Join);
 
 const styles = StyleSheet.create({
   join: {
