@@ -1,5 +1,7 @@
 import React from 'react';
-import {Text, View, Image, StyleSheet, AsyncStorage} from 'react-native';
+import {Text, View, Image, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import Item from './item';
 import ImagePicker from 'react-native-image-picker';
 

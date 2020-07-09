@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   Image,
-  AsyncStorage,
 } from 'react-native';
 import {Loading} from '../../components/';
 import {connect} from 'react-redux';
@@ -67,7 +66,6 @@ class Find extends React.Component {
   };
 
   async componentDidMount() {
-    console.log(await AsyncStorage.getItem('token'));
     this.props.findInit({
       pageSize: 8,
       pageNum: 1,

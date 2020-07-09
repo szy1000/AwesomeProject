@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Jump from './jump';
 
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const instance = axios.create({
   baseURL: 'http://47.114.151.211:8081',

@@ -7,8 +7,9 @@ import {
   Platform,
   StyleSheet,
   TouchableWithoutFeedback,
-  AsyncStorage,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {Link} from '@react-navigation/native';
 import {Statistics, Item} from './page-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';

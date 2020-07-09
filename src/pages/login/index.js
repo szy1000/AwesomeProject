@@ -1,6 +1,6 @@
 import React from 'react';
 import Jump from '../../utils/jump';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   Image,
   Text,

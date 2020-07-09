@@ -4,9 +4,10 @@ import {
   Image,
   View,
   StyleSheet,
-  AsyncStorage,
   TouchableOpacity,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import Jump from '../../../../utils/jump';
 
 export default class Item extends React.Component {
