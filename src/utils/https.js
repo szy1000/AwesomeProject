@@ -25,13 +25,13 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
   if (params.params.navigation) {
     navigation = params.params.navigation;
   }
+  console.warn('url', url);
   instance[method](url, params)
     .then(res => {
       const {success, error, data} = res.data;
       if (needCode) {
         resolve(res.data);
       } else if (success) {
-        console.log('data', res.data);
         resolve(data);
       } else {
         console.log('error:', JSON.stringify(res.data));
@@ -42,6 +42,7 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
       console.log('navigation', navigation);
       AsyncStorage.clear();
       const {message} = err;
+      alert(JSON.stringify(err));
       if (message.indexOf(401)) {
         alert(JSON.stringify('未登录,请先登录'));
         navigation.replace('Login');

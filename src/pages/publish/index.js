@@ -7,38 +7,57 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from 'react-native';
-import {WhiteSpace} from '../../components';
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {publishInit} from './redux';
+
+import {WhiteSpace, Empty} from '../../components';
 import Item from './item';
 
-export default class Publish extends React.Component {
+class Publish extends React.Component {
   state = {
     dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
     loading: false,
   };
 
+  componentDidMount(): void {
+    this.pageInit();
+  }
+
+  pageInit = callback => {
+    this.props.publishInit(
+      {
+        pageSize: 10,
+        pageNumber: 1,
+      },
+      callback,
+    );
+  };
+
   getDate = () => {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
+    this.pageInit(() => {
       this.setState({
         dataArr: [5, 4, 3, 2, 1],
         refreshLoading: false,
       });
-    }, 2000);
+    });
   };
 
   getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
-      });
-    }, 2000);
+    // this.setState({
+    //   loading: true,
+    // });
+    // setTimeout(() => {
+    //   this.setState({
+    //     dataArr: [...this.state.dataArr, 8, 9, 10],
+    //     loading: false,
+    //   });
+    // }, 2000);
   };
 
   _onPressItem = item => {
@@ -46,34 +65,52 @@ export default class Publish extends React.Component {
   };
 
   render() {
-    const {dataArr, refreshLoading, loading} = this.state;
+    const {refreshLoading, loading} = this.state;
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {publish} = data;
     return (
-      <View style={styles.concern}>
-        <FlatList
-          data={dataArr}
-          renderItem={({item, index}) => <Item {...item} />}
-          ItemSeparatorComponent={({highlighted}) => <WhiteSpace size="big" />}
-          refreshControl={
-            <RefreshControl
-              title={'loading'}
-              tintColor={'orange'}
-              titleColor={'red'}
-              refreshing={refreshLoading}
-              onRefresh={this.getDate}
+      <>
+        {publish.data.length > 0 ? (
+          <View style={styles.concern}>
+            <FlatList
+              data={publish.data}
+              renderItem={({item, index}) => <Item {...item} />}
+              ItemSeparatorComponent={({highlighted}) => (
+                <WhiteSpace size="big" />
+              )}
+              refreshControl={
+                <RefreshControl
+                  title={'loading'}
+                  tintColor={'orange'}
+                  titleColor={'red'}
+                  refreshing={refreshLoading}
+                  onRefresh={this.getDate}
+                />
+              }
+              ListFooterComponent={
+                <View style={styles.activity}>
+                  <ActivityIndicator animating={loading} />
+                  <Text style={styles.txt}>加载更多</Text>
+                </View>
+              }
+              onEndReached={this.getMore}
             />
-          }
-          ListFooterComponent={
-            <View style={styles.activity}>
-              <ActivityIndicator animating={loading} />
-              <Text style={styles.txt}>加载更多</Text>
-            </View>
-          }
-          onEndReached={this.getMore}
-        />
-      </View>
+          </View>
+        ) : (
+          <Empty />
+        )}
+      </>
     );
   }
 }
+
+export default connect(
+  state => state.publish,
+  dispatch => bindActionCreators({publishInit}, dispatch),
+)(Publish);
 
 const styles = StyleSheet.create({
   concern: {

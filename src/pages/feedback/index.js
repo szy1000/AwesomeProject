@@ -1,17 +1,21 @@
 import React from 'react';
 import {
-  Button,
   Text,
   View,
   TextInput,
   Image,
   TouchableWithoutFeedback,
   StyleSheet,
+  Button,
 } from 'react-native';
 import {Item} from '../../components';
 import ImagePicker from 'react-native-image-picker';
 
-export default class Feedback extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {submitFeedback} from './redux';
+
+class Feedback extends React.Component {
   state = {
     avatarSource: '',
     error: 'erroree',
@@ -38,7 +42,6 @@ export default class Feedback extends React.Component {
         alert(JSON.stringify(response));
 
         const source = {uri: response.uri};
-
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
@@ -59,6 +62,14 @@ export default class Feedback extends React.Component {
     });
   };
 
+  submitFeed = () => {
+    const {value, contact} = this.state;
+    console.warn(value, contact);
+    this.props.submitFeedback({
+
+    })
+  };
+
   render() {
     const {navigation} = this.props;
     const {avatarSource, value, contact, error} = this.state;
@@ -72,7 +83,11 @@ export default class Feedback extends React.Component {
           placeholder={'请输入反馈内容...'}
         />
         <TouchableWithoutFeedback onPress={this.getPhoto}>
-          <Image style={styles.img} />
+          <Image
+            style={styles.img}
+            resizeMode="contain"
+            source={require('./add.png')}
+          />
         </TouchableWithoutFeedback>
         <Item title={'联系方式'} more={false}>
           <TextInput
@@ -85,11 +100,9 @@ export default class Feedback extends React.Component {
         <Text>{avatarSource}</Text>
 
         {avatarSource.length > 0 && (
-          <Image
-            style={{width: '80%', height: 200, resizeMode: 'contain'}}
-            source={avatarSource}
-          />
+          <Image style={styles.addPhoto} source={avatarSource} />
         )}
+        <Button style={styles.submit} onPress={this.submitFeed} title="发送" />
       </View>
     );
   }
@@ -97,7 +110,18 @@ export default class Feedback extends React.Component {
 
 const styles = StyleSheet.create({
   feedback: {
-    // backgroundColor: '#fff',
+    backgroundColor: '#fff',
+  },
+
+  img: {
+    marginLeft: 15,
+    marginBottom: 15,
+  },
+  addPhoto: {
+    width: '80%',
+    height: 200,
+    resizeMode: 'contain',
+    backgroundColor: '#ccc',
   },
   ipt: {
     marginTop: 15,
@@ -106,4 +130,12 @@ const styles = StyleSheet.create({
     height: 200,
     // color: '#ddd',
   },
+  submit: {
+    marginTop: 30,
+  },
 });
+
+export default connect(
+  state => state.feedback,
+  dispatch => bindActionCreators({submitFeedback}, dispatch),
+)(Feedback);

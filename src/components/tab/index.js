@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, Dimensions} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
 const TopTab = createMaterialTopTabNavigator();
 
 export default class Tab extends React.Component {

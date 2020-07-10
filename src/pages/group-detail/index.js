@@ -8,7 +8,7 @@ export default class GroupDetail extends React.Component {
     const {
       route: {params},
     } = this.props;
-    console.log(params);
+    console.warn(params);
   }
 
   render() {

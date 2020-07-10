@@ -1,21 +1,31 @@
 import React from 'react';
-import {Text, View, Image, StyleSheet} from 'react-native';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
 import {Tab} from '../../components';
 import {GroupTitle, Item, Discussion} from './page-components';
 
-export default class Group extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {groupInit} from './redux';
+
+class Group extends React.Component {
   componentDidMount() {
     const {
       route: {params},
     } = this.props;
-    console.log(params);
+
+    this.props.groupInit(params.id);
   }
 
   render() {
-    const {navigation} = this.props;
+    const {init, data, navigation} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {group, groupList} = data;
+    console.warn(groupList)
     return (
       <Tab
-        common={<GroupTitle {...this.props} />}
+        common={<GroupTitle {...this.props} group={group} />}
         tabBarOptions={{
           labelStyle: {
             fontSize: 14,
@@ -56,3 +66,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default connect(
+  state => state.group,
+  dispatch => bindActionCreators({groupInit}, dispatch),
+)(Group);

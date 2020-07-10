@@ -9,6 +9,11 @@ import {my} from '../pages/my/redux';
 import {findDetail} from '../pages/find-detail/redux';
 import {editInfo} from '../pages/edit-info/redux';
 import {join} from '../pages/join/redux';
+import {joinTab} from '../pages/join/page-components/joinTab/redux';
+import {manageTab} from '../pages/join/page-components/manageTab/redux';
+import {publish} from '../pages/publish/redux';
+import {feedback} from '../pages/feedback/redux';
+import {group} from '../pages/group/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -32,6 +37,11 @@ const store = createStore(
     findDetail,
     editInfo,
     join,
+    joinTab,
+    manageTab,
+    publish,
+    feedback,
+    group,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

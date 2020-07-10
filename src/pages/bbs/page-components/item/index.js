@@ -20,7 +20,7 @@ export default class Item extends React.Component {
     Jump.linkToPage({
       navigation,
       url: 'Group',
-      payload: {
+      params: {
         id,
       },
     });

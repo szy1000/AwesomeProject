@@ -18,30 +18,38 @@ export default class GroupTitle extends React.Component {
   }
 
   render() {
+    const {name, image, description, userCount, join} = this.props.group;
     return (
       <View style={styles.group}>
         <ImageBackground style={styles.bg} source={require('./pic60.png')} />
         <View style={styles.tips}>
           <Image
             accessibilityRole={'image'}
-            source={require('../../../my/logo.jpeg')}
+            source={{uri: image}}
             style={styles.avatar}
           />
           <View style={styles.title_wrapper}>
-            <Text style={styles.title}>学习方法分享小组</Text>
-            <Text style={styles.subTitle}>20167 小叮当 ></Text>
+            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.subTitle}>{userCount} 小叮当 ></Text>
           </View>
-          <TouchableWithoutFeedback>
-            <View style={styles.btn}>
-              <Text style={styles.txt}>已加入</Text>
-            </View>
-          </TouchableWithoutFeedback>
+          {/* todo*/}
+          {join ? (
+            <TouchableWithoutFeedback>
+              <View style={styles.btn}>
+                <Text style={styles.txt}>已加入</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          ) : (
+            <TouchableWithoutFeedback>
+              <View style={styles.btn}>
+                <Text style={styles.txt}>未加入</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          )}
         </View>
         <Text style={styles.desc}>
           小组简介：
-          <Text numberOfLines={2}>
-            入组须知：入组须知入组须知入组须知入组须知入组须知入组须知入组须知入组须知入组须知
-          </Text>
+          <Text numberOfLines={2}>{description}</Text>
         </Text>
       </View>
     );
