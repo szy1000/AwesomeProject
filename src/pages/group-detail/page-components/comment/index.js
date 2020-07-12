@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  StyleSheet,
-} from 'react-native';
+import {View, Image, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import {SearchInput} from '../../../../components';
 
 export default class GroupDetail extends React.Component {

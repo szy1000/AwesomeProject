@@ -14,7 +14,7 @@ export default class Empty extends React.Component {
 
 const _styles = StyleSheet.create({
   empty: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 10,

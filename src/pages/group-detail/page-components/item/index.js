@@ -9,21 +9,20 @@ export default class Item extends React.Component {
   }
 
   render() {
+    const {title, content, updateTime, user} = this.props;
     return (
       <View style={styles.item}>
-        <Text style={styles.title}>疫情下，如何在加安心学习？</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.info}>
           <Image style={styles.avatar} source={require('./avatar.png')} />
           <View style={styles.content}>
             <Text style={styles.name}>城北以南</Text>
-            <Text style={styles.date}>3-16更新</Text>
+            <Text style={styles.date}>
+              {updateTime && updateTime.split(' ')[0]}更新
+            </Text>
           </View>
         </View>
-        <Text style={styles.desc}>
-          讨论详情界面读取讨论标题、讨论发布人、发布日期、发布内容;
-          讨论详情界面读取讨论标题、讨论发布人、发布日期、发布内容;
-          对讨论可以查看全部回复、并进行回复、点赞、收藏;
-        </Text>
+        <Text style={styles.desc}>{content}</Text>
       </View>
     );
   }

@@ -1,4 +1,4 @@
-import {getGroupDetailReq} from './api';
+import {getGroupDetailReq, getCommentReq} from './api';
 // Actions
 const UPDATE = 'GROUP_DETAIL_UPDATE';
 
@@ -29,12 +29,14 @@ export const groupDetailUpdate = params => ({
 export const groupDetailInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  const groupDetail = await getGroupDetailReq(params || {});
+  const groupDetail = await getGroupDetailReq(params);
+  const comment = await getCommentReq(params);
   dispatch(
     groupDetailUpdate({
       init: true,
       data: {
         groupDetail,
+        comment,
       },
     }),
   );

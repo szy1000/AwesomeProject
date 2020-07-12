@@ -1,33 +1,55 @@
 import React from 'react';
 import {Item, Comment, Leave} from './page-components';
-import {Text, View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import {WhiteSpace} from '../../components';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import {WhiteSpace, Empty} from '../../components';
 
-export default class GroupDetail extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {groupDetailInit} from './redux';
+
+class GroupDetail extends React.Component {
   componentDidMount() {
     const {
       route: {params},
     } = this.props;
-    console.warn(params);
+    this.props.groupDetailInit(params.id);
   }
 
   render() {
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {groupDetail, comment} = data;
+    console.warn(comment);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <ScrollView style={styles.groupDetail}>
-          <Item />
+          <Item {...groupDetail} />
           <WhiteSpace size={'big'} />
-          <Leave />
-          <Leave />
-          <Leave />
-          <Leave />
-          <Leave />
+          {comment.length > 0 ? (
+            comment.map(v => <Leave key={v.id} {...v} />)
+          ) : (
+            <Empty />
+          )}
         </ScrollView>
         <Comment />
       </SafeAreaView>
     );
   }
 }
+
+export default connect(
+  state => state.groupDetail,
+  dispatch => bindActionCreators({groupDetailInit}, dispatch),
+)(GroupDetail);
 
 const styles = StyleSheet.create({
   groupDetail: {},

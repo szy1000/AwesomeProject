@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {
   Text,
   Image,
@@ -8,13 +8,6 @@ import {
 } from 'react-native';
 import Jump from '../../../../utils/jump';
 export default class Item extends React.Component {
-  componentDidMount() {
-    // const {
-    //   route:
-    // } = this.props;
-    // console.log(params);
-  }
-
   linkTo = id => {
     const {navigation} = this.props;
     Jump.linkToPage({
@@ -27,8 +20,16 @@ export default class Item extends React.Component {
   };
 
   render() {
+    const {
+      title,
+      content,
+      id,
+      user,
+      commentCount,
+      updateTime,
+    } = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => this.linkTo(1)}>
+      <TouchableWithoutFeedback onPress={() => this.linkTo(id)}>
         <View style={styles.item}>
           <View>
             <Image
@@ -36,15 +37,24 @@ export default class Item extends React.Component {
               accessibilityRole={'image'}
               source={require('./pic62.png')}
             />
-            <Text style={styles.count}>3</Text>
+            <Text style={styles.count}>{commentCount || 0}</Text>
           </View>
           <View style={styles.content}>
             <View>
-              <Text style={styles.title}>疫情下，如何在加安心学习？</Text>
+              <Text style={styles.title}>{title || content}</Text>
               <View style={styles.info}>
-                <Image style={styles.avatar} source={require('./avatar.png')} />
-                <Text style={styles.name}>城北以南</Text>
-                <Text style={styles.date}>3-16更新</Text>
+                {user && (
+                  <Fragment>
+                    <Image
+                      style={styles.avatar}
+                      source={{uri: user.avatarUrl}}
+                    />
+                    <Text style={styles.name}>{user.userName}</Text>
+                  </Fragment>
+                )}
+                <Text style={styles.date}>
+                  {updateTime && updateTime.toString().split(' ')[0]}更新
+                </Text>
               </View>
             </View>
           </View>

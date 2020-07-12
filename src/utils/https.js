@@ -25,7 +25,6 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
   if (params.params.navigation) {
     navigation = params.params.navigation;
   }
-  console.warn('url', url);
   instance[method](url, params)
     .then(res => {
       const {success, error, data} = res.data;

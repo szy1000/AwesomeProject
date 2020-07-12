@@ -9,17 +9,18 @@ export default class Leave extends React.Component {
   }
 
   render() {
+    const {user, content, createTime} = this.props;
     return (
       <View style={styles.leave}>
-        <Image style={styles.avatar} source={require('./avatar.png')} />
+        <Image style={styles.avatar} source={{uri: user && user.avatarUrl}} />
         <View style={styles.content}>
           <View style={styles.info}>
-            <Text style={styles.name}>城北以南</Text>
-            <Text style={styles.date}>3-16更新</Text>
+            <Text style={styles.name}>{user && user.userName}</Text>
+            <Text style={styles.date}>
+              {createTime && createTime.toString().split(' ')[0]}更新
+            </Text>
           </View>
-          <Text style={styles.desc}>
-            讨论详情界面读取讨论标题、讨论发布人、发布日期、发布内容; 讨论详情界面读取讨论标题、讨论发布人、发布日期、发布内容;
-          </Text>
+          <Text style={styles.desc}>{content}</Text>
         </View>
       </View>
     );

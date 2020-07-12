@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {View, ActivityIndicator, StyleSheet} from 'react-native';
-import {Tab} from '../../components';
-import {GroupTitle, Item, Discussion} from './page-components';
+import {GroupTitle, FixedTop, Discussion} from './page-components';
+
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+const TopTab = createMaterialTopTabNavigator();
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -12,50 +14,54 @@ class Group extends React.Component {
     const {
       route: {params},
     } = this.props;
-
     this.props.groupInit(params.id);
   }
 
   render() {
-    const {init, data, navigation} = this.props;
+    const {
+      init,
+      data,
+      route: {params},
+    } = this.props;
     if (!init) {
       return <ActivityIndicator />;
     }
-    const {group, groupList} = data;
-    console.warn(groupList)
+    const {group} = data;
     return (
-      <Tab
-        common={<GroupTitle {...this.props} group={group} />}
-        tabBarOptions={{
-          labelStyle: {
-            fontSize: 14,
-          },
-          tabStyle: {width: 100},
-          indicatorStyle: {
-            left: 40,
-            width: 20,
-            height: 4,
-            borderRadius: 3,
-            backgroundColor: '#12a8cd',
-          },
-        }}
-        tabContent={[
-          {
-            name: '全部讨论',
-            component: () => <Discussion navigation={navigation} />,
-          },
-          {
-            name: '置顶',
-            component: () => (
-              <View style={styles.top}>
-                <Item navigation={navigation} />
-                <Item />
-                <Item />
-              </View>
-            ),
-          },
-        ]}
-      />
+      <Fragment>
+        <GroupTitle {...this.props} group={group} />
+        <TopTab.Navigator
+          tabBarOptions={{
+            labelStyle: {
+              fontSize: 16,
+            },
+            tabStyle: {width: 100},
+            activeTintColor: '#12a8cd',
+            inactiveTintColor: '#000',
+            indicatorStyle: {
+              left: 40,
+              width: 20,
+              height: 4,
+              borderRadius: 3,
+              backgroundColor: '#12a8cd',
+            },
+          }}
+          initialRouteName="全部讨论">
+          <TopTab.Screen
+            keys="全部讨论"
+            name="全部讨论"
+            component={() => (
+              // <Discussion navigation={navigation} id={params.id} />
+              <Discussion {...this.props} id={params.id} />
+            )}
+          />
+          <TopTab.Screen
+            keys="置顶"
+            name="置顶"
+            component={() => <FixedTop {...this.props} />}
+          />
+        </TopTab.Navigator>
+      </Fragment>
     );
   }
 }

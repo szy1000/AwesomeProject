@@ -5,41 +5,96 @@ import {
   View,
   TouchableWithoutFeedback,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
+import {Empty} from '../../../../components';
 import {SearchInput} from '../../../../components';
 import Item from '../item';
-export default class Discussion extends React.Component {
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {groupDisInit} from './redux';
+
+class Discussion extends React.Component {
   state = {
     active: true,
   };
   componentDidMount() {
-    // const {
-    //   route:
-    // } = this.props;
-    // console.log(params);
+    this.getData();
   }
 
+  getData = params => {
+    const {id} = this.props;
+    const {active} = this.state;
+    const _params = Object.assign(
+      {
+        id,
+        pageNumber: 1,
+        pageSize: 10,
+        type: active ? 'hot' : 'new',
+        time: new Date().getMilliseconds(),
+      },
+      params,
+    );
+    this.props.groupDisInit(_params);
+  };
+
   toggle = () => {
-    this.setState(({active}) => ({
-      active: !active,
-    }));
+    this.setState(
+      ({active}) => ({
+        active: !active,
+        keys: '',
+      }),
+      () => {
+        this.getData();
+      },
+    );
+  };
+
+  changeText = e => {
+    this.setState({
+      keys: e,
+    });
+  };
+
+  search = () => {
+    const {keys} = this.state;
+    if (keys) {
+      this.getData({
+        query: keys,
+      });
+    } else {
+      alert('关键字不能为空');
+    }
   };
   render() {
-    const {active} = this.state;
-    const {navigation} = this.props;
+    const {active, keys} = this.state;
+    const {
+      init,
+      data: {discussion},
+      navigation,
+    } = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {data} = discussion;
     return (
       <View style={styles.discussion}>
         <View style={styles.wrapper}>
           <View style={styles.ipt_wrapper}>
             <SearchInput
               style={styles.ipt}
+              value={keys}
               placeholder={'请输入您要查询的关键字'}
+              onChangeText={e => this.changeText(e)}
             />
-            <Image
-              style={styles.search}
-              accessibilityRole={'image'}
-              source={require('./search.png')}
-            />
+            <TouchableWithoutFeedback onPress={this.search}>
+              <Image
+                style={styles.search}
+                accessibilityRole={'image'}
+                source={require('./search.png')}
+              />
+            </TouchableWithoutFeedback>
           </View>
 
           <TouchableWithoutFeedback onPress={this.toggle}>
@@ -54,15 +109,21 @@ export default class Discussion extends React.Component {
           </TouchableWithoutFeedback>
         </View>
         <View style={styles.list}>
-          <Item navigation={navigation} />
-          <Item navigation={navigation} />
-          <Item navigation={navigation} />
-          <Item navigation={navigation} />
+          {data.length > 0 ? (
+            data.map(v => <Item {...v} key={v.id} navigation={navigation} />)
+          ) : (
+            <Empty />
+          )}
         </View>
       </View>
     );
   }
 }
+
+export default connect(
+  state => state.groupDiscussion,
+  dispatch => bindActionCreators({groupDisInit}, dispatch),
+)(Discussion);
 
 const styles = StyleSheet.create({
   discussion: {

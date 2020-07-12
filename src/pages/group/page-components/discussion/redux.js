@@ -1,6 +1,6 @@
-import {getGroupDetailReq} from './api';
+import {getGroupListReq} from './api';
 // Actions
-const UPDATE = 'GROUP_UPDATE';
+const UPDATE = 'GROUP_DISCUSSION_UPDATE';
 
 // Reducer
 const initState = {
@@ -8,7 +8,7 @@ const initState = {
   data: [],
 };
 
-export const group = (state = initState, action) => {
+export const groupDiscussion = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -21,21 +21,22 @@ export const group = (state = initState, action) => {
 };
 
 // Action Creators
-export const groupUpdate = params => ({
+export const groupDiscussionUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const groupInit = (params, callback) => async dispatch => {
+export const groupDisInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  const group = await getGroupDetailReq(params || {});
-
+  const {id} = params;
+  delete params.id;
+  const discussion = await getGroupListReq(params, id);
   dispatch(
-    groupUpdate({
+    groupDiscussionUpdate({
       init: true,
       data: {
-        group,
+        discussion,
       },
     }),
   );
