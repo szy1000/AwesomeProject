@@ -20,6 +20,8 @@
 		4333B501F38BB64843274374 /* libPods-AwesomeProject-AwesomeProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A877371F22233BE6F892922 /* libPods-AwesomeProject-AwesomeProjectTests.a */; };
 		494549A5454055CC25DAC090 /* libPods-AwesomeProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2539B27814D445D8B5C4458B /* libPods-AwesomeProject-tvOS.a */; };
 		8E19389E24BAFB35001C1E43 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 8E19389D24BAFB35001C1E43 /* AppIcon.appiconset */; };
+		8E1938A124BB353B001C1E43 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E19389F24BB353B001C1E43 /* main.jsbundle */; };
+		8E1938A224BB353B001C1E43 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8E1938A024BB353B001C1E43 /* assets */; };
 		8E73DC1924A88D3900EED22E /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E73DC1824A88D3900EED22E /* test.swift */; };
 		FC1F6FB4E7ECD0DE6CADF6EB /* libPods-AwesomeProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AD1ED6777A090BE73955CD /* libPods-AwesomeProject.a */; };
 /* End PBXBuildFile section */
@@ -63,6 +65,8 @@
 		5C6625DDEE71766760A587AE /* Pods-AwesomeProject-AwesomeProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject-AwesomeProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject-AwesomeProjectTests/Pods-AwesomeProject-AwesomeProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81766899AF0CF85DAEC1C9CE /* libPods-AwesomeProject-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AwesomeProject-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E19389D24BAFB35001C1E43 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = ../../../../Downloads/icons/ios/AppIcon.appiconset; sourceTree = "<group>"; };
+		8E19389F24BB353B001C1E43 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
+		8E1938A024BB353B001C1E43 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
 		8E73DC1724A88D3800EED22E /* AwesomeProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AwesomeProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		8E73DC1824A88D3900EED22E /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		9CE824548EFE1EE4D6F2B162 /* Pods-AwesomeProject-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject-tvOS/Pods-AwesomeProject-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 		13B07FAE1A68108700A75B9A /* AwesomeProject */ = {
 			isa = PBXGroup;
 			children = (
+				8E1938A024BB353B001C1E43 /* assets */,
+				8E19389F24BB353B001C1E43 /* main.jsbundle */,
 				8E19389D24BAFB35001C1E43 /* AppIcon.appiconset */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -303,7 +309,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 87957UMG44;
 						LastSwiftMigration = 1140;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -349,9 +355,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E1938A224BB353B001C1E43 /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				8E19389E24BAFB35001C1E43 /* AppIcon.appiconset in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				8E1938A124BB353B001C1E43 /* main.jsbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,10 +748,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: xiaoqing wu (5R3MFLHZ6E)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 87957UMG44;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -756,9 +764,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.awesome.awesomeapp;
+				PRODUCT_BUNDLE_IDENTIFIER = app.example.Demo;
 				PRODUCT_NAME = AwesomeProject;
-				PROVISIONING_PROFILE_SPECIFIER = liuxue_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AwesomeProject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -772,10 +780,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Lingxu Information Science & Technology Co., Ltd. (87957UMG44)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 87957UMG44;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AwesomeProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -783,9 +791,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.awesome.awesomeapp;
+				PRODUCT_BUNDLE_IDENTIFIER = app.example.Demo;
 				PRODUCT_NAME = AwesomeProject;
-				PROVISIONING_PROFILE_SPECIFIER = liuxue_dis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AwesomeProject-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
