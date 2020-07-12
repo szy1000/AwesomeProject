@@ -9,6 +9,11 @@ export default class GroupDetail extends React.Component {
   };
 
   handleState = name => {
+    if (name === 'thumbUp') {
+      this.props.thumbUpDis();
+    } else {
+      this.props.favoriteDis();
+    }
     this.setState({
       [name]: !this.state[name],
     });

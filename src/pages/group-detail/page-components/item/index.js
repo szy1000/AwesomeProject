@@ -16,7 +16,7 @@ export default class Item extends React.Component {
         <View style={styles.info}>
           <Image style={styles.avatar} source={require('./avatar.png')} />
           <View style={styles.content}>
-            <Text style={styles.name}>城北以南</Text>
+            <Text style={styles.name}>{user && user.userName}</Text>
             <Text style={styles.date}>
               {updateTime && updateTime.split(' ')[0]}更新
             </Text>

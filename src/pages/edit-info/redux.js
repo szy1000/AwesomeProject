@@ -1,4 +1,4 @@
-import {getUserInfoReq} from './api';
+import {getUserInfoReq, uploadFileReq} from './api';
 // Actions
 const UPDATE = 'EDIT_INFO_UPDATE';
 
@@ -31,6 +31,18 @@ export const editInfoInit = (params, callback) => async dispatch => {
   dispatch(
     editInfoUpdate({
       init: true,
+      data: {
+        ...userInfo,
+      },
+    }),
+  );
+  callback && callback();
+};
+
+export const uploadFileFn = (params, callback) => async dispatch => {
+  const userInfo = await uploadFileReq(params || {});
+  dispatch(
+    editInfoUpdate({
       data: {
         ...userInfo,
       },

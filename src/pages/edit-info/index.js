@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, StyleSheet} from 'react-native';
+import {Text, ActivityIndicator, View, Image, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Item from './item';
@@ -7,8 +7,7 @@ import ImagePicker from 'react-native-image-picker';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {editInfoInit} from './redux';
-import {Loading} from '../../components';
+import {editInfoInit, uploadFileFn} from './redux';
 
 class EditInfo extends React.Component {
   state = {
@@ -18,7 +17,6 @@ class EditInfo extends React.Component {
 
   async componentDidMount(): void {
     const id = await AsyncStorage.getItem('sid');
-
     this.props.editInfoInit(id);
   }
 
@@ -40,6 +38,9 @@ class EditInfo extends React.Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+        console.log('response==========================>');
+        console.log('response==========================>', response);
+        console.log('response==========================>');
         const source = {uri: response.uri};
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -65,7 +66,7 @@ class EditInfo extends React.Component {
     const {avatarSource} = this.state;
     const {init, data} = this.props;
     if (!init) {
-      return <Loading />;
+      return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {address, avatarUrl, personalSignature, sex, userName} = data;
     return (

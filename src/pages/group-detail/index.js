@@ -1,18 +1,18 @@
 import React from 'react';
 import {Item, Comment, Leave} from './page-components';
 import {
-  Text,
-  View,
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  Button,
+  Text,
 } from 'react-native';
 import {WhiteSpace, Empty} from '../../components';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {groupDetailInit} from './redux';
+import {groupDetailInit, makeComment, thumbUpDis, favoriteDis} from './redux';
 
 class GroupDetail extends React.Component {
   componentDidMount() {
@@ -22,25 +22,54 @@ class GroupDetail extends React.Component {
     this.props.groupDetailInit(params.id);
   }
 
+  thumbUpDis = () => {
+    const {
+      route: {params},
+    } = this.props;
+    this.props.thumbUpDis(params.id);
+  };
+
+  favoriteDis = () => {
+    const {
+      route: {params},
+    } = this.props;
+    this.props.favoriteDis(params.id);
+  };
+
+  makeComment = () => {
+    const {
+      route: {params},
+    } = this.props;
+    const _params = {
+      id: params.id,
+      discussionId: params.id,
+      content: '新评论',
+    };
+    this.props.makeComment(_params, this.props.groupDetailInit(params.id));
+  };
   render() {
     const {init, data} = this.props;
     if (!init) {
       return <ActivityIndicator />;
     }
     const {groupDetail, comment} = data;
-    console.warn(comment);
+    console.warn('groupDetail', groupDetail);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <ScrollView style={styles.groupDetail}>
           <Item {...groupDetail} />
           <WhiteSpace size={'big'} />
+          <Button title={'ss'} onPress={this.makeComment}>
+            <Text>sss</Text>
+          </Button>
+
           {comment.length > 0 ? (
             comment.map(v => <Leave key={v.id} {...v} />)
           ) : (
             <Empty />
           )}
         </ScrollView>
-        <Comment />
+        <Comment thumbUpDis={this.thumbUpDis} favoriteDis={this.favoriteDis} />
       </SafeAreaView>
     );
   }
@@ -48,7 +77,11 @@ class GroupDetail extends React.Component {
 
 export default connect(
   state => state.groupDetail,
-  dispatch => bindActionCreators({groupDetailInit}, dispatch),
+  dispatch =>
+    bindActionCreators(
+      {groupDetailInit, makeComment, thumbUpDis, favoriteDis},
+      dispatch,
+    ),
 )(GroupDetail);
 
 const styles = StyleSheet.create({

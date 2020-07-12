@@ -10,9 +10,13 @@ export default class Leave extends React.Component {
 
   render() {
     const {user, content, createTime} = this.props;
+    const _uri = user && user.avatarUrl;
     return (
       <View style={styles.leave}>
-        <Image style={styles.avatar} source={{uri: user && user.avatarUrl}} />
+        <Image
+          style={styles.avatar}
+          source={_uri ? {uri: _uri} : require('./avatar.png')}
+        />
         <View style={styles.content}>
           <View style={styles.info}>
             <Text style={styles.name}>{user && user.userName}</Text>

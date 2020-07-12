@@ -41,7 +41,6 @@ class Find extends React.Component {
   };
 
   getMore = () => {
-    console.log('more');
     this.setState({
       loading: true,
     });

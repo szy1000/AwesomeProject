@@ -1,4 +1,10 @@
-import {getGroupDetailReq, getCommentReq} from './api';
+import {
+  getGroupDetailReq,
+  getCommentReq,
+  makeCommentReq,
+  thumbUpDiscussionReq,
+  favoriteDiscussionReq,
+} from './api';
 // Actions
 const UPDATE = 'GROUP_DETAIL_UPDATE';
 
@@ -41,4 +47,36 @@ export const groupDetailInit = (params, callback) => async dispatch => {
     }),
   );
   callback && callback();
+};
+
+export const makeComment = (params, callback) => async dispatch => {
+  console.log(params)
+  const res = await makeCommentReq(params);
+  console.log(res)
+  // const {success, error} = res;
+  // if (success) {
+  //   callback && callback();
+  // } else {
+  //   alert(error);
+  // }
+};
+
+export const thumbUpDis = (params, callback) => async dispatch => {
+  const res = await thumbUpDiscussionReq(params);
+  const {success, error} = res;
+  if (success) {
+    callback && callback();
+  } else {
+    alert(error);
+  }
+};
+
+export const favoriteDis = (params, callback) => async dispatch => {
+  const res = await favoriteDiscussionReq(params);
+  const {success, error} = res;
+  if (success) {
+    callback && callback();
+  } else {
+    alert(error);
+  }
 };

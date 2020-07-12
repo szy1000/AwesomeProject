@@ -14,6 +14,9 @@ const instance = axios.create({
 let navigation = null;
 
 instance.interceptors.request.use(async function(config) {
+  if (config.url === '/api/app/country') {
+    config.headers['content-type'] = 'application/octet-stream';
+  }
   config.headers.Authorization =
     'Basic ' + (await AsyncStorage.getItem('token'));
   return config;
@@ -21,7 +24,7 @@ instance.interceptors.request.use(async function(config) {
 
 const promiseFun = (method, url, params, needCode, resolve, reject) => {
   params.params = params.params || {};
-  if (params.params.navigation) {
+  if (params.params && params.params.navigation) {
     navigation = params.params.navigation;
   }
   instance[method](url, params)
@@ -40,7 +43,7 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
       console.log('navigation', navigation);
       AsyncStorage.clear();
       const {message} = err;
-      alert(JSON.stringify(err));
+      console.log(err);
       if (message.indexOf(401)) {
         alert(JSON.stringify('未登录,请先登录'));
         navigation.replace('Login');
