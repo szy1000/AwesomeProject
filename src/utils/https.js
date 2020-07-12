@@ -40,13 +40,13 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
       }
     })
     .catch(err => {
-      console.log('navigation', navigation);
       AsyncStorage.clear();
       const {message} = err;
-      console.log(err);
-      if (message.indexOf(401)) {
-        alert(JSON.stringify('未登录,请先登录'));
+      if (message.includes(401)) {
+        alert('未登录,请先登录');
         navigation.replace('Login');
+      } else if (message.includes('Network')) {
+        alert(JSON.stringify('网络异常,请稍后重试'));
       } else {
         alert(JSON.stringify(err));
       }

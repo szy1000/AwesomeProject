@@ -36,16 +36,17 @@ class GroupDetail extends React.Component {
     this.props.favoriteDis(params.id);
   };
 
-  makeComment = () => {
-    const {
-      route: {params},
-    } = this.props;
-    const _params = {
-      id: params.id,
-      discussionId: params.id,
-      content: '新评论',
-    };
-    this.props.makeComment(_params, this.props.groupDetailInit(params.id));
+  makeComment = content => {
+    console.log(content)
+    // const {
+    //   route: {params},
+    // } = this.props;
+    // const _params = {
+    //   id: params.id,
+    //   discussionId: params.id,
+    //   content,
+    // };
+    // this.props.makeComment(_params, this.props.groupDetailInit(params.id));
   };
   render() {
     const {init, data} = this.props;
@@ -69,7 +70,11 @@ class GroupDetail extends React.Component {
             <Empty />
           )}
         </ScrollView>
-        <Comment thumbUpDis={this.thumbUpDis} favoriteDis={this.favoriteDis} />
+        <Comment
+          thumbUpDis={this.thumbUpDis}
+          makeComment={e => this.makeComment(e)}
+          favoriteDis={this.favoriteDis}
+        />
       </SafeAreaView>
     );
   }

@@ -3,7 +3,7 @@ import {View, TextInput, StyleSheet} from 'react-native';
 
 export default class SearchInput extends React.Component {
   render() {
-    const {placeholder, value, onChangeText, styles} = this.props;
+    const {placeholder, value, onChangeText, onBlur, styles} = this.props;
     return (
       <TextInput
         style={[_styles.ipt, styles]}
@@ -11,6 +11,7 @@ export default class SearchInput extends React.Component {
         {...this.props}
         value={value}
         onChangeText={e => onChangeText && onChangeText(e)}
+        onBlur={e => onBlur && onBlur(e)}
       />
     );
   }

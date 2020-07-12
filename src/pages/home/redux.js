@@ -47,7 +47,7 @@ export const homeInit = (params, callback) => async dispatch => {
 
   const hotSchool = await getHotSchoolReq(countyParams);
   const hotSubject = await getHotSubjectReq(countyParams);
-  // const hotCase = await getCaseReq(countyParams);
+  const hotCase = await getCaseReq(countyParams);
 
   dispatch(
     homeUpdate({
@@ -56,7 +56,7 @@ export const homeInit = (params, callback) => async dispatch => {
         country,
         hotSchool,
         hotSubject,
-        // hotCase,
+        hotCase,
       },
     }),
   );

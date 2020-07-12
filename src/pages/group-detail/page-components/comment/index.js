@@ -6,6 +6,7 @@ export default class GroupDetail extends React.Component {
   state = {
     thumbUp: false,
     collect: false,
+    content: '',
   };
 
   handleState = name => {
@@ -19,11 +20,23 @@ export default class GroupDetail extends React.Component {
     });
   };
 
+  saveValue = e => {
+    this.setState({
+      content: e,
+    });
+  };
+
   render() {
-    const {thumbUp, collect} = this.state;
+    const {thumbUp, collect, content} = this.state;
     return (
       <View style={styles.comment}>
-        <SearchInput style={styles.ipt} placeholder={'写回复'} />
+        <SearchInput
+          style={styles.ipt}
+          onEndEditing={() => this.props.makeComment(content)}
+          placeholder={'写回复'}
+          onChangeText={e => this.saveValue(e)}
+          vaule={content}
+        />
         <TouchableWithoutFeedback onPress={() => this.handleState('thumbUp')}>
           <Image
             style={styles.img}
