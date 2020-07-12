@@ -10,7 +10,12 @@ const UPDATE = 'HOME_UPDATE';
 // Reducer
 const initState = {
   init: false,
-  data: [],
+  data: {
+    country: [],
+    hotSchool: [],
+    hotSubject: [],
+    hotCase: [],
+  },
 };
 
 export const home = (state = initState, action) => {
@@ -39,9 +44,11 @@ export const homeInit = (params, callback) => async dispatch => {
     country_id: country[0].id,
     navigation: params.navigation,
   };
+
   const hotSchool = await getHotSchoolReq(countyParams);
   const hotSubject = await getHotSubjectReq(countyParams);
-  const hotCase = await getCaseReq(countyParams);
+  // const hotCase = await getCaseReq(countyParams);
+
   dispatch(
     homeUpdate({
       init: true,
@@ -49,7 +56,7 @@ export const homeInit = (params, callback) => async dispatch => {
         country,
         hotSchool,
         hotSubject,
-        hotCase,
+        // hotCase,
       },
     }),
   );

@@ -93,7 +93,7 @@ class Home extends React.Component {
           <Course hotSubject={hotSubject} navigation={navigation} />
         </Panel>
         <Panel title="案例分享" tips="以下案例均已获得用户授权">
-          <Case data={hotCase} navigation={navigation} />
+          {hotCase && <Case data={hotCase} navigation={navigation} />}
         </Panel>
       </ScrollView>
     );

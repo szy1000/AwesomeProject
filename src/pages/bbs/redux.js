@@ -1,4 +1,9 @@
-import {getAllCategoryReq, getHotGroupReq} from './api';
+import {
+  getAllCategoryReq,
+  getHotGroupReq,
+  joinGroupReq,
+  unjoinGroupReq,
+} from './api';
 // Actions
 const UPDATE = 'BBS_UPDATE';
 
@@ -41,4 +46,20 @@ export const bbsInit = (params, callback) => async dispatch => {
     }),
   );
   callback && callback();
+};
+
+export const joinGroup = (params, callback) => async dispatch => {
+  const {type, id} = params;
+  let res = null;
+  if (type) {
+    res = await joinGroupReq(id);
+  } else {
+    res = await unjoinGroupReq(id);
+  }
+  const {success, error} = res;
+  if (success) {
+    callback && callback();
+  } else {
+    alert(error);
+  }
 };

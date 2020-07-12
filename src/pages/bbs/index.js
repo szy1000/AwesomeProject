@@ -13,7 +13,7 @@ import {Item, Panel} from './page-components';
 import Jump from '../../utils/jump';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {bbsInit} from './redux';
+import {bbsInit, joinGroup} from './redux';
 import {Loading} from '../../components';
 
 class BBS extends React.Component {
@@ -29,6 +29,16 @@ class BBS extends React.Component {
       navigation,
       url: 'GroupAll',
     });
+  };
+
+  joinGroupFn = (id, type) => {
+    this.props.joinGroup(
+      {
+        id,
+        type,
+      },
+      () => this.props.bbsInit(),
+    );
   };
   render() {
     const {init, data, navigation} = this.props;
@@ -53,7 +63,11 @@ class BBS extends React.Component {
             </Panel>
 
             <Panel title="本周热门榜TOP5" style={{marginTop: 20}}>
-              <Item list={hotGroup} navigation={navigation} />
+              <Item
+                list={hotGroup}
+                navigation={navigation}
+                toggleJoinFn={(id, type) => this.joinGroupFn(id, type)}
+              />
             </Panel>
           </View>
         </ScrollView>
@@ -120,5 +134,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => state.bbs,
-  dispatch => bindActionCreators({bbsInit}, dispatch),
+  dispatch => bindActionCreators({bbsInit, joinGroup}, dispatch),
 )(BBS);

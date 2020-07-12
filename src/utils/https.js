@@ -16,7 +16,6 @@ let navigation = null;
 instance.interceptors.request.use(async function(config) {
   config.headers.Authorization =
     'Basic ' + (await AsyncStorage.getItem('token'));
-  console.log(config);
   return config;
 });
 

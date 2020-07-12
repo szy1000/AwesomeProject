@@ -26,7 +26,7 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {list = [], navigation} = this.props;
+    const {list = [], toggleJoinFn, navigation} = this.props;
     return (
       <View>
         {list.map((v, index) => (
@@ -56,11 +56,15 @@ export default class Item extends React.Component {
                 </View>
                 <View style={styles.btnWrapper}>
                   {v.join ? (
-                    <TouchableOpacity style={styles.btn}>
-                      <Text style={styles.txt}>加入</Text>
+                    <TouchableOpacity
+                      style={styles.btn}
+                      onPress={() => toggleJoinFn(v.id, false)}>
+                      <Text style={styles.txt}>已加入</Text>
                     </TouchableOpacity>
                   ) : (
-                    <TouchableOpacity style={styles.unjoin}>
+                    <TouchableOpacity
+                      style={styles.unjoin}
+                      onPress={() => toggleJoinFn(v.id, true)}>
                       <Text style={styles.txt}>未加入</Text>
                     </TouchableOpacity>
                   )}

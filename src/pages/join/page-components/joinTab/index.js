@@ -35,6 +35,7 @@ class JoinTab extends React.Component {
       init,
       data: {joinTab},
     } = this.props;
+    console.warn(joinTab)
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
