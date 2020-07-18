@@ -1,5 +1,13 @@
 import React from 'react';
-import {Text, ActivityIndicator, View, Image, StyleSheet} from 'react-native';
+import {
+  Text,
+  ActivityIndicator,
+  View,
+  Button,
+  Image,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Item from './item';
@@ -7,30 +15,36 @@ import ImagePicker from 'react-native-image-picker';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {editInfoInit, uploadFileFn} from './redux';
+import {editInfoInit, uploadFileFn, saveInfo, saveTempInfo} from './redux';
 
 class EditInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.id = '';
+  }
   state = {
     avatarSource: '',
     error: 'erroree',
   };
 
   async componentDidMount(): void {
-    const id = await AsyncStorage.getItem('sid');
-    this.props.editInfoInit(id);
+    this.id = await AsyncStorage.getItem('sid');
+    this.props.editInfoInit(this.id);
   }
 
   getPhoto = async () => {
     const options = {
-      title: 'Select Avatar',
-      // customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+      title: '选择头像',
+      takePhotoButtonTitle: '相机',
+      chooseFromLibraryButtonTitle: '图库',
+      cancelButtonTitle: '取消',
+      quality: 0.5,
       storageOptions: {
         skipBackup: true,
         path: 'images',
       },
     };
     await ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -38,16 +52,20 @@ class EditInfo extends React.Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        console.log('response==========================>');
+        const {origURL, type, data} = response;
         console.log('response==========================>', response);
-        console.log('response==========================>');
         const source = {uri: response.uri};
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        this.setState({
-          avatarSource: source,
-        });
+        this.setState(
+          {
+            avatarSource: source,
+          },
+          () => {
+            this.props.uploadFileFn({
+              fileName: origURL.split('?')[1].split('=')[1],
+              dataUrl: `data:${type};base64,${data}`,
+            });
+          },
+        );
       }
     }).catch(e => {
       this.setState({
@@ -56,10 +74,8 @@ class EditInfo extends React.Component {
     });
   };
 
-  onChange = e => {
-    this.setState({
-      value: e,
-    });
+  save = () => {
+    this.props.saveInfo({}, () => this.props.editInfoInit(this.id));
   };
 
   render() {
@@ -69,25 +85,27 @@ class EditInfo extends React.Component {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {address, avatarUrl, personalSignature, sex, userName} = data;
+    const _avatar = avatarUrl
+      ? {uri: avatarUrl}
+      : avatarSource.uri
+      ? avatarSource
+      : require('./logo.jpeg');
+    console.log(_avatar);
     return (
       <View>
         <Item
           title="头像"
-          extra={
-            <Image
-              style={styles.select}
-              source={
-                avatarSource ? avatarSource : {uri: avatarUrl || ''}
-                // avatarUrl ? {uri: avatarUrl || ''} :
-              }
-            />
-          }
+          extra={<Image style={styles.select} source={_avatar} />}
           clickFn={this.getPhoto}
         />
         <Item
           title="昵称"
-          extra={<Text>{userName}</Text>}
-          clickFn={() => alert(1)}
+          extra={
+            <TextInput
+              value={userName}
+              onChangeText={e => this.props.saveTempInfo({userName: e})}
+            />
+          }
         />
         <Item title="微信号" extra={<Text>123456</Text>} />
         <Item title="性别" extra={<Text>{sex || '未知'}</Text>} />
@@ -95,15 +113,16 @@ class EditInfo extends React.Component {
         <Item
           title="个性签名"
           extra={
-            <Text>{personalSignature || '书写签名有助你认识更多好友'}</Text>
+            <TextInput
+              value={personalSignature}
+              onChangeText={e =>
+                this.props.saveTempInfo({personalSignature: e})
+              }
+            />
           }
         />
-        {avatarSource.length > 0 && (
-          <Image
-            style={{width: '80%', height: 200, resizeMode: 'contain'}}
-            source={avatarSource}
-          />
-        )}
+
+        <Button style={{marginTop: 30}} title="保存" onPress={this.save} />
       </View>
     );
   }
@@ -118,5 +137,9 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => state.editInfo,
-  dispatch => bindActionCreators({editInfoInit}, dispatch),
+  dispatch =>
+    bindActionCreators(
+      {editInfoInit, uploadFileFn, saveInfo, saveTempInfo},
+      dispatch,
+    ),
 )(EditInfo);

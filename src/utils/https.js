@@ -67,4 +67,10 @@ export default class Https {
       promiseFun('post', url, params, needCode, resolve, reject);
     });
   }
+
+  static put(url, params = {}, needCode) {
+    return new Promise((resolve, reject) => {
+      promiseFun('put', url, params, needCode, resolve, reject);
+    });
+  }
 }

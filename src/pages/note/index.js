@@ -55,6 +55,7 @@ export default class Note extends React.Component {
   render() {
     const {navigation} = this.props;
     const {avatarSourceMap} = this.state;
+    console.log(avatarSourceMap);
     return (
       <ScrollView style={styles.note}>
         <Text>{JSON.stringify(this.state.avatarSource)}</Text>
