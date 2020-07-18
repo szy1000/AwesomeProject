@@ -4,6 +4,7 @@ import {
   starNoteReq,
   favoriteNoteReq,
   commentNoteReq,
+  getNoteCommentReq,
 } from './api';
 // Actions
 const UPDATE = 'FIND_DETAIL_UPDATE';
@@ -36,11 +37,13 @@ export const findDetailInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
   const noteDetail = await getNoteDetailReq(params || {});
+  const commentList = await getNoteCommentReq(params || {});
   dispatch(
     findDetailUpdate({
       init: true,
       data: {
         noteDetail,
+        commentList,
       },
     }),
   );

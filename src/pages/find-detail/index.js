@@ -8,7 +8,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import {Header, Banner, Comment} from './page-components';
+import {Header, Banner, Leave, Comment} from './page-components';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -19,6 +19,7 @@ import {
   favoriteNote,
   starNote,
 } from './redux';
+import {Empty} from '../../components';
 
 class FindDetail extends React.Component {
   constructor(props) {
@@ -85,6 +86,11 @@ class FindDetail extends React.Component {
               <Text>{title}</Text>
               <Text>{content}</Text>
             </View>
+            {data.commentList.length > 0 ? (
+              data.commentList.map(v => <Leave {...v} />)
+            ) : (
+              <Empty />
+            )}
           </ScrollView>
           <View style={styles.control}>
             <Comment

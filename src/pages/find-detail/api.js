@@ -2,6 +2,9 @@ import Https from '../../utils/https';
 
 const getNoteDetailReq = params => Https.get(`/api/app/note/${params}`);
 
+const getNoteCommentReq = params =>
+  Https.get(`/api/app/note/${params}/comment`);
+
 const commentNoteReq = params =>
   Https.post(`/api/app/note/${params.noteId}/comment`, params, true);
 
@@ -16,6 +19,7 @@ const favoriteNoteReq = id =>
 
 export {
   getNoteDetailReq,
+  getNoteCommentReq,
   commentNoteReq,
   followNoteReq,
   starNoteReq,

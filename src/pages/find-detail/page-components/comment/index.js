@@ -26,6 +26,13 @@ export default class GroupDetail extends React.Component {
     });
   };
 
+  blurFn = () => {
+    this.setState({
+      content: '',
+    });
+    this.props.commentNoteFn(this.state.content);
+  };
+
   render() {
     const {thumbUp, collect} = this.state;
     const {starCount, favoriteCount} = this.props;
@@ -35,7 +42,7 @@ export default class GroupDetail extends React.Component {
           style={styles.ipt}
           placeholder="写回复"
           onChangeText={e => this.changeValue(e)}
-          onBlur={() => this.props.commentNoteFn(this.state.content)}
+          onBlur={this.blurFn}
         />
         <TouchableWithoutFeedback onPress={this.props.starNoteFn}>
           <Image
