@@ -78,6 +78,7 @@ class Find extends React.Component {
       return <Loading />;
     }
     const {note} = data;
+    console.log(note)
     return (
       <View style={styles.find}>
         <FlatList

@@ -14,7 +14,6 @@ import {Link} from '@react-navigation/native';
 import {Statistics, Item} from './page-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Jump from '../../utils/jump';
-import {Loading} from '../../components/';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {myInit} from './redux';
@@ -38,13 +37,11 @@ class My extends React.Component {
     });
   };
   render() {
-    const {init, data, navigation} = this.props;
-    // if (!init) {
-    //   return <Loading />;
-    // }
-
-    const {nickName, userStat} = data;
-    console.log('mydata', data);
+    const {
+      data: {userInfo, userStat},
+      navigation,
+    } = this.props;
+    console.log('mydata', userInfo);
     return (
       <ScrollView>
         <View style={styles.login}>
@@ -53,12 +50,18 @@ class My extends React.Component {
               <View style={styles.loginWrapper}>
                 <ImageBackground
                   accessibilityRole={'image'}
-                  source={require('./logo.jpeg')}
+                  source={
+                    userInfo.avatarUrl
+                      ? {uri: userInfo.avatarUrl}
+                      : require('./logo.jpeg')
+                  }
                   style={styles.avatar}
                 />
                 <View style={{flex: 1}}>
                   <Text style={styles.link}>{this.userName}</Text>
-                  {/*<Text style={styles.text}>一键登录，享受更多精彩信息！</Text>*/}
+                  <Text style={styles.text}>
+                    手机号: {userInfo.phoneNumber}
+                  </Text>
                 </View>
                 <AntDesign
                   name="right"

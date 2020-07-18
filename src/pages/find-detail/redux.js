@@ -1,4 +1,10 @@
-import {getNoteDetailReq, followNoteReq} from './api';
+import {
+  getNoteDetailReq,
+  followNoteReq,
+  starNoteReq,
+  favoriteNoteReq,
+  commentNoteReq,
+} from './api';
 // Actions
 const UPDATE = 'FIND_DETAIL_UPDATE';
 
@@ -41,15 +47,52 @@ export const findDetailInit = (params, callback) => async dispatch => {
   callback && callback();
 };
 
+export const commentNote = (params, callback) => async dispatch => {
+  console.log('comment params', params);
+  const comment = await commentNoteReq(params || {});
+  console.log('comment', comment);
+  callback && callback();
+};
+
 export const followNote = (params, callback) => async dispatch => {
   const followNote = await followNoteReq(params || {});
-  dispatch(
-    findDetailUpdate({
-      init: true,
-      data: {
-        followNote,
-      },
-    }),
-  );
+  // dispatch(
+  //   findDetailUpdate({
+  //     init: true,
+  //     data: {
+  //       followNote,
+  //     },
+  //   }),
+  // );
+  callback && callback();
+};
+
+export const starNote = (params, callback) => async dispatch => {
+  const res = await starNoteReq(params || {});
+  const {success} = res;
+  if (success) {
+    callback && callback();
+  }
+
+  // dispatch(
+  //   findDetailUpdate({
+  //     init: true,
+  //     data: {
+  //       followNote,
+  //     },
+  //   }),
+  // );
+};
+
+export const favoriteNote = (params, callback) => async dispatch => {
+  const followNote = await favoriteNoteReq(params || {});
+  // dispatch(
+  //   findDetailUpdate({
+  //     init: true,
+  //     data: {
+  //       followNote,
+  //     },
+  //   }),
+  // );
   callback && callback();
 };

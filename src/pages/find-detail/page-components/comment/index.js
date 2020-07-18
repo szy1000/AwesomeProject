@@ -20,20 +20,31 @@ export default class GroupDetail extends React.Component {
     });
   };
 
+  changeValue = e => {
+    this.setState({
+      content: e,
+    });
+  };
+
   render() {
     const {thumbUp, collect} = this.state;
     const {starCount, favoriteCount} = this.props;
     return (
       <View style={styles.comment}>
-        <SearchInput style={styles.ipt} placeholder={'写回复'} />
-        <TouchableWithoutFeedback onPress={() => this.handleState('thumbUp')}>
+        <SearchInput
+          style={styles.ipt}
+          placeholder="写回复"
+          onChangeText={e => this.changeValue(e)}
+          onBlur={() => this.props.commentNoteFn(this.state.content)}
+        />
+        <TouchableWithoutFeedback onPress={this.props.starNoteFn}>
           <Image
             style={styles.img}
             source={thumbUp ? require('./thumb-on.png') : require('./zan.png')}
           />
         </TouchableWithoutFeedback>
         <Text>{starCount}</Text>
-        <TouchableWithoutFeedback onPress={() => this.handleState('collect')}>
+        <TouchableWithoutFeedback onPress={this.props.favoriteNoteFn}>
           <Image
             style={styles.img}
             source={

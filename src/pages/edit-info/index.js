@@ -53,7 +53,6 @@ class EditInfo extends React.Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const {origURL, type, data} = response;
-        console.log('response==========================>', response);
         const source = {uri: response.uri};
         this.setState(
           {

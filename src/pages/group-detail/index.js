@@ -37,16 +37,15 @@ class GroupDetail extends React.Component {
   };
 
   makeComment = content => {
-    console.log(content)
-    // const {
-    //   route: {params},
-    // } = this.props;
-    // const _params = {
-    //   id: params.id,
-    //   discussionId: params.id,
-    //   content,
-    // };
-    // this.props.makeComment(_params, this.props.groupDetailInit(params.id));
+    const {
+      route: {params},
+    } = this.props;
+    const _params = {
+      id: params.id,
+      discussionId: params.id,
+      content,
+    };
+    this.props.makeComment(_params, this.props.groupDetailInit(params.id));
   };
   render() {
     const {init, data} = this.props;

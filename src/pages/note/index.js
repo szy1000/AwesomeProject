@@ -10,8 +10,16 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-export default class Note extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {uploadFileFn, submitNote} from './redux';
+import Jump from '../../utils/jump';
+
+class Note extends React.Component {
   state = {
+    title: '',
+    location: '中国',
+    content: '',
     imgArr: [require('./png.png')],
     avatarSourceMap: [],
   };
@@ -21,6 +29,7 @@ export default class Note extends React.Component {
       mediaType: 'mixed',
       durationLimit: '120',
       title: '选择照片',
+      quality: 0.3,
       cancelButtonTitle: '取消',
       takePhotoButtonTitle: '相机',
       chooseFromLibraryButtonTitle: '图库',
@@ -30,8 +39,6 @@ export default class Note extends React.Component {
       },
     };
     await ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -40,33 +47,57 @@ export default class Note extends React.Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = {uri: response.uri};
-
+        const {uri, type, data} = response;
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
         const {avatarSourceMap} = this.state;
         avatarSourceMap.push(source);
+
+        console.log('Response = ', response);
+
+        this.props.uploadFileFn({
+          fileName: uri.split('images/')[1],
+          dataUrl: `data:${type};base64,${data}`,
+        });
+
         this.setState({
           avatarSourceMap: [...avatarSourceMap],
-          // imgArr: [...this.state.imgArr.unshift(source)],
         });
       }
     });
   };
+
+  handleChange = (key, value) => {
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  submitNote = () => {
+    const {title, content, location} = this.state;
+    console.log(this.state);
+    this.props.submitNote(
+      {
+        title,
+        content,
+        location,
+      },
+      () =>
+        Jump.linkToPage({
+          navigation: this.props.navigation,
+          url: 'Find',
+        }),
+    );
+  };
   render() {
     const {navigation} = this.props;
-    const {avatarSourceMap} = this.state;
-    console.log(avatarSourceMap);
+    const {title, content, location, avatarSourceMap} = this.state;
     return (
       <ScrollView style={styles.note}>
-        <Text>{JSON.stringify(this.state.avatarSource)}</Text>
         <View style={styles.imgWrapper}>
           {avatarSourceMap.map((v, index) => {
             return (
-              <View
-                key={index}
-                keys={index}
-                // onPress={this.getPhoto}
-              >
+              <View key={index} keys={index}>
                 <Image style={styles.pic} source={v} />
               </View>
             );
@@ -80,11 +111,15 @@ export default class Note extends React.Component {
         <View style={styles.iptArea}>
           <TextInput
             style={styles.title}
+            value={title}
+            onChangeText={e => this.handleChange('title', e)}
             placeholder={'填写标题会有很多赞哦'}
           />
           <TextInput
             style={styles.content}
             multiline
+            value={content}
+            onChangeText={e => this.handleChange('content', e)}
             placeholder={'填写正文'}
           />
         </View>
@@ -93,13 +128,18 @@ export default class Note extends React.Component {
           <Text style={styles.text}>添加地址</Text>
           <Image style={styles.more} source={require('./more.png')} />
         </View>
-        <TouchableOpacity style={styles.submit}>
+        <TouchableOpacity style={styles.submit} onPress={this.submitNote}>
           <Text style={styles.txt}>发布笔记</Text>
         </TouchableOpacity>
       </ScrollView>
     );
   }
 }
+
+export default connect(
+  state => state.note,
+  dispatch => bindActionCreators({uploadFileFn, submitNote}, dispatch),
+)(Note);
 
 const styles = StyleSheet.create({
   note: {

@@ -3,7 +3,7 @@ import {
   View,
   ScrollView,
   Platform,
-  Image,
+  ActivityIndicator,
   SafeAreaView,
   Text,
   StyleSheet,
@@ -12,27 +12,58 @@ import {Header, Banner, Comment} from './page-components';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {findDetailInit, followNote} from './redux';
-import Loading from '../../components/loading';
+import {
+  findDetailInit,
+  commentNote,
+  followNote,
+  favoriteNote,
+  starNote,
+} from './redux';
 
 class FindDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.noteId = '';
+  }
   componentDidMount(): void {
     const {
-      findDetailInit,
       route: {params},
     } = this.props;
-    findDetailInit(params.id);
+    this.noteId = params.id;
+    this.initPage();
   }
 
-  follow = () => {
-    const {params} = this.props.route;
-    this.props.followNote(params.id);
+  initPage = () => {
+    this.props.findDetailInit(this.noteId);
   };
 
+  commentNoteFn = content => {
+    if (connect !== '') {
+      this.props.commentNote(
+        {
+          noteId: this.noteId,
+          content,
+        },
+        this.initPage,
+      );
+    }
+  };
+
+  follow = () => {
+    this.props.followNote(this.noteId, this.initPage);
+  };
+
+  favoriteNoteFn = () => {
+    this.props.favoriteNote(this.noteId, this.initPage);
+  };
+
+  starNoteFn = () => {
+    this.props.starNote(this.noteId, this.initPage);
+  };
   render() {
     const {init, data} = this.props;
     if (!init) {
-      return <Loading />;
+      return <ActivityIndicator />;
     }
     const {
       content,
@@ -60,6 +91,9 @@ class FindDetail extends React.Component {
               starCount={starCount}
               commentCount={commentCount}
               favoriteCount={favoriteCount}
+              commentNoteFn={e => this.commentNoteFn(e)}
+              starNoteFn={this.starNoteFn}
+              favoriteNoteFn={this.favoriteNoteFn}
             />
           </View>
         </SafeAreaView>
@@ -70,7 +104,11 @@ class FindDetail extends React.Component {
 
 export default connect(
   state => state.findDetail,
-  dispatch => bindActionCreators({findDetailInit, followNote}, dispatch),
+  dispatch =>
+    bindActionCreators(
+      {findDetailInit, commentNote, followNote, favoriteNote, starNote},
+      dispatch,
+    ),
 )(FindDetail);
 
 const styles = StyleSheet.create({

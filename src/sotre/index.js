@@ -17,6 +17,7 @@ import {group} from '../pages/group/redux';
 import {fixedTop} from '../pages/group/page-components/fixedTop/redux';
 import {groupDiscussion} from '../pages/group/page-components/discussion/redux';
 import {groupDetail} from '../pages/group-detail/redux';
+import {note} from '../pages/note/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -48,6 +49,7 @@ const store = createStore(
     fixedTop,
     groupDiscussion,
     groupDetail,
+    note,
   }),
   compose(applyMiddleware(thunk, logger)),
 );
