@@ -3,20 +3,24 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default class Collect extends React.Component {
   render() {
+    console.log(this.props);
+    const {title, createTime, user} = this.props;
     return (
       <TouchableOpacity style={styles.item}>
         <View style={styles.header}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image style={styles.avatar} source={require('./pic39.png')} />
-            <Text style={styles.type}>sss</Text>
+            <Image
+              style={styles.avatar}
+              source={
+                user.avatarUrl ? {uri: user.avatarUrl} : require('./pic39.png')
+              }
+            />
+            <Text style={styles.type}>{user.userName}</Text>
           </View>
-          <Text style={styles.time}>2019-01-10</Text>
+          <Text style={styles.time}>{createTime.split(' ')[0]}</Text>
         </View>
         <Text style={styles.content} numberOfLines={3}>
-          阿斯顿撒打算的撒打算打算打算的大大撒撒打算大
-          阿斯顿撒打算的撒打算打算打算的大大撒撒打算大
-          阿斯顿撒打算的撒打算打算打算的大大撒撒打算大
-          阿斯顿撒打算的撒打算打算打算的大大撒撒打算大
+          {title}
         </Text>
       </TouchableOpacity>
     );

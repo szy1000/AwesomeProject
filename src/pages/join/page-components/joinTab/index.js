@@ -35,7 +35,7 @@ class JoinTab extends React.Component {
       init,
       data: {joinTab},
     } = this.props;
-    console.warn(joinTab)
+    console.log('joinTab', joinTab);
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
@@ -48,9 +48,9 @@ class JoinTab extends React.Component {
               key={v.id}
               onPress={() => this.linkToDetail(v.id)}>
               <View style={_styles.item}>
-                <Image style={_styles.logo} source={{uri: v.image}} />
+                <Image style={_styles.logo} source={v.thumbnail ?  {uri: v.thumbnail} : require('./pic25.png')} />
                 <Text style={_styles.name} numberOfLines={1}>
-                  {v.name}
+                  {v.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

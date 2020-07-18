@@ -10,7 +10,11 @@ import {
   Image,
 } from 'react-native';
 
-export default class Concern extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {concernInit} from './redux';
+
+class Concern extends React.Component {
   state = {
     dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
@@ -30,38 +34,54 @@ export default class Concern extends React.Component {
   };
 
   getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
-      });
-    }, 2000);
+    //   this.setState({
+    //     loading: true,
+    //   });
+    //   setTimeout(() => {
+    //     this.setState({
+    //       dataArr: [...this.state.dataArr, 8, 9, 10],
+    //       loading: false,
+    //     });
+    //   }, 2000);
   };
 
   _onPressItem = item => {
     alert(item);
   };
 
+  componentDidMount(): void {
+    this.props.concernInit({
+      pageNumber: 1,
+      pageSize: 10,
+    });
+  }
+
   render() {
     const {dataArr, refreshLoading, loading} = this.state;
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {concern} = data;
+    console.log('Concern', concern);
     return (
       <View style={styles.concern}>
         <FlatList
-          data={dataArr}
+          data={concern.data}
           renderItem={({item, index}) => (
             <View>
               <TouchableOpacity
                 style={styles.item}
                 key={index}
                 onPress={() => {
-                  this._onPressItem(item);
+                  this._onPressItem(item.resourceId);
                 }}>
-                <Image style={styles.avatar} source={require('./pic39.png')} />
+                <Image
+                  style={styles.avatar}
+                  source={{uri: item.resourceContent.thumbnail}}
+                />
                 <View style={styles.content}>
-                  <Text style={styles.title}>小马哥的澳洲生活</Text>
+                  <Text style={styles.title}>{item.resourceContent.title}</Text>
                   <View style={styles.count}>
                     <Image
                       source={require('./pic40.png')}
@@ -105,6 +125,11 @@ export default class Concern extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => state.concern,
+  dispatch => bindActionCreators({concernInit}, dispatch),
+)(Concern);
 
 const styles = StyleSheet.create({
   concern: {
