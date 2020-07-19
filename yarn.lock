@@ -5205,6 +5205,11 @@ react-native-gesture-handler@^1.6.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-get-location@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.npm.taobao.org/react-native-get-location/download/react-native-get-location-1.4.2.tgz#d20f16f1230d7e4a4278a47ff83cc52371c5888e"
+  integrity sha1-0g8W8SMNfkpCeKR/+DzFI3HFiI4=
+
 react-native-image-picker@^2.3.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-2.3.1.tgz#1977b65e07793d2c0b2d1976fb675c5f75ad7f11"

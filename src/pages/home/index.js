@@ -21,17 +21,56 @@ import Panel from './page-components/panel';
 import Case from './page-components/case';
 import Course from './page-components/course';
 
-import {homeInit} from './redux';
+import {homeInit, posInit, updateCurrCountry} from './redux';
+import GetLocation from 'react-native-get-location';
+import RNPickerSelect from 'react-native-picker-select';
 
 class Home extends React.Component {
-  componentDidMount() {
-    this.homeInit();
+  constructor(props) {
+    super(props);
+    this.navigation = this.props.navigation;
+    this.countryId = '';
   }
+  componentDidMount() {
+    this.getPos();
+  }
+
+  getPos = async () => {
+    const _this = this;
+    await GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
+    })
+      .then(async location => {
+        const {latitude, longitude} = location;
+        await this.props.posInit({
+          location: `${latitude},${longitude}`,
+          key: '543BZ-AKDC4-KPJUK-DMXNP-GGGVO-63FJU',
+        });
+        await _this.homeInit();
+      })
+      .catch(error => {
+        const {code, message} = error;
+        // this.homeInit();
+        console.log('ssss', code, message);
+      });
+  };
+
   homeInit = () => {
     this.props.homeInit({
       pageNum: 1,
       pageSize: 4,
-      navigation: this.props.navigation,
+      navigation: this.navigation,
+    });
+  };
+
+  selectCountry = async id => {
+    await this.props.updateCurrCountry({countyId: id});
+    await this.props.homeInit({
+      pageNum: 1,
+      pageSize: 4,
+      id,
+      navigation: this.navigation,
     });
   };
 
@@ -40,16 +79,35 @@ class Home extends React.Component {
     if (!init) {
       return <ActivityIndicator />;
     }
-    const {country, hotSchool, hotSubject, hotCase} = data;
+    const {country, hotSchool, hotSubject, hotCase, currCountry} = data;
+    const _items = [];
+    for (let i = 0; i < country.length; i++) {
+      const temp = {};
+      temp.label = country[i].name;
+      temp.value = country[i].id;
+      temp.key = country[i].id;
+      _items.push(temp);
+    }
+    this.countryId = _items[0].value;
     return (
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.scrollView}>
         <View style={styles.ipt_wrapper}>
-          <View style={styles.address_wrapper}>
-            <EvilIcons name={'location'} size={26} />
-            <Text style={styles.address}>{country[0].name}</Text>
-          </View>
+          <RNPickerSelect
+            onValueChange={value => (this.countryId = value)}
+            placeholder={{value: _items[0].value}}
+            doneText="确定"
+            onDonePress={() => this.selectCountry(this.countryId)}
+            items={_items}>
+            <View style={styles.address_wrapper}>
+              <EvilIcons name={'location'} size={26} />
+              <Text style={styles.address}>
+                {currCountry || country[0].name}
+              </Text>
+            </View>
+          </RNPickerSelect>
+
           <TextInput
             style={styles.ipt}
             ref={this.ipt}
@@ -166,5 +224,6 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => state.home,
-  dispatch => bindActionCreators({homeInit}, dispatch),
+  dispatch =>
+    bindActionCreators({homeInit, posInit, updateCurrCountry}, dispatch),
 )(Home);

@@ -1,4 +1,5 @@
 import {
+  getPosReq,
   getCountryReq,
   getHotSchoolReq,
   getHotSubjectReq,
@@ -36,12 +37,40 @@ export const homeUpdate = params => ({
   type: UPDATE,
 });
 
-export const homeInit = (params, callback) => async dispatch => {
-  // const { init } = getState().home
-  // console.log(init)
+export const posInit = (params, callback) => async (dispatch, getState) => {
+  const {data} = getState().home;
+  const pos = await getPosReq(params);
+  const {status, result} = pos;
+  if (status === 0) {
+    dispatch(
+      homeUpdate({
+        data: {
+          ...data,
+          currPos: result,
+          currCountry: result.address_component.nation,
+        },
+      }),
+    );
+    callback && callback();
+  }
+};
+
+export const homeInit = (params, callback) => async (dispatch, getState) => {
+  const {data} = getState().home;
+  const {currCountry} = data;
   const country = await getCountryReq(params || {});
+  console.log('homeInit', data);
+  console.log('country', country);
+  console.log('currCountry', currCountry);
+  let id = '';
+  for (let i = 0; i < country.length; i++) {
+    if (country[i].name === currCountry) {
+      id = country[i].id;
+    }
+  }
+  console.log('countryId', id);
   const countyParams = {
-    country_id: country[0].id,
+    country_id: params.id || id || country[0].id,
     navigation: params.navigation,
   };
 
@@ -53,10 +82,34 @@ export const homeInit = (params, callback) => async dispatch => {
     homeUpdate({
       init: true,
       data: {
+        ...data,
         country,
         hotSchool,
         hotSubject,
         hotCase,
+      },
+    }),
+  );
+  callback && callback();
+};
+
+export const updateCurrCountry = (params, callback) => async (
+  dispatch,
+  getState,
+) => {
+  const {data} = getState().home;
+  const {country} = data;
+  let name = '';
+  for (let i = 0; i < country.length; i++) {
+    if (country[i].id === params.countyId) {
+      name = country[i].name;
+    }
+  }
+  dispatch(
+    homeUpdate({
+      data: {
+        ...data,
+        currCountry: name,
       },
     }),
   );
