@@ -64,7 +64,6 @@ export const saveTempInfo = (params, callback) => async (
   getState,
 ) => {
   const {data} = getState().editInfo;
-  console.log(params);
   dispatch(
     editInfoUpdate({
       init: true,
@@ -82,7 +81,7 @@ export const saveInfo = (params, callback) => async (dispatch, getState) => {
   // const {id, userName, phoneNumber, personalSignature, address} = data;
   data.avatar = data.id;
   console.log('save', data);
-  // const res = await changeUserInfoReq(data || {});
-  // console.log(res);
+  const res = await changeUserInfoReq(data || {});
+  console.log(res);
   callback && callback();
 };

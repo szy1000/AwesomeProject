@@ -27,6 +27,7 @@ class EditInfo extends React.Component {
   state = {
     avatarSource: '',
     error: 'erroree',
+    sex: '',
   };
 
   async componentDidMount(): void {
@@ -110,7 +111,7 @@ class EditInfo extends React.Component {
         />
         <Item title="微信号" extra={<Text>123456</Text>} />
         <RNPickerSelect
-          onValueChange={value => this.props.saveTempInfo({sex: value})}
+          onValueChange={value => this.props.saveTempInfo({sex: value || sex})}
           placeholder={{value: '男'}}
           doneText="确定"
           items={[{label: '男', value: '男'}, {label: '女', value: '女'}]}>
