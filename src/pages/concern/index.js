@@ -57,7 +57,7 @@ class Concern extends React.Component {
   }
 
   render() {
-    const {dataArr, refreshLoading, loading} = this.state;
+    const {refreshLoading, loading} = this.state;
     const {init, data} = this.props;
     if (!init) {
       return <ActivityIndicator />;

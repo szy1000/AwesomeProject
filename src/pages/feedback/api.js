@@ -1,5 +1,7 @@
 import Https from '../../utils/https';
 
-const getFeedBackReq = params => Https.post('/api/app/feedback', params);
+const uploadImageFileReq = params =>
+  Https.post('/api/common/file/image', params);
+const getFeedBackReq = params => Https.post('/api/app/feedback', params, true);
 
-export {getFeedBackReq};
+export {uploadImageFileReq, getFeedBackReq};

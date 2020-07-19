@@ -52,7 +52,7 @@ class EditInfo extends React.Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const {origURL, type, data} = response;
+        const {uri, type, data} = response;
         const source = {uri: response.uri};
         this.setState(
           {
@@ -60,7 +60,7 @@ class EditInfo extends React.Component {
           },
           () => {
             this.props.uploadFileFn({
-              fileName: origURL.split('?')[1].split('=')[1],
+              fileName: uri.split('images/')[1],
               dataUrl: `data:${type};base64,${data}`,
             });
           },

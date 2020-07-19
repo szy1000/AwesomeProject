@@ -60,7 +60,6 @@ export const uploadFileFn = (params, callback) => async (
   getState,
 ) => {
   const {data} = getState().note;
-  console.log('uploadImg', params);
   const imageFile = await uploadImageFileReq(params || {});
 
   dispatch(

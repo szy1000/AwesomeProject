@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Text,
   View,
   TextInput,
   Image,
@@ -10,20 +9,24 @@ import {
 } from 'react-native';
 import {Item} from '../../components';
 import ImagePicker from 'react-native-image-picker';
-
+import Jump from '../../utils/jump';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {submitFeedback} from './redux';
+import {submitFeedback, uploadFileFn} from './redux';
 
 class Feedback extends React.Component {
   state = {
     avatarSource: '',
     error: 'erroree',
+    avatarSourceMap: [],
   };
   getPhoto = async () => {
     const options = {
-      title: 'Select Avatar',
-      // customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+      title: '选择图片',
+      takePhotoButtonTitle: '相机',
+      chooseFromLibraryButtonTitle: '图库',
+      cancelButtonTitle: '取消',
+      quality: 0.3,
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -31,7 +34,6 @@ class Feedback extends React.Component {
     };
     await ImagePicker.showImagePicker(options, response => {
       console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -39,20 +41,25 @@ class Feedback extends React.Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        alert(JSON.stringify(response));
-
-        const source = {uri: response.uri};
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        const {uri, type, data} = response;
+        const source = {uri: response.uri};
+        const {avatarSourceMap} = this.state;
+        avatarSourceMap.push(source);
 
-        this.setState({
-          avatarSource: source,
-        });
+        this.setState(
+          {
+            avatarSourceMap: [...avatarSourceMap],
+          },
+          () => {
+            this.props.uploadFileFn({
+              fileName: uri.split('images/')[1],
+              dataUrl: `data:${type};base64,${data}`,
+            });
+          },
+        );
       }
-    }).catch(e => {
-      this.setState({
-        error: JSON.stringify(e),
-      });
     });
   };
 
@@ -63,32 +70,57 @@ class Feedback extends React.Component {
   };
 
   submitFeed = () => {
-    const {value, contact} = this.state;
-    console.warn(value, contact);
-    this.props.submitFeedback({
-
-    })
+    const {content, contact} = this.state;
+    if (contact) {
+      this.props.submitFeedback(
+        {
+          content,
+          contact,
+        },
+        () =>
+          Jump.linkToPage({
+            navigation: this.props.navigation,
+            url: 'My',
+          }),
+      );
+    } else {
+      alert('联系方式不能为空');
+    }
   };
 
   render() {
-    const {navigation} = this.props;
-    const {avatarSource, value, contact, error} = this.state;
+    // const {navigation} = this.props;
+    const {content, avatarSourceMap, contact} = this.state;
+    console.log(avatarSourceMap);
     return (
       <View style={styles.feedback}>
         <TextInput
-          value={value}
-          multiline={3}
+          value={content}
+          multiline={true}
           style={styles.ipt}
-          onChangeText={e => this.onChange('value', e)}
+          onChangeText={e => this.onChange('content', e)}
           placeholder={'请输入反馈内容...'}
         />
-        <TouchableWithoutFeedback onPress={this.getPhoto}>
-          <Image
-            style={styles.img}
-            resizeMode="contain"
-            source={require('./add.png')}
-          />
-        </TouchableWithoutFeedback>
+        <View style={styles.imgWrapper}>
+          {avatarSourceMap.length > 0 &&
+            avatarSourceMap.map((v, index) => {
+              return (
+                <View key={index} keys={index}>
+                  <Image style={styles.img} source={v} />
+                </View>
+              );
+            })}
+
+          {avatarSourceMap.length < 9 && (
+            <TouchableWithoutFeedback onPress={this.getPhoto}>
+              <Image
+                style={styles.img}
+                resizeMode="contain"
+                source={require('./add.png')}
+              />
+            </TouchableWithoutFeedback>
+          )}
+        </View>
         <Item title={'联系方式'} more={false}>
           <TextInput
             style={styles.contact}
@@ -97,11 +129,7 @@ class Feedback extends React.Component {
             onChangeText={e => this.onChange('contact', e)}
           />
         </Item>
-        <Text>{avatarSource}</Text>
 
-        {avatarSource.length > 0 && (
-          <Image style={styles.addPhoto} source={avatarSource} />
-        )}
         <Button style={styles.submit} onPress={this.submitFeed} title="发送" />
       </View>
     );
@@ -113,9 +141,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  imgWrapper: {
+    flexDirection: 'row',
+  },
   img: {
     marginLeft: 15,
     marginBottom: 15,
+    marginRight: 10,
+    width: 88,
+    height: 94,
   },
   addPhoto: {
     width: '80%',
@@ -137,5 +171,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => state.feedback,
-  dispatch => bindActionCreators({submitFeedback}, dispatch),
+  dispatch => bindActionCreators({submitFeedback, uploadFileFn}, dispatch),
 )(Feedback);
