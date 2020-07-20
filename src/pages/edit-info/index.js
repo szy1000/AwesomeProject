@@ -112,7 +112,10 @@ class EditInfo extends React.Component {
         <Item title="微信号" extra={<Text>123456</Text>} />
         <RNPickerSelect
           onValueChange={value => this.props.saveTempInfo({sex: value || sex})}
-          placeholder={{value: '男'}}
+          placeholder={{
+            label: '请选择性别',
+            value: null,
+          }}
           doneText="确定"
           items={[{label: '男', value: '男'}, {label: '女', value: '女'}]}>
           <Item title="性别" extra={<Text>{sex || '未知'}</Text>} />

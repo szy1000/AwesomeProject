@@ -145,7 +145,7 @@ function getHeaderTitle(_params) {
 export default class AppNavigator extends React.Component {
   componentDidMount() {
     // 关闭黄色弹出框
-    // console.disableYellowBox = true
+    console.disableYellowBox = true
     YellowBox.ignoreWarnings([
       'Warning: componentWillMount is deprecated',
       'Warning: componentWillReceiveProps is deprecated',

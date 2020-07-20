@@ -86,6 +86,7 @@ class Home extends React.Component {
       temp.label = country[i].name;
       temp.value = country[i].id;
       temp.key = country[i].id;
+      temp.keys = country[i].id;
       _items.push(temp);
     }
     this.countryId = _items[0].value;
@@ -95,8 +96,15 @@ class Home extends React.Component {
         style={styles.scrollView}>
         <View style={styles.ipt_wrapper}>
           <RNPickerSelect
-            onValueChange={value => (this.countryId = value)}
-            placeholder={{value: _items[0].value}}
+            onValueChange={value => {
+              this.countryId = value;
+              this.selectCountry(this.countryId);
+            }}
+            value={_items[0].value}
+            placeholder={{
+              label: '请选择国家',
+              value: null,
+            }}
             doneText="确定"
             onDonePress={() => this.selectCountry(this.countryId)}
             items={_items}>
