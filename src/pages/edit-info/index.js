@@ -105,6 +105,7 @@ class EditInfo extends React.Component {
           extra={
             <TextInput
               value={userName}
+              allowFontScaling={false}
               onChangeText={e => this.props.saveTempInfo({userName: e})}
             />
           }
@@ -126,6 +127,7 @@ class EditInfo extends React.Component {
           extra={
             <TextInput
               value={personalSignature}
+              allowFontScaling={false}
               onChangeText={e =>
                 this.props.saveTempInfo({personalSignature: e})
               }

@@ -8,8 +8,9 @@ export default class SearchInput extends React.Component {
       <TextInput
         style={[_styles.ipt, styles]}
         placeholder={placeholder || '请输入关键字'}
-        {...this.props}
+        allowFontScaling={false}
         value={value}
+        {...this.props}
         onChangeText={e => onChangeText && onChangeText(e)}
         onBlur={e => onBlur && onBlur(e)}
       />

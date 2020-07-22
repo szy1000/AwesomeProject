@@ -119,7 +119,9 @@ class Home extends React.Component {
           <TextInput
             style={styles.ipt}
             ref={this.ipt}
+            allowFontScaling={false}
             placeholder="请输入关键词搜索"
+            returnKeyLabel="do"
             onPress={() => {
               this.refs.ipt.focus();
             }}
