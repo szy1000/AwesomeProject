@@ -10,16 +10,44 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-export default class GroupEdit extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {groupEditInit, uploadFileFn} from './redux';
+import Jump from '../../utils/jump';
+
+class GroupEdit extends React.Component {
   state = {
     imgArr: [require('./png.png')],
     avatarSourceMap: [],
   };
 
+  handleChange = (key, value) => {
+    this.setState({
+      [key]: value.trim(),
+    });
+  };
+
+  submitGroupFn = () => {
+    const {title, content} = this.state;
+    if (title && content) {
+      this.props.groupEditInit(
+        {
+          title,
+          content,
+        },
+        () =>
+          Jump.linkToPage({
+            navigation: this.props.navigation,
+            url: 'BBS',
+          }),
+      );
+    } else {
+      alert('标题，正文不能为空');
+    }
+  };
+
   getPhoto = async () => {
     const options = {
-      mediaType: 'mixed',
-      durationLimit: '120',
       title: '选择照片',
       cancelButtonTitle: '取消',
       takePhotoButtonTitle: '相机',
@@ -40,7 +68,7 @@ export default class GroupEdit extends React.Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = {uri: response.uri};
-
+        const {uri, type, data} = response;
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
         const {avatarSourceMap} = this.state;
@@ -49,15 +77,19 @@ export default class GroupEdit extends React.Component {
           avatarSourceMap: [...avatarSourceMap],
           // imgArr: [...this.state.imgArr.unshift(source)],
         });
+        console.log('Response = ', response);
+        this.props.uploadFileFn({
+          fileName: uri.split('images/')[1],
+          dataUrl: `data:${type};base64,${data}`,
+        });
       }
     });
   };
   render() {
     const {navigation} = this.props;
-    const {avatarSourceMap} = this.state;
+    const {title, content, avatarSourceMap} = this.state;
     return (
       <ScrollView style={styles.note}>
-        <Text>{JSON.stringify(this.state.avatarSource)}</Text>
         <View style={styles.imgWrapper}>
           {avatarSourceMap.map((v, index) => {
             return (
@@ -79,21 +111,30 @@ export default class GroupEdit extends React.Component {
         <View style={styles.iptArea}>
           <TextInput
             style={styles.title}
-            placeholder={'填写标题会有很多赞哦'}
+            value={title}
+            placeholder={'请输入一个完整的标题'}
+            onChangeText={e => this.handleChange('title', e)}
           />
           <TextInput
             style={styles.content}
             multiline
-            placeholder={'填写正文'}
+            value={content}
+            placeholder={'填加正文'}
+            onChangeText={e => this.handleChange('content', e)}
           />
         </View>
-        <TouchableOpacity style={styles.submit}>
+        <TouchableOpacity style={styles.submit} onPress={this.submitGroupFn}>
           <Text style={styles.txt}>发布小组</Text>
         </TouchableOpacity>
       </ScrollView>
     );
   }
 }
+
+export default connect(
+  state => state.group,
+  dispatch => bindActionCreators({groupEditInit, uploadFileFn}, dispatch),
+)(GroupEdit);
 
 const styles = StyleSheet.create({
   note: {

@@ -15,6 +15,7 @@ import {manageTab} from '../pages/join/page-components/manageTab/redux';
 import {publish} from '../pages/publish/redux';
 import {feedback} from '../pages/feedback/redux';
 import {group} from '../pages/group/redux';
+import {groupEdit} from '../pages/group-edit/redux';
 import {fixedTop} from '../pages/group/page-components/fixedTop/redux';
 import {groupDiscussion} from '../pages/group/page-components/discussion/redux';
 import {groupDetail} from '../pages/group-detail/redux';
@@ -53,6 +54,7 @@ const store = createStore(
     groupDetail,
     note,
     concern,
+    groupEdit,
     message,
   }),
   compose(applyMiddleware(thunk, logger)),

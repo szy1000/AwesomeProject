@@ -59,9 +59,9 @@ class GroupDetail extends React.Component {
         <ScrollView style={styles.groupDetail}>
           <Item {...groupDetail} />
           <WhiteSpace size={'big'} />
-          <Button title={'ss'} onPress={this.makeComment}>
-            <Text>sss</Text>
-          </Button>
+          {/*<Button title={'ss'} onPress={this.makeComment}>*/}
+          {/*  <Text>sss</Text>*/}
+          {/*</Button>*/}
 
           {comment.length > 0 ? (
             comment.map(v => <Leave key={v.id} {...v} />)
