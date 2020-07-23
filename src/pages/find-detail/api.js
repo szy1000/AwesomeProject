@@ -17,6 +17,17 @@ const starNoteReq = id =>
 const favoriteNoteReq = id =>
   Https.post(`/api/app/action/note/${id}/favorite`, {}, true);
 
+const unFollowNoteReq = params =>
+  Https.post(`/api/app/action/note/${params}/un_follow`, {}, true);
+
+const unStarNoteReq = id =>
+  Https.post(`/api/app/action/note/${id}/un_star`, {}, true);
+
+const unFavoriteNoteReq = id =>
+  Https.post(`/api/app/action/note/${id}/un_favorite`, {}, true);
+
+const queryActionReq = id => Https.get(`/api/app/action/note/${id}`, {});
+
 export {
   getNoteDetailReq,
   getNoteCommentReq,
@@ -24,4 +35,10 @@ export {
   followNoteReq,
   starNoteReq,
   favoriteNoteReq,
+
+  unFollowNoteReq,
+  unStarNoteReq,
+  unFavoriteNoteReq,
+
+  queryActionReq,
 };

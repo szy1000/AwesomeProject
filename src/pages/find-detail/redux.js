@@ -5,6 +5,10 @@ import {
   favoriteNoteReq,
   commentNoteReq,
   getNoteCommentReq,
+  queryActionReq,
+  unFollowNoteReq,
+  unStarNoteReq,
+  unFavoriteNoteReq,
 } from './api';
 // Actions
 const UPDATE = 'FIND_DETAIL_UPDATE';
@@ -37,12 +41,14 @@ export const findDetailInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
   const noteDetail = await getNoteDetailReq(params || {});
+  const actionAll = await queryActionReq(params || {});
   const commentList = await getNoteCommentReq(params || {});
   dispatch(
     findDetailUpdate({
       init: true,
       data: {
         noteDetail,
+        actionAll,
         commentList,
       },
     }),
@@ -57,8 +63,15 @@ export const commentNote = (params, callback) => async dispatch => {
   callback && callback();
 };
 
-export const followNote = (params, callback) => async dispatch => {
-  const followNote = await followNoteReq(params || {});
+export const followNote = (params, callback) => async (dispatch, getState) => {
+  const {actionAll} = await getState().findDetail.data;
+  console.log('data', actionAll.follow);
+  let res = '';
+  if (actionAll.follow) {
+    res = await unFollowNoteReq(params || {});
+  } else {
+    res = await followNoteReq(params || {});
+  }
   // dispatch(
   //   findDetailUpdate({
   //     init: true,
@@ -70,8 +83,15 @@ export const followNote = (params, callback) => async dispatch => {
   callback && callback();
 };
 
-export const starNote = (params, callback) => async dispatch => {
-  const res = await starNoteReq(params || {});
+export const starNote = (params, callback) => async (dispatch, getState) => {
+  const {actionAll} = await getState().findDetail.data;
+  let res = '';
+  if (actionAll.star) {
+    res = await unStarNoteReq(params || {});
+    console.log('unStarNoteReq', res);
+  } else {
+    res = await starNoteReq(params || {});
+  }
   const {success} = res;
   if (success) {
     callback && callback();
@@ -87,8 +107,22 @@ export const starNote = (params, callback) => async dispatch => {
   // );
 };
 
-export const favoriteNote = (params, callback) => async dispatch => {
-  const followNote = await favoriteNoteReq(params || {});
+export const favoriteNote = (params, callback) => async (
+  dispatch,
+  getState,
+) => {
+  const {actionAll} = await getState().findDetail.data;
+  let res = '';
+  if (actionAll.favorite) {
+    res = await unFavoriteNoteReq(params || {});
+  } else {
+    res = await favoriteNoteReq(params || {});
+  }
+
+  const {success} = res;
+  if (success) {
+    callback && callback();
+  }
   // dispatch(
   //   findDetailUpdate({
   //     init: true,

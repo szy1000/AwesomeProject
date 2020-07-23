@@ -9,11 +9,6 @@ import {
 import {SearchInput} from '../../../../components';
 
 export default class GroupDetail extends React.Component {
-  state = {
-    thumbUp: false,
-    collect: false,
-  };
-
   handleState = name => {
     this.setState({
       [name]: !this.state[name],
@@ -34,8 +29,12 @@ export default class GroupDetail extends React.Component {
   };
 
   render() {
-    const {thumbUp, collect} = this.state;
-    const {starCount, favoriteCount} = this.props;
+    const {
+      starCount,
+      favoriteCount,
+      actionAll: {favorite, star},
+    } = this.props;
+
     return (
       <View style={styles.comment}>
         <SearchInput
@@ -47,7 +46,7 @@ export default class GroupDetail extends React.Component {
         <TouchableWithoutFeedback onPress={this.props.starNoteFn}>
           <Image
             style={styles.img}
-            source={thumbUp ? require('./thumb-on.png') : require('./zan.png')}
+            source={star ? require('./thumb-on.png') : require('./zan.png')}
           />
         </TouchableWithoutFeedback>
         <Text>{starCount}</Text>
@@ -55,7 +54,7 @@ export default class GroupDetail extends React.Component {
           <Image
             style={styles.img}
             source={
-              collect ? require('./collect-on.png') : require('./collect.png')
+              favorite ? require('./collect-on.png') : require('./collect.png')
             }
           />
         </TouchableWithoutFeedback>

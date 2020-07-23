@@ -75,11 +75,14 @@ class FindDetail extends React.Component {
       starCount,
       user,
     } = data.noteDetail;
-    console.log('data', data);
     return (
       <View style={styles.findDetail}>
         <SafeAreaView style={{flex: 1}}>
-          <Header user={user} followFn={this.follow} />
+          <Header
+            user={user}
+            followFn={this.follow}
+            follow={data.actionAll.follow}
+          />
           <ScrollView style={{flex: 1}}>
             <Banner files={files} />
             <View>
@@ -87,13 +90,14 @@ class FindDetail extends React.Component {
               <Text>{content}</Text>
             </View>
             {data.commentList.length > 0 ? (
-              data.commentList.map(v => <Leave {...v} />)
+              data.commentList.map(v => <Leave key={v.id} {...v} />)
             ) : (
               <Empty />
             )}
           </ScrollView>
           <View style={styles.control}>
             <Comment
+              actionAll={data.actionAll}
               starCount={starCount}
               commentCount={commentCount}
               favoriteCount={favoriteCount}

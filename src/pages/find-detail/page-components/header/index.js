@@ -9,10 +9,21 @@ import {
 
 export default class Header extends React.Component {
   render() {
-    const {avatarUrl, userName, address} = this.props.user;
+    const {
+      user: {avatarUrl, userName, address},
+      follow,
+    } = this.props;
+
     return (
       <View style={styles.header}>
-        <Image style={styles.avatar} source={avatarUrl ?{uri: avatarUrl} : require('../../../../assets/images/logo.jpeg')} />
+        <Image
+          style={styles.avatar}
+          source={
+            avatarUrl
+              ? {uri: avatarUrl}
+              : require('../../../../assets/images/logo.jpeg')
+          }
+        />
         <View style={{flex: 1}}>
           <Text style={styles.name} numberOfLines={1}>
             {userName}
@@ -24,7 +35,7 @@ export default class Header extends React.Component {
         </View>
         <View>
           <TouchableWithoutFeedback onPress={this.props.followFn}>
-            <Text>关注</Text>
+            {follow ? <Text>取消关注</Text> : <Text>关注</Text>}
           </TouchableWithoutFeedback>
         </View>
       </View>
