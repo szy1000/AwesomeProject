@@ -78,7 +78,7 @@ class Find extends React.Component {
       return <Loading />;
     }
     const {note} = data;
-    console.log(note)
+    console.log(note);
     return (
       <View style={styles.find}>
         <FlatList
@@ -94,7 +94,11 @@ class Find extends React.Component {
                 <View>
                   <Image
                     style={styles.pic}
-                    source={{uri: item.thumbnail || ''}}
+                    source={
+                      item.thumbnail
+                        ? {uri: item.thumbnail}
+                        : require('../../assets/images/logo.jpeg')
+                    }
                   />
                   <Text style={styles.title} numberOfLines={2}>
                     {item.title}
@@ -106,7 +110,11 @@ class Find extends React.Component {
                   <View style={styles.auth}>
                     <Image
                       style={styles.avatar}
-                      source={{uri: item.user.avatarUrl}}
+                      source={
+                        item.user.avatarUrl
+                          ? {uri: item.user.avatarUrl}
+                          : require('../../assets/images/logo.jpeg')
+                      }
                     />
                     <Text style={styles.name}>{item.user.userName}</Text>
                   </View>

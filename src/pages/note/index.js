@@ -6,19 +6,21 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {uploadFileFn, submitNote} from './redux';
+import {uploadFileFn, submitNote, posInit} from './redux';
 import Jump from '../../utils/jump';
+import GetLocation from 'react-native-get-location';
 
 class Note extends React.Component {
+  location = '点击添加地址';
   state = {
     title: '',
-    location: '中国',
     content: '',
     imgArr: [require('./png.png')],
     avatarSourceMap: [],
@@ -69,29 +71,58 @@ class Note extends React.Component {
 
   handleChange = (key, value) => {
     this.setState({
-      [key]: value,
+      [key]: value.trim(),
     });
   };
 
-  submitNote = () => {
-    const {title, content, location} = this.state;
-    console.log(this.state);
-    this.props.submitNote(
-      {
-        title,
-        content,
-        location,
-      },
-      () =>
-        Jump.linkToPage({
-          navigation: this.props.navigation,
-          url: 'Find',
-        }),
-    );
+  getPos = async () => {
+    await GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
+    })
+      .then(location => {
+        const {latitude, longitude} = location;
+        this.props.posInit({
+          location: `${latitude},${longitude}`,
+          key: '543BZ-AKDC4-KPJUK-DMXNP-GGGVO-63FJU',
+        });
+      })
+      .catch(error => {
+        const {code, message} = error;
+        // this.homeInit();
+        console.log('ssss', code, message);
+      });
+  };
+
+  submitNoteFn = () => {
+    const {title, content} = this.state;
+    if (title && content && this.location) {
+      this.props.submitNote(
+        {
+          title,
+          content,
+          location: this.location,
+        },
+        () =>
+          Jump.linkToPage({
+            navigation: this.props.navigation,
+            url: 'Find',
+          }),
+      );
+    } else {
+      alert('标题，正文和地理位置不能为空');
+    }
   };
   render() {
-    const {navigation} = this.props;
-    const {title, content, location, avatarSourceMap} = this.state;
+    const {title, content, avatarSourceMap} = this.state;
+    const {currPos} = this.props.data;
+    if (currPos) {
+      const {
+        address_component: {nation, ad_level_1},
+      } = currPos;
+      this.location = nation + ad_level_1;
+    }
+    console.log();
     return (
       <ScrollView style={styles.note}>
         <View style={styles.imgWrapper}>
@@ -123,12 +154,17 @@ class Note extends React.Component {
             placeholder={'填写正文'}
           />
         </View>
-        <View style={styles.address}>
-          <Image style={styles.addressIcon} source={require('./address.png')} />
-          <Text style={styles.text}>添加地址</Text>
-          <Image style={styles.more} source={require('./more.png')} />
-        </View>
-        <TouchableOpacity style={styles.submit} onPress={this.submitNote}>
+        <TouchableWithoutFeedback onPress={this.getPos}>
+          <View style={styles.address}>
+            <Image
+              style={styles.addressIcon}
+              source={require('./address.png')}
+            />
+            <Text style={styles.text}>{this.location}</Text>
+            <Image style={styles.more} source={require('./more.png')} />
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableOpacity style={styles.submit} onPress={this.submitNoteFn}>
           <Text style={styles.txt}>发布笔记</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -138,7 +174,7 @@ class Note extends React.Component {
 
 export default connect(
   state => state.note,
-  dispatch => bindActionCreators({uploadFileFn, submitNote}, dispatch),
+  dispatch => bindActionCreators({uploadFileFn, submitNote, posInit}, dispatch),
 )(Note);
 
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import {createNoteReq, uploadImageFileReq} from './api';
+import {createNoteReq, uploadImageFileReq, getPosReq} from './api';
 // Actions
 const UPDATE = 'NOTE_UPDATE';
 
@@ -34,10 +34,11 @@ export const submitNote = (params, callback) => async (dispatch, getState) => {
   data.imageFileArr.map(v => {
     files.push(v.id);
   });
-  console.log('submit', data);
   params.files = files;
-  console.log('params', params);
-
+  if (!files.length) {
+    alert('请至少上传一张图片');
+    return;
+  }
   const {success} = await createNoteReq(params || {});
   if (success) {
     alert('笔记发布成功！');
@@ -71,4 +72,23 @@ export const uploadFileFn = (params, callback) => async (
     }),
   );
   callback && callback();
+};
+
+export const posInit = (params, callback) => async (dispatch, getState) => {
+  const {data} = getState().note;
+  const pos = await getPosReq(params);
+  const {status, result} = pos;
+
+  if (status === 0) {
+    dispatch(
+      noteUpdate({
+        data: {
+          ...data,
+          currPos: result,
+          currCountry: result.address_component.nation,
+        },
+      }),
+    );
+    callback && callback();
+  }
 };

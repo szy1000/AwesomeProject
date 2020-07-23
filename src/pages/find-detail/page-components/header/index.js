@@ -12,7 +12,7 @@ export default class Header extends React.Component {
     const {avatarUrl, userName, address} = this.props.user;
     return (
       <View style={styles.header}>
-        <Image style={styles.avatar} source={{uri: avatarUrl}} />
+        <Image style={styles.avatar} source={avatarUrl ?{uri: avatarUrl} : require('../../../../assets/images/logo.jpeg')} />
         <View style={{flex: 1}}>
           <Text style={styles.name} numberOfLines={1}>
             {userName}
