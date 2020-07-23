@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   ScrollView,
+  TouchableWithoutFeedback,
   View,
   Text,
   TextInput,
@@ -24,6 +25,7 @@ import Course from './page-components/course';
 import {homeInit, posInit, updateCurrCountry} from './redux';
 import GetLocation from 'react-native-get-location';
 import RNPickerSelect from 'react-native-picker-select';
+import Jump from '../../utils/jump';
 
 class Home extends React.Component {
   constructor(props) {
@@ -100,7 +102,7 @@ class Home extends React.Component {
               this.countryId = value;
               this.selectCountry(this.countryId);
             }}
-            value={_items[0].value}
+            // value={_items[0].value}
             placeholder={{
               label: '请选择国家',
               value: null,
@@ -119,7 +121,8 @@ class Home extends React.Component {
           <TextInput
             style={styles.ipt}
             ref={this.ipt}
-            allowFontScaling={false}
+            // editable={false}
+            maxLenth={100}
             placeholder="请输入关键词搜索"
             returnKeyLabel="do"
             onPress={() => {
@@ -131,10 +134,18 @@ class Home extends React.Component {
               });
             }}
           />
-          <View style={styles.msg_box}>
-            <AntDesign name={'message1'} size={20} />
-            <Text style={styles.badge}>3</Text>
-          </View>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              Jump.linkToPage({
+                url: 'Message',
+                navigation: this.navigation,
+              })
+            }>
+            <View style={styles.msg_box}>
+              <AntDesign name={'message1'} size={20} />
+              <Text style={styles.badge}>3</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <Banner />
         <Link navigation={this.props.navigation} />

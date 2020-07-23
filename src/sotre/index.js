@@ -5,6 +5,7 @@ import {home} from '../pages/home/redux';
 import {register} from '../pages/register/redux';
 import {bbs} from '../pages/bbs/redux';
 import {find} from '../pages/find/redux';
+import {message} from '../pages/message/redux';
 import {my} from '../pages/my/redux';
 import {findDetail} from '../pages/find-detail/redux';
 import {editInfo} from '../pages/edit-info/redux';
@@ -52,6 +53,7 @@ const store = createStore(
     groupDetail,
     note,
     concern,
+    message,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

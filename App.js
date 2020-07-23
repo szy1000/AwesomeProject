@@ -35,8 +35,8 @@ const TabBottom = e => {
         name="Home"
         component={Home}
         options={{
-          title: '申请',
-          tabBarLabel: '申请',
+          title: '首页',
+          tabBarLabel: '首页',
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons
               name="file-document-edit"
