@@ -1,5 +1,12 @@
 import React, {Fragment} from 'react';
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Image,
+  Text,
+} from 'react-native';
 import {GroupTitle, FixedTop, Discussion} from './page-components';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -8,6 +15,7 @@ const TopTab = createMaterialTopTabNavigator();
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {groupInit} from './redux';
+import Jump from '../../utils/jump';
 
 class Group extends React.Component {
   componentDidMount() {
@@ -21,6 +29,7 @@ class Group extends React.Component {
     const {
       init,
       data,
+      navigation,
       route: {params},
     } = this.props;
     if (!init) {
@@ -28,8 +37,22 @@ class Group extends React.Component {
     }
     const {group} = data;
     return (
-      <Fragment>
+      <View style={styles.group}>
         <GroupTitle {...this.props} group={group} />
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Jump.linkToPage({
+              navigation,
+              url: 'GroupEdit',
+              params: {
+                id: params.id,
+              },
+            });
+          }}>
+          <View style={styles.note}>
+            <Image style={styles.edit} source={require('./edit.png')} />
+          </View>
+        </TouchableWithoutFeedback>
         <TopTab.Navigator
           tabBarOptions={{
             labelStyle: {
@@ -61,15 +84,29 @@ class Group extends React.Component {
             component={() => <FixedTop {...this.props} />}
           />
         </TopTab.Navigator>
-      </Fragment>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  group: {},
+  group: {
+    position: 'relative',
+    flex: 1,
+  },
   top: {
     backgroundColor: '#fff',
+  },
+
+  note: {
+    position: 'absolute',
+    zIndex: 100,
+    right: 10,
+    bottom: 60,
+  },
+  edit: {
+    width: 60,
+    height: 60,
   },
 });
 

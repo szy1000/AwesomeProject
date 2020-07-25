@@ -71,17 +71,6 @@ class BBS extends React.Component {
             </Panel>
           </View>
         </ScrollView>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            Jump.linkToPage({
-              navigation,
-              url: 'GroupEdit',
-            });
-          }}>
-          <View style={styles.note}>
-            <Image style={styles.edit} source={require('./edit.png')} />
-          </View>
-        </TouchableWithoutFeedback>
       </View>
     );
   }
@@ -120,15 +109,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     color: '#12a8cd',
     backgroundColor: '#d9eff7',
-  },
-  note: {
-    position: 'absolute',
-    right: 10,
-    bottom: 60,
-  },
-  edit: {
-    width: 60,
-    height: 60,
   },
 });
 

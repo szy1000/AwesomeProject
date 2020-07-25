@@ -30,7 +30,7 @@ export default class GroupTitle extends React.Component {
           />
           <View style={styles.title_wrapper}>
             <Text style={styles.title}>{name}</Text>
-            <Text style={styles.subTitle}>{userCount} 小叮当 ></Text>
+            <Text style={styles.subTitle}>{userCount} 小叮当</Text>
           </View>
           {/* todo*/}
           {join ? (

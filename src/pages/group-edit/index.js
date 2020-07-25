@@ -34,6 +34,7 @@ class GroupEdit extends React.Component {
         {
           title,
           content,
+          groupId: this.props.data.group.id,
         },
         () =>
           Jump.linkToPage({
@@ -86,8 +87,11 @@ class GroupEdit extends React.Component {
     });
   };
   render() {
-    const {navigation} = this.props;
+    // const {
+    //   data: {group},
+    // } = this.props;
     const {title, content, avatarSourceMap} = this.state;
+    console.log('GroupEdit', this.props);
     return (
       <ScrollView style={styles.note}>
         <View style={styles.imgWrapper}>
