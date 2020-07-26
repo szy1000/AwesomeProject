@@ -1,4 +1,9 @@
-import {getUserInfoReq, changeUserInfoReq, uploadImageFileReq} from './api';
+import {
+  getUserInfoReq,
+  querySexDictReq,
+  changeUserInfoReq,
+  uploadImageFileReq,
+} from './api';
 // Actions
 const UPDATE = 'EDIT_INFO_UPDATE';
 
@@ -30,11 +35,22 @@ export const editInfoUpdate = params => ({
 
 export const editInfoInit = (params, callback) => async dispatch => {
   const userInfo = await getUserInfoReq(params || {});
+  const sexDict = await querySexDictReq({});
+  const _sexDict = [];
+  for (let i = 0; i < sexDict.length; i++) {
+    let temp = {};
+    temp.id = sexDict[i].id;
+    temp.label = sexDict[i].name;
+    temp.value = sexDict[i].id;
+    _sexDict.push(temp);
+  }
+  console.log('userInfo', userInfo);
   dispatch(
     editInfoUpdate({
       init: true,
       data: {
         ...userInfo,
+        _sexDict,
       },
     }),
   );
@@ -47,7 +63,6 @@ export const uploadFileFn = (params, callback) => async (
 ) => {
   const {data} = getState().editInfo;
   const imageFile = await uploadImageFileReq(params || {});
-  console.log(imageFile);
   dispatch(
     editInfoUpdate({
       data: {
@@ -79,9 +94,14 @@ export const saveTempInfo = (params, callback) => async (
 export const saveInfo = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().editInfo;
   // const {id, userName, phoneNumber, personalSignature, address} = data;
-  data.avatar = data.id;
+  if (data.name) {
+    data.avatar = data.id;
+  }
   console.log('save', data);
   const res = await changeUserInfoReq(data || {});
-  console.log(res);
-  callback && callback();
+  const {success} = res;
+  if (success) {
+    alert('修改成功');
+    callback && callback();
+  }
 };

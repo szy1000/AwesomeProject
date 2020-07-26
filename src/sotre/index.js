@@ -21,6 +21,7 @@ import {groupDiscussion} from '../pages/group/page-components/discussion/redux';
 import {groupDetail} from '../pages/group-detail/redux';
 import {note} from '../pages/note/redux';
 import {concern} from '../pages/concern/redux';
+import {repository} from '../pages/repository/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -56,6 +57,7 @@ const store = createStore(
     concern,
     groupEdit,
     message,
+    repository,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

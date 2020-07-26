@@ -11,21 +11,15 @@ import {
 } from 'react-native';
 import {SearchInput, Popover} from '../../components';
 import Item from './Item/item';
-export default class Repository extends React.Component {
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {repositoryInit} from './redux';
+
+class Repository extends React.Component {
   state = {
     keys: '',
     currentOpen: '',
-    countryArr: [
-      '全球',
-      '美国',
-      '日本',
-      '韩国',
-      '法国',
-      '英国',
-      '泰国',
-      '马来西亚',
-    ],
-    schoolArr: ['QS', 'USNEWS', '泰是无', '上海交大'],
     select: '',
     dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
@@ -57,6 +51,13 @@ export default class Repository extends React.Component {
     this.setState({
       refreshLoading: true,
     });
+
+    console.log(
+      this.props.repositoryInit({
+        pageNumber: 1,
+        pageSize: 5,
+      }),
+    );
     setTimeout(() => {
       this.setState({
         dataArr: [5, 4, 3, 2, 1],
@@ -76,23 +77,32 @@ export default class Repository extends React.Component {
       });
     }, 2000);
   };
+
+  componentDidMount(): void {
+    this.props.repositoryInit({
+      pageNumber: 1,
+      pageSize: 5,
+    });
+  }
+
   render() {
+    const {navigation, init, _data} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {rankArr, countryArr, allRepository} = _data;
+    const {data, total} = allRepository;
     const {
       keys,
-
-      countryArr,
-      schoolArr,
       visible,
       currentOpen,
       select,
-
-      dataArr,
       refreshLoading,
       loading,
     } = this.state;
-    const {navigation} = this.props;
+    const item = currentOpen === 'country' ? countryArr : rankArr;
+    console.log('allRepository', allRepository);
 
-    const item = currentOpen === 'country' ? countryArr : schoolArr;
     return (
       <View style={styles.repository}>
         <View style={styles.selectArea}>
@@ -112,9 +122,11 @@ export default class Repository extends React.Component {
               {item.map((v, i) => (
                 <TouchableWithoutFeedback
                   key={i}
-                  onPress={() => this.handleSelect(v)}>
+                  onPress={() => this.handleSelect(v.id)}>
                   <View style={styles.item}>
-                    <Text style={select === v && styles.active}>{v}</Text>
+                    <Text style={select === v.id && styles.active}>
+                      {v.name}
+                    </Text>
                     {select === v && (
                       <Image
                         style={styles.select}
@@ -136,7 +148,7 @@ export default class Repository extends React.Component {
                     styles.area,
                     currentOpen === 'country' && styles.active,
                   ]}>
-                  全球
+                  {countryArr[0].name}
                 </Text>
                 <Image
                   style={styles.filterIcon}
@@ -156,7 +168,7 @@ export default class Repository extends React.Component {
                     styles.area,
                     currentOpen === 'school' && styles.active,
                   ]}>
-                  QS排名
+                  {rankArr[0].name}
                 </Text>
                 <Image
                   style={styles.filterIcon}
@@ -171,7 +183,7 @@ export default class Repository extends React.Component {
           </View>
           <View style={styles.list}>
             <FlatList
-              data={dataArr}
+              data={data}
               styles={styles.list}
               renderItem={({item, index}) => (
                 <Item
@@ -199,7 +211,7 @@ export default class Repository extends React.Component {
                   <Text style={styles.txt}>加载更多</Text>
                 </View>
               }
-              onEndReached={this.getMore}
+              // onEndReached={this.getMore}
             />
           </View>
         </Popover>
@@ -207,6 +219,11 @@ export default class Repository extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => state.repository,
+  dispatch => bindActionCreators({repositoryInit}, dispatch),
+)(Repository);
 
 const styles = StyleSheet.create({
   repository: {},

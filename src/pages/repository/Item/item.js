@@ -19,34 +19,50 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {styles} = this.props;
+    const {
+      name,
+      nameEn,
+      id,
+      jiaotongRanking,
+      country,
+      admission,
+      imageUrl,
+      styles,
+    } = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
+      <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
-          <Image style={_styles.logo} source={require('./pic25.png')} />
+          <Image
+            style={_styles.logo}
+            source={
+              imageUrl
+                ? {uri: imageUrl}
+                : require('../../../assets/images/logo.jpeg')
+            }
+          />
           <View style={{flex: 1}}>
             <View style={_styles.school_wrapper}>
               <Text style={_styles.name} numberOfLines={1}>
-                安德鲁斯大学
+                {name}
               </Text>
               <Text style={_styles.eng_name} numberOfLines={1}>
-                Massachusetts Institute of Technology
+                {nameEn}
               </Text>
               <Text style={_styles.address}>
                 <Image source={require('./address.png')} style={_styles.addr} />
-                马萨诸塞-波士顿
+                {country}
               </Text>
             </View>
             <View style={_styles.ranking}>
               <View style={_styles.ranking_item}>
                 <Image style={_styles.icon} source={require('./pic20.png')} />
                 <Text style={_styles.desc}>国内排名:</Text>
-                <Text style={_styles.China}>3</Text>
+                <Text style={_styles.China}>{jiaotongRanking}</Text>
               </View>
               <View style={_styles.ranking_item}>
                 <Image style={_styles.icon} source={require('./pic21.png')} />
                 <Text style={_styles.desc}>平均录取率：</Text>
-                <Text style={_styles.average}>3%</Text>
+                <Text style={_styles.average}>{admission}%</Text>
               </View>
             </View>
           </View>

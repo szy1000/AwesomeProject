@@ -18,6 +18,7 @@ import ImagePicker from 'react-native-image-picker';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {editInfoInit, uploadFileFn, saveInfo, saveTempInfo} from './redux';
+import Jump from '../../utils/jump';
 
 class EditInfo extends React.Component {
   constructor(props) {
@@ -77,7 +78,13 @@ class EditInfo extends React.Component {
   };
 
   save = () => {
-    this.props.saveInfo({}, () => this.props.editInfoInit(this.id));
+    this.props.saveInfo({}, () => {
+      // this.props.editInfoInit(this.id);
+      Jump.linkToPage({
+        url: 'My',
+        navigation: this.props.navigation,
+      });
+    });
   };
 
   render() {
@@ -86,13 +93,27 @@ class EditInfo extends React.Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {address, avatarUrl, personalSignature, sex, userName} = data;
+    const {
+      address,
+      avatarUrl,
+      personalSignature,
+      sex,
+      userName,
+      _sexDict,
+    } = data;
+    let _sex = null;
+    for (let i = 0; i < _sexDict.length; i++) {
+      if (sex === _sexDict[i].id) {
+        _sex = _sexDict[i].label;
+      }
+    }
     const _avatar = avatarUrl
       ? {uri: avatarUrl}
       : avatarSource.uri
       ? avatarSource
       : require('./logo.jpeg');
-    console.log(_avatar);
+    console.log('_avatar', _avatar);
+
     return (
       <View>
         <Item
@@ -112,14 +133,22 @@ class EditInfo extends React.Component {
         />
         <Item title="微信号" extra={<Text>123456</Text>} />
         <RNPickerSelect
-          onValueChange={value => this.props.saveTempInfo({sex: value || sex})}
+          onValueChange={value => {
+            if (value === null) {
+              return;
+            }
+            this.props.saveTempInfo({
+              sexId: value || sex,
+              sex: value,
+            });
+          }}
           placeholder={{
-            label: '请选择性别',
+            label: '',
             value: null,
           }}
           doneText="确定"
-          items={[{label: '男', value: '男'}, {label: '女', value: '女'}]}>
-          <Item title="性别" extra={<Text>{sex || '未知'}</Text>} />
+          items={_sexDict}>
+          <Item title="性别" extra={<Text>{_sex || sex}</Text>} />
         </RNPickerSelect>
         <Item title="地区" extra={<Text>{address || '火星'}</Text>} />
         <Item

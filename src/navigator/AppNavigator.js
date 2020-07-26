@@ -22,7 +22,7 @@ import BBS from '../pages/bbs';
 
 const TabBottom = e => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator keyboardHidesTabBar={true}>
       <Tab.Screen
         name="Home"
         component={Home}
