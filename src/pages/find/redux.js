@@ -5,7 +5,9 @@ const UPDATE = 'FIND_UPDATE';
 // Reducer
 const initState = {
   init: false,
-  data: [],
+  data: {
+    note: {},
+  },
 };
 
 export const find = (state = initState, action) => {
@@ -26,15 +28,23 @@ export const findUpdate = params => ({
   type: UPDATE,
 });
 
-export const findInit = (params, callback) => async dispatch => {
-  // const { init } = getState().home
-  // console.log(init)
-  const note = await getAllNoteReq(params || {});
+export const findInit = (params, callback) => async (dispatch, getState) => {
+  console.log('params', params);
+  const {note} = getState().find.data;
+  const res = await getAllNoteReq(params || {});
+  console.log('res', res);
+
+  let _res = res;
+  if (note.data) {
+    let temp = res.data.concat(note.data);
+    res.data = [...temp];
+    _res = res;
+  }
   dispatch(
     findUpdate({
       init: true,
       data: {
-        note,
+        note: _res,
       },
     }),
   );

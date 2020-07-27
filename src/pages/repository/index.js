@@ -66,7 +66,7 @@ class Repository extends React.Component {
   };
 
   getMore = () => {
-    console.log('end')
+    console.log('end');
     // this.setState({
     //   loading: true,
     // });
@@ -205,7 +205,6 @@ class Repository extends React.Component {
                   onRefresh={this.getDate}
                 />
               }
-
               ListFooterComponent={
                 <View style={styles.activity}>
                   <ActivityIndicator animating={loading} />
@@ -228,7 +227,9 @@ export default connect(
 )(Repository);
 
 const styles = StyleSheet.create({
-  repository: {},
+  repository: {
+    flex: 1,
+  },
   selectArea: {
     paddingTop: 10,
     backgroundColor: '#fff',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,6 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
-import {Loading} from '../../components/';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {findInit} from './redux';
@@ -17,6 +16,8 @@ import {findInit} from './redux';
 import Jump from '../../utils/jump';
 
 class Find extends React.Component {
+  pageSize = 8;
+  currIndex = 1;
   state = {
     refreshLoading: false,
     loading: false,
@@ -30,7 +31,7 @@ class Find extends React.Component {
     this.props.findInit(
       {
         pageSize: 8,
-        pageNum: 1,
+        pageNumber: 1,
       },
       () => {
         this.setState({
@@ -40,17 +41,26 @@ class Find extends React.Component {
     );
   };
 
-  getMore = () => {
+  getMore = pageNum => {
+    if (pageNum <= this.currIndex) {
+      alert('暂无更多数据');
+      return;
+    }
+    this.currIndex = pageNum;
     this.setState({
       loading: true,
     });
-
-    setTimeout(() => {
-      this.setState({
-        // dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
-      });
-    }, 2000);
+    this.props.findInit(
+      {
+        pageSize: this.pageSize,
+        pageNumber: this.currIndex,
+      },
+      () => {
+        this.setState({
+          refreshLoading: false,
+        });
+      },
+    );
   };
 
   _onPressItem = id => {
@@ -64,10 +74,10 @@ class Find extends React.Component {
     });
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.props.findInit({
-      pageSize: 8,
-      pageNum: 1,
+      pageSize: this.pageSize,
+      pageNum: this.currIndex,
     });
   }
 
@@ -75,16 +85,16 @@ class Find extends React.Component {
     const {refreshLoading, loading} = this.state;
     const {init, data, navigation} = this.props;
     if (!init) {
-      return <Loading />;
+      return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {note} = data;
-    console.log(note);
     return (
       <View style={styles.find}>
         <FlatList
+          style={{flex: 1}}
           data={note.data}
           numColumns={2}
-          onEndReachedThreshold={0.3}
+          onEndReachedThreshold={0.003}
           renderItem={({item, index}) => (
             <View style={styles.item} key={index} keys={index}>
               <TouchableWithoutFeedback
@@ -142,12 +152,22 @@ class Find extends React.Component {
             />
           }
           ListFooterComponent={
-            <View style={styles.activity}>
-              <ActivityIndicator animating={loading} />
-              <Text style={styles.txt}>加载更多</Text>
-            </View>
+            <Fragment>
+              {note.data.length < note.total ? (
+                <View style={styles.activity}>
+                  <ActivityIndicator animating={true} />
+                  <Text style={styles.txt}>加载更多</Text>
+                </View>
+              ) : (
+                <View style={styles.activity}>
+                  <Text style={styles.txt}>暂无更多数据了</Text>
+                </View>
+              )}
+            </Fragment>
           }
-          onEndReached={this.getMore}
+          onEndReached={() => {
+            this.getMore(note.nextPage);
+          }}
         />
 
         <TouchableWithoutFeedback
@@ -169,11 +189,8 @@ class Find extends React.Component {
 const styles = StyleSheet.create({
   find: {
     position: 'relative',
-    // paddingTop: 15,
-    // paddingBottom: 15,
     paddingHorizontal: 7,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flex: 1,
   },
   separator: {
     height: 10,
@@ -196,7 +213,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 8,
     width: '50%',
-    // minHeight: 300,
+    height: 200,
   },
   pic: {
     height: 150,

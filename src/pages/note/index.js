@@ -90,7 +90,7 @@ class Note extends React.Component {
       .catch(error => {
         const {code, message} = error;
         // this.homeInit();
-        console.log('ssss', code, message);
+        console.log('sssxxxx', code, message);
       });
   };
 
