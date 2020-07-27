@@ -22,6 +22,7 @@ import {groupDetail} from '../pages/group-detail/redux';
 import {note} from '../pages/note/redux';
 import {concern} from '../pages/concern/redux';
 import {repository} from '../pages/repository/redux';
+import {repositoryDetail} from '../pages/repository-detail/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -58,6 +59,7 @@ const store = createStore(
     groupEdit,
     message,
     repository,
+    repositoryDetail,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

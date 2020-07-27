@@ -52,36 +52,36 @@ class Repository extends React.Component {
       refreshLoading: true,
     });
 
-    console.log(
-      this.props.repositoryInit({
+    this.props.repositoryInit(
+      {
         pageNumber: 1,
         pageSize: 5,
-      }),
+      },
+      () => {
+        this.setState({
+          refreshLoading: false,
+        });
+      },
     );
-    setTimeout(() => {
-      this.setState({
-        dataArr: [5, 4, 3, 2, 1],
-        refreshLoading: false,
-      });
-    }, 2000);
   };
 
   getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
-      });
-    }, 2000);
+    console.log('end')
+    // this.setState({
+    //   loading: true,
+    // });
+    // setTimeout(() => {
+    //   this.setState({
+    //     dataArr: [...this.state.dataArr, 8, 9, 10],
+    //     loading: false,
+    //   });
+    // }, 2000);
   };
 
   componentDidMount(): void {
     this.props.repositoryInit({
       pageNumber: 1,
-      pageSize: 5,
+      pageSize: 6,
     });
   }
 
@@ -199,19 +199,21 @@ class Repository extends React.Component {
               refreshControl={
                 <RefreshControl
                   title={'loading'}
-                  tintColor={'orange'}
-                  titleColor={'red'}
+                  // tintColor={'orange'}
+                  // titleColor={'red'}
                   refreshing={refreshLoading}
                   onRefresh={this.getDate}
                 />
               }
+
               ListFooterComponent={
                 <View style={styles.activity}>
                   <ActivityIndicator animating={loading} />
                   <Text style={styles.txt}>加载更多</Text>
                 </View>
               }
-              // onEndReached={this.getMore}
+              // onEndReachedThreshold={1}
+              onEndReached={this.getMore}
             />
           </View>
         </Popover>
@@ -259,6 +261,7 @@ const styles = StyleSheet.create({
   list: {
     paddingTop: 15,
     paddingBottom: 15,
+    // flex: 1,
     backgroundColor: '#f7f7f7',
   },
 

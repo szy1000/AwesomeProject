@@ -4,15 +4,15 @@ import Swiper from 'react-native-swiper';
 
 export default class Index extends React.Component {
   render() {
+    const {imageUrl} = this.props;
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
-          <View style={styles.slide}>
-            <Image style={styles.item} source={require('./banner1.png')} />
-          </View>
-          <View style={styles.slide}>
-            <Image style={styles.item} source={require('./banner2.png')} />
-          </View>
+          {imageUrl.map((v, k) => (
+            <View style={styles.slide} key={k}>
+              <Image style={styles.item} source={{uri: v}} />
+            </View>
+          ))}
         </Swiper>
       </View>
     );
@@ -22,17 +22,19 @@ export default class Index extends React.Component {
 const styles = StyleSheet.create({
   banner: {
     position: 'relative',
-    zIndex: -1,
+    // zIndex: -1,
     marginTop: -90,
+    height: 300,
+    backgroundColor: 'red',
   },
   wrapper: {
-    paddingTop: 48,
+    paddingTop: 50,
     backgroundColor: '#e6fffe',
     height: 300,
   },
   item: {
     width: '100%',
-    height: 200,
+    height: 300,
   },
   slide: {
     flex: 1,

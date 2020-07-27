@@ -28,13 +28,11 @@ export const repositoryUpdate = params => ({
 
 export const repositoryInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
-  // console.log(init)
   const rankArr = await queryRankingReq({});
   const countryArr = await queryCountryReq({});
   const allRepository = await queryBySelectReq(params || {});
 
   countryArr.unshift({name: '全球', id: null});
-
   dispatch(
     repositoryUpdate({
       init: true,
