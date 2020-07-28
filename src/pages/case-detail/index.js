@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Header, Panel} from './page-components';
+import HTMLView from 'react-native-htmlview';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -28,17 +29,7 @@ class CaseDetail extends React.Component {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {
-      detail: {
-        university,
-        title,
-        description,
-        subject,
-        degree,
-        applyTime,
-        graduatedUniversity,
-        graduatedSubject,
-        graduatedDegree,
-      },
+      detail: {university, description, subject, degree, applyTime},
     } = data;
     return (
       <ScrollView style={styles.caseDetail}>
@@ -53,11 +44,11 @@ class CaseDetail extends React.Component {
             </Text>
           </View>
         </Panel>
-        <Panel title={'成绩信息'}>
-          <Text>雅思</Text>
-        </Panel>
+        {/*<Panel title={'成绩信息'}>*/}
+        {/*  <Text>雅思</Text>*/}
+        {/*</Panel>*/}
         <Panel title={'经验分享'}>
-          <Text>雅思</Text>
+          <HTMLView value={description} />
         </Panel>
       </ScrollView>
     );

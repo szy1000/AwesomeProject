@@ -19,7 +19,7 @@ class Search extends React.Component {
   URL_MAP = {
     university: 'RepositoryDetail',
     subject: '/',
-    universityCase: '/',
+    universityCase: 'CaseDetail',
     summerProject: '/',
     background: '',
   };

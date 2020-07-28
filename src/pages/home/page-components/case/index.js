@@ -9,7 +9,6 @@ import {
 import Jump from '../../../../utils/jump';
 export default class Case extends React.Component {
   linkTo = (id, navigation) => {
-    console.log(11111111)
     Jump.linkToPage({
       navigation,
       url: 'CaseDetail',
