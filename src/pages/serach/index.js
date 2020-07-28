@@ -21,8 +21,8 @@ class Search extends React.Component {
     university: 'RepositoryDetail',
     subject: 'LibraryDetail',
     universityCase: 'CaseDetail',
-    summerProject: '/',
-    background: '',
+    summerProject: 'SummerDetail',
+    background: 'BackgroundDetail',
   };
   state = {
     keys: '',
