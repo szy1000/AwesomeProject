@@ -1,6 +1,6 @@
-import {queryKeysReq} from './api';
+import {queryCaseDetailReq} from './api';
 // Actions
-const UPDATE = 'SEARCH_UPDATE';
+const UPDATE = 'CASE_DETAIL_UPDATE';
 
 // Reducer
 const initState = {
@@ -8,7 +8,7 @@ const initState = {
   data: [],
 };
 
-export const search = (state = initState, action) => {
+export const caseDetail = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -21,21 +21,20 @@ export const search = (state = initState, action) => {
 };
 
 // Action Creators
-export const searchUpdate = params => ({
+export const caseDetailUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const searchInit = (params, callback) => async dispatch => {
+export const caseDetailInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
-  const res = await queryKeysReq(params);
-  console.log(res)
-
+  // console.log(init)
+  const detail = await queryCaseDetailReq(params || {});
   dispatch(
-    searchUpdate({
+    caseDetailUpdate({
       init: true,
       data: {
-        res,
+        detail,
       },
     }),
   );

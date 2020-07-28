@@ -5,14 +5,21 @@ export default class Header extends React.Component {
   state = {};
 
   render() {
+    const {
+      name,
+      image,
+      graduatedUniversity,
+      graduatedSubject,
+      graduatedDegree,
+    } = this.props;
     return (
       <View style={styles.header}>
-        <Image style={styles.img} source={require('./tx1.png')} />
+        <Image style={styles.img} source={{uri: image}} />
         <View style={styles.txt_wrapper}>
-          <Text style={styles.txt}>找同学</Text>
-          <Text style={styles.txt}>毕业院校：四川农业大学</Text>
-          <Text style={styles.txt}>毕业学位： 本科</Text>
-          <Text style={styles.txt}>毕业专业： 创业设计</Text>
+          <Text style={styles.txt}>{name}</Text>
+          <Text style={styles.txt}>毕业院校：{graduatedUniversity}</Text>
+          <Text style={styles.txt}>毕业学位： {graduatedDegree}</Text>
+          <Text style={styles.txt}>毕业专业： {graduatedSubject}</Text>
         </View>
       </View>
     );

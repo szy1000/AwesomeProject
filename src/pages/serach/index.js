@@ -21,7 +21,7 @@ class Search extends React.Component {
     subject: '/',
     universityCase: '/',
     summerProject: '/',
-    background: ''
+    background: '',
   };
   state = {
     keys: '',
@@ -45,7 +45,7 @@ class Search extends React.Component {
   };
 
   searchToPage = (id, type) => {
-    console.log(this.URL_MAP[type])
+    console.log(this.URL_MAP[type]);
     Jump.linkToPage({
       url: this.URL_MAP[type],
       params: {
@@ -74,18 +74,19 @@ class Search extends React.Component {
           </Button>
         </View>
         <View>
-          {data.res.map((v, k) => (
-            <TouchableNativeFeedback
-              key={k}
-              onPress={() => this.searchToPage(v.id, v.resource)}>
-              <View style={styles.item}>
-                {v.image && (
-                  <Image style={styles.icon} source={{uri: v.image}} />
-                )}
-                <Text style={styles.name}>{v.name}</Text>
-              </View>
-            </TouchableNativeFeedback>
-          ))}
+          {data.res &&
+            data.res.map((v, k) => (
+              <TouchableNativeFeedback
+                key={k}
+                onPress={() => this.searchToPage(v.id, v.resource)}>
+                <View style={styles.item}>
+                  {v.image && (
+                    <Image style={styles.icon} source={{uri: v.image}} />
+                  )}
+                  <Text style={styles.name}>{v.name}</Text>
+                </View>
+              </TouchableNativeFeedback>
+            ))}
         </View>
       </View>
     );

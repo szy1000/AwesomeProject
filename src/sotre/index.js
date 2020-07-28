@@ -24,6 +24,7 @@ import {note} from '../pages/note/redux';
 import {concern} from '../pages/concern/redux';
 import {repository} from '../pages/repository/redux';
 import {repositoryDetail} from '../pages/repository-detail/redux';
+import {caseDetail} from '../pages/case-detail/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -62,6 +63,7 @@ const store = createStore(
     message,
     repository,
     repositoryDetail,
+    caseDetail,
   }),
   compose(applyMiddleware(thunk, logger)),
 );
