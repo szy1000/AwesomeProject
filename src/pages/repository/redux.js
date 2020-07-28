@@ -5,7 +5,9 @@ const UPDATE = 'REPOSITORY_UPDATE';
 // Reducer
 const initState = {
   init: false,
-  _data: {},
+  _data: {
+    allRepository: {},
+  },
 };
 
 export const repository = (state = initState, action) => {
@@ -26,20 +28,33 @@ export const repositoryUpdate = params => ({
   type: UPDATE,
 });
 
-export const repositoryInit = (params, callback) => async dispatch => {
-  // const { init } = getState().home
+export const repositoryInit = (params, callback) => async (
+  dispatch,
+  getState,
+) => {
+  const {allRepository} = getState().repository._data;
   const rankArr = await queryRankingReq({});
-  const countryArr = await queryCountryReq({});
-  const allRepository = await queryBySelectReq(params || {});
 
+  const countryArr = await queryCountryReq({});
   countryArr.unshift({name: '全球', id: null});
+
+  const res = await queryBySelectReq(params || {});
+
+  let _res = res;
+  if (allRepository.data) {
+    let temp = res.data.concat(allRepository.data);
+    res.data = [...temp];
+    _res = res;
+  }
+
+  console.log('allRepository', allRepository);
   dispatch(
     repositoryUpdate({
       init: true,
       _data: {
         rankArr,
         countryArr,
-        allRepository,
+        allRepository: _res,
       },
     }),
   );

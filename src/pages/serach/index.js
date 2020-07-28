@@ -6,6 +6,7 @@ import {
   TouchableNativeFeedback,
   View,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import {Button} from '../../components';
 
@@ -18,7 +19,7 @@ import Jump from '../../utils/jump';
 class Search extends React.Component {
   URL_MAP = {
     university: 'RepositoryDetail',
-    subject: '/',
+    subject: 'LibraryDetail',
     universityCase: 'CaseDetail',
     summerProject: '/',
     background: '',
@@ -61,7 +62,7 @@ class Search extends React.Component {
     const {keys} = this.state;
     console.log(data);
     return (
-      <View>
+      <View style={{flex: 1}}>
         <View style={styles.searchBox}>
           <TextInput
             value={keys}
@@ -73,7 +74,7 @@ class Search extends React.Component {
             确定
           </Button>
         </View>
-        <View>
+        <ScrollView>
           {data.res &&
             data.res.map((v, k) => (
               <TouchableNativeFeedback
@@ -87,7 +88,7 @@ class Search extends React.Component {
                 </View>
               </TouchableNativeFeedback>
             ))}
-        </View>
+        </ScrollView>
       </View>
     );
   }

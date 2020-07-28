@@ -17,6 +17,8 @@ import {bindActionCreators} from 'redux';
 import {repositoryInit} from './redux';
 
 class Repository extends React.Component {
+  currIndex = 1;
+  pageSize = 5;
   state = {
     keys: '',
     currentOpen: '',
@@ -53,8 +55,8 @@ class Repository extends React.Component {
 
     this.props.repositoryInit(
       {
-        pageNumber: 1,
-        pageSize: 5,
+        pageNumber: this.currIndex,
+        pageSize: this.pageSize,
       },
       () => {
         this.setState({
@@ -64,17 +66,17 @@ class Repository extends React.Component {
     );
   };
 
-  getMore = () => {
-    console.log('end');
-    // this.setState({
-    //   loading: true,
-    // });
-    // setTimeout(() => {
-    //   this.setState({
-    //     dataArr: [...this.state.dataArr, 8, 9, 10],
-    //     loading: false,
-    //   });
-    // }, 2000);
+  getMore = pageNum => {
+    if (pageNum <= this.currIndex) {
+      alert('暂无更多数据');
+      return;
+    }
+    console.log('pageNum', pageNum);
+    this.currIndex = pageNum;
+    this.props.repositoryInit({
+      pageSize: this.pageSize,
+      pageNumber: this.currIndex,
+    });
   };
 
   componentDidMount(): void {
@@ -113,7 +115,7 @@ class Repository extends React.Component {
         </View>
 
         <Popover
-          // style={{flex: 1}}
+          style={{flex: 1, paddingBottom: 30}}
           visible={visible}
           maskClick={this.toggleModal}
           item={
@@ -180,40 +182,31 @@ class Repository extends React.Component {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          <View style={styles.list}>
-            <FlatList
-              data={data}
-              styles={styles.list}
-              renderItem={({item, index}) => (
-                <Item
-                  keys={index}
-                  navigation={navigation}
-                  styles={styles.item}
-                  {...item}
-                />
-              )}
-              // ItemSeparatorComponent={({highlighted}) => (
-              //   <WhiteSpace size={'big'} />
-              // )}
-              refreshControl={
-                <RefreshControl
-                  title={'loading'}
-                  // tintColor={'orange'}
-                  // titleColor={'red'}
-                  refreshing={refreshLoading}
-                  onRefresh={this.getDate}
-                />
-              }
-              ListFooterComponent={
-                <ListFooter
-                  data={allRepository.data}
-                  total={allRepository.total}
-                />
-              }
-              onEndReachedThreshold={0.03}
-              onEndReached={this.getMore}
-            />
-          </View>
+          <FlatList
+            data={data}
+            styles={styles.list}
+            renderItem={({item, index}, k) => (
+              <Item
+                keys={k}
+                navigation={navigation}
+                styles={styles.item}
+                {...item}
+              />
+            )}
+            // ItemSeparatorComponent={({highlighted}) => (
+            //   <WhiteSpace size={'big'} />
+            // )}
+            refreshControl={
+              <RefreshControl
+                title={'loading'}
+                refreshing={refreshLoading}
+                onRefresh={this.getDate}
+              />
+            }
+            ListFooterComponent={<ListFooter data={data} total={total} />}
+            onEndReachedThreshold={0.03}
+            onEndReached={() => this.getMore(allRepository.nextPage)}
+          />
         </Popover>
       </View>
     );
@@ -227,6 +220,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   repository: {
+    position: 'relative',
     flex: 1,
   },
   selectArea: {
@@ -234,6 +228,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   ipt: {
+    // position: 'absolute',
     marginHorizontal: 20,
   },
 
@@ -259,10 +254,10 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    paddingTop: 15,
     paddingBottom: 15,
     // flex: 1,
     backgroundColor: '#f7f7f7',
+    // backgroundColor: 'red',
   },
 
   item: {
@@ -270,7 +265,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 15,
-    marginBottom: 15,
+    marginTop: 15,
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#f7f7f7',
