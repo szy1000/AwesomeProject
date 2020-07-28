@@ -36,6 +36,7 @@ import Collect from '../pages/collect';
 import Publish from '../pages/publish';
 import Join from '../pages/join';
 import Search from '../pages/serach';
+import LibraryDetail from '../pages/library-detail';
 import Test from '../pages/test';
 
 const router = [
@@ -302,6 +303,17 @@ const router = [
       headerTruncatedBackTitle: null,
     },
   },
+
+  {
+    name: 'LibraryDetail',
+    component: LibraryDetail,
+    options: {
+      title: '专业详情',
+      // headerBackTitle: null,
+      // headerTruncatedBackTitle: null,
+    },
+  },
+
   {
     name: 'Test',
     component: Test,

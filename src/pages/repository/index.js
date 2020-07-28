@@ -9,7 +9,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, Popover} from '../../components';
+import {SearchInput, Popover, ListFooter} from '../../components';
 import Item from './Item/item';
 
 import {connect} from 'react-redux';
@@ -21,7 +21,6 @@ class Repository extends React.Component {
     keys: '',
     currentOpen: '',
     select: '',
-    dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
     loading: false,
     visible: false,
@@ -114,7 +113,7 @@ class Repository extends React.Component {
         </View>
 
         <Popover
-          // style={}
+          // style={{flex: 1}}
           visible={visible}
           maskClick={this.toggleModal}
           item={
@@ -206,12 +205,12 @@ class Repository extends React.Component {
                 />
               }
               ListFooterComponent={
-                <View style={styles.activity}>
-                  <ActivityIndicator animating={loading} />
-                  <Text style={styles.txt}>加载更多</Text>
-                </View>
+                <ListFooter
+                  data={allRepository.data}
+                  total={allRepository.total}
+                />
               }
-              // onEndReachedThreshold={1}
+              onEndReachedThreshold={0.03}
               onEndReached={this.getMore}
             />
           </View>

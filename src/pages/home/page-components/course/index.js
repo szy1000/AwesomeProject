@@ -1,6 +1,14 @@
 import React from 'react';
-import {View, Text, ScrollView, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
+import {Jump} from '../../../../utils';
 
 export default class Course extends React.Component {
   render() {
@@ -23,20 +31,32 @@ export default class Course extends React.Component {
         style={styles.course}>
         <>
           {hotSubject.map((v, i) => (
-            <View style={styles.item} key={i}>
-              <View style={styles.img_wrapper}>
-                <Image style={styles.bg} source={require('./pic12.png')} />
-                <Text style={styles.type}>{v.name}</Text>
+            <TouchableWithoutFeedback
+              key={i}
+              onPress={() =>
+                Jump.linkToPage({
+                  url: 'LibraryDetail',
+                  navigation: this.props.navigation,
+                  params: {
+                    id: v.id,
+                  },
+                })
+              }>
+              <View style={styles.item}>
+                <View style={styles.img_wrapper}>
+                  <Image style={styles.bg} source={require('./pic12.png')} />
+                  <Text style={styles.type}>{v.name}</Text>
+                </View>
+                <View style={styles.content}>
+                  {v.universities.map(item => (
+                    <View style={styles.school} key={item.id}>
+                      <Text style={styles.name}>{item.name}</Text>
+                      <Text style={styles.en_name}>{item.nameEn}</Text>
+                    </View>
+                  ))}
+                </View>
               </View>
-              <View style={styles.content}>
-                {v.universities.map(item => (
-                  <View style={styles.school} key={item.id}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.en_name}>{item.nameEn}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
+            </TouchableWithoutFeedback>
           ))}
         </>
 
