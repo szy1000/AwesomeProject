@@ -35,6 +35,7 @@ import Service from '../pages/service';
 import Collect from '../pages/collect';
 import Publish from '../pages/publish';
 import Join from '../pages/join';
+import Search from '../pages/serach';
 import Test from '../pages/test';
 
 const router = [
@@ -238,13 +239,13 @@ const router = [
       //     </TouchableWithoutFeedback>
       //   </View>
       // ),
-      headerRight: () => (
-        <Button
-          onPress={() => alert('This is a button!')}
-          title="发送"
-          color="#ddd"
-        />
-      ),
+      // headerRight: () => (
+      //   <Button
+      //     onPress={() => alert('This is a button!')}
+      //     title="发送"
+      //     color="#ddd"
+      //   />
+      // ),
     },
   },
   {
@@ -288,6 +289,15 @@ const router = [
     component: Join,
     options: {
       title: '加入',
+      headerBackTitle: null,
+      headerTruncatedBackTitle: null,
+    },
+  },
+  {
+    name: 'Search',
+    component: Search,
+    options: {
+      title: '搜索',
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
     },

@@ -1,11 +1,6 @@
-import {
-  getAllCategoryReq,
-  getHotGroupReq,
-  joinGroupReq,
-  unjoinGroupReq,
-} from './api';
+import {queryKeysReq} from './api';
 // Actions
-const UPDATE = 'BBS_UPDATE';
+const UPDATE = 'SEARCH_UPDATE';
 
 // Reducer
 const initState = {
@@ -13,7 +8,7 @@ const initState = {
   data: [],
 };
 
-export const bbs = (state = initState, action) => {
+export const search = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -26,40 +21,22 @@ export const bbs = (state = initState, action) => {
 };
 
 // Action Creators
-export const bbsUpdate = params => ({
+export const searchUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const bbsInit = (params, callback) => async dispatch => {
+export const searchInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  const groupCategory = await getAllCategoryReq(params || {});
-  const hotGroup = await getHotGroupReq({top: 5} || {});
+  const res = await queryKeysReq(params);
   dispatch(
-    bbsUpdate({
+    searchUpdate({
       init: true,
       data: {
-        groupCategory,
-        hotGroup,
+        res,
       },
     }),
   );
   callback && callback();
-};
-
-export const joinGroup = (params, callback) => async dispatch => {
-  const {type, id} = params;
-  let res = null;
-  if (type) {
-    res = await joinGroupReq(id);
-  } else {
-    res = await unjoinGroupReq(id);
-  }
-  const {success, error} = res;
-  if (success) {
-    callback && callback();
-  } else {
-    alert(error);
-  }
 };

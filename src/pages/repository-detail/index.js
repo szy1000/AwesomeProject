@@ -11,7 +11,7 @@ import {Banner} from './page-components';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {repositoryDetailInit} from './redux';
+import {repositoryDetailInit, queryItem} from './redux';
 
 class RepositoryDetail extends React.Component {
   state = {};
@@ -95,7 +95,7 @@ class RepositoryDetail extends React.Component {
 
 export default connect(
   state => state.repositoryDetail,
-  dispatch => bindActionCreators({repositoryDetailInit}, dispatch),
+  dispatch => bindActionCreators({repositoryDetailInit, queryItem}, dispatch),
 )(RepositoryDetail);
 
 const styles = StyleSheet.create({

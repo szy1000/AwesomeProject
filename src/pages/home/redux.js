@@ -4,6 +4,7 @@ import {
   getHotSchoolReq,
   getHotSubjectReq,
   getCaseReq,
+  queryKeywords,
 } from './api';
 // Actions
 const UPDATE = 'HOME_UPDATE';

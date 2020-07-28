@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import {ListFooter} from '../../components';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {findInit} from './redux';
@@ -152,18 +153,7 @@ class Find extends React.Component {
             />
           }
           ListFooterComponent={
-            <Fragment>
-              {note.data.length < note.total ? (
-                <View style={styles.activity}>
-                  <ActivityIndicator animating={true} />
-                  <Text style={styles.txt}>加载更多</Text>
-                </View>
-              ) : (
-                <View style={styles.activity}>
-                  <Text style={styles.txt}>暂无更多数据了</Text>
-                </View>
-              )}
-            </Fragment>
+            <ListFooter data={note.data} total={note.total} />
           }
           onEndReached={() => {
             this.getMore(note.nextPage);

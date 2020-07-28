@@ -120,18 +120,17 @@ class Home extends React.Component {
 
           <TextInput
             style={styles.ipt}
-            ref={this.ipt}
+            ref="ipt"
             // editable={false}
             maxLenth={100}
             placeholder="请输入关键词搜索"
             returnKeyLabel="do"
-            onPress={() => {
-              this.refs.ipt.focus();
-            }}
-            onChangeText={text => {
-              this.setState({
-                txt: text,
+            onFocus={() => {
+              Jump.linkToPage({
+                url: 'Search',
+                navigation: this.navigation,
               });
+              this.refs.ipt.blur();
             }}
           />
           <TouchableWithoutFeedback
@@ -156,14 +155,25 @@ class Home extends React.Component {
             showsHorizontalScrollIndicator={false}>
             {hotSchool.length > 0 &&
               hotSchool.map((item, index) => (
-                <View style={styles.item} key={index}>
-                  <Image
-                    accessibilityRole={'image'}
-                    source={{uri: item.imageUrl}}
-                    style={styles.pic}
-                  />
-                  <Text style={styles.name}>{item.name}</Text>
-                </View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    Jump.linkToPage({
+                      url: 'RepositoryDetail',
+                      params: {
+                        id: item.id,
+                      },
+                      navigation: this.navigation,
+                    })
+                  }>
+                  <View style={styles.item} key={index}>
+                    <Image
+                      accessibilityRole={'image'}
+                      source={{uri: item.imageUrl}}
+                      style={styles.pic}
+                    />
+                    <Text style={styles.name}>{item.name}</Text>
+                  </View>
+                </TouchableWithoutFeedback>
               ))}
           </ScrollView>
         </Panel>

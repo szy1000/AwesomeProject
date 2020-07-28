@@ -1,88 +1,38 @@
-import React from 'react';
-import {
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import React, {Fragment} from 'react';
+import {Text, View, StyleSheet, ActivityIndicator} from 'react-native';
 
-export default class Item extends React.Component {
+export default class ListFooter extends React.Component {
   render() {
-    const {
-      icon,
-      title,
-      clickFn,
-      children,
-      extra,
-      more = true,
-      style,
-    } = this.props;
+    const {data = [], total = 0} = this.props;
     return (
-      <TouchableWithoutFeedback onPress={clickFn}>
-        <View style={styles.item}>
-          <View style={styles.link}>
-            {icon && (
-              <View>
-                <Image style={styles.icon} source={icon} />
-              </View>
-            )}
-            <View style={[styles.title, {...style}]}>
-              {title && <Text style={styles.content}>{title}</Text>}
-              {children && <View style={styles.children}>{children}</View>}
-            </View>
-            <View style={styles.right}>
-              {extra && <Text style={styles.extra}>{extra}</Text>}
-              {more && (
-                <Image style={styles.more} source={require('./more.png')} />
-              )}
-            </View>
+      <Fragment>
+        {total > data.length ? (
+          <View style={styles.activity}>
+            <ActivityIndicator animating={true} />
+            <Text style={styles.txt}>加载更多</Text>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+        ) : (
+          <View style={styles.activity}>
+            <Text style={styles.txt}>暂无更多数据了</Text>
+          </View>
+        )}
+      </Fragment>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  item: {
-    paddingLeft: 20,
-    backgroundColor: '#fff',
-  },
-  link: {
-    paddingRight: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
+  activity: {
+    paddingTop: 10,
+    paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    borderBottomColor: '#eaeaea',
-    borderBottomWidth: 1,
+    justifyContent: 'center',
+    height: 40,
   },
-  icon: {
-    width: 14,
-    height: 14,
-  },
-
-  title: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  children: {
-    marginLeft: 15,
-  },
-  content: {
-    fontSize: 16,
-  },
-  right: {
-    flexDirection: 'row',
-  },
-  extra: {
-    marginRight: 10,
-    color: '#aaa',
-  },
-  more: {
-    width: 10,
-    height: 18,
+  txt: {
+    marginLeft: 10,
+    fontSize: 12,
+    color: '#bbb',
   },
 });

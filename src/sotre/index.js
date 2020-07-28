@@ -2,6 +2,7 @@ import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
 import thunk from 'redux-thunk';
 
 import {home} from '../pages/home/redux';
+import {search} from '../pages/serach/redux';
 import {register} from '../pages/register/redux';
 import {bbs} from '../pages/bbs/redux';
 import {find} from '../pages/find/redux';
@@ -39,6 +40,7 @@ const logger = store => next => action => {
 const store = createStore(
   combineReducers({
     home,
+    search,
     register,
     bbs,
     find,
