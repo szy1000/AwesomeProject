@@ -10,6 +10,7 @@ import {message} from '../pages/message/redux';
 import {my} from '../pages/my/redux';
 import {findDetail} from '../pages/find-detail/redux';
 import {editInfo} from '../pages/edit-info/redux';
+import {summer} from '../pages/summer/redux';
 import {join} from '../pages/join/redux';
 import {joinTab} from '../pages/join/page-components/joinTab/redux';
 import {manageTab} from '../pages/join/page-components/manageTab/redux';
@@ -66,6 +67,7 @@ const store = createStore(
     repositoryDetail,
     caseDetail,
     libraryDetail,
+    summer,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

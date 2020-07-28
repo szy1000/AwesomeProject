@@ -9,9 +9,14 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, Popover} from '../../components';
+import {SearchInput, ListFooter, Popover} from '../../components';
 import Item from './Item/item';
-export default class Summer extends React.Component {
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {summerInit} from './redux';
+
+class Summer extends React.Component {
   state = {
     keys: '',
     currentOpen: '',
@@ -76,6 +81,11 @@ export default class Summer extends React.Component {
       });
     }, 2000);
   };
+
+  componentDidMount(): void {
+    this.props.summerInit();
+  }
+
   render() {
     const {
       keys,
@@ -89,11 +99,18 @@ export default class Summer extends React.Component {
       refreshLoading,
       loading,
     } = this.state;
-    const {navigation} = this.props;
+    const {_data, init, navigation} = this.props;
 
     const item = currentOpen === 'country' ? countryArr : schoolArr;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {
+      listData: {data, nextPage, pageNumber, total},
+    } = _data;
+    console.log('summer', data);
     return (
-      <View style={styles.repository}>
+      <View style={styles.summer}>
         <View style={styles.selectArea}>
           <SearchInput
             styles={styles.ipt}
@@ -103,7 +120,7 @@ export default class Summer extends React.Component {
         </View>
 
         <Popover
-          // style={}
+          style={{flex: 1, paddingBottom: 20}}
           visible={visible}
           maskClick={this.toggleModal}
           item={
@@ -188,47 +205,45 @@ export default class Summer extends React.Component {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          <View style={styles.list}>
-            <FlatList
-              data={dataArr}
-              styles={styles.list}
-              renderItem={({item, index}) => (
-                <Item
-                  keys={index}
-                  navigation={navigation}
-                  styles={styles.item}
-                  {...item}
-                />
-              )}
-              // ItemSeparatorComponent={({highlighted}) => (
-              //   <WhiteSpace size={'big'} />
-              // )}
-              refreshControl={
-                <RefreshControl
-                  title={'loading'}
-                  tintColor={'orange'}
-                  titleColor={'red'}
-                  refreshing={refreshLoading}
-                  onRefresh={this.getDate}
-                />
-              }
-              ListFooterComponent={
-                <View style={styles.activity}>
-                  <ActivityIndicator animating={loading} />
-                  <Text style={styles.txt}>加载更多</Text>
-                </View>
-              }
-              onEndReached={this.getMore}
-            />
-          </View>
+          <FlatList
+            data={data}
+            styles={styles.list}
+            renderItem={({item, index}) => (
+              <Item
+                keys={index}
+                navigation={navigation}
+                styles={styles.item}
+                {...item}
+              />
+            )}
+            // ItemSeparatorComponent={({highlighted}) => (
+            //   <WhiteSpace size={'big'} />
+            // )}
+            refreshControl={
+              <RefreshControl
+                title={'loading'}
+                refreshing={refreshLoading}
+                onRefresh={this.getDate}
+              />
+            }
+            ListFooterComponent={<ListFooter data={data} total={total} />}
+            onEndReached={this.getMore}
+          />
         </Popover>
       </View>
     );
   }
 }
 
+export default connect(
+  state => state.summer,
+  dispatch => bindActionCreators({summerInit}, dispatch),
+)(Summer);
+
 const styles = StyleSheet.create({
-  repository: {},
+  summer: {
+    flex: 1,
+  },
   selectArea: {
     paddingTop: 10,
     backgroundColor: '#fff',
@@ -269,7 +284,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 15,
-    marginBottom: 15,
+    marginTop: 15,
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#f7f7f7',

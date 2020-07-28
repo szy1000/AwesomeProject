@@ -19,15 +19,16 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {styles} = this.props;
+    const {imageUrl, name, styles} = this.props;
+    console.log(this.props);
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
         <View style={[_styles.school, styles]}>
-          <Image style={_styles.logo} source={require('./pic18.png')} />
+          <Image style={_styles.logo} source={{uri: imageUrl}} />
           <View style={_styles.school_wrapper}>
             <View>
               <Text style={_styles.name} numberOfLines={1}>
-                安德鲁斯大学
+                {name}
               </Text>
             </View>
             <View>
