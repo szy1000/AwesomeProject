@@ -26,6 +26,7 @@ import {concern} from '../pages/concern/redux';
 import {repository} from '../pages/repository/redux';
 import {repositoryDetail} from '../pages/repository-detail/redux';
 import {caseDetail} from '../pages/case-detail/redux';
+import {library} from '../pages/library/redux';
 import {libraryDetail} from '../pages/library-detail/redux';
 import {background} from '../pages/background/redux';
 import {backgroundDetail} from '../pages/background-detail/redux';
@@ -70,6 +71,7 @@ const store = createStore(
     repository,
     repositoryDetail,
     caseDetail,
+    library,
     libraryDetail,
     summer,
     background,

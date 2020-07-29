@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -8,8 +7,13 @@ import {
   SectionList,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
   Image,
 } from 'react-native';
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {libraryInit} from './redux';
 
 import ParcelData from './ParcelData.json';
 
@@ -17,12 +21,13 @@ var {width, height} = Dimensions.get('window');
 
 let Headers = [];
 
-export default class Library extends Component {
+class Library extends Component {
   static navigationOptions = ({navigation}) => ({
     headerTitle: '联动List',
   });
 
   componentDidMount() {
+    this.props.libraryInit({});
     ParcelData.map((item, i) => {
       Headers.push(item.section);
     });
@@ -84,13 +89,8 @@ export default class Library extends Component {
   renderRRow = item => {
     return (
       <View style={styles.rItem}>
-        <Image style={styles.icon} source={{uri: item.item.img}} />
-        <View style={styles.rItemDetail}>
-          <Text style={styles.foodName}>{item.item.name}</Text>
-          <View style={styles.saleFavorite} />
-          <Text style={styles.saleFavoriteText}>{item.item.sale}</Text>
-          {/*<Text style={styles.moneyText}>￥{item.item.money}</Text>*/}
-        </View>
+        <Text style={styles.foodName}>{item.item.name}</Text>
+        <View style={styles.saleFavorite} />
       </View>
     );
   };
@@ -114,6 +114,11 @@ export default class Library extends Component {
   };
 
   render() {
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    console.log('data', data);
     return (
       <View style={styles.container}>
         <FlatList
@@ -122,11 +127,13 @@ export default class Library extends Component {
           data={ParcelData}
           renderItem={item => this.renderLRow(item)}
           ItemSeparatorComponent={() => this.separator()}
+          ListHeaderComponent={() => <Text>sss</Text>}
           keyExtractor={item => item.section}
         />
         <SectionList
           ref="sectionList"
           style={styles.rightList}
+          ListHeaderComponent={() => <Text>header</Text>}
           renderSectionHeader={section => this.sectionComp(section)}
           renderItem={item => this.renderRRow(item)}
           sections={ParcelData}
@@ -137,6 +144,10 @@ export default class Library extends Component {
     );
   }
 }
+export default connect(
+  state => state.library,
+  dispatch => bindActionCreators({libraryInit}, dispatch),
+)(Library);
 
 const styles = StyleSheet.create({
   container: {
@@ -184,9 +195,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 5,
     marginBottom: 5,
-  },
-  saleFavoriteText: {
-    fontSize: 13,
   },
   moneyText: {
     color: 'orange',
