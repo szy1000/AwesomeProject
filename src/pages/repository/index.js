@@ -9,7 +9,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, Popover, ListFooter} from '../../components';
+import {SearchInput, Button, Popover, ListFooter} from '../../components';
 import Item from './Item/item';
 
 import {connect} from 'react-redux';
@@ -18,14 +18,15 @@ import {repositoryInit} from './redux';
 
 class Repository extends React.Component {
   currIndex = 1;
-  pageSize = 5;
+  pageSize = 6;
   state = {
     keys: '',
     currentOpen: '',
     select: '',
     refreshLoading: false,
-    loading: false,
     visible: false,
+    country: {},
+    school: {},
   };
 
   onChangeText = e => {
@@ -71,7 +72,6 @@ class Repository extends React.Component {
       alert('暂无更多数据');
       return;
     }
-    console.log('pageNum', pageNum);
     this.currIndex = pageNum;
     this.props.repositoryInit({
       pageSize: this.pageSize,
@@ -82,7 +82,7 @@ class Repository extends React.Component {
   componentDidMount(): void {
     this.props.repositoryInit({
       pageNumber: 1,
-      pageSize: 6,
+      pageSize: this.pageSize,
     });
   }
 
@@ -93,16 +93,11 @@ class Repository extends React.Component {
     }
     const {rankArr, countryArr, allRepository} = _data;
     const {data, total} = allRepository;
-    const {
-      keys,
-      visible,
-      currentOpen,
-      select,
-      refreshLoading,
-      loading,
-    } = this.state;
-    const item = currentOpen === 'country' ? countryArr : rankArr;
+
     console.log('allRepository', allRepository);
+
+    const {keys, visible, currentOpen, select, refreshLoading} = this.state;
+    const item = currentOpen === 'country' ? countryArr : rankArr;
 
     return (
       <View style={styles.repository}>
@@ -112,6 +107,7 @@ class Repository extends React.Component {
             value={keys}
             onChangeText={e => this.onChangeText(e)}
           />
+          <Button>搜索</Button>
         </View>
 
         <Popover
@@ -224,12 +220,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   selectArea: {
+    flexDirection: 'row',
     paddingTop: 10,
+    paddingHorizontal: 20,
     backgroundColor: '#fff',
   },
   ipt: {
     // position: 'absolute',
-    marginHorizontal: 20,
+    marginRight: 10,
+    flex: 1,
   },
 
   filter: {
