@@ -1,4 +1,4 @@
-import {getAllCaseReq} from './api';
+import {getAllCaseReq, getDegreeReq, getSubjectReq} from './api';
 // Actions
 const UPDATE = 'CASE_UPDATE';
 
@@ -32,10 +32,13 @@ export const caseInit = (params, callback) => async (dispatch, getState) => {
   console.log('params', params);
   const {listData} = getState().cases.data;
   const res = await getAllCaseReq(params || {});
+  const _degree = await getDegreeReq({});
+  const _subject = await getSubjectReq({});
+
   console.log('res', res);
 
   let _res = res;
-  if (params.init && listData.data) {
+  if (!params.init && listData.data) {
     let temp = res.data.concat(listData.data);
     res.data = [...temp];
     _res = res;
@@ -46,6 +49,8 @@ export const caseInit = (params, callback) => async (dispatch, getState) => {
       init: true,
       data: {
         listData: _res,
+        _degree,
+        _subject,
       },
     }),
   );

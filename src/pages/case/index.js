@@ -9,7 +9,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, ListFooter, Popover} from '../../components';
+import {SearchInput, ListFooter, Button, Popover} from '../../components';
 import Item from './Item/item';
 
 import {connect} from 'react-redux';
@@ -20,22 +20,11 @@ class Cases extends React.Component {
   state = {
     keys: '',
     currentOpen: '',
-    countryArr: [
-      '全球',
-      '美国',
-      '日本',
-      '韩国',
-      '法国',
-      '英国',
-      '泰国',
-      '马来西亚',
-    ],
-    schoolArr: ['QS', 'USNEWS', '泰是无', '上海交大'],
     select: '',
-    dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
-    loading: false,
     visible: false,
+    degree: {},
+    subject: {},
   };
 
   onChangeText = e => {
@@ -52,9 +41,10 @@ class Cases extends React.Component {
     });
   };
 
-  handleSelect = v => {
+  handleSelect = (key, value) => {
     this.setState({
-      select: v,
+      select: value,
+      [key]: value,
     });
   };
 
@@ -62,52 +52,72 @@ class Cases extends React.Component {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
-      this.setState({
-        refreshLoading: false,
-      });
-    }, 2000);
+    this.props.caseInit(
+      {
+        pageNumber: 1,
+        pageSize: this.pageSize,
+        countryId: 1,
+        init: true,
+      },
+      () =>
+        this.setState({
+          refreshLoading: false,
+        }),
+    );
   };
 
-  getMore = () => {
-    // this.setState({
-    //   loading: true,
-    // });
-    // setTimeout(() => {
-    //   this.setState({
-    //     dataArr: [...this.state.dataArr, 8, 9, 10],
-    //     loading: false,
-    //   });
-    // }, 2000);
+  getMore = list => {
+    const {total, data, nextPage} = list;
+    if (total > data.length) {
+      this.currIndex = nextPage;
+      this.props.caseInit({
+        pageSize: this.pageSize,
+        pageNumber: this.currIndex,
+        countryId: 1,
+      });
+    }
   };
 
   componentDidMount(): void {
     this.props.caseInit({
       pageNumber: 1,
-      pageSize: 8,
+      pageSize: this.pageSize,
       countryId: 1,
+      init: true,
     });
   }
+
+  search = () => {
+    const {keys, degree, subject} = this.state;
+    this.props.caseInit({
+      pageNumber: 50,
+      pageSize: this.pageSize,
+      countryId: 1,
+      query: keys,
+      degreeId: degree.id,
+      subjectId: subject.id,
+      init: true
+    });
+  };
 
   render() {
     const {
       keys,
-
-      countryArr,
-      schoolArr,
       visible,
       currentOpen,
+      degree,
+      subject,
       select,
-
       refreshLoading,
     } = this.state;
     const {init, data, navigation} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {listData} = data;
+    const {listData, _degree, _subject} = data;
     console.log(listData);
-    const item = currentOpen === 'country' ? countryArr : schoolArr;
+
+    const item = currentOpen === 'degree' ? _degree : _subject;
     return (
       <View style={styles.repository}>
         <View style={styles.selectArea}>
@@ -116,6 +126,7 @@ class Cases extends React.Component {
             value={keys}
             onChangeText={e => this.onChangeText(e)}
           />
+          <Button onClick={this.search}>搜索</Button>
         </View>
 
         <Popover
@@ -127,9 +138,9 @@ class Cases extends React.Component {
               {item.map((v, i) => (
                 <TouchableWithoutFeedback
                   key={i}
-                  onPress={() => this.handleSelect(v)}>
+                  onPress={() => this.handleSelect(currentOpen, v)}>
                   <View style={styles.item}>
-                    <Text style={select === v && styles.active}>{v}</Text>
+                    <Text style={select === v && styles.active}>{v.name}</Text>
                     {select === v && (
                       <Image
                         style={styles.select}
@@ -144,19 +155,19 @@ class Cases extends React.Component {
           <View style={styles.filter}>
             <TouchableWithoutFeedback
               // style={styles.filterItem}
-              onPress={() => this.toggleModal('country')}>
+              onPress={() => this.toggleModal('degree')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'country' && styles.active,
+                    currentOpen === 'degree' && styles.active,
                   ]}>
-                  学位
+                  {degree.name || '学位'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
                   source={
-                    currentOpen === 'country'
+                    currentOpen === 'degree'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -164,19 +175,19 @@ class Cases extends React.Component {
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-              onPress={() => this.toggleModal('school')}>
+              onPress={() => this.toggleModal('subject')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'school' && styles.active,
+                    currentOpen === 'subject' && styles.active,
                   ]}>
-                  学科
+                  {subject.name || '学科'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
                   source={
-                    currentOpen === 'school'
+                    currentOpen === 'subject'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -206,7 +217,7 @@ class Cases extends React.Component {
               <ListFooter data={listData.data} total={listData.total} />
             }
             onEndReachedThreshold={0.03}
-            onEndReached={this.getMore}
+            onEndReached={() => this.getMore(listData)}
           />
         </Popover>
       </View>
@@ -224,11 +235,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   selectArea: {
+    flexDirection: 'row',
     paddingTop: 10,
+    paddingHorizontal: 20,
+
     backgroundColor: '#fff',
   },
   ipt: {
-    marginHorizontal: 20,
+    flex: 1,
+    marginRight: 10,
   },
 
   filter: {
