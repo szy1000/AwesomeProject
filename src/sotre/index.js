@@ -27,6 +27,9 @@ import {repository} from '../pages/repository/redux';
 import {repositoryDetail} from '../pages/repository-detail/redux';
 import {caseDetail} from '../pages/case-detail/redux';
 import {libraryDetail} from '../pages/library-detail/redux';
+import {background} from '../pages/background/redux';
+import {backgroundDetail} from '../pages/background-detail/redux';
+import {cases} from '../pages/case/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -68,6 +71,9 @@ const store = createStore(
     caseDetail,
     libraryDetail,
     summer,
+    background,
+    backgroundDetail,
+    cases,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

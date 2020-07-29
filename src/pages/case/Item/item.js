@@ -19,23 +19,23 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {styles} = this.props;
+    const {styles, id, name, nameEn, jiaotongRanking, imageUrl} = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
+      <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
-          <Image style={_styles.logo} source={require('./pic25.png')} />
+          <Image style={_styles.logo} source={{uri: imageUrl}} />
           <View style={{flex: 1}}>
             <View style={_styles.school_wrapper}>
               <Text style={_styles.name} numberOfLines={1}>
-                安德鲁斯大学
+                {name}
               </Text>
               <Text style={_styles.eng_name} numberOfLines={1}>
-                Massachusetts Institute of Technology
+                {nameEn}
               </Text>
             </View>
             <View style={_styles.ranking_item}>
               <Text style={_styles.desc}>国内排名:</Text>
-              <Text style={_styles.China}>3</Text>
+              <Text style={_styles.China}>{jiaotongRanking}</Text>
             </View>
           </View>
         </View>

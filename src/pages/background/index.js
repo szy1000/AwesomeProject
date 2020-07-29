@@ -9,9 +9,16 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, Popover} from '../../components';
+import {SearchInput, ListFooter, Popover} from '../../components';
 import Item from './Item/item';
-export default class Background extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {backgroundInit} from './redux';
+
+class Background extends React.Component {
+  pageSize = 8;
+  currIndex = 1;
+
   state = {
     keys: '',
     currentOpen: '',
@@ -39,6 +46,14 @@ export default class Background extends React.Component {
     });
   };
 
+  componentDidMount(): void {
+    this.props.backgroundInit({
+      pageSize: this.pageSize,
+      pageNumber: 1,
+      init: true,
+    });
+  }
+
   toggleModal = name => {
     const {visible} = this.state;
     this.setState({
@@ -57,24 +72,35 @@ export default class Background extends React.Component {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [5, 4, 3, 2, 1],
-        refreshLoading: false,
-      });
-    }, 2000);
+    this.props.backgroundInit(
+      {
+        pageSize: this.pageSize,
+        pageNumber: 1,
+        init: true,
+      },
+      () =>
+        this.setState({
+          refreshLoading: false,
+        }),
+    );
   };
 
-  getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
-      });
-    }, 2000);
+  getMore = list => {
+    const {total, data, nextPage} = list;
+    if (total > data.length) {
+      console.log('more');
+      this.currIndex = nextPage;
+      this.props.backgroundInit(
+        {
+          pageSize: this.pageSize,
+          pageNumber: this.currIndex,
+        },
+        () =>
+          this.setState({
+            refreshLoading: false,
+          }),
+      );
+    }
   };
   render() {
     const {
@@ -85,15 +111,19 @@ export default class Background extends React.Component {
       currentOpen,
       select,
 
-      dataArr,
       refreshLoading,
-      loading,
     } = this.state;
-    const {navigation} = this.props;
 
     const item = currentOpen === 'country' ? countryArr : schoolArr;
+    const {init, navigation, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {listData} = data;
+    console.log(listData);
+
     return (
-      <View style={styles.repository}>
+      <View style={styles.background}>
         <View style={styles.selectArea}>
           <SearchInput
             styles={styles.ipt}
@@ -103,7 +133,7 @@ export default class Background extends React.Component {
         </View>
 
         <Popover
-          // style={}
+          style={{flex: 1, paddingBottom: 20}}
           visible={visible}
           maskClick={this.toggleModal}
           item={
@@ -188,47 +218,46 @@ export default class Background extends React.Component {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          <View style={styles.list}>
-            <FlatList
-              data={dataArr}
-              styles={styles.list}
-              renderItem={({item, index}) => (
-                <Item
-                  keys={index}
-                  navigation={navigation}
-                  styles={styles.item}
-                  {...item}
-                />
-              )}
-              // ItemSeparatorComponent={({highlighted}) => (
-              //   <WhiteSpace size={'big'} />
-              // )}
-              refreshControl={
-                <RefreshControl
-                  title={'loading'}
-                  tintColor={'orange'}
-                  titleColor={'red'}
-                  refreshing={refreshLoading}
-                  onRefresh={this.getDate}
-                />
-              }
-              ListFooterComponent={
-                <View style={styles.activity}>
-                  <ActivityIndicator animating={loading} />
-                  <Text style={styles.txt}>加载更多</Text>
-                </View>
-              }
-              onEndReached={this.getMore}
-            />
-          </View>
+          <FlatList
+            style={styles.list}
+            data={listData.data}
+            styles={styles.list}
+            renderItem={({item, id}) => (
+              <Item
+                key={id}
+                navigation={navigation}
+                styles={styles.item}
+                {...item}
+              />
+            )}
+            refreshControl={
+              <RefreshControl
+                title={'loading'}
+                refreshing={refreshLoading}
+                onRefresh={this.getDate}
+              />
+            }
+            ListFooterComponent={
+              <ListFooter total={listData.total} data={listData.data} />
+            }
+            onEndReachedThreshold={0.03}
+            onEndReached={() => this.getMore(listData)}
+          />
         </Popover>
       </View>
     );
   }
 }
 
+export default connect(
+  state => state.background,
+  dispatch => bindActionCreators({backgroundInit}, dispatch),
+)(Background);
+
 const styles = StyleSheet.create({
-  repository: {},
+  background: {
+    flex: 1,
+  },
   selectArea: {
     paddingTop: 10,
     backgroundColor: '#fff',
@@ -259,7 +288,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    paddingTop: 15,
+    flex: 1,
     paddingBottom: 15,
     backgroundColor: '#f7f7f7',
   },
@@ -269,7 +298,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 15,
-    marginBottom: 15,
+    marginTop: 15,
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#f7f7f7',

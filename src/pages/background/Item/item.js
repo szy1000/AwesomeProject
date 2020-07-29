@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Jump from '../../../utils/jump';
 export default class Item extends React.Component {
+  star = 0;
   linkToDetail = id => {
     const {navigation} = this.props;
     Jump.linkToPage({
@@ -18,27 +19,52 @@ export default class Item extends React.Component {
       },
     });
   };
+
+  calcStar = gold => {
+    let res = [];
+    switch (gold) {
+      case '一星':
+        this.star = 1;
+        break;
+      // return <Image style={_styles.icon} source={require('./pic29.png')} />;
+      case '二星':
+        this.star = 2;
+        break;
+      case '三星':
+        this.star = 3;
+        break;
+      case '四星':
+        this.star = 4;
+        break;
+      case '五星':
+        this.star = 5;
+        break;
+      default:
+        this.star = 0;
+    }
+    for (let i = 0; i < this.star; i++) {
+      res.push(<Image style={_styles.icon} source={require('./pic29.png')} />);
+    }
+    return res;
+  };
   render() {
-    const {styles} = this.props;
+    const {styles, id, description, gold, title} = this.props;
+
     return (
-      <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
+      <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
           <View style={_styles.school_wrapper}>
             <Text style={_styles.name} numberOfLines={1}>
-              ACM8 数学竞赛
+              {title}
             </Text>
             <View style={_styles.content}>
               <Image source={require('./address.png')} style={_styles.addr} />
-              <Text style={_styles.crowd}>适合8年纪以下儿童参加</Text>
+              <Text style={_styles.crowd}>{description}</Text>
             </View>
             <View style={_styles.content}>
               <Image source={require('./zan.png')} style={_styles.addr} />
               <Text style={_styles.crowd}>含金量：</Text>
-              <View style={_styles.grade}>
-                <Image style={_styles.icon} source={require('./pic29.png')} />
-                <Image style={_styles.icon} source={require('./pic29.png')} />
-                <Image style={_styles.icon} source={require('./pic29.png')} />
-              </View>
+              <View style={_styles.grade}>{this.calcStar(gold)}</View>
             </View>
           </View>
         </View>

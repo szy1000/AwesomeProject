@@ -9,9 +9,14 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, Popover} from '../../components';
+import {SearchInput, ListFooter, Popover} from '../../components';
 import Item from './Item/item';
-export default class Case extends React.Component {
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {caseInit} from './redux';
+
+class Cases extends React.Component {
   state = {
     keys: '',
     currentOpen: '',
@@ -59,23 +64,31 @@ export default class Case extends React.Component {
     });
     setTimeout(() => {
       this.setState({
-        dataArr: [5, 4, 3, 2, 1],
         refreshLoading: false,
       });
     }, 2000);
   };
 
   getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
-      });
-    }, 2000);
+    // this.setState({
+    //   loading: true,
+    // });
+    // setTimeout(() => {
+    //   this.setState({
+    //     dataArr: [...this.state.dataArr, 8, 9, 10],
+    //     loading: false,
+    //   });
+    // }, 2000);
   };
+
+  componentDidMount(): void {
+    this.props.caseInit({
+      pageNumber: 1,
+      pageSize: 8,
+      countryId: 1,
+    });
+  }
+
   render() {
     const {
       keys,
@@ -86,12 +99,14 @@ export default class Case extends React.Component {
       currentOpen,
       select,
 
-      dataArr,
       refreshLoading,
-      loading,
     } = this.state;
-    const {navigation} = this.props;
-
+    const {init, data, navigation} = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {listData} = data;
+    console.log(listData);
     const item = currentOpen === 'country' ? countryArr : schoolArr;
     return (
       <View style={styles.repository}>
@@ -104,7 +119,7 @@ export default class Case extends React.Component {
         </View>
 
         <Popover
-          // style={}
+          style={{flex: 1}}
           visible={visible}
           maskClick={this.toggleModal}
           item={
@@ -169,47 +184,45 @@ export default class Case extends React.Component {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          <View style={styles.list}>
-            <FlatList
-              data={dataArr}
-              styles={styles.list}
-              renderItem={({item, index}) => (
-                <Item
-                  keys={index}
-                  navigation={navigation}
-                  styles={styles.item}
-                  {...item}
-                />
-              )}
-              // ItemSeparatorComponent={({highlighted}) => (
-              //   <WhiteSpace size={'big'} />
-              // )}
-              refreshControl={
-                <RefreshControl
-                  title={'loading'}
-                  tintColor={'orange'}
-                  titleColor={'red'}
-                  refreshing={refreshLoading}
-                  onRefresh={this.getDate}
-                />
-              }
-              ListFooterComponent={
-                <View style={styles.activity}>
-                  <ActivityIndicator animating={loading} />
-                  <Text style={styles.txt}>加载更多</Text>
-                </View>
-              }
-              onEndReached={this.getMore}
-            />
-          </View>
+          <FlatList
+            style={styles.list}
+            data={listData.data}
+            renderItem={({item, index}) => (
+              <Item
+                key={index}
+                navigation={navigation}
+                styles={styles.item}
+                {...item}
+              />
+            )}
+            refreshControl={
+              <RefreshControl
+                title={'loading'}
+                refreshing={refreshLoading}
+                onRefresh={this.getDate}
+              />
+            }
+            ListFooterComponent={
+              <ListFooter data={listData.data} total={listData.total} />
+            }
+            onEndReachedThreshold={0.03}
+            onEndReached={this.getMore}
+          />
         </Popover>
       </View>
     );
   }
 }
 
+export default connect(
+  state => state.cases,
+  dispatch => bindActionCreators({caseInit}, dispatch),
+)(Cases);
+
 const styles = StyleSheet.create({
-  repository: {},
+  repository: {
+    flex: 1,
+  },
   selectArea: {
     paddingTop: 10,
     backgroundColor: '#fff',
@@ -240,6 +253,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
+    flex: 1,
     paddingTop: 15,
     paddingBottom: 15,
     backgroundColor: '#f7f7f7',
