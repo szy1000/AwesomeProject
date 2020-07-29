@@ -58,7 +58,7 @@ export default class Tab extends React.Component {
           initialRouteName={initialRouteName}>
           {tabContent.length > 0 &&
             tabContent.map(({name, component}, i) => (
-              <TopTab.Screen keys={i} name={name} component={component} />
+              <TopTab.Screen keys={i} key={i} name={name} component={component} />
             ))}
         </TopTab.Navigator>
       </>

@@ -9,12 +9,16 @@ import {
 import Jump from '../../../utils/jump';
 export default class Item extends React.Component {
   linkToDetail = id => {
-    const {navigation} = this.props;
+    const {navigation, name, nameEn, jiaotongRanking, imageUrl} = this.props;
     Jump.linkToPage({
       url: 'CaseList',
       navigation,
       params: {
         id,
+        name,
+        nameEn,
+        jiaotongRanking,
+        imageUrl,
       },
     });
   };

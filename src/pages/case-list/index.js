@@ -1,34 +1,59 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {School, Content} from './page-components';
+import {ActivityIndicator, StyleSheet} from 'react-native';
+import {School} from './page-components';
+import Content from './content.js';
 import {Tab} from '../../components';
-export default class CaseList extends React.Component {
-  childrenArr = [
-    {
-      name: '本科',
-      component: () => <Content navigation={this.props.navigation} />,
-    },
-    {
-      name: '硕士',
-      component: () => <Content navigation={this.props.navigation} />,
-    },
-    {
-      name: '博士',
-      component: () => <Content navigation={this.props.navigation} />,
-    },
-  ];
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {caseListInit} from './redux';
+
+class CaseList extends React.Component {
+  componentDidMount(): void {
+    const {
+      route: {params},
+    } = this.props;
+    this.props.caseListInit({
+      pageNumber: 1,
+      pageSize: 8,
+      universityId: params.id,
+    });
+  }
 
   render() {
-    const {navigation} = this.props;
+    const {
+      init,
+      data,
+      navigation,
+      route: {params},
+    } = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {degree} = data;
+    for (let i = 0; i < degree.length; i++) {
+      degree[i].component = () => (
+        <Content
+          degreeId={degree[i].id}
+          universityId={params.id}
+          navigation={this.props.navigation}
+        />
+      );
+    }
+
     return (
       <Tab
-        common={<School />}
+        common={<School {...params} />}
         navigation={navigation}
-        tabContent={this.childrenArr}
+        tabContent={degree}
       />
     );
   }
 }
+
+export default connect(
+  state => state.caseList,
+  dispatch => bindActionCreators({caseListInit}, dispatch),
+)(CaseList);
 
 const styles = StyleSheet.create({
   repository: {},

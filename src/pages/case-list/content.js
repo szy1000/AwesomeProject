@@ -7,8 +7,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import Item from '../item';
-
+import {Item} from './page-components/';
 export default class Content extends React.Component {
   state = {
     keys: '',
@@ -39,30 +38,30 @@ export default class Content extends React.Component {
       });
     }, 2000);
   };
+  componentDidMount(): void {
+    console.log('content', this.props);
+  }
 
   render() {
     const {navigation} = this.props;
+    console.log(this.props);
     const {loading, dataArr, refreshLoading} = this.state;
     return (
       <FlatList
         data={dataArr}
         styles={styles.list}
-        renderItem={({item, index}) => (
+        renderItem={({item}, index) => (
           <Item
+            key={index}
             keys={index}
             navigation={navigation}
             styles={styles.item}
             {...item}
           />
         )}
-        // ItemSeparatorComponent={({highlighted}) => (
-        //   <WhiteSpace size={'big'} />
-        // )}
         refreshControl={
           <RefreshControl
             title={'loading'}
-            tintColor={'orange'}
-            titleColor={'red'}
             refreshing={refreshLoading}
             onRefresh={this.getDate}
           />
@@ -73,14 +72,12 @@ export default class Content extends React.Component {
             <Text style={styles.txt}>加载更多</Text>
           </View>
         }
-        onEndReached={this.getMore}
+        // onEndReached={this.getMore}
       />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  list:{
-
-  }
+  list: {},
 });

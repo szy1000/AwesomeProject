@@ -1,45 +1,26 @@
 import React from 'react';
-import {
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Text,
-  StyleSheet,
-} from 'react-native';
-import Jump from '../../../../utils/jump';
+import {View, Image, Text, StyleSheet} from 'react-native';
 export default class Item extends React.Component {
-  linkToDetail = id => {
-    const {navigation} = this.props;
-    Jump.linkToPage({
-      url: 'RepositoryDetail',
-      navigation,
-      params: {
-        id,
-      },
-    });
-  };
   render() {
-    const {styles} = this.props;
+    const {styles, name, nameEn, jiaotongRanking, imageUrl} = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
-        <View style={[_styles.school, styles]}>
-          <Image style={_styles.logo} source={require('./pic25.png')} />
-          <View style={{flex: 1}}>
-            <View style={_styles.school_wrapper}>
-              <Text style={_styles.name} numberOfLines={1}>
-                安德鲁斯大学
-              </Text>
-              <Text style={_styles.eng_name} numberOfLines={1}>
-                Massachusetts Institute of Technology
-              </Text>
-            </View>
-            <View style={_styles.ranking_item}>
-              <Text style={_styles.desc}>国内排名:</Text>
-              <Text style={_styles.China}>3</Text>
-            </View>
+      <View style={[_styles.school, styles]}>
+        <Image style={_styles.logo} source={{uri: imageUrl}} />
+        <View style={{flex: 1}}>
+          <View style={_styles.school_wrapper}>
+            <Text style={_styles.name} numberOfLines={1}>
+              {name}
+            </Text>
+            <Text style={_styles.eng_name} numberOfLines={1}>
+              {nameEn}
+            </Text>
+          </View>
+          <View style={_styles.ranking_item}>
+            <Text style={_styles.desc}>国内排名:</Text>
+            <Text style={_styles.China}>{jiaotongRanking}</Text>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
