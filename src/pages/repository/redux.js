@@ -41,7 +41,7 @@ export const repositoryInit = (params, callback) => async (
   const res = await queryBySelectReq(params || {});
 
   let _res = res;
-  if (allRepository.data) {
+  if (!params.init && allRepository.data) {
     let temp = res.data.concat(allRepository.data);
     res.data = [...temp];
     _res = res;

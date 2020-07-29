@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {
   View,
   FlatList,
@@ -43,9 +43,10 @@ class Repository extends React.Component {
     });
   };
 
-  handleSelect = v => {
+  handleSelect = (key, value) => {
     this.setState({
-      select: v,
+      select: value,
+      [key]: value,
     });
   };
 
@@ -58,6 +59,7 @@ class Repository extends React.Component {
       {
         pageNumber: this.currIndex,
         pageSize: this.pageSize,
+        init: true,
       },
       () => {
         this.setState({
@@ -83,8 +85,21 @@ class Repository extends React.Component {
     this.props.repositoryInit({
       pageNumber: 1,
       pageSize: this.pageSize,
+      init: true,
     });
   }
+
+  search = () => {
+    const {keys, country, school} = this.state;
+    this.props.repositoryInit({
+      pageNumber: 1,
+      pageSize: 50,
+      query: keys,
+      init: true,
+      order: school.id,
+      countryId: country.id,
+    });
+  };
 
   render() {
     const {navigation, init, _data} = this.props;
@@ -96,7 +111,15 @@ class Repository extends React.Component {
 
     console.log('allRepository', allRepository);
 
-    const {keys, visible, currentOpen, select, refreshLoading} = this.state;
+    const {
+      keys,
+      visible,
+      currentOpen,
+      refreshLoading,
+      select,
+      country,
+      school,
+    } = this.state;
     const item = currentOpen === 'country' ? countryArr : rankArr;
 
     return (
@@ -107,7 +130,7 @@ class Repository extends React.Component {
             value={keys}
             onChangeText={e => this.onChangeText(e)}
           />
-          <Button>搜索</Button>
+          <Button onClick={this.search}>搜索</Button>
         </View>
 
         <Popover
@@ -115,25 +138,49 @@ class Repository extends React.Component {
           visible={visible}
           maskClick={this.toggleModal}
           item={
-            <View>
-              {item.map((v, i) => (
-                <TouchableWithoutFeedback
-                  key={i}
-                  onPress={() => this.handleSelect(v.id)}>
-                  <View style={styles.item}>
-                    <Text style={select === v.id && styles.active}>
-                      {v.name}
-                    </Text>
-                    {select === v && (
-                      <Image
-                        style={styles.select}
-                        source={require('./sel.png')}
-                      />
-                    )}
-                  </View>
-                </TouchableWithoutFeedback>
-              ))}
-            </View>
+            <Fragment>
+              {currentOpen === 'country' ? (
+                <View>
+                  {item.map((v, i) => (
+                    <TouchableWithoutFeedback
+                      key={i}
+                      onPress={() => this.handleSelect('country', v)}>
+                      <View style={styles.item}>
+                        <Text style={country.id === v.id && styles.active}>
+                          {v.name}
+                        </Text>
+                        {country === v && (
+                          <Image
+                            style={styles.select}
+                            source={require('./sel.png')}
+                          />
+                        )}
+                      </View>
+                    </TouchableWithoutFeedback>
+                  ))}
+                </View>
+              ) : (
+                <View>
+                  {item.map((v, i) => (
+                    <TouchableWithoutFeedback
+                      key={i}
+                      onPress={() => this.handleSelect('school', v)}>
+                      <View style={styles.item}>
+                        <Text style={school.id === v.id && styles.active}>
+                          {v.name}
+                        </Text>
+                        {select === v && (
+                          <Image
+                            style={styles.select}
+                            source={require('./sel.png')}
+                          />
+                        )}
+                      </View>
+                    </TouchableWithoutFeedback>
+                  ))}
+                </View>
+              )}
+            </Fragment>
           }>
           <View style={styles.filter}>
             <TouchableWithoutFeedback
@@ -145,7 +192,7 @@ class Repository extends React.Component {
                     styles.area,
                     currentOpen === 'country' && styles.active,
                   ]}>
-                  {countryArr[0].name}
+                  {country.name || countryArr[0].name}
                 </Text>
                 <Image
                   style={styles.filterIcon}
@@ -165,7 +212,7 @@ class Repository extends React.Component {
                     styles.area,
                     currentOpen === 'school' && styles.active,
                   ]}>
-                  {rankArr[0].name}
+                  {school.name || rankArr[0].name}
                 </Text>
                 <Image
                   style={styles.filterIcon}
@@ -189,9 +236,6 @@ class Repository extends React.Component {
                 {...item}
               />
             )}
-            // ItemSeparatorComponent={({highlighted}) => (
-            //   <WhiteSpace size={'big'} />
-            // )}
             refreshControl={
               <RefreshControl
                 title={'loading'}
