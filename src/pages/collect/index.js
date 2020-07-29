@@ -9,76 +9,96 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {WhiteSpace} from '../../components';
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {collectInit} from './redux';
+
+import {WhiteSpace, ListFooter} from '../../components';
 import Item from './item';
 
-export default class Collect extends React.Component {
+class Collect extends React.Component {
   state = {
-    dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
-    loading: false,
   };
 
   getDate = () => {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [5, 4, 3, 2, 1],
-        refreshLoading: false,
-      });
-    }, 2000);
+    this.props.collectInit(
+      {
+        pageNumber: 1,
+        pageSize: 8,
+      },
+      () =>
+        this.setState({
+          refreshLoading: false,
+        }),
+    );
   };
 
-  getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
+  getMore = list => {
+    const {total, data, nextPage} = list;
+    if (total > data.length) {
+      this.currIndex = nextPage;
+      this.props.collectInit({
+        pageSize: this.pageSize,
+        pageNumber: this.currIndex,
       });
-    }, 2000);
+    }
   };
 
   _onPressItem = item => {
     alert(item);
   };
+  componentDidMount(): void {
+    this.props.collectInit({
+      pageNumber: 1,
+      pageSize: 8,
+    });
+  }
 
   render() {
-    const {dataArr, refreshLoading, loading} = this.state;
+    const {refreshLoading} = this.state;
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {listData} = data;
+    console.log(listData);
     return (
       <View style={styles.concern}>
         <FlatList
-          data={dataArr}
+          data={listData.data}
           renderItem={({item, index}) => <Item {...item} />}
           ItemSeparatorComponent={({highlighted}) => <WhiteSpace size="big" />}
           refreshControl={
             <RefreshControl
               title={'loading'}
-              tintColor={'orange'}
-              titleColor={'red'}
               refreshing={refreshLoading}
               onRefresh={this.getDate}
             />
           }
           ListFooterComponent={
-            <View style={styles.activity}>
-              <ActivityIndicator animating={loading} />
-              <Text style={styles.txt}>加载更多</Text>
-            </View>
+            <ListFooter total={listData.total} data={listData.data} />
           }
-          onEndReached={this.getMore}
+          onEndReachedThreshold={0.03}
+          onEndReached={() => this.getMore(listData)}
         />
       </View>
     );
   }
 }
 
+export default connect(
+  state => state.collect,
+  dispatch => bindActionCreators({collectInit}, dispatch),
+)(Collect);
+
 const styles = StyleSheet.create({
   concern: {
+    flex: 1,
     paddingBottom: 15,
     backgroundColor: '#fff',
   },
