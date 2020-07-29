@@ -9,7 +9,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, ListFooter, Popover} from '../../components';
+import {SearchInput, ListFooter, Button, Popover} from '../../components';
 import Item from './Item/item';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -22,22 +22,11 @@ class Background extends React.Component {
   state = {
     keys: '',
     currentOpen: '',
-    countryArr: [
-      '全球',
-      '美国',
-      '日本',
-      '韩国',
-      '法国',
-      '英国',
-      '泰国',
-      '马来西亚',
-    ],
-    schoolArr: ['QS', 'USNEWS', '泰是无', '上海交大'],
-    select: '',
-    dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
-    loading: false,
     visible: false,
+    subject: {},
+    category: {},
+    grade: {},
   };
 
   onChangeText = e => {
@@ -62,9 +51,9 @@ class Background extends React.Component {
     });
   };
 
-  handleSelect = v => {
+  handleSelect = (key, value) => {
     this.setState({
-      select: v,
+      [key]: value,
     });
   };
 
@@ -102,25 +91,44 @@ class Background extends React.Component {
       );
     }
   };
+
+  search = () => {
+    const {keys, subject, category, grade} = this.state;
+    this.props.backgroundInit({
+      pageSize: 50,
+      pageNumber: 1,
+      query: keys,
+      gradeId: grade.id,
+      subjectId: subject.id,
+      categoryId: category.id,
+      init: false,
+    });
+  };
+
   render() {
     const {
       keys,
-      countryArr,
-      schoolArr,
       visible,
       currentOpen,
-      select,
 
+      category,
+      subject,
+      grade,
       refreshLoading,
     } = this.state;
 
-    const item = currentOpen === 'country' ? countryArr : schoolArr;
     const {init, navigation, data} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {listData} = data;
-    console.log(listData);
+    const {listData, _subject, _category, _grade} = data;
+
+    let item = null;
+    if (currentOpen === 'grade') {
+      item = _grade;
+    } else {
+      item = currentOpen === 'category' ? _category : _subject;
+    }
 
     return (
       <View style={styles.background}>
@@ -130,6 +138,7 @@ class Background extends React.Component {
             value={keys}
             onChangeText={e => this.onChangeText(e)}
           />
+          <Button onClick={this.search}>搜索</Button>
         </View>
 
         <Popover
@@ -141,10 +150,17 @@ class Background extends React.Component {
               {item.map((v, i) => (
                 <TouchableWithoutFeedback
                   key={i}
-                  onPress={() => this.handleSelect(v)}>
+                  onPress={() => this.handleSelect(currentOpen, v)}>
                   <View style={styles.item}>
-                    <Text style={select === v && styles.active}>{v}</Text>
-                    {select === v && (
+                    <Text
+                      style={
+                        (this.state[currentOpen] &&
+                          this.state[currentOpen].id) === v.id && styles.active
+                      }>
+                      {v.name}
+                    </Text>
+                    {(this.state[currentOpen] && this.state[currentOpen].id) ===
+                      v.id && (
                       <Image
                         style={styles.select}
                         source={require('./sel.png')}
@@ -158,19 +174,19 @@ class Background extends React.Component {
           <View style={styles.filter}>
             <TouchableWithoutFeedback
               // style={styles.filterItem}
-              onPress={() => this.toggleModal('country')}>
+              onPress={() => this.toggleModal('grade')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'country' && styles.active,
+                    currentOpen === 'grade' && styles.active,
                   ]}>
-                  学位
+                  {grade.name || '年级'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
                   source={
-                    currentOpen === 'country'
+                    currentOpen === 'grade'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -178,19 +194,19 @@ class Background extends React.Component {
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-              onPress={() => this.toggleModal('school')}>
+              onPress={() => this.toggleModal('category')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'school' && styles.active,
+                    currentOpen === 'category' && styles.active,
                   ]}>
-                  分类
+                  {category.name || '分类'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
                   source={
-                    currentOpen === 'school'
+                    currentOpen === 'category'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -198,19 +214,19 @@ class Background extends React.Component {
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-              onPress={() => this.toggleModal('school')}>
+              onPress={() => this.toggleModal('subject')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'school' && styles.active,
+                    currentOpen === 'subject' && styles.active,
                   ]}>
-                  学科
+                  {subject.name || '学科'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
                   source={
-                    currentOpen === 'school'
+                    currentOpen === 'subject'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -259,11 +275,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   selectArea: {
+    flexDirection: 'row',
     paddingTop: 10,
+    paddingHorizontal: 20,
     backgroundColor: '#fff',
   },
   ipt: {
-    marginHorizontal: 20,
+    marginRight: 10,
+    flex: 1,
   },
 
   filter: {

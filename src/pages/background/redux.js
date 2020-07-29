@@ -1,4 +1,9 @@
-import {getBackgroundReq} from './api';
+import {
+  getBackgroundReq,
+  getSubjectReq,
+  getGradeReq,
+  getCategoryReq,
+} from './api';
 // Actions
 const UPDATE = 'BACKGROUND_UPDATE';
 
@@ -34,6 +39,9 @@ export const backgroundInit = (params, callback) => async (
 ) => {
   console.log('background params', params);
   const {listData} = getState().background.data;
+  const _subject = await getSubjectReq({});
+  const _category = await getCategoryReq({});
+  const _grade = await getGradeReq({});
   const res = await getBackgroundReq(params || {});
   console.log('background res', res);
 
@@ -47,6 +55,9 @@ export const backgroundInit = (params, callback) => async (
     backgroundUpdate({
       init: true,
       data: {
+        _subject,
+        _category,
+        _grade,
         listData: _res,
       },
     }),
