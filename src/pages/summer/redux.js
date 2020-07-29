@@ -1,4 +1,10 @@
-import {queryRankingReq, queryBySelectReq, querySummerProjectReq} from './api';
+import {
+  queryRankingReq,
+  queryBySelectReq,
+  getGradeReq,
+  getSubjectReq,
+  querySummerProjectReq,
+} from './api';
 // Actions
 const UPDATE = 'SUMMER_UPDATE';
 
@@ -6,7 +12,7 @@ const UPDATE = 'SUMMER_UPDATE';
 const initState = {
   init: false,
   _data: {
-    allRepository: {},
+    listData: {},
   },
 };
 
@@ -29,14 +35,16 @@ export const summerUpdate = params => ({
 });
 
 export const summerInit = (params, callback) => async (dispatch, getState) => {
-  const {allRepository} = getState().repository._data;
+  const {listData} = getState().summer._data;
+  console.log('allRepository', listData);
   const rankArr = await queryRankingReq({});
-
   const res = await queryBySelectReq(params || {});
+  const _subject = await getSubjectReq({});
+  const _grade = await getGradeReq({});
 
   let _res = res;
-  if (allRepository.data) {
-    let temp = res.data.concat(allRepository.data);
+  if (!params.init && listData.data) {
+    let temp = res.data.concat(listData.data);
     res.data = [...temp];
     _res = res;
   }
@@ -47,6 +55,8 @@ export const summerInit = (params, callback) => async (dispatch, getState) => {
       _data: {
         rankArr,
         listData: _res,
+        _subject,
+        _grade,
       },
     }),
   );

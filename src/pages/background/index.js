@@ -79,16 +79,10 @@ class Background extends React.Component {
     if (total > data.length) {
       console.log('more');
       this.currIndex = nextPage;
-      this.props.backgroundInit(
-        {
-          pageSize: this.pageSize,
-          pageNumber: this.currIndex,
-        },
-        () =>
-          this.setState({
-            refreshLoading: false,
-          }),
-      );
+      this.props.backgroundInit({
+        pageSize: this.pageSize,
+        pageNumber: this.currIndex,
+      });
     }
   };
 

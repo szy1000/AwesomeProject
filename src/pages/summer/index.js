@@ -9,7 +9,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {SearchInput, ListFooter, Popover} from '../../components';
+import {SearchInput, ListFooter, Button, Popover} from '../../components';
 import Item from './Item/item';
 
 import {connect} from 'react-redux';
@@ -17,25 +17,16 @@ import {bindActionCreators} from 'redux';
 import {summerInit} from './redux';
 
 class Summer extends React.Component {
+  pageSize = 8;
+  currIndex = 1;
   state = {
     keys: '',
     currentOpen: '',
-    countryArr: [
-      '全球',
-      '美国',
-      '日本',
-      '韩国',
-      '法国',
-      '英国',
-      '泰国',
-      '马来西亚',
-    ],
-    schoolArr: ['QS', 'USNEWS', '泰是无', '上海交大'],
     select: '',
-    dataArr: [1, 2, 3, 4, 5],
     refreshLoading: false,
-    loading: false,
     visible: false,
+    grade: {},
+    subject: {},
   };
 
   onChangeText = e => {
@@ -52,9 +43,10 @@ class Summer extends React.Component {
     });
   };
 
-  handleSelect = v => {
+  handleSelect = (key, value) => {
     this.setState({
-      select: v,
+      select: value,
+      [key]: value,
     });
   };
 
@@ -62,53 +54,72 @@ class Summer extends React.Component {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [5, 4, 3, 2, 1],
-        refreshLoading: false,
-      });
-    }, 2000);
+    this.props.summerInit(
+      {
+        init: true,
+        pageSize: 8,
+        pageNumber: 1,
+      },
+      () =>
+        this.setState({
+          refreshLoading: false,
+        }),
+    );
   };
 
-  getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
+  getMore = list => {
+    const {total, data, nextPage} = list;
+    if (total > data.length) {
+      console.log('more');
+      this.currIndex = nextPage;
+      this.props.summerInit({
+        pageSize: this.pageSize,
+        pageNumber: this.currIndex,
       });
-    }, 2000);
+    }
   };
 
   componentDidMount(): void {
-    this.props.summerInit();
+    this.props.summerInit({
+      init: true,
+      pageSize: 8,
+      pageNumber: 1,
+    });
   }
 
+  search = () => {
+    const {keys, grade, subject} = this.state;
+    this.props.summerInit({
+      init: true,
+      pageSize: 50,
+      pageNumber: 1,
+      query: keys,
+      gradeId: grade.id,
+      subjectId: subject.id,
+    });
+  };
   render() {
     const {
       keys,
-      countryArr,
-      schoolArr,
       visible,
       currentOpen,
       select,
-
-      dataArr,
       refreshLoading,
-      loading,
+
+      grade,
+      subject,
     } = this.state;
     const {_data, init, navigation} = this.props;
 
-    const item = currentOpen === 'country' ? countryArr : schoolArr;
     if (!init) {
-      return <ActivityIndicator />;
+      return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {
-      listData: {data, nextPage, pageNumber, total},
+      listData: {data, total},
+      _subject,
+      _grade,
     } = _data;
-    console.log('summer', data);
+    const item = currentOpen === 'grade' ? _grade : _subject;
     return (
       <View style={styles.summer}>
         <View style={styles.selectArea}>
@@ -117,6 +128,7 @@ class Summer extends React.Component {
             value={keys}
             onChangeText={e => this.onChangeText(e)}
           />
+          <Button onClick={this.search}>搜索</Button>
         </View>
 
         <Popover
@@ -128,9 +140,9 @@ class Summer extends React.Component {
               {item.map((v, i) => (
                 <TouchableWithoutFeedback
                   key={i}
-                  onPress={() => this.handleSelect(v)}>
+                  onPress={() => this.handleSelect(currentOpen, v)}>
                   <View style={styles.item}>
-                    <Text style={select === v && styles.active}>{v}</Text>
+                    <Text style={select === v && styles.active}>{v.name}</Text>
                     {select === v && (
                       <Image
                         style={styles.select}
@@ -143,16 +155,14 @@ class Summer extends React.Component {
             </View>
           }>
           <View style={styles.filter}>
-            <TouchableWithoutFeedback
-              // style={styles.filterItem}
-              onPress={() => this.toggleModal('country')}>
+            <TouchableWithoutFeedback onPress={() => this.toggleModal('grade')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'country' && styles.active,
+                    currentOpen === 'grade' && styles.active,
                   ]}>
-                  学位
+                  {grade.name || '年级'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
@@ -165,39 +175,19 @@ class Summer extends React.Component {
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-              onPress={() => this.toggleModal('school')}>
+              onPress={() => this.toggleModal('subject')}>
               <View style={styles.filterItem}>
                 <Text
                   style={[
                     styles.area,
-                    currentOpen === 'school' && styles.active,
+                    currentOpen === 'subject' && styles.active,
                   ]}>
-                  分类
+                  {subject.name || '学科'}
                 </Text>
                 <Image
                   style={styles.filterIcon}
                   source={
-                    currentOpen === 'school'
-                      ? require('./typerow.png')
-                      : require('./typerow_pre.png')
-                  }
-                />
-              </View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-              onPress={() => this.toggleModal('school')}>
-              <View style={styles.filterItem}>
-                <Text
-                  style={[
-                    styles.area,
-                    currentOpen === 'school' && styles.active,
-                  ]}>
-                  学科
-                </Text>
-                <Image
-                  style={styles.filterIcon}
-                  source={
-                    currentOpen === 'school'
+                    currentOpen === 'subject'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -216,9 +206,6 @@ class Summer extends React.Component {
                 {...item}
               />
             )}
-            // ItemSeparatorComponent={({highlighted}) => (
-            //   <WhiteSpace size={'big'} />
-            // )}
             refreshControl={
               <RefreshControl
                 title={'loading'}
@@ -227,7 +214,8 @@ class Summer extends React.Component {
               />
             }
             ListFooterComponent={<ListFooter data={data} total={total} />}
-            onEndReached={this.getMore}
+            onEndReachedThreshold={0.003}
+            onEndReached={() => this.getMore(_data.listData)}
           />
         </Popover>
       </View>
@@ -245,11 +233,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   selectArea: {
+    flexDirection: 'row',
     paddingTop: 10,
+    paddingHorizontal: 20,
     backgroundColor: '#fff',
   },
   ipt: {
-    marginHorizontal: 20,
+    marginRight: 10,
+    flex: 1,
   },
 
   filter: {
@@ -262,7 +253,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '33.33%',
+    width: '50%',
   },
   filterIcon: {
     width: 11,
@@ -274,6 +265,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
+    flex: 1,
     paddingTop: 15,
     paddingBottom: 15,
     backgroundColor: '#f7f7f7',

@@ -20,7 +20,6 @@ export default class Item extends React.Component {
   };
   render() {
     const {imageUrl, name, styles} = this.props;
-    console.log(this.props);
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
         <View style={[_styles.school, styles]}>
