@@ -16,7 +16,7 @@ class HtmlContent extends React.Component {
     const {id, resourceId} = this.props;
 
     const res = await queryContentReq({
-      resource: 'university',
+      resource: 'subject',
       itemId: id,
       resourceId,
     });
