@@ -56,21 +56,20 @@ class LibraryDetail extends Component {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {
-      detail: {
-        name,
-        nameEn,
-        schooling,
-        subjectCategory,
-        viewCount,
-        hot,
-        remarks,
-      },
+      detail: {subjectCategory},
       infoItem,
     } = data;
 
     console.log(data);
 
-    for (let i = 0; i < infoItem.length; i++) {
+    if (infoItem[infoItem.length - 1].name !== '热门院校') {
+      infoItem.push({
+        name: '热门院校',
+        component: () => <Text>热门院校</Text>,
+      });
+    }
+
+    for (let i = 0; i < infoItem.length - 1; i++) {
       infoItem[i].component = () => {
         if (infoItem[i].infoItem) {
           return (
@@ -78,7 +77,6 @@ class LibraryDetail extends Component {
               {...infoItem[i]}
               resourceId={params.id}
               navigation={this.props.navigation}
-              queryItem={params => this.props.queryItem(params)}
             />
           );
         } else {
@@ -96,6 +94,7 @@ class LibraryDetail extends Component {
         }
       };
     }
+
     return (
       <Tab
         common={
