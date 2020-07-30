@@ -6,17 +6,49 @@ import {
   ScrollView,
   SafeAreaView,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 
-export default class SummerDetail extends React.Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {summerDetailInit} from './redux';
+
+class SummerDetail extends React.Component {
+  componentDidMount(): void {
+    const {
+      route: {params},
+      summerDetailInit,
+    } = this.props;
+    summerDetailInit(params.id);
+  }
+
   render() {
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator />;
+    }
+    const {
+      res: {
+        activeEndTime,
+        activeStartTime,
+        content,
+        description,
+        expectedResult,
+        image,
+        grade,
+        place,
+        registrationEndTime,
+        registrationStartTime,
+        remarks,
+        subject,
+        title,
+      },
+    } = data;
     return (
       <View style={styles.summerDetail}>
         <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
           <ScrollView>
-            <Text style={styles.title}>
-              国外实验室--城市研究与规划可感知城市实验室
-            </Text>
+            <Text style={styles.title}>{title}</Text>
             <View style={styles.tips}>
               <View style={[styles.item, {justifyContent: 'flex-start'}]}>
                 <Image style={styles.icon} source={require('./time.png')} />
@@ -24,26 +56,37 @@ export default class SummerDetail extends React.Component {
               </View>
               <View style={styles.item}>
                 <Image style={styles.icon} source={require('./address.png')} />
-                <Text>全年招生</Text>
+                <Text>{place}</Text>
               </View>
-              <View style={[styles.item, {justifyContent: 'flex-end'}]}>
-                <Text>全年招生</Text>
-              </View>
+              {/*<View style={[styles.item, {justifyContent: 'flex-end'}]}>*/}
+              {/*  <Text>{place}</Text>*/}
+              {/*</View>*/}
             </View>
-            <Text style={styles.result}>预期成果：科研经历+项目证明</Text>
+            <Text style={styles.result}>预期成果：{expectedResult}</Text>
 
             <View style={styles.content}>
               <View style={styles.imgWrapper}>
-                <Image style={styles.img} source={require('./pic19.png')} />
+                <Image
+                  style={styles.img}
+                  source={image ? {uri: image} : require('./pic19.png')}
+                />
               </View>
-              <Text>GIS科学，数据驱动的城市环境研究，</Text>
+              <Text>{content}</Text>
             </View>
             <View style={styles.panel}>
               <View>
                 <Text style={styles.header}>适合学科</Text>
               </View>
               <View style={styles.content}>
-                <Text>科研经历+项目证明</Text>
+                <Text>{description}</Text>
+              </View>
+            </View>
+            <View style={styles.panel}>
+              <View>
+                <Text style={styles.header}>适合专业</Text>
+              </View>
+              <View style={styles.content}>
+                <Text>{subject}</Text>
               </View>
             </View>
             <View style={styles.panel}>
@@ -51,23 +94,26 @@ export default class SummerDetail extends React.Component {
                 <Text style={styles.header}>适合学科</Text>
               </View>
               <View style={styles.content}>
-                <Text>科研经历+项目证明</Text>
+                {grade.map(v => (
+                  <Text key={v}>{v}</Text>
+                ))}
               </View>
             </View>
             <View style={styles.panel}>
               <View>
-                <Text style={styles.header}>适合学科</Text>
+                <Text style={styles.header}>活动时间</Text>
               </View>
               <View style={styles.content}>
-                <Text>科研经历+项目证明</Text>
+                <Text>报名截止日期:{registrationEndTime}</Text>
+                <Text>活动截止日期:{activeEndTime}</Text>
               </View>
             </View>
             <View style={styles.panel}>
               <View>
-                <Text style={styles.header}>适合学科</Text>
+                <Text style={styles.header}>备注</Text>
               </View>
               <View style={styles.content}>
-                <Text>科研经历+项目证明</Text>
+                <Text>{remarks}</Text>
               </View>
             </View>
           </ScrollView>
@@ -79,6 +125,11 @@ export default class SummerDetail extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => state.summerDetail,
+  dispatch => bindActionCreators({summerDetailInit}, dispatch),
+)(SummerDetail);
 
 const styles = StyleSheet.create({
   summerDetail: {

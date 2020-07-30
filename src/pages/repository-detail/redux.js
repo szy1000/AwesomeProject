@@ -28,7 +28,6 @@ export const repositoryDetailUpdate = params => ({
 
 export const repositoryDetailInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
-  let itemContent = {};
   const detail = await queryDetailReq(params.id);
   const _reqParams = {
     resource: 'university',
@@ -50,7 +49,6 @@ export const repositoryDetailInit = (params, callback) => async dispatch => {
       data: {
         detail,
         infoItem,
-        itemContent,
       },
     }),
   );
@@ -59,11 +57,12 @@ export const repositoryDetailInit = (params, callback) => async dispatch => {
 
 export const queryItem = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().repositoryDetail;
+  console.warn('================', params);
   const _reqParams = {
     resource: 'university',
     resourceId: params.id,
   };
-  const itemContent = await queryInfoItemReq(_reqParams);
+  const itemContent = await queryInfoItemReq(params);
   console.log('infoItem', itemContent);
 
   dispatch(

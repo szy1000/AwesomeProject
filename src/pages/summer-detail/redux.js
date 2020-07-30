@@ -1,12 +1,6 @@
-import {
-  queryRankingReq,
-  queryBySelectReq,
-  getGradeReq,
-  getSubjectReq,
-  querySummerProjectReq,
-} from './api';
+import {querySummerProjectReq} from './api';
 // Actions
-const UPDATE = 'SUMMER_UPDATE';
+const UPDATE = 'SUMMER_DETAIL_UPDATE';
 
 // Reducer
 const initState = {
@@ -16,7 +10,7 @@ const initState = {
   },
 };
 
-export const summer = (state = initState, action) => {
+export const summerDetail = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -29,34 +23,19 @@ export const summer = (state = initState, action) => {
 };
 
 // Action Creators
-export const summerUpdate = params => ({
+export const summerDetailUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const summerInit = (params, callback) => async (dispatch, getState) => {
-  const {listData} = getState().summer._data;
-  console.log('allRepository', listData);
-  const rankArr = await queryRankingReq({});
-  const res = await queryBySelectReq(params || {});
-  const _subject = await getSubjectReq({});
-  const _grade = await getGradeReq({});
-
-  let _res = res;
-  if (!params.init && listData.data) {
-    let temp = res.data.concat(listData.data);
-    res.data = [...temp];
-    _res = res;
-  }
+export const summerDetailInit = (params, callback) => async dispatch => {
+  const res = await querySummerProjectReq(params || {});
 
   dispatch(
-    summerUpdate({
+    summerDetailUpdate({
       init: true,
-      _data: {
-        rankArr,
-        listData: _res,
-        _subject,
-        _grade,
+      data: {
+        res,
       },
     }),
   );

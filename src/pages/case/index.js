@@ -96,7 +96,7 @@ class Cases extends React.Component {
       query: keys,
       degreeId: degree.id,
       subjectId: subject.id,
-      init: true
+      init: true,
     });
   };
 
