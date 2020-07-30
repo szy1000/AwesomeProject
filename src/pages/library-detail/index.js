@@ -4,6 +4,36 @@ import {StyleSheet, ActivityIndicator, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {libraryDetailInit} from './redux';
+import {queryContentReq} from './api';
+import HTMLView from 'react-native-htmlview';
+import {Tab} from '../../components';
+
+class HtmlContent extends React.Component {
+  state = {
+    html: '',
+  };
+  async componentDidMount(): void {
+    const {id, resourceId} = this.props;
+
+    const res = await queryContentReq({
+      resource: 'university',
+      itemId: id,
+      resourceId,
+    });
+    this.setState({
+      html: res.content,
+    });
+  }
+
+  render() {
+    const {html} = this.state;
+    return (
+      <View>
+        <HTMLView value={html} style={{color: '#000'}} />
+      </View>
+    );
+  }
+}
 
 class LibraryDetail extends Component {
   componentDidMount(): void {
@@ -16,7 +46,12 @@ class LibraryDetail extends Component {
   }
 
   render() {
-    const {init, data} = this.props;
+    const {
+      init,
+      data,
+      navigation,
+      route: {params},
+    } = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
@@ -30,15 +65,50 @@ class LibraryDetail extends Component {
         hot,
         remarks,
       },
+      infoItem,
     } = data;
+
     console.log(data);
+
+    for (let i = 0; i < infoItem.length; i++) {
+      infoItem[i].component = () => {
+        if (infoItem[i].infoItem) {
+          return (
+            <HtmlContent
+              {...infoItem[i]}
+              resourceId={params.id}
+              navigation={this.props.navigation}
+              queryItem={params => this.props.queryItem(params)}
+            />
+          );
+        } else {
+          for (let j = 0; j < infoItem[i].items.length; j++) {
+            infoItem[i].items[j].component = () => (
+              <HtmlContent
+                {...infoItem[i].items[j]}
+                resourceId={params.id}
+                navigation={this.props.navigation}
+                queryItem={params => this.props.queryItem(params)}
+              />
+            );
+          }
+          return <Tab navigation={navigation} tabContent={infoItem[i].items} />;
+        }
+      };
+    }
     return (
-      <View style={styles.container}>
-        <View style={styles.category}>
-          <Text>专业分类：{subjectCategory}</Text>
-          <Text>所属学科：{subjectCategory}</Text>
-        </View>
-      </View>
+      <Tab
+        common={
+          <View style={styles.container}>
+            <View style={styles.category}>
+              <Text>专业分类：{subjectCategory}</Text>
+              <Text>所属学科：{subjectCategory}</Text>
+            </View>
+          </View>
+        }
+        navigation={navigation}
+        tabContent={infoItem}
+      />
     );
   }
 }

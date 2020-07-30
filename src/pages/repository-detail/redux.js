@@ -57,14 +57,7 @@ export const repositoryDetailInit = (params, callback) => async dispatch => {
 
 export const queryItem = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().repositoryDetail;
-  console.warn('================', params);
-  const _reqParams = {
-    resource: 'university',
-    resourceId: params.id,
-  };
   const itemContent = await queryInfoItemReq(params);
-  console.log('infoItem', itemContent);
-
   dispatch(
     repositoryDetailUpdate({
       init: true,
