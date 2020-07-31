@@ -31,10 +31,12 @@ export const noteUpdate = params => ({
 export const submitNote = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().note;
   const files = [];
+  console.log('dddddd', data);
   data.imageFileArr.map(v => {
     files.push(v.id);
   });
   params.files = files;
+  console.log('flies', files);
   if (!files.length) {
     alert('请至少上传一张图片');
     return;
@@ -62,7 +64,8 @@ export const uploadFileFn = (params, callback) => async (
 ) => {
   const {data} = getState().note;
   const imageFile = await uploadImageFileReq(params || {});
-
+  console.log('callback', callback);
+  callback && callback();
   dispatch(
     noteUpdate({
       data: {
@@ -71,7 +74,6 @@ export const uploadFileFn = (params, callback) => async (
       },
     }),
   );
-  callback && callback();
 };
 
 export const posInit = (params, callback) => async (dispatch, getState) => {

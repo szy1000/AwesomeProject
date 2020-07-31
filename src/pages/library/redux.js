@@ -30,8 +30,18 @@ export const libraryUpdate = params => ({
 
 export const libraryInit = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().library;
+  const {countryId} = params;
   const country = await getCountryReq(params || {});
-  const subjectList = await getCountrySubjectReq({countryId: country[0].id});
+
+  const subjectList = await getCountrySubjectReq({
+    countryId: countryId || country[0].id,
+  });
+
+  subjectList.unshift({
+    categoryId: -1,
+    name: '热门专业',
+  });
+
   dispatch(
     libraryUpdate({
       init: true,

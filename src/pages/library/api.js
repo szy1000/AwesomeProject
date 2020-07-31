@@ -1,6 +1,7 @@
 import Https from '../../utils/https';
 
-const getCountryReq = () => Https.get('/api/app/country');
-const getCountrySubjectReq = params => Https.get('/api/app/country', params);
+const getCountryReq = params => Https.get('/api/app/country', params);
+const getCountrySubjectReq = params =>
+  Https.get('/api/app/subject/category', params);
 
 export {getCountryReq, getCountrySubjectReq};

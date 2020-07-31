@@ -38,11 +38,12 @@ export const summerInit = (params, callback) => async (dispatch, getState) => {
   const {listData} = getState().summer._data;
   console.log('allRepository', listData);
   const rankArr = await queryRankingReq({});
-  const res = await queryBySelectReq(params || {});
+  const res = await querySummerProjectReq(params || {});
   const _subject = await getSubjectReq({});
   const _grade = await getGradeReq({});
 
   let _res = res;
+  console.log('summer _res', _res);
   if (!params.init && listData.data) {
     let temp = res.data.concat(listData.data);
     res.data = [...temp];

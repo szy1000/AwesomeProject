@@ -28,10 +28,11 @@ class Note extends React.Component {
 
   getPhoto = async () => {
     const options = {
-      mediaType: 'mixed',
-      durationLimit: '120',
+      // todo
+      // mediaType: 'mixed',
+      // durationLimit: '120',
       title: '选择照片',
-      quality: 0.3,
+      quality: 0.1,
       cancelButtonTitle: '取消',
       takePhotoButtonTitle: '相机',
       chooseFromLibraryButtonTitle: '图库',
@@ -57,14 +58,18 @@ class Note extends React.Component {
 
         console.log('Response = ', response);
 
-        this.props.uploadFileFn({
-          fileName: uri.split('images/')[1],
-          dataUrl: `data:${type};base64,${data}`,
-        });
-
-        this.setState({
-          avatarSourceMap: [...avatarSourceMap],
-        });
+        this.props.uploadFileFn(
+          {
+            fileName: uri.split('images/')[1],
+            dataUrl: `data:${type};base64,${data}`,
+          },
+          () => {
+            console.log('this', this);
+            this.setState({
+              avatarSourceMap: [...avatarSourceMap],
+            });
+          },
+        );
       }
     });
   };
@@ -118,11 +123,12 @@ class Note extends React.Component {
     const {currPos} = this.props.data;
     if (currPos) {
       const {
-        address_component: {nation, ad_level_1},
+        address_component: {nation},
+        address,
       } = currPos;
-      this.location = nation + ad_level_1;
+      this.location = nation + address;
     }
-    console.log();
+    console.log(currPos);
     return (
       <ScrollView style={styles.note}>
         <View style={styles.imgWrapper}>

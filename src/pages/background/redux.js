@@ -45,12 +45,15 @@ export const backgroundInit = (params, callback) => async (
   const res = await getBackgroundReq(params || {});
   console.log('background res', res);
 
-  let _res = res;
+  let _res = {...res};
+
   if (!params.init && listData.data) {
     let temp = res.data.concat(listData.data);
     res.data = [...temp];
     _res = res;
   }
+  console.log('background _res', _res);
+
   dispatch(
     backgroundUpdate({
       init: true,

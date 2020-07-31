@@ -44,7 +44,7 @@ class Find extends React.Component {
 
   getMore = pageNum => {
     if (pageNum <= this.currIndex) {
-      alert('暂无更多数据');
+      // alert('暂无更多数据');
       return;
     }
     this.currIndex = pageNum;

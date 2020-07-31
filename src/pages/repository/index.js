@@ -48,6 +48,7 @@ class Repository extends React.Component {
       select: value,
       [key]: value,
     });
+    this.search();
   };
 
   getDate = () => {
@@ -70,15 +71,13 @@ class Repository extends React.Component {
   };
 
   getMore = pageNum => {
-    if (pageNum <= this.currIndex) {
-      alert('暂无更多数据');
-      return;
+    if (pageNum > this.currIndex) {
+      this.currIndex = pageNum;
+      this.props.repositoryInit({
+        pageSize: this.pageSize,
+        pageNumber: this.currIndex,
+      });
     }
-    this.currIndex = pageNum;
-    this.props.repositoryInit({
-      pageSize: this.pageSize,
-      pageNumber: this.currIndex,
-    });
   };
 
   componentDidMount(): void {
@@ -128,6 +127,10 @@ class Repository extends React.Component {
           <SearchInput
             styles={styles.ipt}
             value={keys}
+            returnKeyLabel="search"
+            returnKeyType="search"
+            blurOnSubmit={true}
+            onSubmitEditing={this.search}
             onChangeText={e => this.onChangeText(e)}
           />
           <Button onClick={this.search}>搜索</Button>

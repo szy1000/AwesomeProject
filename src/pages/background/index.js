@@ -95,7 +95,7 @@ class Background extends React.Component {
       gradeId: grade.id,
       subjectId: subject.id,
       categoryId: category.id,
-      init: false,
+      init: true,
     });
   };
 
@@ -130,6 +130,11 @@ class Background extends React.Component {
           <SearchInput
             styles={styles.ipt}
             value={keys}
+            returnKeyType="search"
+            returnKeyLabel="search"
+            blurOnSubmit={true}
+            onSubmitEditing={this.search}
+            // enablesReturnKeyAutomatically={true}
             onChangeText={e => this.onChangeText(e)}
           />
           <Button onClick={this.search}>搜索</Button>

@@ -74,15 +74,20 @@ class GroupEdit extends React.Component {
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
         const {avatarSourceMap} = this.state;
         avatarSourceMap.push(source);
-        this.setState({
-          avatarSourceMap: [...avatarSourceMap],
-          // imgArr: [...this.state.imgArr.unshift(source)],
-        });
+
         console.log('Response = ', response);
-        this.props.uploadFileFn({
-          fileName: uri.split('images/')[1],
-          dataUrl: `data:${type};base64,${data}`,
-        });
+        this.props.uploadFileFn(
+          {
+            fileName: uri.split('images/')[1],
+            dataUrl: `data:${type};base64,${data}`,
+          },
+          () => {
+            this.setState({
+              avatarSourceMap: [...avatarSourceMap],
+              // imgArr: [...this.state.imgArr.unshift(source)],
+            });
+          },
+        );
       }
     });
   };

@@ -7,6 +7,7 @@ import {
   SectionList,
   Dimensions,
   TouchableOpacity,
+  TextInput,
   ActivityIndicator,
   Image,
 } from 'react-native';
@@ -22,10 +23,6 @@ var {width, height} = Dimensions.get('window');
 let Headers = [];
 
 class Library extends Component {
-  static navigationOptions = ({navigation}) => ({
-    headerTitle: '联动List',
-  });
-
   componentDidMount() {
     this.props.libraryInit({});
     ParcelData.map((item, i) => {
@@ -45,7 +42,7 @@ class Library extends Component {
           {backgroundColor: item.index == this.state.cell ? 'white' : null},
         ]}
         onPress={() => this.cellAction(item)}>
-        <Text style={styles.lText}>{item.item.section}</Text>
+        <Text style={styles.lText}>{item.item.name || item.item.section}</Text>
       </TouchableOpacity>
     );
   };
@@ -109,31 +106,32 @@ class Library extends Component {
     );
   };
 
-  separator = () => {
-    return <View style={{height: 1, backgroundColor: 'gray'}} />;
-  };
-
   render() {
     const {init, data} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
+    const {country, subjectList} = data;
     console.log('data', data);
     return (
       <View style={styles.container}>
         <FlatList
           ref="FlatList"
           style={styles.leftList}
-          data={ParcelData}
+          data={subjectList}
           renderItem={item => this.renderLRow(item)}
-          ItemSeparatorComponent={() => this.separator()}
-          ListHeaderComponent={() => <Text>sss</Text>}
+          ItemSeparatorComponent={() => (
+            <View style={{height: 1, backgroundColor: 'gray'}} />
+          )}
+          ListHeaderComponent={() => <Text>{country[0].name}</Text>}
           keyExtractor={item => item.section}
         />
         <SectionList
           ref="sectionList"
           style={styles.rightList}
-          ListHeaderComponent={() => <Text>header</Text>}
+          ListHeaderComponent={() => (
+            <TextInput placeholderTextColor="red" placeholder={'请输入'} />
+          )}
           renderSectionHeader={section => this.sectionComp(section)}
           renderItem={item => this.renderRRow(item)}
           sections={ParcelData}

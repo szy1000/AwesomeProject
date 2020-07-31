@@ -19,32 +19,44 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {imageUrl, name, styles} = this.props;
+    const {
+      image,
+      title,
+      place,
+      registrationEndTime,
+      expectedResult,
+      styles,
+    } = this.props;
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
         <View style={[_styles.school, styles]}>
-          <Image style={_styles.logo} source={{uri: imageUrl}} />
+          <Image
+            style={_styles.logo}
+            source={image ? {uri: image} : require('./pic18.png')}
+          />
           <View style={_styles.school_wrapper}>
             <View>
               <Text style={_styles.name} numberOfLines={1}>
-                {name}
+                {title}
               </Text>
             </View>
             <View>
               <View style={_styles.ranking}>
                 <View style={_styles.ranking_item}>
                   <Image style={_styles.icon} source={require('./time.png')} />
-                  <Text style={_styles.desc}>全年招生</Text>
+                  <Text style={_styles.desc}>{registrationEndTime && registrationEndTime.split(' ')[0]}截止</Text>
                 </View>
                 <View style={_styles.ranking_item}>
                   <Image
                     style={_styles.icon}
                     source={require('./address.png')}
                   />
-                  <Text style={_styles.desc}>实地</Text>
+                  <Text style={_styles.desc}>{place}</Text>
                 </View>
               </View>
-              <Text style={_styles.result}>预期成果：科研经历+项目证明</Text>
+              {expectedResult && (
+                <Text style={_styles.result}>预期成果：{expectedResult}</Text>
+              )}
             </View>
           </View>
         </View>
@@ -79,7 +91,7 @@ const _styles = StyleSheet.create({
   },
   ranking: {
     // paddingTop: 15,
-    paddingLeft: 10,
+    // paddingLeft: 10,
     flexDirection: 'row',
   },
   ranking_item: {
