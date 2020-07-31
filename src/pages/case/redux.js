@@ -39,7 +39,7 @@ export const caseInit = (params, callback) => async (dispatch, getState) => {
 
   let _res = res;
   if (!params.init && listData.data) {
-    let temp = res.data.concat(listData.data);
+    let temp = listData.data.concat(res.data);
     res.data = [...temp];
     _res = res;
   }

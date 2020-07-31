@@ -36,7 +36,7 @@ export const findInit = (params, callback) => async (dispatch, getState) => {
 
   let _res = res;
   if (note.data) {
-    let temp = res.data.concat(note.data);
+    let temp = note.data.concat(res.data);
     res.data = [...temp];
     _res = res;
   }

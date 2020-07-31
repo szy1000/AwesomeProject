@@ -42,7 +42,7 @@ export const repositoryInit = (params, callback) => async (
 
   let _res = res;
   if (!params.init && allRepository.data) {
-    let temp = res.data.concat(allRepository.data);
+    let temp = allRepository.data.concat(res.data);
     res.data = [...temp];
     _res = res;
   }

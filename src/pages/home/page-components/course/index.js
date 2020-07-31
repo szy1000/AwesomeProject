@@ -44,7 +44,12 @@ export default class Course extends React.Component {
               }>
               <View style={styles.item}>
                 <View style={styles.img_wrapper}>
-                  <Image style={styles.bg} source={require('./pic12.png')} />
+                  <Image
+                    style={styles.bg}
+                    source={
+                      i % 2 ? require('./pic12.png') : require('./pic13.png')
+                    }
+                  />
                   <Text style={styles.type}>{v.name}</Text>
                 </View>
                 <View style={styles.content}>
@@ -59,27 +64,6 @@ export default class Course extends React.Component {
             </TouchableWithoutFeedback>
           ))}
         </>
-
-        <View style={styles.item}>
-          <View style={styles.img_wrapper}>
-            <Image style={styles.bg} source={require('./pic13.png')} />
-            <Text style={styles.type}>工商管理</Text>
-          </View>
-          <View style={styles.content}>
-            <View style={styles.school}>
-              <Text style={styles.name}>杜伦大学</Text>
-              <Text style={styles.en_name}>Durham University</Text>
-            </View>
-            <View style={styles.school}>
-              <Text style={styles.name}>帝国理工学院</Text>
-              <Text style={styles.en_name}>Imperial College</Text>
-            </View>
-            <View style={styles.school}>
-              <Text style={styles.name}>伦敦大学学院</Text>
-              <Text style={styles.en_name}>University College of London</Text>
-            </View>
-          </View>
-        </View>
       </ScrollView>
     );
   }
@@ -94,6 +78,8 @@ const styles = StyleSheet.create({
   },
   item: {
     width: 300,
+    height: 160,
+    overflow: 'hidden',
     marginRight: 15,
     flexDirection: 'row',
   },

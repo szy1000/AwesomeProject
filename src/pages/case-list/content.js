@@ -8,47 +8,70 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Item} from './page-components/';
+import {ListFooter, Empty} from '../../components';
+import {getCaseListReq} from './api';
+
 export default class Content extends React.Component {
+  currIndex = 1;
   state = {
-    keys: '',
-    dataArr: [1, 2, 3],
+    res: {},
     refreshLoading: false,
   };
 
-  getDate = () => {
+  getDate = async () => {
     this.setState({
       refreshLoading: true,
     });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [5, 4, 3, 2, 1],
-        refreshLoading: false,
-      });
-    }, 2000);
+    this.getListData();
   };
 
-  getMore = () => {
-    this.setState({
-      loading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        dataArr: [...this.state.dataArr, 8, 9, 10],
-        loading: false,
+  getMore = async params => {
+    const {total, data, nextPage} = params;
+    if (total > data.length) {
+      this.currIndex = nextPage;
+      const {degreeId, universityId} = this.props;
+      const moreRes = await getCaseListReq({
+        degreeId,
+        universityId,
+        pageNumber: this.currIndex,
+        pageSize: 10,
       });
-    }, 2000);
+      moreRes.data.unshift(...data);
+      this.setState({res: moreRes});
+    }
   };
+
   componentDidMount(): void {
-    console.log('content', this.props);
+    this.getListData();
+  }
+
+  getListData = async () => {
+    const {degreeId, universityId} = this.props;
+    const res = await getCaseListReq({
+      degreeId,
+      universityId,
+      pageNumber: 1,
+      pageSize: 10,
+      refreshLoading: false,
+    });
+    this.setState({res});
+  };
+
+  componentWillUnmount(): void {
+    console.log('un');
   }
 
   render() {
     const {navigation} = this.props;
-    console.log(this.props);
-    const {loading, dataArr, refreshLoading} = this.state;
+    const {res, refreshLoading} = this.state;
+    console.log(res);
+    if (!res.data) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {data, nextPage, total} = res;
     return (
       <FlatList
-        data={dataArr}
+        data={data}
         styles={styles.list}
         renderItem={({item}, index) => (
           <Item
@@ -59,6 +82,7 @@ export default class Content extends React.Component {
             {...item}
           />
         )}
+        ListEmptyComponent={<Empty />}
         refreshControl={
           <RefreshControl
             title={'loading'}
@@ -66,18 +90,16 @@ export default class Content extends React.Component {
             onRefresh={this.getDate}
           />
         }
-        ListFooterComponent={
-          <View style={styles.activity}>
-            <ActivityIndicator animating={loading} />
-            <Text style={styles.txt}>加载更多</Text>
-          </View>
-        }
-        // onEndReached={this.getMore}
+        onEndReachedThreshold={0.03}
+        ListFooterComponent={<ListFooter total={total} data={data} />}
+        onEndReached={() => this.getMore(res)}
       />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  list: {},
+  list: {
+    flex: 1,
+  },
 });

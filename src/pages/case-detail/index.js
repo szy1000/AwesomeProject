@@ -44,9 +44,6 @@ class CaseDetail extends React.Component {
             </Text>
           </View>
         </Panel>
-        {/*<Panel title={'成绩信息'}>*/}
-        {/*  <Text>雅思</Text>*/}
-        {/*</Panel>*/}
         <Panel title={'经验分享'}>
           <HTMLView value={description} />
         </Panel>
