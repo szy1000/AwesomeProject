@@ -8,6 +8,7 @@ import {queryContentReq} from './api';
 import HTMLView from 'react-native-htmlview';
 import {Tab} from '../../components';
 
+import RecommendSchool from './content';
 class HtmlContent extends React.Component {
   state = {
     html: '',
@@ -60,12 +61,10 @@ class LibraryDetail extends Component {
       infoItem,
     } = data;
 
-    console.log(data);
-
     if (infoItem[infoItem.length - 1].name !== '热门院校') {
       infoItem.push({
         name: '热门院校',
-        component: () => <Text>热门院校</Text>,
+        component: () => <RecommendSchool />,
       });
     }
 

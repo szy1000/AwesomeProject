@@ -14,7 +14,7 @@ import {
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {libraryInit} from './redux';
+import {libraryInit, searchList} from './redux';
 
 import ParcelData from './ParcelData.json';
 
@@ -24,7 +24,7 @@ let Headers = [];
 
 class Library extends Component {
   componentDidMount() {
-    this.props.libraryInit({});
+    this.props.libraryInit({countryId: 1});
     ParcelData.map((item, i) => {
       Headers.push(item.section);
     });
@@ -41,32 +41,33 @@ class Library extends Component {
           styles.lItem,
           {backgroundColor: item.index == this.state.cell ? 'white' : null},
         ]}
-        onPress={() => this.cellAction(item)}>
+        // onPress={() => this.cellAction(item)}>
+      >
         <Text style={styles.lText}>{item.item.name || item.item.section}</Text>
       </TouchableOpacity>
     );
   };
 
-  cellAction = item => {
-    if (item.index <= ParcelData.length) {
-      this.setState({
-        cell: item.index,
-      });
-      if (item.index > 0) {
-        var count = 0;
-        for (var i = 0; i < item.index; i++) {
-          count += ParcelData[i].data.length + 1;
-        }
-        console.warn(count);
-        this.refs.sectionList.scrollToLocation({
-          animated: false,
-          itemIndex: count,
-        });
-      } else {
-        this.refs.sectionList.scrollToLocation({animated: false, itemIndex: 0});
-      }
-    }
-  };
+  // cellAction = item => {
+  //   if (item.index <= ParcelData.length) {
+  //     this.setState({
+  //       cell: item.index,
+  //     });
+  //     if (item.index > 0) {
+  //       var count = 0;
+  //       for (var i = 0; i < item.index; i++) {
+  //         count += ParcelData[i].data.length + 1;
+  //       }
+  //       console.warn(count);
+  //       this.refs.sectionList.scrollToLocation({
+  //         animated: false,
+  //         itemIndex: count,
+  //       });
+  //     } else {
+  //       this.refs.sectionList.scrollToLocation({animated: false, itemIndex: 0});
+  //     }
+  //   }
+  // };
 
   itemChange = info => {
     let section = info.viewableItems[0].section.section;
@@ -106,12 +107,17 @@ class Library extends Component {
     );
   };
 
+  search = () => {
+    // this.props.searchList({})
+    console.log('s');
+  };
+
   render() {
     const {init, data} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {country, subjectList} = data;
+    const {country, rank, hotSubject, subjectList} = data;
     console.log('data', data);
     return (
       <View style={styles.container}>
@@ -130,7 +136,19 @@ class Library extends Component {
           ref="sectionList"
           style={styles.rightList}
           ListHeaderComponent={() => (
-            <TextInput placeholderTextColor="red" placeholder={'请输入'} />
+            <View>
+              <Text>{rank[0].name}</Text>
+              <TextInput
+                returnKeyLabel="search"
+                returnKeyType="search"
+                blurOnSubmit={true}
+                numberOfLines={1}
+                allowFontScaling={false}
+                onSubmitEditing={this.search}
+                placeholderTextColor="red"
+                placeholder={'请输入'}
+              />
+            </View>
           )}
           renderSectionHeader={section => this.sectionComp(section)}
           renderItem={item => this.renderRRow(item)}
@@ -144,11 +162,12 @@ class Library extends Component {
 }
 export default connect(
   state => state.library,
-  dispatch => bindActionCreators({libraryInit}, dispatch),
+  dispatch => bindActionCreators({libraryInit, searchList}, dispatch),
 )(Library);
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
   },
   leftList: {

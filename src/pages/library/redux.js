@@ -1,4 +1,10 @@
-import {getCountryReq, getCountrySubjectReq} from './api';
+import {
+  getCountryReq,
+  getRankReq,
+  getHotSubjectReq,
+  getCountrySubjectReq,
+  getSubjectListReq,
+} from './api';
 // Actions
 const UPDATE = 'LIBRARY_UPDATE';
 
@@ -32,6 +38,10 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().library;
   const {countryId} = params;
   const country = await getCountryReq(params || {});
+  const rank = await getRankReq({});
+  const hotSubject = await getHotSubjectReq({
+    country_id: countryId || country[0].id,
+  });
 
   const subjectList = await getCountrySubjectReq({
     countryId: countryId || country[0].id,
@@ -48,6 +58,22 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
       data: {
         ...data,
         country,
+        subjectList,
+        hotSubject,
+        rank,
+      },
+    }),
+  );
+  callback && callback();
+};
+
+export const searchList = (params, callback) => async (dispatch, getState) => {
+  const {data} = getState().library;
+  const subjectList = await getSubjectListReq(params);
+  dispatch(
+    libraryUpdate({
+      data: {
+        ...data,
         subjectList,
       },
     }),

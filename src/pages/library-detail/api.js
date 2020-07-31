@@ -7,4 +7,12 @@ const queryInfoItemReq = params => Https.get('/api/app/infoItem/items', params);
 const queryContentReq = params =>
   Https.get('/api/app/infoItem/content', params);
 
-export {querySubjectDetailReq, queryInfoItemReq, queryContentReq};
+const queryRecommendSchoolReq = params =>
+  Https.get('/api/app/subject/5/university', params);
+
+export {
+  querySubjectDetailReq,
+  queryInfoItemReq,
+  queryRecommendSchoolReq,
+  queryContentReq,
+};
