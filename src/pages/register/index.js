@@ -77,6 +77,8 @@ class Register extends React.Component {
         <TextInput
           style={styles.ipt}
           value={phoneNumber}
+          returnKeyType="done"
+          returnKeyLabel="done"
           keyboardType="numeric"
           maxLength={11}
           placeholder={'请输入手机号'}
@@ -86,6 +88,8 @@ class Register extends React.Component {
           style={styles.ipt}
           secureTextEntry={true}
           value={password}
+          returnKeyType="done"
+          returnKeyLabel="done"
           placeholder={'请输入密码'}
           onChangeText={e => this.saveTextValue('password', e)}
         />
@@ -93,6 +97,8 @@ class Register extends React.Component {
           style={styles.ipt}
           secureTextEntry={true}
           value={repeatPassword}
+          returnKeyType="done"
+          returnKeyLabel="done"
           placeholder={'请再次输入密码'}
           onChangeText={e => this.saveTextValue('repeatPassword', e)}
         />

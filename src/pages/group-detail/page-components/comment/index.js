@@ -34,6 +34,8 @@ export default class GroupDetail extends React.Component {
           style={styles.ipt}
           onEndEditing={() => this.props.makeComment(content)}
           placeholder={'写回复'}
+          returnKeyType="send"
+          returnKeyLabel="send"
           onChangeText={e => this.saveValue(e)}
           vaule={content}
         />

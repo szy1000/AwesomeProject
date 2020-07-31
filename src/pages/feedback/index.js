@@ -126,6 +126,8 @@ class Feedback extends React.Component {
             style={styles.contact}
             placeholder="QQ、邮箱、手机(选填)"
             value={contact}
+            returnKeyType="done"
+            returnKeyLabel="done"
             onChangeText={e => this.onChange('contact', e)}
           />
         </Item>

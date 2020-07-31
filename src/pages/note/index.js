@@ -76,7 +76,7 @@ class Note extends React.Component {
 
   handleChange = (key, value) => {
     this.setState({
-      [key]: value.trim(),
+      [key]: key === 'content' ? value : value.trim(),
     });
   };
 
@@ -149,12 +149,15 @@ class Note extends React.Component {
           <TextInput
             style={styles.title}
             value={title}
+            returnKeyLabel="done"
+            returnKeyType="done"
+            numberOfLines={1}
             onChangeText={e => this.handleChange('title', e)}
             placeholder={'填写标题会有很多赞哦'}
           />
           <TextInput
             style={styles.content}
-            multiline
+            multiline={true}
             value={content}
             onChangeText={e => this.handleChange('content', e)}
             placeholder={'填写正文'}

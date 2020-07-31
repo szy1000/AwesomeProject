@@ -58,6 +58,8 @@ export default class Login extends React.Component {
               placeholder="请输入手机号"
               maxLength={11}
               value={phoneNumber}
+              returnKeyLabel="done"
+              returnKeyType="done"
               keyboardType="numeric"
               placeholderTextColor="#d8d8d8"
               onChangeText={text => this.saveIptValue('phoneNumber', text)}
@@ -67,8 +69,11 @@ export default class Login extends React.Component {
             <Feather name="lock" color="#d8d8d8" size={20} />
             <TextInput
               style={styles.ipt}
+              returnKeyLabel="done"
+              returnKeyType="done"
               placeholder="请输入密码"
               value={password}
+              secureTextEntry={true}
               placeholderTextColor="#d8d8d8"
               onChangeText={text => this.saveIptValue('password', text)}
             />

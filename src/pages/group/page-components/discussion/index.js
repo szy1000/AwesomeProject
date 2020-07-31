@@ -59,13 +59,9 @@ class Discussion extends React.Component {
 
   search = () => {
     const {keys} = this.state;
-    if (keys) {
-      this.getData({
-        query: keys,
-      });
-    } else {
-      alert('关键字不能为空');
-    }
+    this.getData({
+      query: keys,
+    });
   };
   render() {
     const {active, keys} = this.state;
@@ -85,6 +81,11 @@ class Discussion extends React.Component {
             <SearchInput
               style={styles.ipt}
               value={keys}
+              returnKeyLabel="done"
+              returnKeyType="done"
+              numberOfLines={1}
+              allowFontScaling={false}
+              onSubmitEditing={this.search}
               placeholder={'请输入您要查询的关键字'}
               onChangeText={e => this.changeText(e)}
             />

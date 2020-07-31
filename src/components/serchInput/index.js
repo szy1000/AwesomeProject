@@ -10,6 +10,8 @@ export default class SearchInput extends React.Component {
         placeholder={placeholder || '请输入关键字'}
         allowFontScaling={false}
         value={value}
+        returnKeyType="search"
+        returnKeyLabel="search"
         {...this.props}
         onChangeText={e => onChangeText && onChangeText(e)}
         onBlur={e => onBlur && onBlur(e)}

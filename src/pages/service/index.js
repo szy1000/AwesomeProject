@@ -117,6 +117,9 @@ export default class Service extends React.Component {
             style={styles.ipt}
             value={value}
             onChangeText={e => this.changeText(e)}
+            returnKeyLabel="send"
+            returnKeyType="send"
+            onSubmitEditing={this.sendMessage}
             placeholder={'请输入你想咨询的问题'}
           />
           <Button onClick={this.sendMessage}>发送</Button>

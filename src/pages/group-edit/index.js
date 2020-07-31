@@ -23,7 +23,7 @@ class GroupEdit extends React.Component {
 
   handleChange = (key, value) => {
     this.setState({
-      [key]: value.trim(),
+      [key]: value,
     });
   };
 
@@ -121,6 +121,8 @@ class GroupEdit extends React.Component {
           <TextInput
             style={styles.title}
             value={title}
+            returnKeyLabel="done"
+            returnKeyType="done"
             placeholder={'请输入一个完整的标题'}
             onChangeText={e => this.handleChange('title', e)}
           />

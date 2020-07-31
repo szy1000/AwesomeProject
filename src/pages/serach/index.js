@@ -66,13 +66,13 @@ class Search extends React.Component {
         <View style={styles.searchBox}>
           <TextInput
             value={keys}
+            returnKeyType="search"
+            returnKeyLabel="search"
             onChangeText={e => this.handChange(e)}
             style={styles.ipt}
+            onSubmitEditing={this.search}
             autoFocus
           />
-          <Button onClick={this.search} style={styles.btn}>
-            确定
-          </Button>
         </View>
         <ScrollView>
           {data.res &&
