@@ -39,6 +39,7 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
   const {countryId} = params;
   const country = await getCountryReq(params || {});
   const rank = await getRankReq({});
+
   const hotSubject = await getHotSubjectReq({
     country_id: countryId || country[0].id,
   });
@@ -69,12 +70,25 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
 
 export const searchList = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().library;
-  const subjectList = await getSubjectListReq(params);
+  const country = await getCountryReq({});
+  console.log('params', params);
+  const {countryId, categoryId} = params;
+  let hotSubject = null;
+  if (categoryId) {
+    hotSubject = await getSubjectListReq(params);
+    console.log(1111111111111111, hotSubject);
+  } else {
+    hotSubject = await getHotSubjectReq({
+      country_id: countryId || country[0].id,
+    });
+    console.log(22222222222222, hotSubject);
+  }
+  console.log('hotSubject', hotSubject);
   dispatch(
     libraryUpdate({
       data: {
         ...data,
-        subjectList,
+        hotSubject,
       },
     }),
   );

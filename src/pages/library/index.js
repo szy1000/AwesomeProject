@@ -41,33 +41,41 @@ class Library extends Component {
           styles.lItem,
           {backgroundColor: item.index == this.state.cell ? 'white' : null},
         ]}
-        // onPress={() => this.cellAction(item)}>
-      >
-        <Text style={styles.lText}>{item.item.name || item.item.section}</Text>
+        onPress={() => this.cellAction(item)}>
+        <Text style={styles.lText}>{item.item.name}</Text>
       </TouchableOpacity>
     );
   };
 
-  // cellAction = item => {
-  //   if (item.index <= ParcelData.length) {
-  //     this.setState({
-  //       cell: item.index,
-  //     });
-  //     if (item.index > 0) {
-  //       var count = 0;
-  //       for (var i = 0; i < item.index; i++) {
-  //         count += ParcelData[i].data.length + 1;
-  //       }
-  //       console.warn(count);
-  //       this.refs.sectionList.scrollToLocation({
-  //         animated: false,
-  //         itemIndex: count,
-  //       });
-  //     } else {
-  //       this.refs.sectionList.scrollToLocation({animated: false, itemIndex: 0});
-  //     }
-  //   }
-  // };
+  cellAction = item => {
+    this.setState({
+      cell: item.index,
+    });
+    this.props.searchList({
+      countryId: 1,
+      categoryId: item.item.id,
+    });
+
+    console.log(item);
+    // if (item.index <= ParcelData.length) {
+    //   this.setState({
+    //     cell: item.index,
+    //   });
+    //   if (item.index > 0) {
+    //     var count = 0;
+    //     for (var i = 0; i < item.index; i++) {
+    //       count += ParcelData[i].data.length + 1;
+    //     }
+    //     console.warn(count);
+    //     this.refs.sectionList.scrollToLocation({
+    //       animated: false,
+    //       itemIndex: count,
+    //     });
+    //   } else {
+    //     this.refs.sectionList.scrollToLocation({animated: false, itemIndex: 0});
+    //   }
+    // }
+  };
 
   itemChange = info => {
     let section = info.viewableItems[0].section.section;
@@ -102,7 +110,7 @@ class Library extends Component {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text>{section.section.section}</Text>
+        <Text>{section.section.name}</Text>
       </View>
     );
   };
@@ -118,7 +126,11 @@ class Library extends Component {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {country, rank, hotSubject, subjectList} = data;
-    console.log('data', data);
+
+    for (let i = 0; i < hotSubject.length; i++) {
+      hotSubject[i].data = hotSubject[i].universities || [];
+    }
+    console.log('data', hotSubject);
     return (
       <View style={styles.container}>
         <FlatList
@@ -126,10 +138,9 @@ class Library extends Component {
           style={styles.leftList}
           data={subjectList}
           renderItem={item => this.renderLRow(item)}
-          ItemSeparatorComponent={() => (
-            <View style={{height: 1, backgroundColor: 'gray'}} />
+          ListHeaderComponent={() => (
+            <Text style={styles.tag}>{country[0].name}</Text>
           )}
-          ListHeaderComponent={() => <Text>{country[0].name}</Text>}
           keyExtractor={item => item.section}
         />
         <SectionList
@@ -137,22 +148,22 @@ class Library extends Component {
           style={styles.rightList}
           ListHeaderComponent={() => (
             <View>
-              <Text>{rank[0].name}</Text>
+              <Text style={styles.tag}>{rank[0].name}</Text>
               <TextInput
                 returnKeyLabel="search"
                 returnKeyType="search"
+                style={styles.ipt}
                 blurOnSubmit={true}
                 numberOfLines={1}
                 allowFontScaling={false}
                 onSubmitEditing={this.search}
-                placeholderTextColor="red"
                 placeholder={'请输入'}
               />
             </View>
           )}
           renderSectionHeader={section => this.sectionComp(section)}
           renderItem={item => this.renderRRow(item)}
-          sections={ParcelData}
+          sections={hotSubject}
           keyExtractor={item => item.name}
           onViewableItemsChanged={info => this.itemChange(info)}
         />
@@ -215,5 +226,20 @@ const styles = StyleSheet.create({
   },
   moneyText: {
     color: 'orange',
+  },
+
+  tag: {
+    marginVertical: 10,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  ipt: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    // marginHorizontal: 10,
+    flex: 1,
+    fontSize: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
 });
