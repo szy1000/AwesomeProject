@@ -97,7 +97,6 @@ export const saveInfo = (params, callback) => async (dispatch, getState) => {
   if (data.name) {
     data.avatar = data.id;
   }
-  console.log('save', data);
   const res = await changeUserInfoReq(data || {});
   const {success} = res;
   if (success) {

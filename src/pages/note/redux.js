@@ -43,7 +43,7 @@ export const submitNote = (params, callback) => async (dispatch, getState) => {
   }
   const {success} = await createNoteReq(params || {});
   if (success) {
-    alert('笔记发布成功！');
+    alert('笔记发布成功！等待后台审核');
   }
   dispatch(
     noteUpdate({
