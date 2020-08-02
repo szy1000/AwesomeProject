@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import {View, Image,TextInput, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import {SearchInput} from '../../../../components';
 
 export default class GroupDetail extends React.Component {
@@ -30,14 +30,17 @@ export default class GroupDetail extends React.Component {
     const {thumbUp, collect, content} = this.state;
     return (
       <View style={styles.comment}>
-        <SearchInput
+        <TextInput
           style={styles.ipt}
-          onEndEditing={() => this.props.makeComment(content)}
+          onEndEditing={() => {
+            this.setState({content: ''});
+            this.props.makeComment(content);
+          }}
           placeholder={'写回复'}
           returnKeyType="send"
           returnKeyLabel="send"
           onChangeText={e => this.saveValue(e)}
-          vaule={content}
+          value={content}
         />
         <TouchableWithoutFeedback onPress={() => this.handleState('thumbUp')}>
           <Image
@@ -60,6 +63,7 @@ export default class GroupDetail extends React.Component {
 
 const styles = StyleSheet.create({
   comment: {
+    // position: 'absolute',
     paddingVertical: 15,
     paddingHorizontal: 15,
     flexDirection: 'row',

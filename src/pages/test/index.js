@@ -1,10 +1,20 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  TextInput,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const TabTop = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -20,9 +30,12 @@ const TabPanel = () => (
   </View>
 );
 
+const {width, height} = Dimensions.get('window');
+
 export default class Test extends React.Component {
   state = {
     pos: '',
+    content: '',
   };
   getCurrentPos = () => {
     Geolocation.getCurrentPosition(
@@ -44,25 +57,40 @@ export default class Test extends React.Component {
   };
 
   componentDidMount(): void {
-    this.getCurrentPos();
+    // this.getCurrentPos();
   }
 
   render() {
+    // const _height = height - 00
+    const {content} = this.state;
     return (
-      <>
-        <Text>Common Component One</Text>
-        <Text>{this.state.pos}</Text>
-        {/*<Stack.Screen name="Test" component={() => <Text>ssdsad</Text>} />*/}
-        <TabTop.Navigator>
-          <TabTop.Screen
-            name="item"
-            // screenOptions={e => alert(1)}
-            component={() => <Text>sss</Text>}
+      <KeyboardAwareScrollView>
+        <View>
+          <View style={{height: 600}}>
+            <Text>sss</Text>
+          </View>
+          <Text>Common Component One</Text>
+          <TextInput
+            placeholder={'xxx'}
+            value={content}
+            onChangeText={e =>
+              this.setState({
+                content: e,
+              })
+            }
+            onEndEditing={() =>
+              this.setState({
+                content: '',
+              })
+            }
+            style={{
+              borderWidth: 1,
+              padding: 15,
+              borderColor: 'blue',
+            }}
           />
-          <TabTop.Screen name="tem1" component={TabPanel} />
-          <TabTop.Screen name="Item2" component={BBS} />
-        </TabTop.Navigator>
-      </>
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

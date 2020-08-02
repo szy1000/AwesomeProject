@@ -5,15 +5,18 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  Dimensions,
   Button,
   Text,
 } from 'react-native';
 import {WhiteSpace, Empty} from '../../components';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {groupDetailInit, makeComment, thumbUpDis, favoriteDis} from './redux';
 
+const {height} = Dimensions.get('window');
 class GroupDetail extends React.Component {
   componentDidMount() {
     const {
@@ -36,7 +39,7 @@ class GroupDetail extends React.Component {
     this.props.favoriteDis(params.id);
   };
 
-  makeComment = content => {
+  makeComment = (content, callback) => {
     const {
       route: {params},
     } = this.props;
@@ -45,7 +48,10 @@ class GroupDetail extends React.Component {
       discussionId: params.id,
       content,
     };
-    this.props.makeComment(_params, this.props.groupDetailInit(params.id));
+    this.props.makeComment(
+      _params,
+      this.props.groupDetailInit(params.id, callback),
+    );
   };
   render() {
     const {init, data} = this.props;
@@ -53,24 +59,28 @@ class GroupDetail extends React.Component {
       return <ActivityIndicator />;
     }
     const {groupDetail, comment} = data;
-    console.warn('groupDetail', groupDetail);
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-        <ScrollView style={styles.groupDetail}>
-          <Item {...groupDetail} />
-          <WhiteSpace size={'big'} />
-          {comment.length > 0 ? (
-            comment.map(v => <Leave key={v.id} {...v} />)
-          ) : (
-            <Empty />
-          )}
-        </ScrollView>
-        <Comment
-          thumbUpDis={this.thumbUpDis}
-          makeComment={e => this.makeComment(e)}
-          favoriteDis={this.favoriteDis}
-        />
-      </SafeAreaView>
+      <KeyboardAwareScrollView>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+          <ScrollView
+            onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
+            ref="scrollView"
+            style={styles.groupDetail}>
+            <Item {...groupDetail} />
+            <WhiteSpace size={'big'} />
+            {comment.length > 0 ? (
+              comment.map(v => <Leave key={v.id} {...v} />)
+            ) : (
+              <Empty />
+            )}
+          </ScrollView>
+          <Comment
+            thumbUpDis={this.thumbUpDis}
+            makeComment={e => this.makeComment(e)}
+            favoriteDis={this.favoriteDis}
+          />
+        </SafeAreaView>
+      </KeyboardAwareScrollView>
     );
   }
 }
