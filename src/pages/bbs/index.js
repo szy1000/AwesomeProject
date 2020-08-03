@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-  Platform,
   ScrollView,
   ImageBackground,
   View,
   StyleSheet,
-  Image,
   Text,
-  TouchableWithoutFeedback,
+  TouchableNativeFeedback,
 } from 'react-native';
 import {Item, Panel} from './page-components';
 import Jump from '../../utils/jump';
@@ -22,12 +20,14 @@ class BBS extends React.Component {
     // console.log(this.props)
   }
 
-  linkToGroup = () => {
+  linkToGroup = id => {
     const {navigation} = this.props;
-
     Jump.linkToPage({
       navigation,
       url: 'GroupAll',
+      params: {
+        id,
+      },
     });
   };
 
@@ -42,22 +42,29 @@ class BBS extends React.Component {
   };
   render() {
     const {init, data, navigation} = this.props;
+
     if (!init) {
       return <Loading />;
     }
     const {groupCategory, hotGroup} = data;
-    console.log(hotGroup);
+    console.log(groupCategory);
+
     return (
       <View style={styles.bbs}>
         <ScrollView>
           <ImageBackground style={styles.bg} source={require('./pic54.png')} />
           <View style={styles.content}>
-            <Panel title={'分类找小组'} more moreFn={this.linkToGroup}>
+            <Panel
+              title={'分类找小组'}
+              more
+              moreFn={() => this.linkToGroup('')}>
               <View style={styles.tagWrapper}>
                 {groupCategory.map(({id, name}) => (
-                  <Text key={id} style={styles.tag}>
-                    {name}
-                  </Text>
+                  <TouchableNativeFeedback
+                    key={id}
+                    onPress={() => this.linkToGroup(id)}>
+                    <Text style={styles.tag}>{name}</Text>
+                  </TouchableNativeFeedback>
                 ))}
               </View>
             </Panel>

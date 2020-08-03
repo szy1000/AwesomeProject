@@ -1,28 +1,36 @@
 import React, {Component} from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   FlatList,
-  SectionList,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
   Image,
 } from 'react-native';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {groupAllInit, searchGroupReq} from './redux';
+import Jump from '../../utils/jump';
 import ParcelData from './ParcelData.json';
-
 var {width, height} = Dimensions.get('window');
 
 let Headers = [];
 
-export default class Library extends Component {
-  static navigationOptions = ({navigation}) => ({
-    headerTitle: '联动List',
-  });
+class GroupAll extends Component {
+  state = {
+    cell: 0,
+  };
 
   componentDidMount() {
+    const {
+      groupAllInit,
+      route: {params},
+    } = this.props;
+    groupAllInit({id: params.id});
+
     ParcelData.map((item, i) => {
       Headers.push(item.section);
     });
@@ -37,33 +45,32 @@ export default class Library extends Component {
       <TouchableOpacity
         style={[
           styles.lItem,
-          {backgroundColor: item.index == this.state.cell ? 'white' : null},
+          {
+            backgroundColor: item.index == this.state.cell ? '#feffff' : null,
+            borderColor: item.index == this.state.cell ? '#00aad3' : '#eff0f1',
+          },
         ]}
         onPress={() => this.cellAction(item)}>
-        <Text style={styles.lText}>{item.item.section}</Text>
+        <Text
+          style={[
+            styles.lText,
+            {
+              color: item.index == this.state.cell ? '#00aad3' : null,
+            },
+          ]}>
+          {item.item.name}
+        </Text>
       </TouchableOpacity>
     );
   };
 
   cellAction = item => {
-    if (item.index <= ParcelData.length) {
-      this.setState({
-        cell: item.index,
-      });
-      if (item.index > 0) {
-        var count = 0;
-        for (var i = 0; i < item.index; i++) {
-          count += ParcelData[i].data.length + 1;
-        }
-        console.warn(count);
-        this.refs.sectionList.scrollToLocation({
-          animated: false,
-          itemIndex: count,
-        });
-      } else {
-        this.refs.sectionList.scrollToLocation({animated: false, itemIndex: 0});
-      }
-    }
+    this.setState({
+      cell: item.index,
+    });
+    this.props.searchGroupReq({
+      id: item.item.id,
+    });
   };
 
   itemChange = info => {
@@ -77,79 +84,88 @@ export default class Library extends Component {
     }
   };
 
-  state = {
-    cell: 0,
-  };
-
-  renderRRow = item => {
+  renderRRow = ({item}) => {
+    const {navigation} = this.props;
+    console.log(item);
     return (
-      <View style={styles.rItem}>
-        <Image style={styles.icon} source={{uri: item.item.img}} />
-        <View style={styles.rItemDetail}>
-          <Text style={styles.foodName}>{item.item.name}</Text>
-          <View style={styles.saleFavorite}>
-            {/*<Text style={[styles.saleFavoriteText, {marginLeft: 15}]}></Text>*/}
+      <TouchableOpacity
+        style={{marginLeft: 10}}
+        onPress={() =>
+          Jump.linkToPage({
+            url: 'Group',
+            params: {
+              id: item.id,
+            },
+            navigation,
+          })
+        }>
+        <View style={styles.rItem}>
+          <Image style={styles.avatar} source={{uri: item.image}} />
+          <View
+            style={{
+              paddingVertical: 10,
+              flex: 1,
+              justifyContent: 'space-between',
+            }}>
+            <Text style={styles.foodName}>{item.name}</Text>
+            <Text style={styles.count}>{item.userCount}个会员</Text>
           </View>
-          <Text style={styles.saleFavoriteText}>{item.item.sale}</Text>
+          <TouchableOpacity style={styles.join}>
+            <Text style={{color: '#00a7cd'}}>
+              {item.join ? '申请' : '加入'}
+            </Text>
+          </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     );
-  };
-
-  sectionComp = section => {
-    return (
-      <View
-        style={{
-          height: 30,
-          backgroundColor: '#DEDEDE',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text>{section.section.section}</Text>
-      </View>
-    );
-  };
-
-  separator = () => {
-    return <View style={{height: 1, backgroundColor: 'gray'}} />;
   };
 
   render() {
+    const {init, data} = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {allCategory, groupDetail} = data;
+
     return (
       <View style={styles.container}>
         <FlatList
           ref="FlatList"
           style={styles.leftList}
-          data={ParcelData}
+          data={allCategory}
           renderItem={item => this.renderLRow(item)}
-          ItemSeparatorComponent={() => this.separator()}
           keyExtractor={item => item.section}
         />
-        <SectionList
+        <FlatList
           ref="sectionList"
           style={styles.rightList}
-          renderSectionHeader={section => this.sectionComp(section)}
-          renderItem={item => this.renderRRow(item)}
-          sections={ParcelData}
+          renderItem={section => this.renderRRow(section)}
+          data={groupDetail.data}
           keyExtractor={item => item.name}
-          onViewableItemsChanged={info => this.itemChange(info)}
         />
       </View>
     );
   }
 }
+export default connect(
+  state => state.groupAll,
+  dispatch => bindActionCreators({groupAllInit, searchGroupReq}, dispatch),
+)(GroupAll);
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
+    backgroundColor: '#fff',
   },
   leftList: {
     width: (1 * width) / 4,
-    backgroundColor: '#E9E9EF',
+    backgroundColor: '#eff0f1',
   },
   lItem: {
     minHeight: 44,
     justifyContent: 'center',
+    borderLeftWidth: 2,
   },
   lText: {
     marginLeft: 10,
@@ -160,36 +176,34 @@ const styles = StyleSheet.create({
     width: (3 * width) / 4,
   },
   rItem: {
+    paddingVertical: 10,
+    paddingRight: 10,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
     flexDirection: 'row',
   },
-  rItemDetail: {
-    paddingBottom: 10,
-    flex: 1,
-    marginTop: 10,
-    marginLeft: 5,
-    justifyContent: 'space-between',
-  },
-  icon: {
-    height: 60,
+
+  avatar: {
+    marginRight: 10,
     width: 60,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 8,
-    borderWidth: 1,
-    borderColor: '#999999',
+    height: 60,
+    resizeMode: 'cover',
   },
   foodName: {
-    fontSize: 18,
+    fontSize: 16,
   },
-  saleFavorite: {
-    flexDirection: 'row',
-    marginTop: 5,
-    marginBottom: 5,
+  count: {
+    fontSize: 14,
+    color: '#333',
   },
-  saleFavoriteText: {
-    fontSize: 13,
-  },
-  moneyText: {
-    color: 'orange',
+  join: {
+    height: 30,
+    paddingVertical: 7,
+    fontSize: 16,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#00a7cd',
+    backgroundColor: '#e5f5fc',
   },
 });

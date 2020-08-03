@@ -22,6 +22,7 @@ import {groupEdit} from '../pages/group-edit/redux';
 import {fixedTop} from '../pages/group/page-components/fixedTop/redux';
 import {groupDiscussion} from '../pages/group/page-components/discussion/redux';
 import {groupDetail} from '../pages/group-detail/redux';
+import {groupAll} from '../pages/group-all/redux';
 import {note} from '../pages/note/redux';
 import {concern} from '../pages/concern/redux';
 import {repository} from '../pages/repository/redux';
@@ -63,6 +64,7 @@ const store = createStore(
     publish,
     feedback,
     group,
+    groupAll,
     fixedTop,
     groupDiscussion,
     groupDetail,
