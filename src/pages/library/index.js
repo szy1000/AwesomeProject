@@ -4,18 +4,19 @@ import {
   Text,
   View,
   FlatList,
-  SectionList,
   Dimensions,
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
   Image,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Container, Header, Content, Icon, Picker, Form} from 'native-base';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {libraryInit, searchList} from './redux';
-
+import Jump from '../../utils/jump';
 import ParcelData from './ParcelData.json';
 
 var {width, height} = Dimensions.get('window');
@@ -23,6 +24,11 @@ var {width, height} = Dimensions.get('window');
 let Headers = [];
 
 class Library extends Component {
+  state = {
+    cell: 0,
+    query: '',
+  };
+
   componentDidMount() {
     this.props.libraryInit({countryId: 1});
     ParcelData.map((item, i) => {
@@ -39,10 +45,16 @@ class Library extends Component {
       <TouchableOpacity
         style={[
           styles.lItem,
-          {backgroundColor: item.index == this.state.cell ? 'white' : null},
+          {backgroundColor: item.index == this.state.cell ? '#9b7965' : null},
         ]}
         onPress={() => this.cellAction(item)}>
-        <Text style={styles.lText}>{item.item.name}</Text>
+        <Text
+          style={[
+            styles.lText,
+            {color: item.index == this.state.cell ? '#fff' : null},
+          ]}>
+          {item.item.name}
+        </Text>
       </TouchableOpacity>
     );
   };
@@ -55,26 +67,6 @@ class Library extends Component {
       countryId: 1,
       categoryId: item.item.id,
     });
-
-    console.log(item);
-    // if (item.index <= ParcelData.length) {
-    //   this.setState({
-    //     cell: item.index,
-    //   });
-    //   if (item.index > 0) {
-    //     var count = 0;
-    //     for (var i = 0; i < item.index; i++) {
-    //       count += ParcelData[i].data.length + 1;
-    //     }
-    //     console.warn(count);
-    //     this.refs.sectionList.scrollToLocation({
-    //       animated: false,
-    //       itemIndex: count,
-    //     });
-    //   } else {
-    //     this.refs.sectionList.scrollToLocation({animated: false, itemIndex: 0});
-    //   }
-    // }
   };
 
   itemChange = info => {
@@ -88,86 +80,150 @@ class Library extends Component {
     }
   };
 
-  state = {
-    cell: 0,
-  };
-
-  renderRRow = item => {
-    return (
-      <View style={styles.rItem}>
-        <Text style={styles.foodName}>{item.item.name}</Text>
-        <View style={styles.saleFavorite} />
-      </View>
-    );
-  };
-
-  sectionComp = section => {
-    return (
-      <View
-        style={{
-          height: 30,
-          backgroundColor: '#DEDEDE',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text>{section.section.name}</Text>
-      </View>
-    );
+  renderRRow = ({item, index}) => {
+    const {
+      data: {subjectList},
+      navigation,
+    } = this.props;
+    console.log(subjectList);
+    if (index === 0) {
+      return (
+        <>
+          <View
+            style={{
+              padding: 10,
+              backgroundColor: '#f3f1f1',
+            }}>
+            <Text style={styles.foodName}>
+              {subjectList[this.state.cell].name}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() =>
+              Jump.linkToPage({
+                url: 'LibraryDetail',
+                params: {
+                  id: item.id,
+                },
+                navigation,
+              })
+            }>
+            <View style={styles.rItem}>
+              <Text style={styles.foodName}>{item.name}</Text>
+            </View>
+          </TouchableOpacity>
+        </>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            Jump.linkToPage({
+              url: 'LibraryDetail',
+              params: {
+                id: item.id,
+              },
+              navigation,
+            })
+          }>
+          <View style={styles.rItem}>
+            <Text style={styles.foodName}>{item.name}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
   };
 
   search = () => {
-    // this.props.searchList({})
-    console.log('s');
+    const {
+      data: {country},
+    } = this.props;
+    const {countryId, rankId, query} = this.state;
+    console.log(this.state);
+    this.props.searchList({
+      query,
+      countryId: countryId || country[0].id,
+      order: rankId,
+    });
   };
 
+  onValueChange = (key, value) => {
+    this.setState({
+      [key]: value,
+    });
+  };
   render() {
     const {init, data} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {country, rank, hotSubject, subjectList} = data;
+    const {country, rank, subjectItem, subjectList} = data;
+    const {query} = this.state;
 
-    for (let i = 0; i < hotSubject.length; i++) {
-      hotSubject[i].data = hotSubject[i].universities || [];
-    }
-    console.log('data', hotSubject);
+    console.log('subjectItem', subjectItem);
+
     return (
-      <View style={styles.container}>
+      <Container style={styles.container}>
         <FlatList
           ref="FlatList"
           style={styles.leftList}
           data={subjectList}
           renderItem={item => this.renderLRow(item)}
           ListHeaderComponent={() => (
-            <Text style={styles.tag}>{country[0].name}</Text>
+            <Picker
+              note
+              iosHeader="请选择"
+              mode="dropdown"
+              textStyle={styles.tag}
+              headerBackButtonText="返回"
+              style={{width: 120, backgroundColor: '#d5d4d7'}}
+              selectedValue={this.state.countryId || country[0].id}
+              onValueChange={e => this.onValueChange('countryId', e)}>
+              {country.map(v => (
+                <Picker.Item label={v.name} value={v.id} />
+              ))}
+            </Picker>
           )}
           keyExtractor={item => item.section}
         />
-        <SectionList
-          ref="sectionList"
-          style={styles.rightList}
-          ListHeaderComponent={() => (
-            <View>
-              <Text style={styles.tag}>{rank[0].name}</Text>
-              <TextInput
-                returnKeyLabel="search"
-                returnKeyType="search"
-                style={styles.ipt}
-                blurOnSubmit={true}
-                numberOfLines={1}
-                allowFontScaling={false}
-                onSubmitEditing={this.search}
-                placeholder={'请输入'}
-              />
-            </View>
-          )}
-          renderSectionHeader={section => this.sectionComp(section)}
-          renderItem={item => this.renderRRow(item)}
-          sections={hotSubject}
-          keyExtractor={item => item.name}
-          onViewableItemsChanged={info => this.itemChange(info)}
-        />
-      </View>
+
+        <View style={styles.rightList}>
+          <Picker
+            note
+            iosHeader="请选择"
+            mode="dropdown"
+            textStyle={styles.tag}
+            headerBackButtonText="返回"
+            selectedValue={this.state.rankId || rank[0].id}
+            onValueChange={e => this.onValueChange('rankId', e)}>
+            {rank.map(v => (
+              <Picker.Item label={v.name} value={v.id} />
+            ))}
+          </Picker>
+          <View style={styles.ipt_wrapper}>
+            <TextInput
+              returnKeyLabel="search"
+              returnKeyType="search"
+              style={styles.ipt}
+              numberOfLines={1}
+              value={query}
+              onChangeText={txt => this.onValueChange('query', txt)}
+              onSubmitEditing={this.search}
+              placeholder={'请输入'}
+            />
+            <TouchableOpacity onPress={this.search}>
+              <MaterialCommunityIcons name="magnify" color="#999" size={30} />
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            ref="sectionList"
+            style={styles.rightList}
+            renderItem={section => this.renderRRow(section)}
+            data={subjectItem}
+            keyExtractor={item => item.name}
+          />
+        </View>
+      </Container>
     );
   }
 }
@@ -180,10 +236,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: '#fff',
   },
   leftList: {
     width: (1 * width) / 4,
-    backgroundColor: '#E9E9EF',
+    backgroundColor: '#f3f1f1',
   },
   lItem: {
     minHeight: 44,
@@ -198,6 +255,9 @@ const styles = StyleSheet.create({
     width: (3 * width) / 4,
   },
   rItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
     flexDirection: 'row',
   },
   rItemDetail: {
@@ -229,9 +289,12 @@ const styles = StyleSheet.create({
   },
 
   tag: {
-    marginVertical: 10,
-    textAlign: 'center',
-    fontSize: 16,
+    color: '#000',
+  },
+  ipt_wrapper: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    flexDirection: 'row',
   },
   ipt: {
     paddingVertical: 5,
@@ -239,7 +302,5 @@ const styles = StyleSheet.create({
     // marginHorizontal: 10,
     flex: 1,
     fontSize: 20,
-    borderWidth: 1,
-    borderColor: '#ccc',
   },
 });

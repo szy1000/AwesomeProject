@@ -58,40 +58,44 @@ class LibraryDetail extends Component {
     }
     const {
       detail: {subjectCategory},
-      infoItem,
+      infoItem = [],
     } = data;
 
-    if (infoItem[infoItem.length - 1].name !== '热门院校') {
-      infoItem.push({
-        name: '热门院校',
-        component: () => <RecommendSchool />,
-      });
-    }
+    if (infoItem.length > 0) {
+      if (infoItem[infoItem.length - 1].name !== '热门院校') {
+        infoItem.push({
+          name: '热门院校',
+          component: () => <RecommendSchool />,
+        });
+      }
 
-    for (let i = 0; i < infoItem.length - 1; i++) {
-      infoItem[i].component = () => {
-        if (infoItem[i].infoItem) {
-          return (
-            <HtmlContent
-              {...infoItem[i]}
-              resourceId={params.id}
-              navigation={this.props.navigation}
-            />
-          );
-        } else {
-          for (let j = 0; j < infoItem[i].items.length; j++) {
-            infoItem[i].items[j].component = () => (
+      for (let i = 0; i < infoItem.length - 1; i++) {
+        infoItem[i].component = () => {
+          if (infoItem[i].infoItem) {
+            return (
               <HtmlContent
-                {...infoItem[i].items[j]}
+                {...infoItem[i]}
                 resourceId={params.id}
                 navigation={this.props.navigation}
-                queryItem={params => this.props.queryItem(params)}
               />
             );
+          } else {
+            for (let j = 0; j < infoItem[i].items.length; j++) {
+              infoItem[i].items[j].component = () => (
+                <HtmlContent
+                  {...infoItem[i].items[j]}
+                  resourceId={params.id}
+                  navigation={this.props.navigation}
+                  queryItem={params => this.props.queryItem(params)}
+                />
+              );
+            }
+            return (
+              <Tab navigation={navigation} tabContent={infoItem[i].items} />
+            );
           }
-          return <Tab navigation={navigation} tabContent={infoItem[i].items} />;
-        }
-      };
+        };
+      }
     }
 
     return (

@@ -1,7 +1,6 @@
 import {
   getCountryReq,
   getRankReq,
-  getHotSubjectReq,
   getCountrySubjectReq,
   getSubjectListReq,
 } from './api';
@@ -40,17 +39,18 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
   const country = await getCountryReq(params || {});
   const rank = await getRankReq({});
 
-  const hotSubject = await getHotSubjectReq({
-    country_id: countryId || country[0].id,
-  });
-
   const subjectList = await getCountrySubjectReq({
     countryId: countryId || country[0].id,
   });
 
   subjectList.unshift({
-    categoryId: -1,
+    id: -1,
     name: '热门专业',
+  });
+
+  const subjectItem = await getSubjectListReq({
+    countryId: countryId || country[0].id,
+    hot: true,
   });
 
   dispatch(
@@ -60,7 +60,7 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
         ...data,
         country,
         subjectList,
-        hotSubject,
+        subjectItem,
         rank,
       },
     }),
@@ -71,24 +71,23 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
 export const searchList = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().library;
   const country = await getCountryReq({});
-  console.log('params', params);
   const {countryId, categoryId} = params;
+  console.log('params', params);
   let hotSubject = null;
-  if (categoryId) {
-    hotSubject = await getSubjectListReq(params);
-    console.log(1111111111111111, hotSubject);
-  } else {
-    hotSubject = await getHotSubjectReq({
-      country_id: countryId || country[0].id,
+  if (categoryId === -1) {
+    hotSubject = await getSubjectListReq({
+      countryId: countryId || country[0].id,
+      hot: true,
     });
-    console.log(22222222222222, hotSubject);
+  } else {
+    hotSubject = await getSubjectListReq(params);
   }
-  console.log('hotSubject', hotSubject);
+
   dispatch(
     libraryUpdate({
       data: {
         ...data,
-        hotSubject,
+        subjectItem: hotSubject,
       },
     }),
   );
