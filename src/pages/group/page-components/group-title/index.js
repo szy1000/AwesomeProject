@@ -25,7 +25,11 @@ export default class GroupTitle extends React.Component {
         <View style={styles.tips}>
           <Image
             accessibilityRole={'image'}
-            source={{uri: image}}
+            source={
+              image
+                ? {uri: image}
+                : require('../../../../assets/images/logo.jpeg')
+            }
             style={styles.avatar}
           />
           <View style={styles.title_wrapper}>

@@ -20,14 +20,7 @@ export default class Item extends React.Component {
   };
 
   render() {
-    const {
-      title,
-      content,
-      id,
-      user,
-      commentCount,
-      updateTime,
-    } = this.props;
+    const {title, content, id, user, commentCount, updateTime} = this.props;
     return (
       <TouchableWithoutFeedback onPress={() => this.linkTo(id)}>
         <View style={styles.item}>

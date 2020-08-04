@@ -36,7 +36,14 @@ export default class Item extends React.Component {
               <TouchableOpacity
                 style={styles.nameAndAvatar}
                 onPress={() => this.linkTo(v.id)}>
-                <Image style={styles.avatar} source={{uri: v.image}} />
+                <Image
+                  style={styles.avatar}
+                  source={
+                    v.image
+                      ? {uri: v.image}
+                      : require('../../../../assets/images/logo.jpeg')
+                  }
+                />
                 <View style={styles.titleBox}>
                   <Text style={styles.title}>{v.name}</Text>
                   <View style={styles.count}>

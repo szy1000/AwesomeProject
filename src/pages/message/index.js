@@ -1,5 +1,11 @@
 import React, {Fragment} from 'react';
-import {View, ActivityIndicator, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import {WhiteSpace, Item} from '../../components';
 import Jump from '../../utils/jump';
 
@@ -12,11 +18,14 @@ class Message extends React.Component {
     this.props.messageInit();
   }
 
-  linkTo = url => {
+  linkTo = (url, id) => {
     const {navigation} = this.props;
     Jump.linkToPage({
       navigation,
       url,
+      params: {
+        id,
+      },
     });
   };
 
@@ -40,15 +49,25 @@ class Message extends React.Component {
                 triggerActionName,
                 resourceActionName,
                 resourceName,
+                resource,
+                resourceId,
               },
               k,
             ) => (
               <Fragment>
                 <Item key={k} more={false}>
-                  <Text>
-                    {triggerUser.nickName} 在 {createTime} {triggerActionName}{' '}
-                    了你 {resourceActionName} 的 {resourceName}
-                  </Text>
+                  <TouchableWithoutFeedback
+                    onPress={() =>
+                      this.linkTo(
+                        resource === 'note' ? 'FindDetail' : 'GroupDetail',
+                        resourceId,
+                      )
+                    }>
+                    <Text>
+                      {triggerUser.nickName} 在 {createTime} {triggerActionName}{' '}
+                      了你 {resourceActionName} 的 {resourceName}
+                    </Text>
+                  </TouchableWithoutFeedback>
                 </Item>
                 <WhiteSpace size={'big'} />
               </Fragment>
