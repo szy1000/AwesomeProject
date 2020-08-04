@@ -5,6 +5,7 @@ import {
   getHotSubjectReq,
   getCaseReq,
   queryKeywords,
+  getUnreadCountReq,
 } from './api';
 // Actions
 const UPDATE = 'HOME_UPDATE';
@@ -74,6 +75,7 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
   const hotSchool = await getHotSchoolReq(countyParams);
   const hotSubject = await getHotSubjectReq(countyParams);
   const hotCase = await getCaseReq(countyParams);
+  const unread = await getUnreadCountReq(countyParams);
 
   dispatch(
     homeUpdate({
@@ -84,6 +86,7 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
         hotSchool,
         hotSubject,
         hotCase,
+        unread,
       },
     }),
   );

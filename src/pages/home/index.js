@@ -81,7 +81,7 @@ class Home extends React.Component {
     if (!init) {
       return <ActivityIndicator />;
     }
-    const {country, hotSchool, hotSubject, hotCase, currCountry} = data;
+    const {country, hotSchool, unread, hotSubject, hotCase, currCountry} = data;
     const _items = [];
     for (let i = 0; i < country.length; i++) {
       const temp = {};
@@ -142,7 +142,7 @@ class Home extends React.Component {
             }>
             <View style={styles.msg_box}>
               <AntDesign name={'message1'} size={20} />
-              <Text style={styles.badge}>3</Text>
+              {unread !== 0 && <Text style={styles.badge}>{unread}</Text>}
             </View>
           </TouchableWithoutFeedback>
         </View>

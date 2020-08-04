@@ -1,4 +1,4 @@
-import {getMessageReq} from './api';
+import {getMessageReq, postReadAllReq} from './api';
 // Actions
 const UPDATE = 'MESSAGE_UPDATE';
 
@@ -29,13 +29,14 @@ export const messageUpdate = params => ({
 export const messageInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
-  const group = await getMessageReq(params || {});
+  const msg = await getMessageReq(params || {});
+  // const all = await postReadAllReq(params || {});
 
   dispatch(
     messageUpdate({
       init: true,
       data: {
-        group,
+        msg,
       },
     }),
   );
