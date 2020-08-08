@@ -1,8 +1,9 @@
 import React from 'react';
 import {
   View,
-  Image,
+  Share,
   Button,
+  Text,
   TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native';
@@ -38,6 +39,9 @@ import Join from '../pages/join';
 import Search from '../pages/serach';
 import LibraryDetail from '../pages/library-detail';
 import Test from '../pages/test';
+import Jump from '../utils/jump';
+
+import Feather from 'react-native-vector-icons/Feather';
 
 const router = [
   {
@@ -168,6 +172,25 @@ const router = [
       headerBackTitle: null,
       headerTruncatedBackTitle: null,
       headerTransparent: true,
+      headerRight: () => (
+        <Feather
+          style={{marginRight: 10}}
+          name="share"
+          color="#000"
+          size={20}
+          onPress={() => {
+            Share.share({
+              message: '留学帮',
+              url: 'http://facebook.github.io/react-native/',
+              title: '留学帮',
+            });
+            // Jump.linkToPage({
+            //   navigation,
+            //   url: 'Message',
+            // });
+          }}
+        />
+      ),
     },
   },
 
