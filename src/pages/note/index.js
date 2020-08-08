@@ -29,8 +29,8 @@ class Note extends React.Component {
   getPhoto = async () => {
     const options = {
       // todo
-      // mediaType: 'mixed',
-      // durationLimit: '120',
+      mediaType: 'mixed',
+      durationLimit: '120',
       title: '选择照片',
       quality: 0.1,
       cancelButtonTitle: '取消',

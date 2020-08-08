@@ -7,12 +7,22 @@ export default class Index extends React.Component {
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
-          {this.props.files.length > 0 &&
+          {this.props.files.length > 0 ? (
             this.props.files.map(item => (
               <View style={styles.slide} key={item}>
                 <Image style={styles.item} source={{uri: item}} />
               </View>
-            ))}
+            ))
+          ) : (
+            <View
+              style={{
+                alignItems: 'center',
+                height: 150,
+                justifyContent: 'center',
+              }}>
+              <Text>暂无图片</Text>
+            </View>
+          )}
         </Swiper>
       </View>
     );
