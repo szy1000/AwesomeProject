@@ -14,7 +14,7 @@ const TopTab = createMaterialTopTabNavigator();
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {groupInit} from './redux';
+import {groupInit, toggleJoin} from './redux';
 import Jump from '../../utils/jump';
 
 class Group extends React.Component {
@@ -25,6 +25,13 @@ class Group extends React.Component {
     this.props.groupInit(params.id);
   }
 
+  toggleJoin = _ => {
+    this.props.toggleJoin(_);
+    const {
+      route: {params},
+    } = this.props;
+    this.props.groupInit(params.id);
+  };
   render() {
     const {
       init,
@@ -38,7 +45,11 @@ class Group extends React.Component {
     const {group} = data;
     return (
       <View style={styles.group}>
-        <GroupTitle {...this.props} group={group} />
+        <GroupTitle
+          {...this.props}
+          group={group}
+          toggleJoin={e => this.toggleJoin(e)}
+        />
         <TouchableWithoutFeedback
           onPress={() => {
             Jump.linkToPage({
@@ -112,5 +123,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => state.group,
-  dispatch => bindActionCreators({groupInit}, dispatch),
+  dispatch => bindActionCreators({groupInit, toggleJoin}, dispatch),
 )(Group);

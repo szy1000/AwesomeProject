@@ -10,15 +10,9 @@ import {
 } from 'react-native';
 
 export default class GroupTitle extends React.Component {
-  componentDidMount() {
-    const {
-      route: {params},
-    } = this.props;
-    console.log(params);
-  }
-
   render() {
-    const {name, image, description, userCount, join} = this.props.group;
+    const {name, image, description, userCount, id, join} = this.props.group;
+    console.log('this.props.group', join);
     return (
       <View style={styles.group}>
         <ImageBackground style={styles.bg} source={require('./pic60.png')} />
@@ -36,20 +30,17 @@ export default class GroupTitle extends React.Component {
             <Text style={styles.title}>{name}</Text>
             <Text style={styles.subTitle}>{userCount} 小叮当</Text>
           </View>
-          {/* todo*/}
-          {join ? (
-            <TouchableWithoutFeedback>
-              <View style={styles.btn}>
-                <Text style={styles.txt}>已加入</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          ) : (
-            <TouchableWithoutFeedback>
-              <View style={styles.btn}>
-                <Text style={styles.txt}>未加入</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          )}
+          <TouchableWithoutFeedback
+            onPress={() =>
+              this.props.toggleJoin({
+                isJoin: join,
+                id,
+              })
+            }>
+            <View style={styles.btn}>
+              <Text style={styles.txt}>{join ? '已加入' : '加入'}</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <Text style={styles.desc}>
           小组简介：

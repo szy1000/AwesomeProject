@@ -1,4 +1,4 @@
-import {getGroupDetailReq} from './api';
+import {getGroupDetailReq, joinGroupReq, unjoinGroupReq} from './api';
 // Actions
 const UPDATE = 'GROUP_UPDATE';
 
@@ -39,5 +39,22 @@ export const groupInit = (params, callback) => async dispatch => {
       },
     }),
   );
+  callback && callback();
+};
+
+export const toggleJoin = (params, callback) => async (dispatch, getState) => {
+  let res = null;
+  const {isJoin, id} = params;
+  console.log(params)
+  if (isJoin) {
+    res = await unjoinGroupReq({
+      id,
+    });
+  } else {
+    await joinGroupReq({
+      id,
+    });
+  }
+  console.log(res);
   callback && callback();
 };
