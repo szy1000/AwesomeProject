@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet, Platform, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 const TopTab = createMaterialTopTabNavigator();
 
 export default class Tab extends React.Component {
   render() {
     const {
-      needPaddingTop,
       common,
       tabContent = [],
       tabBarOptions = {},
@@ -34,19 +33,12 @@ export default class Tab extends React.Component {
         tabBarOptions,
       ),
     );
-    console.log('find tab navigation', this.props.navigation)
-
     return (
       <>
         {common}
         {tabContent.length > 0 && (
           <TopTab.Navigator
-            style={
-              needPaddingTop && {
-                paddingTop: Platform.OS === 'android' ? '' : 30,
-                backgroundColor: '#fff',
-              }
-            }
+            lazy
             tabBarOptions={Object.assign(
               {
                 labelStyle: {

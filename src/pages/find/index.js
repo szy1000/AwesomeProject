@@ -1,4 +1,5 @@
 import React from 'react';
+import {View, Text, Platform} from 'react-native';
 import {Tab} from '../../components';
 import FindFocus from '../find-focus';
 import FindAll from '../find-all';
@@ -22,14 +23,17 @@ export default class Find extends React.Component {
       component: () => <FindMy navigation={this.props.navigation} />,
     },
   ];
-  // tabBarOptions = {},
-  // initialRouteName,
   render() {
     return (
       <Tab
-        needPaddingTop
-        initialRouteName={'发现'}
+        initialRouteName={'关注'}
         tabContent={this.tabContent}
+        tabBarOptions={{
+          labelStyle: {
+            paddingTop: Platform.OS === 'android' ? 0 : 30,
+            backgroundColor: '#fff',
+          },
+        }}
       />
     );
   }
