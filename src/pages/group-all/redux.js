@@ -1,4 +1,9 @@
-import {getAllCategoryReq, getGroupListReq} from './api';
+import {
+  getAllCategoryReq,
+  getGroupListReq,
+  joinGroupReq,
+  unjoinGroupReq,
+} from './api';
 // Actions
 const UPDATE = 'GROUP_ALL _UPDATE';
 
@@ -69,5 +74,22 @@ export const searchGroupReq = (params, callback) => async (
       },
     }),
   );
+  callback && callback();
+};
+
+export const toggleJoin = (params, callback) => async (dispatch, getState) => {
+  let res = null;
+  const {isJoin, id} = params;
+  console.log(params)
+  if (isJoin) {
+    res = await unjoinGroupReq({
+      id,
+    });
+  } else {
+    await joinGroupReq({
+      id,
+    });
+  }
+  console.log(res);
   callback && callback();
 };

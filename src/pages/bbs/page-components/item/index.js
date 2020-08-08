@@ -72,7 +72,7 @@ export default class Item extends React.Component {
                     <TouchableOpacity
                       style={styles.unjoin}
                       onPress={() => toggleJoinFn(v.id, true)}>
-                      <Text style={styles.txt}>未加入</Text>
+                      <Text style={styles.txt}>加入</Text>
                     </TouchableOpacity>
                   )}
                 </View>

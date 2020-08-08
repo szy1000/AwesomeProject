@@ -12,7 +12,7 @@ import {
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {groupAllInit, searchGroupReq} from './redux';
+import {groupAllInit, searchGroupReq, toggleJoin} from './redux';
 import Jump from '../../utils/jump';
 import ParcelData from './ParcelData.json';
 var {width, height} = Dimensions.get('window');
@@ -65,6 +65,7 @@ class GroupAll extends Component {
   };
 
   cellAction = item => {
+    console.log('item', item);
     this.setState({
       cell: item.index,
     });
@@ -84,9 +85,24 @@ class GroupAll extends Component {
     }
   };
 
+  toggleJoin = (id, isJoin) => {
+    this.props.toggleJoin({
+      isJoin,
+      id,
+    });
+
+    this.props.searchGroupReq({
+      id: this.props.data.allCategory[this.state.cell].id,
+    });
+    // const {
+    //   groupAllInit,
+    //   route: {params},
+    // } = this.props;
+    // groupAllInit({id: params.id});
+  };
+
   renderRRow = ({item}) => {
     const {navigation} = this.props;
-    console.log(item);
     return (
       <TouchableOpacity
         style={{marginLeft: 10}}
@@ -100,7 +116,14 @@ class GroupAll extends Component {
           })
         }>
         <View style={styles.rItem}>
-          <Image style={styles.avatar} source={{uri: item.image}} />
+          <Image
+            style={styles.avatar}
+            source={
+              item.image
+                ? {uri: item.image}
+                : require('../../assets/images/logo.jpeg')
+            }
+          />
           <View
             style={{
               paddingVertical: 10,
@@ -110,9 +133,11 @@ class GroupAll extends Component {
             <Text style={styles.foodName}>{item.name}</Text>
             <Text style={styles.count}>{item.userCount}个会员</Text>
           </View>
-          <TouchableOpacity style={styles.join}>
+          <TouchableOpacity
+            style={styles.join}
+            onPress={() => this.toggleJoin(item.id, item.join)}>
             <Text style={{color: '#00a7cd'}}>
-              {item.join ? '申请' : '加入'}
+              {item.join ? '已加入' : '加入'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -149,7 +174,8 @@ class GroupAll extends Component {
 }
 export default connect(
   state => state.groupAll,
-  dispatch => bindActionCreators({groupAllInit, searchGroupReq}, dispatch),
+  dispatch =>
+    bindActionCreators({groupAllInit, toggleJoin, searchGroupReq}, dispatch),
 )(GroupAll);
 
 const styles = StyleSheet.create({
