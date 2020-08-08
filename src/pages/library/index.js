@@ -135,6 +135,7 @@ class Library extends Component {
   };
 
   search = () => {
+    console.log(111);
     const {
       data: {country},
     } = this.props;
@@ -161,7 +162,6 @@ class Library extends Component {
     const {query} = this.state;
 
     console.log('subjectItem', subjectItem);
-
     return (
       <Container style={styles.container}>
         <FlatList
@@ -170,36 +170,40 @@ class Library extends Component {
           data={subjectList}
           renderItem={item => this.renderLRow(item)}
           ListHeaderComponent={() => (
+            <View style={{width: 110, backgroundColor: '#d5d4d7'}}>
+              <Picker
+                note
+                iosHeader="请选择"
+                mode="dropdown"
+                textStyle={styles.tag}
+                headerBackButtonText="返回"
+                selectedValue={this.state.countryId || country[0].id}
+                onValueChange={e => this.onValueChange('countryId', e)}>
+                {country.map(v => (
+                  <Picker.Item label={v.name} value={v.id} />
+                ))}
+              </Picker>
+            </View>
+          )}
+          keyExtractor={item => item.section}
+        />
+
+        <View style={styles.rightList}>
+          <View style={{height: 50}}>
             <Picker
               note
               iosHeader="请选择"
               mode="dropdown"
               textStyle={styles.tag}
               headerBackButtonText="返回"
-              style={{width: 120, backgroundColor: '#d5d4d7'}}
-              selectedValue={this.state.countryId || country[0].id}
-              onValueChange={e => this.onValueChange('countryId', e)}>
-              {country.map(v => (
+              selectedValue={this.state.rankId || rank[0].id}
+              onValueChange={e => this.onValueChange('rankId', e)}>
+              {rank.map(v => (
                 <Picker.Item label={v.name} value={v.id} />
               ))}
             </Picker>
-          )}
-          keyExtractor={item => item.section}
-        />
+          </View>
 
-        <View style={styles.rightList}>
-          <Picker
-            note
-            iosHeader="请选择"
-            mode="dropdown"
-            textStyle={styles.tag}
-            headerBackButtonText="返回"
-            selectedValue={this.state.rankId || rank[0].id}
-            onValueChange={e => this.onValueChange('rankId', e)}>
-            {rank.map(v => (
-              <Picker.Item label={v.name} value={v.id} />
-            ))}
-          </Picker>
           <View style={styles.ipt_wrapper}>
             <TextInput
               returnKeyLabel="search"

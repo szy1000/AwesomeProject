@@ -103,7 +103,6 @@ class LibraryDetail extends Component {
         common={
           <View style={styles.container}>
             <View style={styles.category}>
-              <Text>专业分类：{subjectCategory}</Text>
               <Text>所属学科：{subjectCategory}</Text>
             </View>
           </View>

@@ -28,8 +28,15 @@ export default class Login extends React.Component {
 
   handleLogin = async () => {
     // alert(JSON.stringify((await AsyncStorage.getItem('token')) || ''));
+    console.log(this.state);
+    const {phoneNumber, password} = this.state;
+    if (!password || !phoneNumber) {
+      alert('用户名或密码不能为空');
+      return;
+    }
     const res = await loginReq(this.state);
     const {success, data} = res;
+    console.log(res);
     if (success) {
       const {accessToken, profile} = data;
       await AsyncStorage.setItem('token', accessToken);
