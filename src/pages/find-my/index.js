@@ -161,17 +161,17 @@ class FindMy extends React.Component {
           }}
         />
 
-        <TouchableWithoutFeedback
-          onPress={() => {
-            Jump.linkToPage({
-              navigation,
-              url: 'Note',
-            });
-          }}>
-          <View style={styles.note}>
-            <Image style={styles.edit} source={require('./edit.png')} />
-          </View>
-        </TouchableWithoutFeedback>
+        {/*<TouchableWithoutFeedback*/}
+        {/*  onPress={() => {*/}
+        {/*    Jump.linkToPage({*/}
+        {/*      navigation,*/}
+        {/*      url: 'Note',*/}
+        {/*    });*/}
+        {/*  }}>*/}
+        {/*  <View style={styles.note}>*/}
+        {/*    <Image style={styles.edit} source={require('./edit.png')} />*/}
+        {/*  </View>*/}
+        {/*</TouchableWithoutFeedback>*/}
       </View>
     );
   }

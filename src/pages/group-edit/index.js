@@ -135,7 +135,7 @@ class GroupEdit extends React.Component {
           />
         </View>
         <TouchableOpacity style={styles.submit} onPress={this.submitGroupFn}>
-          <Text style={styles.txt}>发布小组</Text>
+          <Text style={styles.txt}>发布讨论</Text>
         </TouchableOpacity>
       </ScrollView>
     );

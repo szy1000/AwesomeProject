@@ -10,7 +10,7 @@ export default class About extends React.Component {
         <View style={styles.logo_wrapper}>
           <Image style={styles.logo} source={require('./logo.jpeg')} />
         </View>
-        <Item title={'当前版本'} extra="1.0.0" more={false} />
+        <Item title={'当前版本'} extra="1.0.2" more={false} />
         <WhiteSpace size="middle" />
         <Item title={'使用许可协议'} />
         <Item title={'当前版本'} />

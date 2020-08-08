@@ -184,10 +184,6 @@ const router = [
               url: 'http://facebook.github.io/react-native/',
               title: '留学帮',
             });
-            // Jump.linkToPage({
-            //   navigation,
-            //   url: 'Message',
-            // });
           }}
         />
       ),
@@ -212,7 +208,7 @@ const router = [
     name: 'GroupEdit',
     component: GroupEdit,
     options: {
-      title: '添加学习小组',
+      title: '添加讨论',
     },
   },
   {

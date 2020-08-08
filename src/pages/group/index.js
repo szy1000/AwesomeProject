@@ -79,8 +79,8 @@ class Group extends React.Component {
             )}
           />
           <TopTab.Screen
-            keys="置顶"
-            name="置顶"
+            keys="置顶帖"
+            name="置顶帖"
             component={() => <FixedTop {...this.props} />}
           />
         </TopTab.Navigator>

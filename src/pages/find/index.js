@@ -9,7 +9,7 @@ export default class Find extends React.Component {
     {
       name: '关注',
       key: 'FindFocus',
-      component: () => <FindFocus />,
+      component: () => <FindFocus navigation={this.props.navigation} />,
     },
     {
       name: '发现',
