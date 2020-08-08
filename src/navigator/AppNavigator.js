@@ -104,8 +104,11 @@ function getHeaderTitle(_params) {
       };
     case 'Find':
       return {
-        title: '发现',
-        // headerShown: false,
+        title: null,
+        headerBackTitle: null,
+        headerBackIcon: null,
+        headerTruncatedBackTitle: null,
+        headerTransparent: true, //设置头部透明,
       };
     case 'BBS':
       return {

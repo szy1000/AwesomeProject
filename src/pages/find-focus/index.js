@@ -12,11 +12,11 @@ import {
 import {ListFooter} from '../../components';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {findInit} from './redux';
+import {findFocusInit} from './redux';
 
 import Jump from '../../utils/jump';
 
-class Find extends React.Component {
+class FindFocus extends React.Component {
   pageSize = 8;
   currIndex = 1;
   state = {
@@ -29,7 +29,7 @@ class Find extends React.Component {
       refreshLoading: true,
     });
 
-    this.props.findInit(
+    this.props.findFocusInit(
       {
         pageSize: 8,
         pageNumber: 1,
@@ -51,7 +51,7 @@ class Find extends React.Component {
     this.setState({
       loading: true,
     });
-    this.props.findInit(
+    this.props.findFocusInit(
       {
         pageSize: this.pageSize,
         pageNumber: this.currIndex,
@@ -76,7 +76,7 @@ class Find extends React.Component {
   };
 
   componentDidMount() {
-    this.props.findInit({
+    this.props.findFocusInit({
       pageSize: this.pageSize,
       pageNum: this.currIndex,
     });
@@ -250,6 +250,6 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  state => state.find,
-  dispatch => bindActionCreators({findInit}, dispatch),
-)(Find);
+  state => state.findFocus,
+  dispatch => bindActionCreators({findFocusInit}, dispatch),
+)(FindFocus);

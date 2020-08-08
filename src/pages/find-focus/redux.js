@@ -1,6 +1,6 @@
 import {getAllNoteReq} from './api';
 // Actions
-const UPDATE = 'FIND_UPDATE';
+const UPDATE = 'FIND_FOCUS_UPDATE';
 
 // Reducer
 const initState = {
@@ -10,7 +10,7 @@ const initState = {
   },
 };
 
-export const find = (state = initState, action) => {
+export const findFocus = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -23,14 +23,14 @@ export const find = (state = initState, action) => {
 };
 
 // Action Creators
-export const findUpdate = params => ({
+export const findFocusUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const findInit = (params, callback) => async (dispatch, getState) => {
+export const findFocusInit = (params, callback) => async (dispatch, getState) => {
   console.log('params', params);
-  const {note} = getState().find.data;
+  const {note} = getState().findFocus.data;
   const res = await getAllNoteReq(params || {});
   console.log('res', res);
 
@@ -41,7 +41,7 @@ export const findInit = (params, callback) => async (dispatch, getState) => {
     _res = res;
   }
   dispatch(
-    findUpdate({
+    findFocusUpdate({
       init: true,
       data: {
         note: _res,

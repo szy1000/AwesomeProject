@@ -94,12 +94,12 @@ export default class Login extends React.Component {
             onPress={this.handleLogin}>
             <Text style={styles.white}>登录</Text>
           </TouchableOpacity>
-          {/*<View style={styles.linkToRegister}>*/}
-          {/*  <Text style={styles.noAccount}>还没有账号？</Text>*/}
-          {/*  <Link style={styles.register} to="/Register">*/}
-          {/*    立即注册*/}
-          {/*  </Link>*/}
-          {/*</View>*/}
+          <View style={styles.linkToRegister}>
+            <Text style={styles.noAccount}>还没有账号？</Text>
+            <Link style={styles.register} to="/Register">
+              立即注册
+            </Link>
+          </View>
 
           {/*<View style={styles.loginWays}>*/}
           {/*  <View style={styles.way}>*/}

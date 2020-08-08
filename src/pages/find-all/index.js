@@ -12,11 +12,11 @@ import {
 import {ListFooter} from '../../components';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {findMyInit} from './redux';
+import {findAllInit} from './redux';
 
 import Jump from '../../utils/jump';
 
-class FindMy extends React.Component {
+class FindAll extends React.Component {
   pageSize = 8;
   currIndex = 1;
   state = {
@@ -29,7 +29,7 @@ class FindMy extends React.Component {
       refreshLoading: true,
     });
 
-    this.props.findMyInit(
+    this.props.findAllInit(
       {
         pageSize: 8,
         pageNumber: 1,
@@ -51,7 +51,7 @@ class FindMy extends React.Component {
     this.setState({
       loading: true,
     });
-    this.props.findMyInit(
+    this.props.findAllInit(
       {
         pageSize: this.pageSize,
         pageNumber: this.currIndex,
@@ -76,7 +76,7 @@ class FindMy extends React.Component {
   };
 
   componentDidMount() {
-    this.props.findMyInit({
+    this.props.findAllInit({
       pageSize: this.pageSize,
       pageNum: this.currIndex,
     });
@@ -85,10 +85,10 @@ class FindMy extends React.Component {
   render() {
     const {refreshLoading, loading} = this.state;
     const {init, data, navigation} = this.props;
+    console.log(this.props)
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    console.log('navigation', navigation);
     const {note} = data;
     return (
       <View style={styles.find}>
@@ -251,6 +251,6 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  state => state.findMy,
-  dispatch => bindActionCreators({findMyInit}, dispatch),
-)(FindMy);
+  state => state.findAll,
+  dispatch => bindActionCreators({findAllInit}, dispatch),
+)(FindAll);

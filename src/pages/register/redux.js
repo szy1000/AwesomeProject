@@ -37,7 +37,9 @@ export const registerInit = (params, callback) => async dispatch => {
 
   await AsyncStorage.setItem('token', accessToken);
   await AsyncStorage.setItem('name', name);
-  await AsyncStorage.setItem('sid', sid);
+  await AsyncStorage.setItem('sid', sid.toString());
+  console.log('resgiser res', res)
+
   dispatch(
     registerUpdate({
       data: {

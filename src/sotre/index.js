@@ -5,7 +5,10 @@ import {home} from '../pages/home/redux';
 import {search} from '../pages/serach/redux';
 import {register} from '../pages/register/redux';
 import {bbs} from '../pages/bbs/redux';
-import {find} from '../pages/find/redux';
+// import {find} from '../pages/find/redux';
+import {findFocus} from '../pages/find-focus/redux';
+import {findAll} from '../pages/find-all/redux';
+import {findMy} from '../pages/find-my/redux';
 import {message} from '../pages/message/redux';
 import {my} from '../pages/my/redux';
 import {findDetail} from '../pages/find-detail/redux';
@@ -54,7 +57,10 @@ const store = createStore(
     search,
     register,
     bbs,
-    find,
+    // find,
+    findFocus,
+    findAll,
+    findMy,
     my,
     findDetail,
     editInfo,

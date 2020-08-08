@@ -1,6 +1,6 @@
 import {getAllNoteReq} from './api';
 // Actions
-const UPDATE = 'FIND_MY_UPDATE';
+const UPDATE = 'FIND_UPDATE';
 
 // Reducer
 const initState = {
@@ -10,7 +10,7 @@ const initState = {
   },
 };
 
-export const findMy = (state = initState, action) => {
+export const findAll = (state = initState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
@@ -23,16 +23,16 @@ export const findMy = (state = initState, action) => {
 };
 
 // Action Creators
-export const findMyUpdate = params => ({
+export const findAllUpdate = params => ({
   payload: params,
   type: UPDATE,
 });
 
-export const findMyInit = (params, callback) => async (dispatch, getState) => {
+export const findAllInit = (params, callback) => async (dispatch, getState) => {
   console.log('params', params);
-  const {note} = getState().findMy.data;
+  const {note} = getState().findAll.data;
   const res = await getAllNoteReq(params || {});
-  console.log('findMy', res);
+  console.log('res', res);
 
   let _res = res;
   if (note.data) {
@@ -41,7 +41,7 @@ export const findMyInit = (params, callback) => async (dispatch, getState) => {
     _res = res;
   }
   dispatch(
-    findMyUpdate({
+    findAllUpdate({
       init: true,
       data: {
         note: _res,

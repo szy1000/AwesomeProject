@@ -71,6 +71,8 @@ class Register extends React.Component {
         <TextInput
           style={styles.ipt}
           value={nickName}
+          returnKeyType="done"
+          returnKeyLabel="done"
           placeholder={'请输入用户名'}
           onChangeText={e => this.saveTextValue('nickName', e)}
         />
