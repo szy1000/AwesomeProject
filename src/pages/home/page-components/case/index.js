@@ -27,13 +27,27 @@ export default class Case extends React.Component {
             key={item.id}
             onPress={() => this.linkTo(item.id, navigation)}>
             <View style={styles.item}>
-              <Image style={styles.pic} source={{uri: item.image}} />
+              <Image
+                style={styles.pic}
+                source={
+                  item.image
+                    ? {uri: item.image}
+                    : require('../../../../assets/images/logo.jpeg')
+                }
+              />
               <Text style={styles.title} numberOfLines={2}>
                 {item.title}
               </Text>
               <View style={styles.auth}>
                 <View style={styles.auth}>
-                  <Image style={styles.avatar} source={{uri: item.image}} />
+                  <Image
+                    style={styles.avatar}
+                    source={
+                      item.image
+                        ? {uri: item.image}
+                        : require('../../../../assets/images/logo.jpeg')
+                    }
+                  />
                   <Text style={styles.name}>{item.name}</Text>
                 </View>
                 <View style={styles.auth}>
