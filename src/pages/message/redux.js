@@ -30,8 +30,7 @@ export const messageInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
   const msg = await getMessageReq(params || {});
-  // const all = await postReadAllReq(params || {});
-
+  const all = await postReadAllReq(params || {});
   dispatch(
     messageUpdate({
       init: true,

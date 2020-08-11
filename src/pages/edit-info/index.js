@@ -42,7 +42,7 @@ class EditInfo extends React.Component {
       takePhotoButtonTitle: '相机',
       chooseFromLibraryButtonTitle: '图库',
       cancelButtonTitle: '取消',
-      quality: 0.5,
+      quality: 0.3,
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -111,7 +111,7 @@ class EditInfo extends React.Component {
       ? {uri: avatarUrl}
       : avatarSource.uri
       ? avatarSource
-      : require('./logo.jpeg');
+      : require('../../assets/images/logo.jpeg');
     console.log('_avatar', _avatar);
 
     return (
