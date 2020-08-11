@@ -59,7 +59,6 @@ class Home extends React.Component {
   };
 
   homeInit = () => {
-    console.log(1)
     this.props.homeInit({
       pageNum: 1,
       pageSize: 4,
@@ -97,7 +96,6 @@ class Home extends React.Component {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.scrollView}>
-        onScrollEndDrag={this.homeInit}
         <View style={styles.ipt_wrapper}>
           <RNPickerSelect
             onValueChange={value => {
