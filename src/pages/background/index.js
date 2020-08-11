@@ -55,6 +55,8 @@ class Background extends React.Component {
     this.setState({
       [key]: value,
     });
+    this.toggleModal(key);
+    this.search();
   };
 
   getDate = () => {

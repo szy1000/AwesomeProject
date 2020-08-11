@@ -48,6 +48,8 @@ class Summer extends React.Component {
       select: value,
       [key]: value,
     });
+    this.toggleModal(key);
+    this.search();
   };
 
   getDate = () => {
