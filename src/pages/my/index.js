@@ -53,7 +53,7 @@ class My extends React.Component {
                   source={
                     userInfo.avatarUrl
                       ? {uri: userInfo.avatarUrl}
-                      : require('./logo.jpeg')
+                      : require('../../assets/images/logo.jpeg')
                   }
                   style={styles.avatar}
                 />
@@ -76,7 +76,7 @@ class My extends React.Component {
               <View style={styles.loginWrapper}>
                 <ImageBackground
                   accessibilityRole={'image'}
-                  source={require('./logo.jpeg')}
+                  source={require('../../assets/images/logo.jpeg')}
                   style={styles.avatar}
                 />
                 <View style={{flex: 1}}>

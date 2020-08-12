@@ -1,6 +1,6 @@
 import {getAllNoteReq} from './api';
 // Actions
-const UPDATE = 'FIND_UPDATE';
+const UPDATE = 'FIND_ALL_UPDATE';
 
 // Reducer
 const initState = {
@@ -35,10 +35,12 @@ export const findAllInit = (params, callback) => async (dispatch, getState) => {
   console.log('res', res);
 
   let _res = res;
-  if (note.data) {
-    let temp = note.data.concat(res.data);
-    res.data = [...temp];
-    _res = res;
+  if (!params.refresh) {
+    if (note.data) {
+      let temp = note.data.concat(res.data);
+      res.data = [...temp];
+      _res = res;
+    }
   }
   dispatch(
     findAllUpdate({

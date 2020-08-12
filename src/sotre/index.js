@@ -38,6 +38,7 @@ import {backgroundDetail} from '../pages/background-detail/redux';
 import {cases} from '../pages/case/redux';
 import {caseList} from '../pages/case-list/redux';
 import {collect} from '../pages/collect/redux';
+import {service} from '../pages/service/redux';
 
 const logger = store => next => action => {
   if (typeof action === 'function') {
@@ -90,6 +91,7 @@ const store = createStore(
     cases,
     caseList,
     collect,
+    service,
   }),
   compose(applyMiddleware(thunk, logger)),
 );

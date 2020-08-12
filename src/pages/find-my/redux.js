@@ -35,11 +35,14 @@ export const findMyInit = (params, callback) => async (dispatch, getState) => {
   console.log('findMy', res);
 
   let _res = res;
-  if (note.data) {
-    let temp = note.data.concat(res.data);
-    res.data = [...temp];
-    _res = res;
+  if (!params.refresh) {
+    if (note.data) {
+      let temp = note.data.concat(res.data);
+      res.data = [...temp];
+      _res = res;
+    }
   }
+
   dispatch(
     findMyUpdate({
       init: true,

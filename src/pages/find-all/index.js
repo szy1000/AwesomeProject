@@ -33,6 +33,7 @@ class FindAll extends React.Component {
       {
         pageSize: 8,
         pageNumber: 1,
+        refresh: true,
       },
       () => {
         this.setState({
@@ -85,7 +86,7 @@ class FindAll extends React.Component {
   render() {
     const {refreshLoading, loading} = this.state;
     const {init, data, navigation} = this.props;
-    console.log(this.props)
+    console.log(this.props);
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
@@ -147,8 +148,6 @@ class FindAll extends React.Component {
           refreshControl={
             <RefreshControl
               title="加载中"
-              // tintColor={'orange'}
-              // titleColor={'red'}
               refreshing={refreshLoading}
               onRefresh={this.getDate}
             />

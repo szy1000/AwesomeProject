@@ -33,6 +33,7 @@ class FindFocus extends React.Component {
       {
         pageSize: 8,
         pageNumber: 1,
+        refresh: true,
       },
       () => {
         this.setState({

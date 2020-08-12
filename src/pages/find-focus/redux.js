@@ -28,18 +28,24 @@ export const findFocusUpdate = params => ({
   type: UPDATE,
 });
 
-export const findFocusInit = (params, callback) => async (dispatch, getState) => {
+export const findFocusInit = (params, callback) => async (
+  dispatch,
+  getState,
+) => {
   console.log('params', params);
   const {note} = getState().findFocus.data;
   const res = await getAllNoteReq(params || {});
   console.log('res', res);
 
   let _res = res;
-  if (note.data) {
-    let temp = note.data.concat(res.data);
-    res.data = [...temp];
-    _res = res;
+  if (!params.refresh) {
+    if (note.data) {
+      let temp = note.data.concat(res.data);
+      res.data = [...temp];
+      _res = res;
+    }
   }
+
   dispatch(
     findFocusUpdate({
       init: true,

@@ -70,22 +70,23 @@ class Feedback extends React.Component {
   };
 
   submitFeed = () => {
-    const {content, contact} = this.state;
-    if (contact) {
-      this.props.submitFeedback(
-        {
-          content,
-          contact,
-        },
-        () =>
-          Jump.linkToPage({
-            navigation: this.props.navigation,
-            url: 'My',
-          }),
-      );
-    } else {
-      alert('联系方式不能为空');
-    }
+    const {content, contact = ''} = this.state;
+    this.props.submitFeedback(
+      {
+        content,
+        contact,
+      },
+      () =>
+        Jump.linkToPage({
+          navigation: this.props.navigation,
+          url: 'My',
+        }),
+    );
+    // if (contact) {
+    //
+    // } else {
+    //   alert('联系方式不能为空');
+    // }
   };
 
   render() {

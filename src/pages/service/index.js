@@ -5,56 +5,34 @@ import {
   TextInput,
   ScrollView,
   SafeAreaView,
+  ActivityIndicator,
   StyleSheet,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {Button} from '../../components';
-import Jump from '../../utils/jump';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-export default class Service extends React.Component {
+import {serviceInit, sendMsg} from './redux';
+
+class Service extends React.Component {
   state = {
-    talkList: [
-      {
-        data: '111',
-        type: 'service',
-        txt: '你好有什么我可以帮助的吗？',
-      },
-      {
-        data: '22',
-        type: 'service',
-        txt: '你好有什么我可以帮助的吗？',
-      },
-      {
-        data: '22',
-        type: 'customer',
-        txt: '你好有什么我可以帮助的吗？',
-      },
-      {
-        data: '22',
-        type: 'customer',
-        txt: '你好有什么我可以帮助的吗？',
-      },
-      {
-        data: '22',
-        type: 'customer',
-        txt: '你好有什么我可以帮助的吗？',
-      },
-    ],
+    value: '',
   };
-
+  id = 0;
+  time = null;
   sendMessage = () => {
-    const {value, talkList} = this.state;
+    const {value} = this.state;
     if (!value) {
       alert('不能为空');
       return;
     }
-    talkList.push({
-      data: '333',
-      type: 'customer',
-      txt: value,
+    this.props.sendMsg({
+      message: value,
     });
     this.setState({
-      talkList,
       value: '',
     });
   };
@@ -65,33 +43,44 @@ export default class Service extends React.Component {
     });
   };
 
-  linkTo = url => {
-    const {navigation} = this.props;
-    Jump.linkToPage({
-      navigation,
-      url,
-    });
-  };
+  async componentDidMount(): void {
+    this.id = parseInt(await AsyncStorage.getItem('sid'), 10);
+    this.props.serviceInit();
+    this.time = setInterval(() => this.props.serviceInit(), 6000);
+  }
+  componentWillUnmount(): void {
+    clearInterval(this.time);
+  }
 
   render() {
-    const {talkList, value} = this.state;
+    const {value} = this.state;
+    const {init, _data} = this.props;
+    if (!init) {
+      return <ActivityIndicator style={{marginTop: 30}} />;
+    }
+    const {data} = _data;
+    console.log(_data);
     return (
       <SafeAreaView style={{flex: 1}}>
         <ScrollView
           onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
           ref="scrollView">
           <View style={styles.main}>
-            {talkList.map(({txt, type}, i) => {
-              if (type === 'customer') {
+            {data.map(({message, user: {id, avatarUrl}}, i) => {
+              if (id === this.id) {
                 return (
                   <View style={[styles.msgRight]}>
                     <View style={styles.contentRight}>
                       <View style={styles.arrowRight} />
-                      <Text style={styles.txt}>{txt}</Text>
+                      <Text style={styles.txt}>{message}</Text>
                     </View>
                     <Image
                       style={styles.avatar}
-                      source={require('./tx1.png')}
+                      source={
+                        avatarUrl
+                          ? {uri: avatarUrl}
+                          : require('../../assets/images/logo.jpeg')
+                      }
                     />
                   </View>
                 );
@@ -100,11 +89,15 @@ export default class Service extends React.Component {
                   <View style={[styles.msg]}>
                     <Image
                       style={styles.avatar}
-                      source={require('./tx1.png')}
+                      source={
+                        avatarUrl
+                          ? {uri: avatarUrl}
+                          : require('../../assets/images/logo.jpeg')
+                      }
                     />
                     <View style={styles.content}>
                       <View style={styles.arrowLeft} />
-                      <Text style={styles.txt}>{txt}</Text>
+                      <Text style={styles.txt}>{message}</Text>
                     </View>
                   </View>
                 );
@@ -128,6 +121,11 @@ export default class Service extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => state.service,
+  dispatch => bindActionCreators({serviceInit, sendMsg}, dispatch),
+)(Service);
 
 const styles = StyleSheet.create({
   main: {
@@ -173,6 +171,7 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 23,
     overflow: 'hidden',
+    resizeMode: 'cover',
   },
 
   content: {
