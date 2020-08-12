@@ -47,7 +47,7 @@ class BBS extends React.Component {
       return <Loading />;
     }
     const {groupCategory, hotGroup} = data;
-    console.log(groupCategory);
+    console.log(data);
 
     return (
       <View style={styles.bbs}>

@@ -9,6 +9,7 @@ import {
   unFollowNoteReq,
   unStarNoteReq,
   unFavoriteNoteReq,
+  queryFollowUserReq,
 } from './api';
 // Actions
 const UPDATE = 'FIND_DETAIL_UPDATE';
@@ -42,13 +43,16 @@ export const findDetailInit = (params, callback) => async dispatch => {
   // console.log(init)
   const noteDetail = await getNoteDetailReq(params || {});
   const actionAll = await queryActionReq(params || {});
+  const userAll = await queryFollowUserReq(params || {});
   const commentList = await getNoteCommentReq(params || {});
+  console.log(userAll);
   dispatch(
     findDetailUpdate({
       init: true,
       data: {
         noteDetail,
         actionAll,
+        userAll,
         commentList,
       },
     }),
@@ -64,10 +68,10 @@ export const commentNote = (params, callback) => async dispatch => {
 };
 
 export const followNote = (params, callback) => async (dispatch, getState) => {
-  const {actionAll} = await getState().findDetail.data;
-  console.log('data', actionAll.follow);
+  const {userAll} = await getState().findDetail.data;
+  console.log('data', userAll.follow);
   let res = '';
-  if (actionAll.follow) {
+  if (userAll.follow) {
     res = await unFollowNoteReq(params || {});
   } else {
     res = await followNoteReq(params || {});

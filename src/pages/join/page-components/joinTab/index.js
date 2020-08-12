@@ -35,22 +35,27 @@ class JoinTab extends React.Component {
       init,
       data: {joinTab},
     } = this.props;
-    console.log('joinTab', joinTab);
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {data} = joinTab;
     return (
       <Fragment>
-        {data.length > 0 ? (
-          data.map(v => (
+        {joinTab.length > 0 ? (
+          joinTab.map(v => (
             <TouchableWithoutFeedback
               key={v.id}
               onPress={() => this.linkToDetail(v.id)}>
               <View style={_styles.item}>
-                <Image style={_styles.logo} source={v.thumbnail ?  {uri: v.thumbnail} : require('./pic25.png')} />
+                <Image
+                  style={_styles.logo}
+                  source={
+                    v.thumbnail
+                      ? {uri: v.thumbnail}
+                      : require('../../../../assets/images/logo.jpeg')
+                  }
+                />
                 <Text style={_styles.name} numberOfLines={1}>
-                  {v.title}
+                  {v.name}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

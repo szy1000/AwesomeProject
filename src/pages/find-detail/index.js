@@ -81,7 +81,7 @@ class FindDetail extends React.Component {
           <Header
             user={user}
             followFn={this.follow}
-            follow={data.actionAll.follow}
+            follow={data.userAll.follow}
           />
           <ScrollView
             onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}

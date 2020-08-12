@@ -6,6 +6,8 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  Image,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -14,6 +16,7 @@ import {publishInit} from './redux';
 
 import {WhiteSpace, Empty} from '../../components';
 import Item from './item';
+import Jump from '../../utils/jump';
 
 class Publish extends React.Component {
   state = {
@@ -66,7 +69,7 @@ class Publish extends React.Component {
 
   render() {
     const {refreshLoading, loading} = this.state;
-    const {init, data} = this.props;
+    const {init, data, navigation} = this.props;
     if (!init) {
       return <ActivityIndicator />;
     }
@@ -102,6 +105,17 @@ class Publish extends React.Component {
         ) : (
           <Empty />
         )}
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Jump.linkToPage({
+              navigation,
+              url: 'Note',
+            });
+          }}>
+          <View style={styles.note}>
+            <Image style={styles.edit} source={require('./edit.png')} />
+          </View>
+        </TouchableWithoutFeedback>
       </>
     );
   }
@@ -114,6 +128,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   concern: {
+    position: 'relative',
     paddingBottom: 15,
     backgroundColor: '#fff',
   },
@@ -132,5 +147,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 12,
     color: '#bbb',
+  },
+
+  note: {
+    position: 'absolute',
+    right: 10,
+    bottom: 60,
+  },
+  edit: {
+    width: 60,
+    height: 60,
   },
 });

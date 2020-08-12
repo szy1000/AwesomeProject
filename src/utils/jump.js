@@ -12,4 +12,8 @@ export default class Jump {
     const {navigation, url, params} = _params;
     navigation.navigate(url, params);
   }
+  static goBack(_params) {
+    const {navigation} = _params;
+    navigation.goBack();
+  }
 }

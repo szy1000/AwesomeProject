@@ -46,15 +46,12 @@ export const groupEditInit = (params, callback) => async (
   }
   console.log(params);
   const res = await submitForumReq(params || {});
-  console.log('rrrrrrrrrr', res)
-  // dispatch(
-  //   groupEditUpdate({
-  //     data: {
-  //       ...userInfo,
-  //     },
-  //   }),
-  // );
-  callback && callback();
+  if (res.success) {
+    callback && callback();
+  } else {
+    alert(res.error);
+  }
+  console.log('rrrrrrrrrr', res);
 };
 
 export const uploadFileFn = (params, callback) => async (

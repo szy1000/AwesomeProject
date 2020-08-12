@@ -38,16 +38,22 @@ class ManageTab extends React.Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    const {data = []} = manageTab;
     return (
       <Fragment>
-        {data.length > 0 ? (
-          data.map(v => (
+        {manageTab.length > 0 ? (
+          manageTab.map(v => (
             <TouchableWithoutFeedback
               key={v.id}
               onPress={() => this.linkToDetail(v.id)}>
               <View style={_styles.item}>
-                <Image style={_styles.logo} source={{uri: v.image}} />
+                <Image
+                  style={_styles.logo}
+                  source={
+                    v.image
+                      ? {uri: v.image}
+                      : require('../../../../assets/images/logo.jpeg')
+                  }
+                />
                 <Text style={_styles.name} numberOfLines={1}>
                   {v.title}
                 </Text>

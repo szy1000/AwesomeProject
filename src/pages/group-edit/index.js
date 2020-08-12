@@ -37,9 +37,8 @@ class GroupEdit extends React.Component {
           groupId: this.props.data.group.id,
         },
         () =>
-          Jump.linkToPage({
+          Jump.goBack({
             navigation: this.props.navigation,
-            url: 'BBS',
           }),
       );
     } else {
