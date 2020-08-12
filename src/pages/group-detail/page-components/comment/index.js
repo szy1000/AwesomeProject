@@ -1,23 +1,16 @@
 import React from 'react';
-import {View, Image,TextInput, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import {SearchInput} from '../../../../components';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native';
 
 export default class GroupDetail extends React.Component {
   state = {
-    thumbUp: false,
-    collect: false,
     content: '',
-  };
-
-  handleState = name => {
-    if (name === 'thumbUp') {
-      this.props.thumbUpDis();
-    } else {
-      this.props.favoriteDis();
-    }
-    this.setState({
-      [name]: !this.state[name],
-    });
   };
 
   saveValue = e => {
@@ -27,7 +20,15 @@ export default class GroupDetail extends React.Component {
   };
 
   render() {
-    const {thumbUp, collect, content} = this.state;
+    const {content} = this.state;
+    const {
+      star,
+      starCount,
+      toggleThumbUpDis,
+      toggleFavoriteDis,
+      favorite,
+      favoriteCount,
+    } = this.props;
     return (
       <View style={styles.comment}>
         <TextInput
@@ -42,19 +43,27 @@ export default class GroupDetail extends React.Component {
           onChangeText={e => this.saveValue(e)}
           value={content}
         />
-        <TouchableWithoutFeedback onPress={() => this.handleState('thumbUp')}>
-          <Image
-            style={styles.img}
-            source={thumbUp ? require('./thumb-on.png') : require('./zan.png')}
-          />
+        <TouchableWithoutFeedback onPress={() => toggleThumbUpDis(star)}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              style={styles.img}
+              source={star ? require('./thumb-on.png') : require('./zan.png')}
+            />
+            <Text>{starCount}</Text>
+          </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => this.handleState('collect')}>
-          <Image
-            style={styles.img}
-            source={
-              collect ? require('./collect-on.png') : require('./collect.png')
-            }
-          />
+        <TouchableWithoutFeedback onPress={() => toggleFavoriteDis(favorite)}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              style={styles.img}
+              source={
+                favorite
+                  ? require('./collect-on.png')
+                  : require('./collect.png')
+              }
+            />
+            <Text>{favoriteCount}</Text>
+          </View>
         </TouchableWithoutFeedback>
       </View>
     );

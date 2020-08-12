@@ -25,18 +25,21 @@ class GroupDetail extends React.Component {
     this.props.groupDetailInit(params.id);
   }
 
-  thumbUpDis = () => {
+  toggleThumbUpDis = async () => {
     const {
       route: {params},
     } = this.props;
-    this.props.thumbUpDis(params.id);
+    await this.props.thumbUpDis(params.id);
+    this.props.groupDetailInit(params.id);
   };
 
-  favoriteDis = () => {
+  toggleFavoriteDis = async hasFav => {
+    console.log(hasFav);
     const {
       route: {params},
     } = this.props;
-    this.props.favoriteDis(params.id);
+    await this.props.favoriteDis(params.id);
+    this.props.groupDetailInit(params.id);
   };
 
   makeComment = (content, callback) => {
@@ -59,6 +62,7 @@ class GroupDetail extends React.Component {
       return <ActivityIndicator />;
     }
     const {groupDetail, comment} = data;
+    console.log('group data', data);
     return (
       <KeyboardAwareScrollView>
         <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -68,16 +72,15 @@ class GroupDetail extends React.Component {
             style={styles.groupDetail}>
             <Item {...groupDetail} />
             <WhiteSpace size={'big'} />
-            {comment.length > 0 ? (
+            {comment.length > 0 && (
               comment.map(v => <Leave key={v.id} {...v} />)
-            ) : (
-              <Empty />
             )}
           </ScrollView>
           <Comment
-            thumbUpDis={this.thumbUpDis}
+            {...groupDetail}
             makeComment={e => this.makeComment(e)}
-            favoriteDis={this.favoriteDis}
+            toggleThumbUpDis={this.toggleThumbUpDis}
+            toggleFavoriteDis={this.toggleFavoriteDis}
           />
         </SafeAreaView>
       </KeyboardAwareScrollView>

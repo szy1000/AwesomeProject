@@ -12,7 +12,7 @@ const thumbUpDiscussionReq = params =>
   Https.post(`/api/app/forum/discussion/${params}/star`, {}, true);
 
 const favoriteDiscussionReq = params =>
-  Https.post(`/api/app/forum/discussion/${params}/star`, {}, true);
+  Https.post(`/api/app/forum/discussion/${params}/favorite`, {}, true);
 
 const favoriteCommentReq = params =>
   Https.get(`/api/app/forum/comment/${params}/favorite`);

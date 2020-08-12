@@ -19,7 +19,7 @@ import {
   favoriteNote,
   starNote,
 } from './redux';
-import {Empty} from '../../components';
+import {WhiteSpace} from '../../components';
 
 class FindDetail extends React.Component {
   constructor(props) {
@@ -83,17 +83,24 @@ class FindDetail extends React.Component {
             followFn={this.follow}
             follow={data.actionAll.follow}
           />
-          <ScrollView style={{flex: 1}}>
+          <ScrollView
+            onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
+            ref="scrollView"
+            style={{flex: 1}}>
             <Banner files={files} />
-            <View>
-              <Text>{title}</Text>
-              <Text>{content}</Text>
+            <View style={{padding: 15}}>
+              <Text style={{fontSize: 18}}>{title}</Text>
+              <Text style={{fontSize: 16, lineHeight: 20}}>{content}</Text>
             </View>
-            {data.commentList.length > 0 ? (
-              data.commentList.map(v => <Leave key={v.id} {...v} />)
-            ) : (
-              <Empty />
+            <WhiteSpace />
+            {data.commentList.length > 0 && (
+              <Text
+                style={{paddingHorizontal: 15, marginTop: 15, fontSize: 20}}>
+                评论:
+              </Text>
             )}
+            {data.commentList.length > 0 &&
+              data.commentList.map(v => <Leave key={v.id} {...v} />)}
           </ScrollView>
           <View style={styles.control}>
             <Comment

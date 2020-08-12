@@ -5,16 +5,14 @@ import {
   Image,
   TouchableWithoutFeedback,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 import {SearchInput} from '../../../../components';
 
 export default class GroupDetail extends React.Component {
-  handleState = name => {
-    this.setState({
-      [name]: !this.state[name],
-    });
+  state = {
+    content: '',
   };
-
   changeValue = e => {
     this.setState({
       content: e,
@@ -40,8 +38,11 @@ export default class GroupDetail extends React.Component {
         <SearchInput
           style={styles.ipt}
           placeholder="写回复"
+          value={this.state.content}
           onChangeText={e => this.changeValue(e)}
-          onBlur={this.blurFn}
+          returnKeyLabel="send"
+          returnKeyType="send"
+          onSubmitEditing={this.blurFn}
         />
         <TouchableWithoutFeedback onPress={this.props.starNoteFn}>
           <Image

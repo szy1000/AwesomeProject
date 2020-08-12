@@ -15,7 +15,9 @@ export default class Leave extends React.Component {
       <View style={styles.leave}>
         <Image
           style={styles.avatar}
-          source={_uri ? {uri: _uri} : require('./avatar.png')}
+          source={
+            _uri ? {uri: _uri} : require('../../../../assets/images/logo.jpeg')
+          }
         />
         <View style={styles.content}>
           <View style={styles.info}>
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     overflow: 'hidden',
   },
   content: {
