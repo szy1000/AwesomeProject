@@ -26,7 +26,7 @@ export default class Find extends React.Component {
   render() {
     return (
       <Tab
-        initialRouteName={'关注'}
+        initialRouteName={'发现'}
         tabContent={this.tabContent}
         tabBarOptions={{
           labelStyle: {

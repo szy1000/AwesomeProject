@@ -93,7 +93,7 @@ class Repository extends React.Component {
     const {keys, country, school} = this.state;
     this.props.repositoryInit({
       pageNumber: 1,
-      pageSize: 50,
+      pageSize: 500,
       query: keys,
       init: true,
       order: school.id,

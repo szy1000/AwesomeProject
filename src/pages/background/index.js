@@ -91,7 +91,7 @@ class Background extends React.Component {
   search = () => {
     const {keys, subject, category, grade} = this.state;
     this.props.backgroundInit({
-      pageSize: 50,
+      pageSize: 500,
       pageNumber: 1,
       query: keys,
       gradeId: grade.id,

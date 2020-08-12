@@ -41,7 +41,7 @@ export const groupAllInit = (params, callback) => async (
   const groupDetail = await getGroupListReq({
     categoryId: allCategory[0].id,
     pageNumber: 1,
-    pageSize: 50,
+    pageSize: 500,
   });
   dispatch(
     groupAllUpdate({
@@ -63,7 +63,7 @@ export const searchGroupReq = (params, callback) => async (
   const groupDetail = await getGroupListReq({
     categoryId: params.id,
     pageNumber: 1,
-    pageSize: 50,
+    pageSize: 500,
   });
   dispatch(
     groupAllUpdate({

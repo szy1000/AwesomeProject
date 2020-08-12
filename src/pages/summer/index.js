@@ -93,7 +93,7 @@ class Summer extends React.Component {
     const {keys, grade, subject} = this.state;
     this.props.summerInit({
       init: true,
-      pageSize: 50,
+      pageSize: 500,
       pageNumber: 1,
       query: keys,
       gradeId: grade.id,
