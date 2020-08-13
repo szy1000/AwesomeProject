@@ -34,15 +34,14 @@ class Home extends React.Component {
     this.countryId = '';
   }
   componentDidMount() {
-    console.log(this.props.navigation.addListener);
     this.didFocusListener = this.props.navigation.addListener('focus', () => {
       this.getPos();
-      console.log('did focus');
+      console.log('home did focus');
     });
   }
 
   componentWillUnmount() {
-    this.didFocusListener.remove();
+    this.didFocusListener.removeEventListener();
   }
 
   getPos = async () => {
@@ -86,8 +85,6 @@ class Home extends React.Component {
 
   render() {
     const {init, navigation, data} = this.props;
-
-    console.log('state: ', navigation.state);
     if (!init) {
       return <ActivityIndicator />;
     }

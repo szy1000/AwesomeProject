@@ -23,6 +23,7 @@ export default class Find extends React.Component {
       component: () => <FindMy navigation={this.props.navigation} />,
     },
   ];
+
   render() {
     return (
       <Tab

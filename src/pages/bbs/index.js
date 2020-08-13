@@ -15,9 +15,15 @@ import {bbsInit, joinGroup} from './redux';
 import {Loading} from '../../components';
 
 class BBS extends React.Component {
-  componentDidMount(): void {
-    this.props.bbsInit();
-    // console.log(this.props)
+  componentDidMount() {
+    this.didFocusListener = this.props.navigation.addListener('focus', () => {
+      this.props.bbsInit();
+      console.log('bbs did focus');
+    });
+  }
+
+  componentWillUnmount() {
+    this.didFocusListener.removeEventListener();
   }
 
   linkToGroup = id => {

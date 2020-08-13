@@ -77,10 +77,17 @@ class FindAll extends React.Component {
   };
 
   componentDidMount() {
-    this.props.findAllInit({
-      pageSize: this.pageSize,
-      pageNum: this.currIndex,
+    this.didFocusListener = this.props.navigation.addListener('focus', () => {
+      this.props.findAllInit({
+        pageSize: this.pageSize,
+        pageNum: this.currIndex,
+      });
+      console.log('find did focus');
     });
+  }
+
+  componentWillUnmount() {
+    this.didFocusListener.removeEventListener();
   }
 
   render() {

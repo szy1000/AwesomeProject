@@ -21,12 +21,23 @@ import Tools from '../../utils/tool';
 
 class My extends React.Component {
   async componentDidMount() {
-    this.isLogin = await Tools.isLogin();
-    if (this.isLogin) {
-      this.userName = await AsyncStorage.getItem('name');
-      const id = await AsyncStorage.getItem('sid');
-      this.props.myInit(id);
-    }
+    console.log(this.props.navigation.addListener);
+    this.didFocusListener = this.props.navigation.addListener(
+      'focus',
+      async () => {
+        // this.getPos();
+        this.isLogin = await Tools.isLogin();
+        if (this.isLogin) {
+          this.userName = await AsyncStorage.getItem('name');
+          const id = await AsyncStorage.getItem('sid');
+          this.props.myInit(id);
+        }
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    this.didFocusListener.removeEventListener();
   }
 
   editInfo = () => {
