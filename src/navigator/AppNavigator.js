@@ -1,5 +1,12 @@
 import React from 'react';
-import {Button, YellowBox, Text, StyleSheet} from 'react-native';
+import {
+  Button,
+  YellowBox,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from 'react-native';
 
 import router from './routeMap';
 import {NavigationContainer} from '@react-navigation/native';
@@ -24,6 +31,7 @@ const TabBottom = e => {
   return (
     <Tab.Navigator
       keyboardHidesTabBar={true}
+      // tabBar={props => <MyTabBar {...props} />}
       tabPress={() => console.log(11111)}>
       <Tab.Screen
         name="Home"

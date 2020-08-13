@@ -68,20 +68,20 @@ class Concern extends React.Component {
       <View style={styles.concern}>
         <FlatList
           data={concern.data}
-          renderItem={({item, index}) => (
+          renderItem={({item: {resourceId, resourceContent}, index}) => (
             <View>
               <TouchableOpacity
                 style={styles.item}
                 key={index}
                 onPress={() => {
-                  this._onPressItem(item.resourceId);
+                  this._onPressItem(resourceId);
                 }}>
-                <Image
-                  style={styles.avatar}
-                  source={{uri: item.resourceContent.thumbnail}}
-                />
+                {/*<Image*/}
+                {/*  style={styles.avatar}*/}
+                {/*  source={{uri: item.resourceContent.thumbnail}}*/}
+                {/*/>*/}
                 <View style={styles.content}>
-                  <Text style={styles.title}>{item.resourceContent.title}</Text>
+                  <Text style={styles.title}>{resourceId}</Text>
                   <View style={styles.count}>
                     <Image
                       source={require('./pic40.png')}

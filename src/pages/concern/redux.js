@@ -30,6 +30,7 @@ export const concernInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   // console.log(init)
   const concern = await getConcernReq(params || {});
+  console.log(concern)
   dispatch(
     concernUpdate({
       init: true,
