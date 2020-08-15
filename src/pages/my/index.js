@@ -21,7 +21,6 @@ import Tools from '../../utils/tool';
 
 class My extends React.Component {
   async componentDidMount() {
-    console.log(this.props.navigation.addListener);
     this.didFocusListener = this.props.navigation.addListener(
       'focus',
       async () => {
@@ -37,7 +36,8 @@ class My extends React.Component {
   }
 
   componentWillUnmount() {
-    this.didFocusListener.removeEventListener();
+    this.didFocusListener.removeEventListener &&
+      this.didFocusListener.removeEventListener();
   }
 
   editInfo = () => {

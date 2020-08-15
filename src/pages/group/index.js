@@ -56,7 +56,7 @@ class Group extends React.Component {
               navigation,
               url: 'GroupEdit',
               params: {
-                id: params.id,
+                id: group.id,
               },
             });
           }}>

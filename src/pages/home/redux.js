@@ -7,6 +7,7 @@ import {
   queryKeywords,
   getUnreadCountReq,
 } from './api';
+import Tools from '../../utils/tool';
 // Actions
 const UPDATE = 'HOME_UPDATE';
 
@@ -75,7 +76,10 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
   const hotSchool = await getHotSchoolReq(countyParams);
   const hotSubject = await getHotSubjectReq(countyParams);
   const hotCase = await getCaseReq(countyParams);
-  const unread = await getUnreadCountReq(countyParams);
+  let unread = 0;
+  if (await Tools.isLogin()) {
+    unread = await getUnreadCountReq(countyParams);
+  }
 
   dispatch(
     homeUpdate({

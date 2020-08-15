@@ -23,7 +23,8 @@ class BBS extends React.Component {
   }
 
   componentWillUnmount() {
-    this.didFocusListener.removeEventListener();
+    this.didFocusListener.removeEventListener &&
+      this.didFocusListener.removeEventListener();
   }
 
   linkToGroup = id => {

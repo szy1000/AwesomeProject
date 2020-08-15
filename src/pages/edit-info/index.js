@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {editInfoInit, uploadFileFn, saveInfo, saveTempInfo} from './redux';
 import Jump from '../../utils/jump';
+import Tools from '../../utils/tool';
 
 class EditInfo extends React.Component {
   constructor(props) {
@@ -31,9 +32,19 @@ class EditInfo extends React.Component {
     sex: '',
   };
 
-  async componentDidMount(): void {
-    this.id = await AsyncStorage.getItem('sid');
-    this.props.editInfoInit(this.id);
+  componentDidMount(): void {
+    this.didFocusListener = this.props.navigation.addListener(
+      'focus',
+      async () => {
+        this.id = await AsyncStorage.getItem('sid');
+        this.props.editInfoInit(this.id);
+      },
+    );
+  }
+
+  componentWillUnmount(): void {
+    this.didFocusListener.removeEventListener &&
+      this.didFocusListener.removeEventListener();
   }
 
   getPhoto = async () => {

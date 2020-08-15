@@ -39,7 +39,7 @@ export const groupEditInit = (params, callback) => async (
     files.push(v.id);
   });
   params.files = files;
-  params.groupId = new Date().getMilliseconds();
+  // params.groupId = new Date().getMilliseconds();
   if (!files.length) {
     alert('请至少上传一张图片');
     return;

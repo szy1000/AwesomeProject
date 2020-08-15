@@ -87,6 +87,7 @@ class FindAll extends React.Component {
   }
 
   componentWillUnmount() {
+    this.didFocusListener.removeEventListener &&
     this.didFocusListener.removeEventListener();
   }
 

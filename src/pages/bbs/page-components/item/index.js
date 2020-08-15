@@ -27,6 +27,7 @@ export default class Item extends React.Component {
   };
   render() {
     const {list = [], toggleJoinFn, navigation} = this.props;
+    console.log(list)
     return (
       <View>
         {list.map((v, index) => (
@@ -57,7 +58,7 @@ export default class Item extends React.Component {
                       source={require('./pic59.png')}
                     />
                     <Text style={styles.subTitle}>
-                      {v.discussionCount}内容记录
+                      {v.commentCount}内容记录
                     </Text>
                   </View>
                 </View>

@@ -40,7 +40,6 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
       }
     })
     .catch(err => {
-      console.log(err)
       AsyncStorage.clear();
       const {message} = err;
       if (message.includes(401)) {

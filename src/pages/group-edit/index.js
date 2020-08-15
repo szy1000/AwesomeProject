@@ -29,6 +29,7 @@ class GroupEdit extends React.Component {
 
   submitGroupFn = () => {
     const {title, content} = this.state;
+
     if (title && content) {
       this.props.groupEditInit(
         {

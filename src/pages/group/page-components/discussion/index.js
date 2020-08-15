@@ -74,6 +74,7 @@ class Discussion extends React.Component {
       return <ActivityIndicator />;
     }
     const {data} = discussion;
+    console.log(this.props)
     return (
       <View style={styles.discussion}>
         <View style={styles.wrapper}>
