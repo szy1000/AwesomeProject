@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import {View, Image, TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 export default class Header extends React.Component {
   render() {
@@ -33,11 +27,9 @@ export default class Header extends React.Component {
             <Text style={styles.address}>{address}</Text>
           </View>
         </View>
-        <View>
-          <TouchableWithoutFeedback onPress={this.props.followFn}>
-            {follow ? <Text>取消关注</Text> : <Text>关注</Text>}
-          </TouchableWithoutFeedback>
-        </View>
+        <TouchableOpacity onPress={() => this.props.followFn()}>
+          <View>{follow ? <Text>取消关注</Text> : <Text>关注</Text>}</View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -45,10 +37,11 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
+    // position: 'relative',
     paddingLeft: 40,
     paddingRight: 20,
-    height: 40,
-    alignItems: 'center',
+    // height: 40,
+    // alignItems: 'center',
     flexDirection: 'row',
   },
   avatar: {

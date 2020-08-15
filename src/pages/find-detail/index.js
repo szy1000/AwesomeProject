@@ -50,8 +50,8 @@ class FindDetail extends React.Component {
     }
   };
 
-  follow = () => {
-    this.props.followNote(this.noteId, this.initPage);
+  follow = id => {
+    this.props.followNote(id, this.initPage);
   };
 
   favoriteNoteFn = () => {
@@ -75,12 +75,13 @@ class FindDetail extends React.Component {
       starCount,
       user,
     } = data.noteDetail;
+    console.log(data.userAll)
     return (
       <View style={styles.findDetail}>
         <SafeAreaView style={{flex: 1}}>
           <Header
             user={user}
-            followFn={this.follow}
+            followFn={() => this.follow(user.id)}
             follow={data.userAll.follow}
           />
           <ScrollView

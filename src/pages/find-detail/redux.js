@@ -40,12 +40,11 @@ export const findDetailUpdate = params => ({
 
 export const findDetailInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
-  // console.log(init)
   const noteDetail = await getNoteDetailReq(params || {});
   const actionAll = await queryActionReq(params || {});
-  const userAll = await queryFollowUserReq(params || {});
+  const userAll = await queryFollowUserReq(noteDetail.user.id || {});
   const commentList = await getNoteCommentReq(params || {});
-  console.log(userAll);
+
   dispatch(
     findDetailUpdate({
       init: true,
@@ -69,21 +68,13 @@ export const commentNote = (params, callback) => async dispatch => {
 
 export const followNote = (params, callback) => async (dispatch, getState) => {
   const {userAll} = await getState().findDetail.data;
-  console.log('data', userAll.follow);
+  console.log('user id', params);
   let res = '';
   if (userAll.follow) {
     res = await unFollowNoteReq(params || {});
   } else {
     res = await followNoteReq(params || {});
   }
-  // dispatch(
-  //   findDetailUpdate({
-  //     init: true,
-  //     data: {
-  //       followNote,
-  //     },
-  //   }),
-  // );
   callback && callback();
 };
 

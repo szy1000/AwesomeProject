@@ -32,6 +32,7 @@ class Home extends React.Component {
     super(props);
     this.navigation = this.props.navigation;
     this.countryId = '';
+    // this.didFocusListener = '';
   }
   componentDidMount() {
     this.didFocusListener = this.props.navigation.addListener('focus', () => {
@@ -41,7 +42,8 @@ class Home extends React.Component {
   }
 
   componentWillUnmount() {
-    this.didFocusListener.removeEventListener();
+    this.didFocusListener.removeEventListener &&
+      this.didFocusListener.removeEventListener();
   }
 
   getPos = async () => {
