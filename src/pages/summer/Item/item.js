@@ -44,18 +44,25 @@ export default class Item extends React.Component {
               <View style={_styles.ranking}>
                 <View style={_styles.ranking_item}>
                   <Image style={_styles.icon} source={require('./time.png')} />
-                  <Text style={_styles.desc}>{registrationEndTime && registrationEndTime.split(' ')[0]}截止</Text>
+                  <Text numberOfLines={1} style={_styles.desc}>
+                    {registrationEndTime && registrationEndTime.split(' ')[0]}
+                    截止
+                  </Text>
                 </View>
                 <View style={_styles.ranking_item}>
                   <Image
                     style={_styles.icon}
                     source={require('./address.png')}
                   />
-                  <Text style={_styles.desc}>{place}</Text>
+                  <Text numberOfLines={1} style={_styles.desc}>
+                    {place}
+                  </Text>
                 </View>
               </View>
               {expectedResult && (
-                <Text style={_styles.result}>预期成果：{expectedResult}</Text>
+                <Text numberOfLines={2} style={_styles.result}>
+                  预期成果：{expectedResult}
+                </Text>
               )}
             </View>
           </View>
@@ -93,10 +100,11 @@ const _styles = StyleSheet.create({
     // paddingTop: 15,
     // paddingLeft: 10,
     flexDirection: 'row',
+    overflow: 'hidden',
   },
   ranking_item: {
     flexDirection: 'row',
-    // width: '50%',
+    width: '48%',
   },
   icon: {
     width: 14,
