@@ -21,6 +21,7 @@ export default class Item extends React.Component {
   render() {
     const {
       image,
+      id,
       title,
       place,
       registrationEndTime,
@@ -28,7 +29,7 @@ export default class Item extends React.Component {
       styles,
     } = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => this.linkToDetail(1)}>
+      <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
           <Image
             style={_styles.logo}

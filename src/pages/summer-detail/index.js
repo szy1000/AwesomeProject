@@ -9,6 +9,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+import HTMLView from 'react-native-htmlview';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {summerDetailInit} from './redux';
@@ -24,6 +26,8 @@ class SummerDetail extends React.Component {
 
   render() {
     const {init, data} = this.props;
+    console.log(data);
+
     if (!init) {
       return <ActivityIndicator />;
     }
@@ -44,6 +48,12 @@ class SummerDetail extends React.Component {
         title,
       },
     } = data;
+    const isEnd =
+      new Date(registrationEndTime.replace(/-/g, '/')).getTime() >
+      new Date().getTime()
+        ? false
+        : true;
+    console.log(isEnd);
     return (
       <View style={styles.summerDetail}>
         <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -56,7 +66,7 @@ class SummerDetail extends React.Component {
               </View>
               <View style={styles.item}>
                 <Image style={styles.icon} source={require('./address.png')} />
-                <Text>{place}</Text>
+                <Text numberOfLines={1}>{place}</Text>
               </View>
               {/*<View style={[styles.item, {justifyContent: 'flex-end'}]}>*/}
               {/*  <Text>{place}</Text>*/}
@@ -71,7 +81,7 @@ class SummerDetail extends React.Component {
                   source={image ? {uri: image} : require('./pic19.png')}
                 />
               </View>
-              <Text>{content}</Text>
+              <HTMLView value={content} style={{color: '#000'}} />
             </View>
             <View style={styles.panel}>
               <View>
@@ -117,9 +127,15 @@ class SummerDetail extends React.Component {
               </View>
             </View>
           </ScrollView>
-          <View style={styles.btn}>
-            <Text style={styles.word}>活动已经下架</Text>
-          </View>
+          {isEnd ? (
+            <View style={styles.btn}>
+              <Text style={styles.word}>活动已经下架</Text>
+            </View>
+          ) : (
+            <View style={styles.regBtn}>
+              <Text style={styles.word}>点击报名</Text>
+            </View>
+          )}
         </SafeAreaView>
       </View>
     );
@@ -195,5 +211,12 @@ const styles = StyleSheet.create({
   },
   word: {
     color: '#fff',
+  },
+
+  regBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 44,
+    backgroundColor: 'red',
   },
 });
