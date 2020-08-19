@@ -82,7 +82,6 @@ class EditInfo extends React.Component {
             await this.props.saveInfo({});
 
             await this.props.editInfoInit(this.id);
-
           },
         );
       }

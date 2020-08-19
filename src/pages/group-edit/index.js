@@ -19,6 +19,7 @@ class GroupEdit extends React.Component {
   state = {
     imgArr: [require('./png.png')],
     avatarSourceMap: [],
+    loading: false,
   };
 
   handleChange = (key, value) => {
@@ -48,6 +49,9 @@ class GroupEdit extends React.Component {
   };
 
   getPhoto = async () => {
+    this.setState({
+      loading: true,
+    });
     const options = {
       title: '选择照片',
       cancelButtonTitle: '取消',
@@ -89,14 +93,17 @@ class GroupEdit extends React.Component {
           },
         );
       }
+      this.setState({
+        loading: false,
+      });
     });
   };
   render() {
     // const {
     //   data: {group},
     // } = this.props;
-    const {title, content, avatarSourceMap} = this.state;
-    console.log('GroupEdit', this.props);
+    const {title, content, loading, avatarSourceMap} = this.state;
+    console.log('GroupEdit', loading);
     return (
       <ScrollView style={styles.note}>
         <View style={styles.imgWrapper}>
@@ -113,14 +120,25 @@ class GroupEdit extends React.Component {
           })}
           {avatarSourceMap.length < 9 && (
             <TouchableOpacity onPress={this.getPhoto}>
-              <Image style={styles.pic} source={require('./png.png')} />
+              {loading ? (
+                <Image
+                  style={styles.loading}
+                  source={require('./loading.gif')}
+                />
+              ) : (
+                <View>
+                  <Image style={styles.pic} source={require('./png.png')} />
+                </View>
+              )}
             </TouchableOpacity>
           )}
         </View>
         <View style={styles.iptArea}>
+          <Text>小提示：图片上传中，输入框无法编辑</Text>
           <TextInput
             style={styles.title}
             value={title}
+            editable={!loading}
             returnKeyLabel="done"
             returnKeyType="done"
             placeholder={'请输入一个完整的标题'}
@@ -159,12 +177,21 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     paddingHorizontal: 10,
   },
+
+  loading: {
+    marginVertical: 32,
+    marginHorizontal: 25,
+    width: 30,
+    height: 30,
+    marginBottom: 10,
+    resizeMode: 'cover',
+  },
   pic: {
     marginRight: 10,
     width: 88,
     height: 94,
     marginBottom: 10,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   iptArea: {
     paddingHorizontal: 10,

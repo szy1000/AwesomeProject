@@ -27,7 +27,7 @@ export default class Item extends React.Component {
   };
   render() {
     const {list = [], toggleJoinFn, navigation} = this.props;
-    console.log(list)
+    console.log(list);
     return (
       <View>
         {list.map((v, index) => (
@@ -46,7 +46,9 @@ export default class Item extends React.Component {
                   }
                 />
                 <View style={styles.titleBox}>
-                  <Text style={styles.title}>{v.name}</Text>
+                  <Text numberOfLines={1} style={styles.title}>
+                    {v.name}
+                  </Text>
                   <View style={styles.count}>
                     <Image
                       style={styles.badge}
@@ -78,7 +80,7 @@ export default class Item extends React.Component {
                   )}
                 </View>
               </TouchableOpacity>
-              <Text style={styles.desc}>{v.description}</Text>
+              <Text numberOfLines={2} style={styles.desc}>{v.description}</Text>
             </View>
           </View>
         ))}

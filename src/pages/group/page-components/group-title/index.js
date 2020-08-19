@@ -7,11 +7,20 @@ import {
   Image,
   StyleSheet,
   TouchableWithoutFeedback,
+  Alert,
 } from 'react-native';
+import Jump from '../../../../utils/jump';
 
 export default class GroupTitle extends React.Component {
   render() {
-    const {name, image, description, userCount, id, join} = this.props.group;
+    const {
+      name,
+      image,
+      description,
+      userCount,
+      id,
+      join,
+    } = this.props.group;
     console.log('this.props.group', join);
     return (
       <View style={styles.group}>
@@ -27,24 +36,50 @@ export default class GroupTitle extends React.Component {
             style={styles.avatar}
           />
           <View style={styles.title_wrapper}>
-            <Text style={styles.title}>{name}</Text>
+            <Text numberOfLines={1} style={styles.title}>
+              {name}
+            </Text>
             <Text style={styles.subTitle}>{userCount} 小叮当</Text>
           </View>
           <TouchableWithoutFeedback
-            onPress={() =>
-              this.props.toggleJoin({
-                isJoin: join,
-                id,
-              })
-            }>
+            onPress={() => {
+              if (!join) {
+                this.props.toggleJoin({
+                  isJoin: join,
+                  id,
+                });
+              } else {
+                Alert.alert(
+                  '操作提示',
+                  '您确定退出当前小组吗？',
+                  [
+                    {
+                      text: '取消',
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                    {
+                      text: '确认',
+                      onPress: async () => {
+                        await this.props.toggleJoin({
+                          isJoin: join,
+                          id,
+                        });
+                        Jump.goBack({navigation: this.props.navigation});
+                      },
+                    },
+                  ],
+                  {cancelable: false},
+                );
+              }
+            }}>
             <View style={styles.btn}>
               <Text style={styles.txt}>{join ? '已加入' : '加入'}</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <Text style={styles.desc}>
-          小组简介：
-          <Text numberOfLines={2}>{description}</Text>
+        <Text style={styles.desc} numberOfLines={2}>
+          小组简介：{description}
         </Text>
       </View>
     );

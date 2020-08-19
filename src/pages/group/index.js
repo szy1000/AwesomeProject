@@ -48,6 +48,7 @@ class Group extends React.Component {
         <GroupTitle
           {...this.props}
           group={group}
+          navigation={navigation}
           toggleJoin={e => this.toggleJoin(e)}
         />
         <TouchableWithoutFeedback
