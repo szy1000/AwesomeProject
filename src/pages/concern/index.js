@@ -81,23 +81,27 @@ class Concern extends React.Component {
                 {/*  source={{uri: item.resourceContent.thumbnail}}*/}
                 {/*/>*/}
                 <View style={styles.content}>
-                  <Text style={styles.title}>{resourceId}</Text>
-                  <View style={styles.count}>
-                    <Image
-                      source={require('./pic40.png')}
-                      style={styles.icon}
-                    />
-                    <Text style={styles.note}>67个笔记</Text>
-                    <Image
-                      source={require('./pic41.png')}
-                      style={styles.icon}
-                    />
-                    <Text style={styles.fans}>9445个粉丝</Text>
-                  </View>
+                  <Image
+                    source={resourceContent.image ? {uri: resourceContent.image} : require('../../assets/images/logo.jpeg')}
+                    style={styles.avatar}
+                  />
+                  <Text style={styles.title}>{resourceContent.name}</Text>
+                  {/*<View style={styles.count}>*/}
+                    {/*<Image*/}
+                    {/*  source={require('./pic40.png')}*/}
+                    {/*  style={styles.icon}*/}
+                    {/*/>*/}
+                    {/*<Text style={styles.note}>67个笔记</Text>*/}
+                    {/*<Image*/}
+                    {/*  source={require('./pic41.png')}*/}
+                    {/*  style={styles.icon}*/}
+                    {/*/>*/}
+                    {/*<Text style={styles.fans}>9445个粉丝</Text>*/}
+                  {/*</View>*/}
                 </View>
-                <TouchableOpacity style={styles.concernBox}>
-                  <Text style={styles.focus}>已关注</Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity style={styles.concernBox}>*/}
+                {/*  <Text style={styles.focus}>已关注</Text>*/}
+                {/*</TouchableOpacity>*/}
               </TouchableOpacity>
             </View>
           )}
@@ -169,8 +173,10 @@ const styles = StyleSheet.create({
     height: 50,
   },
   content: {
+    flexDirection: 'row',
+    alignItems: 'center',
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   count: {
     marginTop: 8,

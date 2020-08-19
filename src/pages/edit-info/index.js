@@ -73,11 +73,16 @@ class EditInfo extends React.Component {
           {
             avatarSource: source,
           },
-          () => {
-            this.props.uploadFileFn({
+          async () => {
+            await this.props.uploadFileFn({
               fileName: uri.split('images/')[1],
               dataUrl: `data:${type};base64,${data}`,
             });
+
+            await this.props.saveInfo({});
+
+            await this.props.editInfoInit(this.id);
+
           },
         );
       }
@@ -144,7 +149,7 @@ class EditInfo extends React.Component {
             />
           }
         />
-        <Item title="微信号" extra={<Text>123456</Text>} />
+        {/*<Item title="微信号" extra={<Text>123456</Text>} />*/}
         <RNPickerSelect
           onValueChange={value => {
             if (value === null) {
