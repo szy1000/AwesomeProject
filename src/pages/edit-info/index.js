@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -14,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import Item from './item';
 import ImagePicker from 'react-native-image-picker';
+import CityPicker from 'react-native-citys-picker';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -30,6 +32,7 @@ class EditInfo extends React.Component {
     avatarSource: '',
     error: 'erroree',
     sex: '',
+    isPickerVisible: false,
   };
 
   componentDidMount(): void {
@@ -167,7 +170,15 @@ class EditInfo extends React.Component {
           items={_sexDict}>
           <Item title="性别" extra={<Text>{_sex || sex}</Text>} />
         </RNPickerSelect>
-        <Item title="地区" extra={<Text>{address || '火星'}</Text>} />
+        <Item
+          title="地区"
+          extra={<Text>{address || '火星'}</Text>}
+          clickFn={() => {
+            this.setState({
+              isPickerVisible: true,
+            });
+          }}
+        />
         <Item
           title="个性签名"
           extra={
@@ -184,6 +195,34 @@ class EditInfo extends React.Component {
         />
 
         <Button style={{marginTop: 30}} title="保存" onPress={this.save} />
+
+        <CityPicker
+          isVisible={this.state.isPickerVisible}
+          navBtnColor={'red'}
+          // selectedProvince={'北京'}
+          // selectedCity={'深圳'}
+          // selectedArea={'福田区'}
+          transparent
+          animationType={'down'}
+          onSubmit={_ => {
+            const {province, city, area} = _;
+            this.props.saveTempInfo({address: `${province},${city},${area}` }, () => {
+              this.setState({
+                isPickerVisible: false,
+              });
+            });
+          }} // 点击确认_onPressSubmit
+          onCancel={() => {
+            this.setState({
+              isPickerVisible: false,
+            });
+          }} // 点击取消_onPressCancel
+          androidPickerHeight={100} // 安卓手机下可以设置picker区域的高度
+        />
+
+        {/*<TouchableOpacity onPress={}>*/}
+        {/*  <Text>{this.state.region2 || '点击去选择地区'}</Text>*/}
+        {/*</TouchableOpacity>*/}
       </View>
     );
   }
