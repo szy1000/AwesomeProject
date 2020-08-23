@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  ScrollView,
   Platform,
   ActivityIndicator,
   StyleSheet,
@@ -35,9 +36,9 @@ class HtmlContent extends React.Component {
   render() {
     const {html} = this.state;
     return (
-      <View>
+      <ScrollView>
         <HTMLView value={html} style={{color: '#000'}} />
-      </View>
+      </ScrollView>
     );
   }
 }

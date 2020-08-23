@@ -206,11 +206,14 @@ class EditInfo extends React.Component {
           animationType={'down'}
           onSubmit={_ => {
             const {province, city, area} = _;
-            this.props.saveTempInfo({address: `${province},${city},${area}` }, () => {
-              this.setState({
-                isPickerVisible: false,
-              });
-            });
+            this.props.saveTempInfo(
+              {address: `${province},${city},${area}`},
+              () => {
+                this.setState({
+                  isPickerVisible: false,
+                });
+              },
+            );
           }} // 点击确认_onPressSubmit
           onCancel={() => {
             this.setState({

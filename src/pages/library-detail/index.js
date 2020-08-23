@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, ActivityIndicator, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Text,
+  View,
+} from 'react-native';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -29,9 +35,9 @@ class HtmlContent extends React.Component {
   render() {
     const {html} = this.state;
     return (
-      <View>
+      <ScrollView>
         <HTMLView value={html} style={{color: '#000'}} />
-      </View>
+      </ScrollView>
     );
   }
 }

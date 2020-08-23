@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {Alert} from 'react-native';
 import Jump from './jump';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -43,8 +44,24 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
       AsyncStorage.clear();
       const {message} = err;
       if (message.includes(401)) {
-        alert('未登录,请先登录');
-        navigation.replace('Login');
+        Alert.alert(
+          '操作提示',
+          '登录信息失效或者已过期,请您先登录？',
+          [
+            {
+              text: '确认',
+              onPress: async () => {
+                // await this.props.toggleJoin({
+                //   isJoin: join,
+                //   id,
+                // });
+                // Jump.goBack({navigation: this.props.navigation});
+                navigation.replace('Login');
+              },
+            },
+          ],
+          {cancelable: false},
+        );
       } else if (message.includes('Network')) {
         alert(JSON.stringify('网络异常,请稍后重试'));
       } else {

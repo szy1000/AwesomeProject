@@ -28,8 +28,8 @@
 		71DEAAF6CF0F4296BD224F3A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73D151C78494416A901577E1 /* SimpleLineIcons.ttf */; };
 		7B04A979C100491287BB32D4 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDA7B54B0761431D8A642369 /* Ionicons.ttf */; };
 		85462CE499DE481E90854B13 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C332F331EA724D0AA41159CE /* Roboto_medium.ttf */; };
-		8E80A25424ECBD6F0038D25D /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8E80A25224ECBD6F0038D25D /* assets */; };
-		8E80A25524ECBD6F0038D25D /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E80A25324ECBD6F0038D25D /* main.jsbundle */; };
+		8E80A25824EE04310038D25D /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E80A25624EE04300038D25D /* main.jsbundle */; };
+		8E80A25924EE04310038D25D /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8E80A25724EE04300038D25D /* assets */; };
 		8E90C5D024E7D9C8004E00EF /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 8E90C5CF24E7D9C7004E00EF /* AppIcon.appiconset */; };
 		98C3E68D30A84CB187874F3A /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CCC0F0ED3B04D929667EE5B /* FontAwesome5_Regular.ttf */; };
 		A79323A701BF4E538E061B3C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAA5623EDB5B42779074AD31 /* Octicons.ttf */; };
@@ -90,8 +90,8 @@
 		78C24985439740EDAD5209CE /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		8489975526B81E7DEC3BE8EC /* libPods-AwesomeProject-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AwesomeProject-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB9B283D95B5E85C91640DE /* Pods-AwesomeProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject/Pods-AwesomeProject.debug.xcconfig"; sourceTree = "<group>"; };
-		8E80A25224ECBD6F0038D25D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
-		8E80A25324ECBD6F0038D25D /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
+		8E80A25624EE04300038D25D /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
+		8E80A25724EE04300038D25D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
 		8E90C5CF24E7D9C7004E00EF /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = ../../../../Downloads/icons/ios/AppIcon.appiconset; sourceTree = "<group>"; };
 		913DC088B91D41EFB723A90C /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		A53058B3347E17A7E58ACD71 /* Pods-AwesomeProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject-tvOSTests/Pods-AwesomeProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 		13B07FAE1A68108700A75B9A /* AwesomeProject */ = {
 			isa = PBXGroup;
 			children = (
-				8E80A25224ECBD6F0038D25D /* assets */,
-				8E80A25324ECBD6F0038D25D /* main.jsbundle */,
+				8E80A25724EE04300038D25D /* assets */,
+				8E80A25624EE04300038D25D /* main.jsbundle */,
 				8E90C5CF24E7D9C7004E00EF /* AppIcon.appiconset */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -416,20 +416,20 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				8E80A25424ECBD6F0038D25D /* assets in Resources */,
+				8E80A25824EE04310038D25D /* main.jsbundle in Resources */,
 				EDD68674A6044F42903E7EDB /* AntDesign.ttf in Resources */,
 				2BDF48ADBB4C4257A8196074 /* Entypo.ttf in Resources */,
 				1FAF9968035F416DB773EB76 /* EvilIcons.ttf in Resources */,
 				24F6877903E9499BA4926B47 /* Feather.ttf in Resources */,
 				E9E9B066EB7B4232A41EB648 /* FontAwesome.ttf in Resources */,
 				391C5B7679694DD2A5744509 /* FontAwesome5_Brands.ttf in Resources */,
+				8E80A25924EE04310038D25D /* assets in Resources */,
 				8E90C5D024E7D9C8004E00EF /* AppIcon.appiconset in Resources */,
 				98C3E68D30A84CB187874F3A /* FontAwesome5_Regular.ttf in Resources */,
 				D0D1F111BAAD43BEB88428BC /* FontAwesome5_Solid.ttf in Resources */,
 				1D0553C3D8E34A3280573B9D /* Fontisto.ttf in Resources */,
 				E719424969B24AB29E0A9B9D /* Foundation.ttf in Resources */,
 				7B04A979C100491287BB32D4 /* Ionicons.ttf in Resources */,
-				8E80A25524ECBD6F0038D25D /* main.jsbundle in Resources */,
 				CD9827C4C9904225BE0B0241 /* MaterialCommunityIcons.ttf in Resources */,
 				F222A4274AF547FEB7C5FD24 /* MaterialIcons.ttf in Resources */,
 				A79323A701BF4E538E061B3C /* Octicons.ttf in Resources */,
