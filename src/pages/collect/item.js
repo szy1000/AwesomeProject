@@ -1,21 +1,38 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Jump from '../../utils/jump';
 
-export default class Collect extends React.Component {
+export default class Item extends React.Component {
   render() {
     const {
-      resourceContent: {title, createTime},
+      resourceContent: {name, createTime},
+      resource,
+      resourceId,
+      navigation,
     } = this.props;
+    console.log(this.props);
     return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() =>
+          Jump.linkToPage({
+            navigation,
+            url: resource === 'note' ? 'FindDetail' : 'GroupDetail',
+            params: {
+              id: resourceId,
+            },
+          })
+        }>
         <View style={styles.header}>
-          <Text style={styles.type}>笔记</Text>
+          <Text style={styles.type}>
+            {resource === 'note' ? '笔记' : '讨论组'}
+          </Text>
           <Text style={styles.time}>
             {createTime && createTime.split(' ')[0]}
           </Text>
         </View>
         <Text style={styles.content} numberOfLines={3}>
-          {title}
+          {name}
         </Text>
       </TouchableOpacity>
     );

@@ -46,13 +46,13 @@ class Concern extends React.Component {
   };
 
   _onPressItem = item => {
-    alert(item);
+    // alert(item);
   };
 
   componentDidMount(): void {
     this.props.concernInit({
       pageNumber: 1,
-      pageSize: 10,
+      pageSize: 200,
     });
   }
 

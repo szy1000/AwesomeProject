@@ -55,13 +55,13 @@ class Collect extends React.Component {
   componentDidMount(): void {
     this.props.collectInit({
       pageNumber: 1,
-      pageSize: 8,
+      pageSize: 500,
     });
   }
 
   render() {
     const {refreshLoading} = this.state;
-    const {init, data} = this.props;
+    const {init, data, navigation} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
@@ -71,7 +71,9 @@ class Collect extends React.Component {
       <View style={styles.concern}>
         <FlatList
           data={listData.data}
-          renderItem={({item, index}) => <Item {...item} />}
+          renderItem={({item, index}) => (
+            <Item {...item} navigation={navigation} />
+          )}
           ItemSeparatorComponent={({highlighted}) => <WhiteSpace size="big" />}
           refreshControl={
             <RefreshControl

@@ -62,13 +62,15 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().home;
   const {currCountry} = data;
   const country = await getCountryReq(params || {});
-  console.log(country)
   let id = '';
   for (let i = 0; i < country.length; i++) {
     if (country[i].name === currCountry) {
       id = country[i].id;
     }
   }
+  console.log(country);
+  console.log(id);
+
   const countyParams = {
     country_id: params.id || id || country[0].id,
     navigation: params.navigation,
@@ -92,6 +94,7 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
         hotSubject,
         hotCase,
         unread,
+        _countryId: id,
       },
     }),
   );

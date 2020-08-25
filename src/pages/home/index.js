@@ -90,7 +90,15 @@ class Home extends React.Component {
     if (!init) {
       return <ActivityIndicator />;
     }
-    const {country, hotSchool, unread, hotSubject, hotCase, currCountry} = data;
+    const {
+      country,
+      hotSchool,
+      unread,
+      hotSubject,
+      hotCase,
+      currCountry,
+      _countryId,
+    } = data;
     const _items = [];
     for (let i = 0; i < country.length; i++) {
       const temp = {};
@@ -101,7 +109,7 @@ class Home extends React.Component {
       _items.push(temp);
     }
     if (!this.countryId) {
-      this.countryId = _items[0].value;
+      this.countryId = _countryId || _items[0].value;
     }
     return (
       <ScrollView
