@@ -4,6 +4,8 @@ import Jump from '../../../../utils/jump';
 
 export default class LinkBlock extends React.Component {
   render() {
+    const {countryId} = this.props;
+
     return (
       <View style={styles.link}>
         <View style={styles.schoolAndProject}>
@@ -12,6 +14,9 @@ export default class LinkBlock extends React.Component {
               Jump.linkToPage({
                 navigation: this.props.navigation,
                 url: 'Library',
+                params: {
+                  countryId,
+                },
               })
             }
             style={styles.linkItem}>

@@ -62,6 +62,7 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
   const {data} = getState().home;
   const {currCountry} = data;
   const country = await getCountryReq(params || {});
+  console.log(country)
   let id = '';
   for (let i = 0; i < country.length; i++) {
     if (country[i].name === currCountry) {

@@ -30,7 +30,9 @@ class Library extends Component {
   };
 
   componentDidMount() {
-    this.props.libraryInit({countryId: 1});
+    this.countryId = this.props.route.params.countryId;
+    console.log(this.countryId)
+    this.props.libraryInit({countryId: this.countryId});
     ParcelData.map((item, i) => {
       Headers.push(item.section);
     });
@@ -64,7 +66,7 @@ class Library extends Component {
       cell: item.index,
     });
     this.props.searchList({
-      countryId: 1,
+      countryId: this.countryId,
       categoryId: item.item.id,
     });
   };
@@ -143,7 +145,7 @@ class Library extends Component {
     console.log(this.state);
     this.props.searchList({
       query,
-      countryId: countryId || country[0].id,
+      countryId: countryId || this.countryId,
       order: rankId,
     });
   };
@@ -177,7 +179,7 @@ class Library extends Component {
                 mode="dropdown"
                 textStyle={styles.tag}
                 headerBackButtonText="返回"
-                selectedValue={this.state.countryId || country[0].id}
+                selectedValue={this.state.countryId || this.countryId}
                 onValueChange={e => this.onValueChange('countryId', e)}>
                 {country.map(v => (
                   <Picker.Item label={v.name} value={v.id} />

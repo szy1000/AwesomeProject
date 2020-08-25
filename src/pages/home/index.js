@@ -100,7 +100,9 @@ class Home extends React.Component {
       temp.keys = country[i].id;
       _items.push(temp);
     }
-    this.countryId = _items[0].value;
+    if (!this.countryId) {
+      this.countryId = _items[0].value;
+    }
     return (
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -156,7 +158,7 @@ class Home extends React.Component {
           </TouchableWithoutFeedback>
         </View>
         <Banner />
-        <Link navigation={this.props.navigation} />
+        <Link countryId={this.countryId} navigation={this.props.navigation} />
         <View style={styles.whiteSpace} />
         <Panel title="热门院校" tips="看看小伙伴们都热衷于哪些院校吧！">
           <ScrollView
