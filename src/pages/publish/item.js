@@ -1,18 +1,31 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import Jump from '../../utils/jump';
 
 export default class Collect extends React.Component {
   render() {
-    console.log(this.props);
-    const {title, createTime, user} = this.props;
+    const {title, id, createTime, navigation, user} = this.props;
     return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => {
+          console.log();
+          Jump.linkToPage({
+            navigation,
+            url: 'FindDetail',
+            params: {
+              id,
+            },
+          });
+        }}>
         <View style={styles.header}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               style={styles.avatar}
               source={
-                user.avatarUrl ? {uri: user.avatarUrl} : require('./pic39.png')
+                user.avatarUrl
+                  ? {uri: user.avatarUrl}
+                  : require('../../assets/images/logo.jpeg')
               }
             />
             <Text style={styles.type}>{user.userName}</Text>
@@ -41,6 +54,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 25,
     height: 25,
+    borderRadius: 13,
   },
   type: {
     marginLeft: 10,

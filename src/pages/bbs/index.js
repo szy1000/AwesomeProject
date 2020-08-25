@@ -2,9 +2,11 @@ import React from 'react';
 import {
   ScrollView,
   ImageBackground,
+  ActivityIndicator,
   View,
   StyleSheet,
   Text,
+  Image,
   TouchableNativeFeedback,
 } from 'react-native';
 import {Item, Panel} from './page-components';
@@ -51,15 +53,15 @@ class BBS extends React.Component {
     const {init, data, navigation} = this.props;
 
     if (!init) {
-      return <Loading />;
+      return <ActivityIndicator style={{marginTop: 60}} />;
     }
     const {groupCategory, hotGroup} = data;
-    console.log(data);
 
     return (
       <View style={styles.bbs}>
         <ScrollView>
-          <ImageBackground style={styles.bg} source={require('./pic54.png')} />
+          {/*<ImageBackground style={styles.bg} source={require('./pic54.png')} />*/}
+          <Image style={styles.bg} source={{uri: 'pic54'}} />
           <View style={styles.content}>
             <Panel
               title={'分类找小组'}

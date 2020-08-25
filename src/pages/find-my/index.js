@@ -89,8 +89,8 @@ class FindMy extends React.Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    console.log('navigation', navigation);
     const {note} = data;
+    console.log(data);
     return (
       <View style={styles.find}>
         <FlatList
@@ -105,6 +105,13 @@ class FindMy extends React.Component {
                   this._onPressItem(item.id);
                 }}>
                 <View>
+                  {item.pinned && (
+                    <Image
+                      style={styles.pinned}
+                      source={require('./pinned.png')}
+                    />
+                  )}
+
                   <Image
                     style={styles.pic}
                     source={
@@ -202,10 +209,21 @@ const styles = StyleSheet.create({
   },
 
   item: {
+    position: 'relative',
     marginTop: 15,
     paddingHorizontal: 8,
     width: '50%',
     height: 200,
+  },
+
+  pinned: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 10,
+    width: 48,
+    height: 48,
+    resizeMode: 'cover',
   },
   pic: {
     height: 150,
@@ -227,6 +245,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 30,
     height: 30,
+    borderRadius: 15,
   },
   name: {
     marginLeft: 10,

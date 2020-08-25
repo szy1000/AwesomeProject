@@ -17,7 +17,7 @@ export default class LinkBlock extends React.Component {
             style={styles.linkItem}>
             <Image
               accessibilityRole={'image'}
-              source={require('./zyk.png')}
+              source={{uri: 'zyk'}}
               style={styles.linkImg}
             />
           </TouchableOpacity>
@@ -32,7 +32,7 @@ export default class LinkBlock extends React.Component {
             style={styles.linkItem}>
             <Image
               accessibilityRole={'image'}
-              source={require('./yxk.png')}
+              source={{uri: 'yxk'}}
               style={styles.linkImg}
             />
           </TouchableOpacity>

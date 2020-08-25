@@ -32,7 +32,7 @@ class Publish extends React.Component {
   pageInit = callback => {
     this.props.publishInit(
       {
-        pageSize: 10,
+        pageSize: 500,
         pageNumber: 1,
       },
       callback,
@@ -80,7 +80,9 @@ class Publish extends React.Component {
           <View style={styles.concern}>
             <FlatList
               data={publish.data}
-              renderItem={({item, index}) => <Item {...item} />}
+              renderItem={({item, index}) => (
+                <Item {...item} navigation={navigation} />
+              )}
               ItemSeparatorComponent={({highlighted}) => (
                 <WhiteSpace size="big" />
               )}

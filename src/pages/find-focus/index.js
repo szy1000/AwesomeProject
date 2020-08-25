@@ -104,6 +104,12 @@ class FindFocus extends React.Component {
                   this._onPressItem(item.id);
                 }}>
                 <View>
+                  {item.pinned && (
+                    <Image
+                      style={styles.pinned}
+                      source={require('./pinned.png')}
+                    />
+                  )}
                   <Image
                     style={styles.pic}
                     source={
@@ -226,6 +232,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 30,
     height: 30,
+    borderRadius: 15,
   },
   name: {
     marginLeft: 10,
@@ -247,6 +254,15 @@ const styles = StyleSheet.create({
   edit: {
     width: 60,
     height: 60,
+  },
+  pinned: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 10,
+    width: 48,
+    height: 48,
+    resizeMode: 'cover',
   },
 });
 

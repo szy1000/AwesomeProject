@@ -31,6 +31,7 @@ export default class Find extends React.Component {
         tabContent={this.tabContent}
         tabBarOptions={{
           labelStyle: {
+            fontSize: 17,
             paddingTop: Platform.OS === 'android' ? 0 : 30,
             backgroundColor: '#fff',
           },

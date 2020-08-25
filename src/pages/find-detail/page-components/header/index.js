@@ -28,7 +28,9 @@ export default class Header extends React.Component {
           </View>
         </View>
         <TouchableOpacity onPress={() => this.props.followFn()}>
-          <View>{follow ? <Text>取消关注</Text> : <Text>关注</Text>}</View>
+          <View style={styles.focus}>
+            {follow ? <Text>取消关注</Text> : <Text>关注</Text>}
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     width: 40,
     height: 40,
+    borderRadius: 20,
   },
   addressWrapper: {
     marginTop: 5,
@@ -67,4 +70,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+  focus: {
+
+  }
 });
