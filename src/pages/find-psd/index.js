@@ -6,6 +6,7 @@ import {
   Text,
   View,
   TextInput,
+  Button,
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
@@ -14,11 +15,15 @@ import {loginReq} from './api';
 import {Link} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 
-export default class Login extends React.Component {
+export default class FindPsd extends React.Component {
   state = {
     phoneNumber: '',
+    code: '',
     password: '',
+    time: 60,
+    sending: false,
   };
+  time = null;
 
   saveIptValue = (key, value) => {
     this.setState({
@@ -26,6 +31,26 @@ export default class Login extends React.Component {
     });
   };
 
+  sendMsg = () => {
+    this.setState({
+      sending: true,
+    });
+    let {time} = this.state;
+    this.time = setInterval(() => {
+      console.log(time)
+      if (time > 0) {
+        this.setState({
+          time: time--,
+        });
+      } else {
+        clearInterval(this.time)
+        this.setState({
+          time: 60,
+          sending: false,
+        });
+      }
+    }, 1000);
+  };
   handleLogin = async () => {
     // alert(JSON.stringify((await AsyncStorage.getItem('token')) || ''));
     const {phoneNumber, password} = this.state;
@@ -51,7 +76,7 @@ export default class Login extends React.Component {
 
   render() {
     const {navigation} = this.props;
-    const {phoneNumber, password} = this.state;
+    const {phoneNumber, code, sending, time, password} = this.state;
     return (
       <View style={styles.login}>
         <ImageBackground style={styles.bg} source={require('./login.png')} />
@@ -72,6 +97,25 @@ export default class Login extends React.Component {
             />
           </View>
           <View style={styles.ipt_wrapper}>
+            <Feather name="user" color="#d8d8d8" size={20} />
+            <TextInput
+              style={styles.ipt}
+              placeholder="请输入验证吗"
+              maxLength={6}
+              value={code}
+              returnKeyLabel="done"
+              returnKeyType="done"
+              keyboardType="numeric"
+              placeholderTextColor="#d8d8d8"
+              onChangeText={text => this.saveIptValue('code', text)}
+            />
+            <Button
+              onPress={this.sendMsg}
+              title={sending ? `${time}s` : '获取验证码'}
+            />
+          </View>
+
+          <View style={styles.ipt_wrapper}>
             <Feather name="lock" color="#d8d8d8" size={20} />
             <TextInput
               style={styles.ipt}
@@ -84,34 +128,12 @@ export default class Login extends React.Component {
               onChangeText={text => this.saveIptValue('password', text)}
             />
           </View>
-          <View style={styles.msg}>
-            <Text>短信登录</Text>
-            <Link to="/FindPsd">忘记密码</Link>
-          </View>
           <TouchableOpacity
             style={styles.btn}
-            title="登录"
+            title="确定"
             onPress={this.handleLogin}>
-            <Text style={styles.white}>登录</Text>
+            <Text style={styles.white}>确定</Text>
           </TouchableOpacity>
-          {/*<View style={styles.linkToRegister}>*/}
-          {/*  <Text style={styles.noAccount}>还没有账号？</Text>*/}
-          {/*  <Link style={styles.register} to="/Register">*/}
-          {/*    立即注册*/}
-          {/*  </Link>*/}
-          {/*</View>*/}
-
-          {/*<View style={styles.loginWays}>*/}
-          {/*  <View style={styles.way}>*/}
-          {/*    <Image style={styles.icon} source={require('./pic47.png')} />*/}
-          {/*    <Text style={styles.wayName}>QQ登录</Text>*/}
-          {/*  </View>*/}
-          {/*  <View style={styles.line} />*/}
-          {/*  <View style={styles.way}>*/}
-          {/*    <Image style={styles.icon} source={require('./pic48.png')} />*/}
-          {/*    <Text style={styles.wayName}>微信登录</Text>*/}
-          {/*  </View>*/}
-          {/*</View>*/}
         </View>
       </View>
     );

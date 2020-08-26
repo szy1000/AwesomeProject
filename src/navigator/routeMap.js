@@ -38,6 +38,7 @@ import Publish from '../pages/publish';
 import Join from '../pages/join';
 import Search from '../pages/serach';
 import LibraryDetail from '../pages/library-detail';
+import FindPsd from '../pages/find-psd/';
 import Test from '../pages/test';
 import Jump from '../utils/jump';
 
@@ -332,6 +333,17 @@ const router = [
       // headerTruncatedBackTitle: null,
     },
   },
+
+  {
+    name: 'FindPsd',
+    component: FindPsd,
+    options: {
+      title: '找回密码',
+      // headerBackTitle: null,
+      // headerTruncatedBackTitle: null,
+    },
+  },
+
 
   {
     name: 'Test',
