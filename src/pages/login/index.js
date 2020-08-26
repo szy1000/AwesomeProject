@@ -34,7 +34,7 @@ export default class Login extends React.Component {
       return;
     }
     const res = await loginReq(this.state);
-    const {success, data} = res;
+    const {success,error, data} = res;
     console.log(res);
     if (success) {
       const {accessToken, profile} = data;
@@ -43,7 +43,7 @@ export default class Login extends React.Component {
       await AsyncStorage.setItem('sid', profile.sid.toString());
       Jump.resetToHome(this.props);
     } else {
-      alert('登录失败');
+      alert(error);
     }
 
     console.log('login res', res);
@@ -85,7 +85,7 @@ export default class Login extends React.Component {
             />
           </View>
           <View style={styles.msg}>
-            <Text>短信登录</Text>
+            {/*<Text>短信登录</Text>*/}
             <Link to="/FindPsd">忘记密码</Link>
           </View>
           <TouchableOpacity

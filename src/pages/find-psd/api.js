@@ -1,5 +1,8 @@
 import Https from '../../utils/https';
 
-const loginReq = params => Https.post('/api/app/user/login', params, true);
+const getCodeReq = params =>
+  Https.post('/api/app/verificationCode/send', params, true);
+const resetPsdReq = params =>
+  Https.post('/api/app/user/reset_password', params, true);
 
-export {loginReq};
+export {getCodeReq, resetPsdReq};

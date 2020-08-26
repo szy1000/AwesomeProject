@@ -31,7 +31,7 @@ class Library extends Component {
 
   componentDidMount() {
     this.countryId = this.props.route.params.countryId;
-    console.log(this.countryId)
+    console.log(this.countryId);
     this.props.libraryInit({countryId: this.countryId});
     ParcelData.map((item, i) => {
       Headers.push(item.section);
@@ -47,13 +47,14 @@ class Library extends Component {
       <TouchableOpacity
         style={[
           styles.lItem,
-          {backgroundColor: item.index == this.state.cell ? '#9b7965' : null},
+          {backgroundColor: item.index == this.state.cell ? '#fff' : null},
+          {borderLeftColor: item.index == this.state.cell ? '#0fa9ce' : null},
         ]}
         onPress={() => this.cellAction(item)}>
         <Text
           style={[
             styles.lText,
-            {color: item.index == this.state.cell ? '#fff' : null},
+            {color: item.index == this.state.cell ? '#0fa9ce' : null},
           ]}>
           {item.item.name}
         </Text>
@@ -94,9 +95,21 @@ class Library extends Component {
           <View
             style={{
               padding: 10,
-              backgroundColor: '#f3f1f1',
+              paddingLeft: 0,
+              marginLeft: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: '#e5e5e5',
+              // backgroundColor: '#f3f1f1',
             }}>
             <Text style={styles.foodName}>
+              <Image
+                style={styles.badges}
+                source={
+                  subjectList[this.state.cell].name === '热门专业'
+                    ? require('./hot.png')
+                    : require('./category.png')
+                }
+              />
               {subjectList[this.state.cell].name}
             </Text>
           </View>
@@ -137,7 +150,6 @@ class Library extends Component {
   };
 
   search = () => {
-    console.log(111);
     const {
       data: {country},
     } = this.props;
@@ -172,7 +184,7 @@ class Library extends Component {
           data={subjectList}
           renderItem={item => this.renderLRow(item)}
           ListHeaderComponent={() => (
-            <View style={{width: 110, backgroundColor: '#d5d4d7'}}>
+            <View style={{width: 110, backgroundColor: '#fff'}}>
               <Picker
                 note
                 iosHeader="请选择"
@@ -246,11 +258,12 @@ const styles = StyleSheet.create({
   },
   leftList: {
     width: (1 * width) / 4,
-    backgroundColor: '#f3f1f1',
+    backgroundColor: '#f0f0f0',
   },
   lItem: {
     minHeight: 44,
     justifyContent: 'center',
+    borderLeftWidth: 4,
   },
   lText: {
     marginLeft: 10,
@@ -260,9 +273,17 @@ const styles = StyleSheet.create({
   rightList: {
     width: (3 * width) / 4,
   },
+
+  badges: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+    marginRight: 10,
+  },
   rItem: {
     padding: 10,
-    borderBottomWidth: 1,
+    paddingLeft: 40,
+    // borderBottomWidth: 1,
     borderColor: '#ccc',
     flexDirection: 'row',
   },

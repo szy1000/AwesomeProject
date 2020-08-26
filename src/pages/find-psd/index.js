@@ -3,6 +3,7 @@ import Jump from '../../utils/jump';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   Image,
+  Alert,
   Text,
   View,
   TextInput,
@@ -11,7 +12,7 @@ import {
   StyleSheet,
   ImageBackground,
 } from 'react-native';
-import {loginReq} from './api';
+import {resetPsdReq, getCodeReq} from './api';
 import {Link} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -30,20 +31,59 @@ export default class FindPsd extends React.Component {
       [key]: value,
     });
   };
+  componentWillUnmount(): void {
+    clearInterval(this.time);
+  }
 
-  sendMsg = () => {
+  sendMsg = async () => {
+    const {phoneNumber} = this.state;
+    if (
+      !/^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/.test(
+        phoneNumber,
+      )
+    ) {
+      Alert.alert(
+        '操作提示',
+        '手机号格式不正确，请检查后重新提交！',
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      );
+      return;
+    }
+    const res = await getCodeReq({phoneNumber});
+    const {success, error} = res;
+    console.log(res);
+    if (!success) {
+      Alert.alert(
+        '操作提示',
+        error,
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      );
+      return;
+    }
     this.setState({
       sending: true,
     });
     let {time} = this.state;
     this.time = setInterval(() => {
-      console.log(time)
+      console.log(time);
       if (time > 0) {
         this.setState({
           time: time--,
         });
       } else {
-        clearInterval(this.time)
+        clearInterval(this.time);
         this.setState({
           time: 60,
           sending: false,
@@ -51,24 +91,71 @@ export default class FindPsd extends React.Component {
       }
     }, 1000);
   };
-  handleLogin = async () => {
-    // alert(JSON.stringify((await AsyncStorage.getItem('token')) || ''));
-    const {phoneNumber, password} = this.state;
-    if (!password || !phoneNumber) {
-      alert('用户名或密码不能为空');
+  handleReset = async () => {
+    const {phoneNumber, code, password} = this.state;
+    if (!password || !phoneNumber || !code) {
+      Alert.alert(
+        '操作提示',
+        '用户名或密码不能为空',
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      );
       return;
     }
-    const res = await loginReq(this.state);
-    const {success, data} = res;
-    console.log(res);
+    if (
+      !/^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/.test(
+        phoneNumber,
+      )
+    ) {
+      Alert.alert(
+        '操作提示',
+        '手机号格式不正确',
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      );
+      return;
+    }
+    const res = await resetPsdReq({phoneNumber, code, password});
+    const {success, error} = res;
     if (success) {
-      const {accessToken, profile} = data;
-      await AsyncStorage.setItem('token', accessToken);
-      await AsyncStorage.setItem('name', profile.name);
-      await AsyncStorage.setItem('sid', profile.sid.toString());
-      Jump.resetToHome(this.props);
+      Alert.alert(
+        '操作提示',
+        '密码重置成功，请前往登录',
+        [
+          {
+            text: '确认',
+            onPress: () => {
+              Jump.linkToPage({
+                navigation: this.props.navigation,
+                url: 'Login',
+              });
+            },
+          },
+        ],
+        {cancelable: false},
+      );
     } else {
-      alert('登录失败');
+      Alert.alert(
+        '操作提示',
+        error,
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      );
     }
 
     console.log('login res', res);
@@ -97,7 +184,7 @@ export default class FindPsd extends React.Component {
             />
           </View>
           <View style={styles.ipt_wrapper}>
-            <Feather name="user" color="#d8d8d8" size={20} />
+            <Feather name="code" color="#d8d8d8" size={20} />
             <TextInput
               style={styles.ipt}
               placeholder="请输入验证吗"
@@ -131,7 +218,7 @@ export default class FindPsd extends React.Component {
           <TouchableOpacity
             style={styles.btn}
             title="确定"
-            onPress={this.handleLogin}>
+            onPress={this.handleReset}>
             <Text style={styles.white}>确定</Text>
           </TouchableOpacity>
         </View>
