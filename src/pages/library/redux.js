@@ -47,12 +47,10 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
     id: -1,
     name: '热门专业',
   });
-
   const subjectItem = await getSubjectListReq({
     countryId: countryId || country[0].id,
     hot: true,
   });
-
   dispatch(
     libraryUpdate({
       init: true,
@@ -73,6 +71,7 @@ export const searchList = (params, callback) => async (dispatch, getState) => {
   const country = await getCountryReq({});
   const {countryId, categoryId} = params;
   console.log('params', params);
+
   let hotSubject = null;
   if (categoryId === -1) {
     hotSubject = await getSubjectListReq({
@@ -83,11 +82,13 @@ export const searchList = (params, callback) => async (dispatch, getState) => {
     hotSubject = await getSubjectListReq(params);
   }
 
+  console.log('hotSubject', hotSubject);
+
   dispatch(
     libraryUpdate({
       data: {
         ...data,
-        subjectItem: hotSubject,
+        subjectItem: [...hotSubject],
       },
     }),
   );

@@ -33,9 +33,9 @@ class Library extends Component {
     this.countryId = this.props.route.params.countryId;
     console.log(this.countryId);
     this.props.libraryInit({countryId: this.countryId});
-    ParcelData.map((item, i) => {
-      Headers.push(item.section);
-    });
+    // ParcelData.map((item, i) => {
+    //   Headers.push(item.section);
+    // });
   }
 
   componentWillUnmount() {
@@ -48,7 +48,10 @@ class Library extends Component {
         style={[
           styles.lItem,
           {backgroundColor: item.index == this.state.cell ? '#fff' : null},
-          {borderLeftColor: item.index == this.state.cell ? '#0fa9ce' : null},
+          {
+            borderLeftColor:
+              item.index == this.state.cell ? '#0fa9ce' : '#f0f0f0',
+          },
         ]}
         onPress={() => this.cellAction(item)}>
         <Text
@@ -63,11 +66,12 @@ class Library extends Component {
   };
 
   cellAction = item => {
+    console.log(item);
     this.setState({
       cell: item.index,
     });
     this.props.searchList({
-      countryId: this.countryId,
+      countryId: this.state.countryId || this.countryId,
       categoryId: item.item.id,
     });
   };
@@ -88,28 +92,28 @@ class Library extends Component {
       data: {subjectList},
       navigation,
     } = this.props;
-    console.log(subjectList);
+    console.log('index', index);
     if (index === 0) {
       return (
         <>
           <View
             style={{
+              flexDirection: 'row',
               padding: 10,
               paddingLeft: 0,
               marginLeft: 10,
               borderBottomWidth: 1,
               borderBottomColor: '#e5e5e5',
-              // backgroundColor: '#f3f1f1',
             }}>
+            <Image
+              style={styles.badges}
+              source={
+                subjectList[this.state.cell].name === '热门专业'
+                  ? require('./hot.png')
+                  : require('./category.png')
+              }
+            />
             <Text style={styles.foodName}>
-              <Image
-                style={styles.badges}
-                source={
-                  subjectList[this.state.cell].name === '热门专业'
-                    ? require('./hot.png')
-                    : require('./category.png')
-                }
-              />
               {subjectList[this.state.cell].name}
             </Text>
           </View>
@@ -174,8 +178,6 @@ class Library extends Component {
     }
     const {country, rank, subjectItem, subjectList} = data;
     const {query} = this.state;
-
-    console.log('subjectItem', subjectItem);
     return (
       <Container style={styles.container}>
         <FlatList
@@ -192,7 +194,11 @@ class Library extends Component {
                 textStyle={styles.tag}
                 headerBackButtonText="返回"
                 selectedValue={this.state.countryId || this.countryId}
-                onValueChange={e => this.onValueChange('countryId', e)}>
+                onValueChange={e => {
+                  console.log('countryId', e);
+                  this.props.libraryInit({countryId: e});
+                  this.onValueChange('countryId', e);
+                }}>
                 {country.map(v => (
                   <Picker.Item label={v.name} value={v.id} />
                 ))}
@@ -233,13 +239,17 @@ class Library extends Component {
               <MaterialCommunityIcons name="magnify" color="#999" size={30} />
             </TouchableOpacity>
           </View>
-          <FlatList
-            ref="sectionList"
-            style={styles.rightList}
-            renderItem={section => this.renderRRow(section)}
-            data={subjectItem}
-            keyExtractor={item => item.name}
-          />
+          {subjectItem.length === 0 ? (
+            <Text style={styles.noData}>暂无数据</Text>
+          ) : (
+            <FlatList
+              ref="sectionList"
+              style={styles.rightList}
+              renderItem={section => this.renderRRow(section)}
+              data={subjectItem}
+              keyExtractor={item => item.name}
+            />
+          )}
         </View>
       </Container>
     );
@@ -284,6 +294,13 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 40,
     // borderBottomWidth: 1,
+    borderColor: '#ccc',
+    flexDirection: 'row',
+  },
+  noData: {
+    padding: 20,
+    fontSize: 18,
+    paddingLeft: 40,
     borderColor: '#ccc',
     flexDirection: 'row',
   },
