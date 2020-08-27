@@ -132,7 +132,6 @@ class Summer extends React.Component {
           />
           <Button onClick={this.search}>搜索</Button>
         </View>
-
         <Popover
           style={{flex: 1, paddingBottom: 20}}
           visible={visible}

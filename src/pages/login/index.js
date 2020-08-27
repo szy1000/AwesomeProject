@@ -34,7 +34,7 @@ export default class Login extends React.Component {
       return;
     }
     const res = await loginReq(this.state);
-    const {success,error, data} = res;
+    const {success, error, data} = res;
     console.log(res);
     if (success) {
       const {accessToken, profile} = data;
@@ -85,7 +85,7 @@ export default class Login extends React.Component {
             />
           </View>
           <View style={styles.msg}>
-            {/*<Text>短信登录</Text>*/}
+            {/*<Link to="/Register">免费注册</Link>*/}
             <Link to="/FindPsd">忘记密码</Link>
           </View>
           <TouchableOpacity
@@ -94,12 +94,12 @@ export default class Login extends React.Component {
             onPress={this.handleLogin}>
             <Text style={styles.white}>登录</Text>
           </TouchableOpacity>
-          {/*<View style={styles.linkToRegister}>*/}
-          {/*  <Text style={styles.noAccount}>还没有账号？</Text>*/}
-          {/*  <Link style={styles.register} to="/Register">*/}
-          {/*    立即注册*/}
-          {/*  </Link>*/}
-          {/*</View>*/}
+          <View style={styles.linkToRegister}>
+            <Text style={styles.noAccount}>还没有账号？</Text>
+            <Link style={styles.register} to="/Register">
+              立即注册
+            </Link>
+          </View>
 
           {/*<View style={styles.loginWays}>*/}
           {/*  <View style={styles.way}>*/}

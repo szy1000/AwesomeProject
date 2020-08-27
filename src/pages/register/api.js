@@ -1,5 +1,9 @@
 import Https from '../../utils/https';
 
-const postRegisterReq = params => Https.post('/api/app/user/register', params);
+const getCodeReq = params =>
+  Https.post('/api/app/verificationCode/send', params, true);
 
-export {postRegisterReq};
+const postRegisterReq = params =>
+  Https.post('/api/app/user/register', params, true);
+
+export {getCodeReq, postRegisterReq};

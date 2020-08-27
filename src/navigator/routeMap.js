@@ -77,6 +77,7 @@ const router = [
     component: Register,
     options: {
       title: '注册',
+      headerTransparent: true, //设置头部透明,
     },
   },
   {

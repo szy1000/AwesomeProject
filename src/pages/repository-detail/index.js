@@ -146,11 +146,24 @@ class RepositoryDetail extends React.Component {
                     <Text style={styles.qs}>QS 排名</Text>
                     <Text style={styles.qsValue}>{qsRanking}</Text>
                   </Text>
-                  <Text style={styles.rank}>USNEW 排名{usnewsRanking}</Text>
+                  <Text style={styles.rank}>
+                    <Text style={styles.usnews}>USNEW 排名</Text>
+                    <Text style={styles.usnewsValue}>{usnewsRanking}</Text>
+                  </Text>
                 </View>
                 <View style={styles.rankItem}>
-                  <Text style={styles.rank}>泰晤士排名{thamesRanking}</Text>
-                  <Text style={styles.rank}>上海交大排名{jiaotongRanking}</Text>
+                  <Text style={styles.rank}>
+                    <Text style={styles.thames}>泰晤士排名</Text>
+                    <Text style={styles.thamesValue}>{thamesRanking}</Text>
+                  </Text>
+
+                  <Text style={styles.rank}>
+                    <Text style={styles.jiaotong}>上海交大排名</Text>
+                    <Text style={styles.jiaotongValue}>{jiaotongRanking}</Text>
+                  </Text>
+
+                  {/*<Text style={styles.rank}>泰晤士排名{thamesRanking}</Text>*/}
+                  {/*<Text style={styles.rank}>上海交大排名{jiaotongRanking}</Text>*/}
                 </View>
               </View>
             </View>
@@ -226,18 +239,46 @@ const styles = StyleSheet.create({
   rank: {
     width: '50%',
   },
-
   qs: {
-    borderWidth: 10,
-    // borderStyle: 'solid',
-    // borderColor: 'red',
     borderBottomWidth: 10,
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
-    textShadowColor: '#ff0000',
+    textDecorationColor: '#12a8cd',
   },
   qsValue: {
     fontSize: 20,
     color: '#12a8cd',
+  },
+  usnews: {
+    borderBottomWidth: 10,
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#f4599e',
+  },
+  usnewsValue: {
+    fontSize: 20,
+    color: '#f4599e',
+  },
+
+  thames: {
+    borderBottomWidth: 10,
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#ff821d',
+  },
+  thamesValue: {
+    fontSize: 20,
+    color: '#ff821d',
+  },
+
+  jiaotong: {
+    borderBottomWidth: 10,
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#1cc10f',
+  },
+  jiaotongValue: {
+    fontSize: 20,
+    color: '#1cc10f',
   },
 });

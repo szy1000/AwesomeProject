@@ -34,7 +34,9 @@ export default class Popover extends React.Component {
 }
 
 const _styles = StyleSheet.create({
-  popover: {},
+  popover: {
+    flex: 1,
+  },
   mask: {
     position: 'absolute',
     top: 40,

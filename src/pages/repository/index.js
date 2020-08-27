@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   RefreshControl,
+  ScrollView,
   Text,
   Image,
   StyleSheet,
@@ -144,7 +145,7 @@ class Repository extends React.Component {
           item={
             <Fragment>
               {currentOpen === 'country' ? (
-                <View>
+                <ScrollView style={{maxHeight: 500}}>
                   {item.map((v, i) => (
                     <TouchableWithoutFeedback
                       key={i}
@@ -162,7 +163,7 @@ class Repository extends React.Component {
                       </View>
                     </TouchableWithoutFeedback>
                   ))}
-                </View>
+                </ScrollView>
               ) : (
                 <View>
                   {item.map((v, i) => (
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 15,
-    marginTop: 15,
+    // marginTop: 15,
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#f7f7f7',
