@@ -23,7 +23,7 @@ class JoinTab extends React.Component {
   linkToDetail = id => {
     const {navigation} = this.props;
     Jump.linkToPage({
-      url: 'CaseList',
+      url: 'Group',
       navigation,
       params: {
         id,

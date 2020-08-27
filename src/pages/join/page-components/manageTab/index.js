@@ -23,7 +23,7 @@ class ManageTab extends React.Component {
   linkToDetail = id => {
     const {navigation} = this.props;
     Jump.linkToPage({
-      url: 'CaseList',
+      url: 'GroupDetail',
       navigation,
       params: {
         id,

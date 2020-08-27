@@ -60,8 +60,8 @@ class BBS extends React.Component {
     return (
       <View style={styles.bbs}>
         <ScrollView>
-          {/*<ImageBackground style={styles.bg} source={require('./pic54.png')} />*/}
-          <Image style={styles.bg} source={{uri: 'pic54'}} />
+          <ImageBackground style={styles.bg} source={require('./pic54.png')} />
+          {/*<Image style={styles.bg} source={{uri: 'pic54'}} />*/}
           <View style={styles.content}>
             <Panel
               title={'分类找小组'}
