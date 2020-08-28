@@ -164,17 +164,47 @@ class Register extends React.Component {
     const {nickName, phoneNumber, repeatPassword, password} = this.state;
 
     if (!nickName) {
-      alert('用户名不能为空');
+      Alert.alert(
+        '操作提示',
+        '用户名不能为空',
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      )
       return;
     }
 
     if (!/^1[3456789]\d{9}$/.test(phoneNumber)) {
-      alert('手机号格式不正确');
+      Alert.alert(
+        '操作提示',
+        '手机号格式不正确',
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      )
       return;
     }
 
     if (repeatPassword !== password) {
-      alert('两次输入的密码不一致');
+      Alert.alert(
+        '操作提示',
+        '两次输入的密码不一致',
+        [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ],
+        {cancelable: false},
+      )
       return;
     }
 

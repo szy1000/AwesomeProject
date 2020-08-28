@@ -37,7 +37,11 @@ export const repositoryInit = (params, callback) => async (
 
   const countryArr = await queryCountryReq({});
   countryArr.unshift({name: '全球', id: null});
-
+  for (let key in params) {
+    if (params[key] === undefined) {
+      delete params[key];
+    }
+  }
   const res = await queryBySelectReq(params || {});
 
   let _res = res;

@@ -4,6 +4,7 @@ import {
   changeUserInfoReq,
   uploadImageFileReq,
 } from './api';
+import {Alert} from 'react-native';
 // Actions
 const UPDATE = 'EDIT_INFO_UPDATE';
 
@@ -100,7 +101,11 @@ export const saveInfo = (params, callback) => async (dispatch, getState) => {
   const res = await changeUserInfoReq(data || {});
   const {success} = res;
   if (success) {
-    alert('修改成功');
-    callback && callback();
+    Alert.alert('操作提示', '修改成功', [
+      {
+        text: '确认',
+        onPress: async () => callback && callback(),
+      },
+    ]);
   }
 };

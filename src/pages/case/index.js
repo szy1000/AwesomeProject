@@ -26,6 +26,7 @@ class Cases extends React.Component {
     degree: {},
     subject: {},
   };
+  pageSize = 10;
 
   onChangeText = e => {
     this.setState({
@@ -92,8 +93,8 @@ class Cases extends React.Component {
   search = () => {
     const {keys, degree, subject} = this.state;
     this.props.caseInit({
-      pageNumber: 50,
-      pageSize: this.pageSize,
+      pageNumber: 1,
+      pageSize: 500,
       countryId: 1,
       query: keys,
       degreeId: degree.id,

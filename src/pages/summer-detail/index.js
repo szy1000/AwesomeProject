@@ -81,7 +81,11 @@ class SummerDetail extends React.Component {
                   source={image ? {uri: image} : require('./pic19.png')}
                 />
               </View>
-              <HTMLView value={content} style={{color: '#000'}} />
+
+              <HTMLView
+                value={content}
+                style={{paddingHorizontal: 15, lineHeight: 25, color: '#000'}}
+              />
             </View>
             <View style={styles.panel}>
               <View>

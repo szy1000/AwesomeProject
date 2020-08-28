@@ -29,8 +29,16 @@ export const casesUpdate = params => ({
 });
 
 export const caseInit = (params, callback) => async (dispatch, getState) => {
-  console.log('params', params);
   const {listData} = getState().cases.data;
+
+
+  for (let key in params) {
+    if (params[key] === undefined) {
+      delete params[key];
+    }
+  }
+  console.log('params', params);
+
   const res = await getAllCaseReq(params || {});
   const _degree = await getDegreeReq({});
   const _subject = await getSubjectReq({});

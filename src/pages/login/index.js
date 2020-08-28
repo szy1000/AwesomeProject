@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {
   Image,
   Text,
+  Alert,
   View,
   TextInput,
   TouchableOpacity,
@@ -30,7 +31,12 @@ export default class Login extends React.Component {
     // alert(JSON.stringify((await AsyncStorage.getItem('token')) || ''));
     const {phoneNumber, password} = this.state;
     if (!password || !phoneNumber) {
-      alert('用户名或密码不能为空');
+      Alert.alert('操作提示', '用户名或密码不能为空', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
       return;
     }
     const res = await loginReq(this.state);
