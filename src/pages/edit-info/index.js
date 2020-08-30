@@ -72,6 +72,7 @@ class EditInfo extends React.Component {
       } else {
         const {uri, type, data} = response;
         const source = {uri: response.uri};
+        console.log(uri.split('images/')[1])
         this.setState(
           {
             avatarSource: source,
@@ -163,7 +164,7 @@ class EditInfo extends React.Component {
             });
           }}
           placeholder={{
-            label: '',
+            label: '请选择性别',
             value: null,
           }}
           doneText="确定"

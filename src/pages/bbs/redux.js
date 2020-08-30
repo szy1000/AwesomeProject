@@ -4,6 +4,7 @@ import {
   joinGroupReq,
   unjoinGroupReq,
 } from './api';
+import { Alert } from 'react-native';
 // Actions
 const UPDATE = 'BBS_UPDATE';
 
@@ -60,6 +61,11 @@ export const joinGroup = (params, callback) => async dispatch => {
   if (success) {
     callback && callback();
   } else {
-    alert(error);
+    Alert.alert('操作提示', error, [
+      {
+        text: '确认',
+        onPress: async () => {},
+      },
+    ]);
   }
 };

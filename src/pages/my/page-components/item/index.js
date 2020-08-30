@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -70,17 +71,47 @@ export default class Item extends React.Component {
     {
       icon: require('./pic38.png'),
       title: '退出登录',
-      clickFn: async () => {
-        await AsyncStorage.clear();
-        const {navigation} = this.props;
-        Jump.resetToHome({
-          navigation: navigation,
-        });
+      clickFn: () => {
+        if (!this.props.isLogin) {
+          Alert.alert(
+            '操作提示',
+            '当前无登录用户。请点击登录按钮，前往登录！',
+            [
+              {
+                text: '确定',
+                onPress: async () => {},
+              },
+            ],
+          );
+          // alert(this.props.isLogin);
+          return;
+        }
+        Alert.alert('操作提示', '请问您确定退出吗？', [
+          {
+            text: '取消',
+            onPress: async () => {},
+          },
+          {
+            text: '确认',
+            onPress: async () => {
+              await AsyncStorage.clear();
+              const {navigation} = this.props;
+              Jump.resetToHome({
+                navigation: navigation,
+              });
+            },
+          },
+        ]);
       },
     },
   ];
 
   render() {
+    // if (!this.props.isLogin) {
+    //   this.itemArr.length = 4;
+    // }
+
+    // console.log('item', );
     return (
       <View>
         {this.itemArr.map(({icon, title, clickFn}, index) => (

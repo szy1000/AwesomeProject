@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -24,9 +25,13 @@ class Note extends React.Component {
     content: '',
     imgArr: [require('./png.png')],
     avatarSourceMap: [],
+    loading: false,
   };
 
   getPhoto = async () => {
+    this.setState({
+      loading: true,
+    });
     const options = {
       // todo
       // mediaType: 'mixed',
@@ -71,6 +76,9 @@ class Note extends React.Component {
           },
         );
       }
+      this.setState({
+        loading: false,
+      });
     });
   };
 
@@ -115,11 +123,16 @@ class Note extends React.Component {
           }),
       );
     } else {
-      alert('标题，正文和地理位置不能为空');
+      Alert.alert('操作提示', '标题，正文和地理位置不能为空', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
     }
   };
   render() {
-    const {title, content, avatarSourceMap} = this.state;
+    const {title, content, loading, avatarSourceMap} = this.state;
     const {currPos} = this.props.data;
     if (currPos) {
       const {
@@ -140,9 +153,25 @@ class Note extends React.Component {
             );
           })}
           {avatarSourceMap.length < 9 && (
-            <TouchableOpacity onPress={this.getPhoto}>
-              <Image style={styles.pic} source={require('./png.png')} />
-            </TouchableOpacity>
+            <>
+              {loading ? (
+                <Image
+                  style={{
+                    marginVertical: 32,
+                    marginHorizontal: 25,
+                    width: 30,
+                    height: 30,
+                    marginBottom: 10,
+                    resizeMode: 'cover',
+                  }}
+                  source={require('./loading.gif')}
+                />
+              ) : (
+                <TouchableOpacity onPress={this.getPhoto}>
+                  <Image style={styles.pic} source={require('./png.png')} />
+                </TouchableOpacity>
+              )}
+            </>
           )}
         </View>
         <View style={styles.iptArea}>
@@ -210,13 +239,14 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingVertical: 10,
-    fontSize: 25,
+    fontSize: 24,
     borderBottomColor: '#f0f0f0',
     borderBottomWidth: 1,
   },
   content: {
     paddingVertical: 10,
     minHeight: 200,
+    fontSize: 20,
   },
   address: {
     paddingVertical: 20,
@@ -245,14 +275,14 @@ const styles = StyleSheet.create({
   submit: {
     marginTop: 100,
     alignItems: 'center',
-    marginHorizontal: 40,
-    height: 40,
-    backgroundColor: '#f42440',
-    borderRadius: 20,
+    marginHorizontal: 15,
+    height: 50,
+    backgroundColor: '#12a8cd',
+    borderRadius: 5,
   },
   txt: {
     color: '#fff',
     fontSize: 20,
-    lineHeight: 40,
+    lineHeight: 50,
   },
 });

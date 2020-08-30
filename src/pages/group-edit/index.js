@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -44,14 +45,16 @@ class GroupEdit extends React.Component {
           }),
       );
     } else {
-      alert('标题，正文不能为空');
+      Alert.alert('操作提示', '标题，正文不能为空', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
     }
   };
 
   getPhoto = async () => {
-    this.setState({
-      loading: true,
-    });
     const options = {
       title: '选择照片',
       cancelButtonTitle: '取消',
@@ -64,6 +67,10 @@ class GroupEdit extends React.Component {
     };
     await ImagePicker.showImagePicker(options, response => {
       console.log('Response = ', response);
+      this.setState({
+        loading: true,
+      });
+
 
       if (response.didCancel) {
         console.log('User cancelled image picker');

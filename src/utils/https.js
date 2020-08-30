@@ -63,12 +63,21 @@ const promiseFun = (method, url, params, needCode, resolve, reject) => {
           {cancelable: false},
         );
       } else if (message.includes('Network')) {
-        alert(JSON.stringify('网络异常,请稍后重试'));
+        Alert.alert('操作提示', '网络异常,请稍后重试！', [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ]);
       } else {
-        alert(JSON.stringify(err));
+        Alert.alert('操作提示', JSON.stringify(err), [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ]);
       }
       throw err;
-      // reject();
     });
 };
 

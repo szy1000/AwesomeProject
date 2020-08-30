@@ -1,4 +1,5 @@
 import {createNoteReq, uploadImageFileReq, getPosReq} from './api';
+import {Alert} from 'react-native';
 // Actions
 const UPDATE = 'NOTE_UPDATE';
 
@@ -38,7 +39,12 @@ export const submitNote = (params, callback) => async (dispatch, getState) => {
   params.files = files;
   console.log('flies', files);
   if (!files.length) {
-    alert('请至少上传一张图片');
+    Alert.alert('操作提示', '当前已是最新版本', [
+      {
+        text: '确认',
+        onPress: async () => {},
+      },
+    ]);
     return;
   }
   const {success} = await createNoteReq(params || {});

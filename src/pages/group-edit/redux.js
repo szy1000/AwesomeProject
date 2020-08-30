@@ -1,4 +1,5 @@
 import {getUserInfoReq, submitForumReq, uploadImageFileReq} from './api';
+import { Alert } from 'react-native';
 // Actions
 const UPDATE = 'GROUP_EDIT_UPDATE';
 
@@ -41,7 +42,12 @@ export const groupEditInit = (params, callback) => async (
   params.files = files;
   // params.groupId = new Date().getMilliseconds();
   if (!files.length) {
-    alert('请至少上传一张图片');
+    Alert.alert('操作提示', '请至少上传一张图片', [
+      {
+        text: '确认',
+        onPress: async () => {},
+      },
+    ]);
     return;
   }
   console.log(params);
@@ -49,7 +55,12 @@ export const groupEditInit = (params, callback) => async (
   if (res.success) {
     callback && callback();
   } else {
-    alert(res.error);
+    Alert.alert('操作提示', res.error, [
+      {
+        text: '确认',
+        onPress: async () => {},
+      },
+    ]);
   }
   console.log('rrrrrrrrrr', res);
 };

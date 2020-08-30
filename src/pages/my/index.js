@@ -26,6 +26,7 @@ class My extends React.Component {
       async () => {
         // this.getPos();
         this.isLogin = await Tools.isLogin();
+        console.log(console.log(this.isLogin))
         if (this.isLogin) {
           this.userName = await AsyncStorage.getItem('name');
           const id = await AsyncStorage.getItem('sid');
@@ -103,7 +104,7 @@ class My extends React.Component {
           )}
           <Statistics {...this.props} userStat={userStat} />
         </View>
-        <Item {...this.props} />
+        <Item {...this.props} isLogin={this.isLogin} />
       </ScrollView>
     );
   }

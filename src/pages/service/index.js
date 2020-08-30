@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   StyleSheet,
-  Image,
+  Image, Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -26,7 +26,12 @@ class Service extends React.Component {
   sendMessage = () => {
     const {value} = this.state;
     if (!value) {
-      alert('不能为空');
+      Alert.alert('操作提示', '不能为空', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ])
       return;
     }
     this.props.sendMsg({

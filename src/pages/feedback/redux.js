@@ -1,4 +1,5 @@
 import {getFeedBackReq, uploadImageFileReq} from './api';
+import { Alert } from 'react-native';
 // Actions
 const UPDATE = 'FEEDBACK_UPDATE';
 
@@ -60,7 +61,12 @@ export const submitFeedback = (params, callback) => async (
   console.log('params', params);
   const {success} = await getFeedBackReq(params || {});
   if (success) {
-    alert('感谢您的您的反馈信息，我们会及时处理！');
+    Alert.alert('操作提示', '感谢您的您的反馈信息，我们会及时处理！', [
+      {
+        text: '确认',
+        onPress: async () => {},
+      },
+    ]);
   }
   dispatch(
     feedbackUpdate({

@@ -7,8 +7,9 @@ import {
   View,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
-import {Button} from '../../components';
+import {Button, ListFooter} from '../../components';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -41,7 +42,12 @@ class Search extends React.Component {
         query: keys,
       });
     } else {
-      alert('输入框不能为空');
+      Alert.alert('操作提示', '输入框不能为空', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
     }
   };
 
@@ -60,7 +66,6 @@ class Search extends React.Component {
   render() {
     const {data} = this.props;
     const {keys} = this.state;
-    console.log(data);
     return (
       <View style={{flex: 1}}>
         <View style={styles.searchBox}>
@@ -70,12 +75,14 @@ class Search extends React.Component {
             returnKeyLabel="search"
             onChangeText={e => this.handChange(e)}
             style={styles.ipt}
+            placeholder="请输入关键字"
             onSubmitEditing={this.search}
             autoFocus
           />
+          <Button onClick={this.search}>搜索</Button>
         </View>
         <ScrollView>
-          {data.res &&
+          {data.res && data.res.length ? (
             data.res.map((v, k) => (
               <TouchableNativeFeedback
                 key={k}
@@ -87,7 +94,10 @@ class Search extends React.Component {
                   <Text style={styles.name}>{v.name}</Text>
                 </View>
               </TouchableNativeFeedback>
-            ))}
+            ))
+          ) : (
+            <ListFooter />
+          )}
         </ScrollView>
       </View>
     );
@@ -111,14 +121,17 @@ const styles = StyleSheet.create({
     marginRight: 15,
     flex: 1,
     color: '#000',
-    borderColor: '#000',
+    borderColor: '#ccc',
     borderWidth: 1,
     paddingVertical: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
     fontSize: 20,
-    borderRadius: 5,
+    borderRadius: 15,
   },
-  btn: {},
+  btn: {
+    color: '#12a8cd',
+    backgroundColor: '#12a8cd',
+  },
 
   item: {
     flexDirection: 'row',

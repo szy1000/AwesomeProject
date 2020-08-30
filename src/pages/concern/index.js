@@ -120,7 +120,7 @@ class Concern extends React.Component {
           ListFooterComponent={
             <View style={styles.activity}>
               <ActivityIndicator animating={loading} />
-              <Text style={styles.txt}>加载更多</Text>
+              <Text style={styles.txt}>暂无更多数据</Text>
             </View>
           }
           onEndReached={this.getMore}
@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
     height: 10,
   },
   activity: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    // paddingTop: 10,
+    // paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 40,
+    // height: 40,
   },
   txt: {
     marginLeft: 10,

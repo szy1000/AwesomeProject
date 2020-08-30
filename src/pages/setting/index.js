@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import {WhiteSpace, Item} from '../../components';
 import Jump from '../../utils/jump';
 
@@ -8,7 +8,12 @@ export default class Setting extends React.Component {
     {
       title: '检查更新',
       clickFn: () => {
-        alert('当前已是最新版本');
+        Alert.alert('操作提示', '当前已是最新版本', [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ]);
       },
     },
     {

@@ -49,7 +49,12 @@ export default class Login extends React.Component {
       await AsyncStorage.setItem('sid', profile.sid.toString());
       Jump.resetToHome(this.props);
     } else {
-      alert(error);
+      Alert.alert('操作提示', error, [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
     }
 
     console.log('login res', res);

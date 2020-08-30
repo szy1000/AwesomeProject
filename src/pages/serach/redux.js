@@ -5,7 +5,7 @@ const UPDATE = 'SEARCH_UPDATE';
 // Reducer
 const initState = {
   init: false,
-  data: [],
+  data: {},
 };
 
 export const search = (state = initState, action) => {
@@ -29,7 +29,7 @@ export const searchUpdate = params => ({
 export const searchInit = (params, callback) => async dispatch => {
   // const { init } = getState().home
   const res = await queryKeysReq(params);
-  console.log(res)
+  console.log(res);
 
   dispatch(
     searchUpdate({
