@@ -1,6 +1,7 @@
 import {
   queryRankingReq,
-  queryBySelectReq,
+  // queryBySelectReq,
+  queryCategoryReq,
   getGradeReq,
   getSubjectReq,
   querySummerProjectReq,
@@ -36,14 +37,14 @@ export const summerUpdate = params => ({
 
 export const summerInit = (params, callback) => async (dispatch, getState) => {
   const {listData} = getState().summer._data;
-  console.log('allRepository', listData);
   const rankArr = await queryRankingReq({});
+  const categoryArr = await queryCategoryReq({});
+  console.log('categoryArr _res', categoryArr);
   const res = await querySummerProjectReq(params || {});
   const _subject = await getSubjectReq({});
   const _grade = await getGradeReq({});
 
   let _res = res;
-  console.log('summer _res', _res);
   if (!params.init && listData.data) {
     let temp = listData.data.concat(res.data);
     res.data = [...temp];
@@ -55,6 +56,7 @@ export const summerInit = (params, callback) => async (dispatch, getState) => {
       init: true,
       _data: {
         rankArr,
+        categoryArr,
         listData: _res,
         _subject,
         _grade,

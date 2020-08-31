@@ -27,6 +27,7 @@ class Summer extends React.Component {
     visible: false,
     grade: {},
     subject: {},
+    category: {},
   };
 
   onChangeText = e => {
@@ -90,7 +91,8 @@ class Summer extends React.Component {
   }
 
   search = () => {
-    const {keys, grade, subject} = this.state;
+    const {keys, grade, subject, category} = this.state;
+    console.log(this.state)
     this.props.summerInit({
       init: true,
       pageSize: 500,
@@ -98,6 +100,7 @@ class Summer extends React.Component {
       query: keys,
       gradeId: grade.id,
       subjectId: subject.id,
+      categoryId: category.id,
     });
   };
   render() {
@@ -107,7 +110,7 @@ class Summer extends React.Component {
       currentOpen,
       select,
       refreshLoading,
-
+      category,
       grade,
       subject,
     } = this.state;
@@ -116,12 +119,21 @@ class Summer extends React.Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
+
     const {
       listData: {data, total},
       _subject,
       _grade,
+      categoryArr = [],
     } = _data;
-    const item = currentOpen === 'grade' ? _grade : _subject;
+    console.log(categoryArr);
+
+    const item =
+      currentOpen === 'grade'
+        ? _grade
+        : currentOpen === 'subject'
+        ? _subject
+        : categoryArr;
     return (
       <View style={styles.summer}>
         <View style={styles.selectArea}>
@@ -169,6 +181,26 @@ class Summer extends React.Component {
                   style={styles.filterIcon}
                   source={
                     currentOpen === 'country'
+                      ? require('./typerow.png')
+                      : require('./typerow_pre.png')
+                  }
+                />
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => this.toggleModal('category')}>
+              <View style={styles.filterItem}>
+                <Text
+                  style={[
+                    styles.area,
+                    currentOpen === 'category' && styles.active,
+                  ]}>
+                  {category.name || '分类'}
+                </Text>
+                <Image
+                  style={styles.filterIcon}
+                  source={
+                    currentOpen === 'category'
                       ? require('./typerow.png')
                       : require('./typerow_pre.png')
                   }
@@ -254,7 +286,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%',
+    width: '33.33%',
   },
   filterIcon: {
     width: 11,
