@@ -5,10 +5,11 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Image,
+  Alert,
   Text,
 } from 'react-native';
 import {GroupTitle, FixedTop, Discussion} from './page-components';
-
+import Tools from '../../utils/tool';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 const TopTab = createMaterialTopTabNavigator();
 
@@ -52,14 +53,31 @@ class Group extends React.Component {
           toggleJoin={e => this.toggleJoin(e)}
         />
         <TouchableWithoutFeedback
-          onPress={() => {
-            Jump.linkToPage({
-              navigation,
-              url: 'GroupEdit',
-              params: {
-                id: group.id,
-              },
-            });
+          onPress={async () => {
+            if (await Tools.isLogin()) {
+              Jump.linkToPage({
+                navigation,
+                url: 'GroupEdit',
+                params: {
+                  id: group.id,
+                },
+              });
+            } else {
+              Alert.alert('操作提示', '当前无登录用户！', [
+                {
+                  text: '取消',
+                  onPress: () => console.log(1),
+                },
+                {
+                  text: '确定',
+                  onPress: async () =>
+                    Jump.linkToPage({
+                      navigation,
+                      url: 'Login',
+                    }),
+                },
+              ]);
+            }
           }}>
           <View style={styles.note}>
             <Image style={styles.edit} source={require('./edit.png')} />

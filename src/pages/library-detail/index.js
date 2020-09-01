@@ -68,9 +68,9 @@ class LibraryDetail extends Component {
     } = data;
 
     if (infoItem.length > 0) {
-      if (infoItem[infoItem.length - 1].name !== '热门院校') {
+      if (infoItem[infoItem.length - 1].name !== '推荐院校') {
         infoItem.push({
-          name: '热门院校',
+          name: '推荐院校',
           component: () => <RecommendSchool />,
         });
       }
@@ -102,6 +102,11 @@ class LibraryDetail extends Component {
           }
         };
       }
+    } else if (infoItem.length === 0) {
+      infoItem.push({
+        name: '推荐院校',
+        component: () => <RecommendSchool />,
+      });
     }
 
     return (

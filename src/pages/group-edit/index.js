@@ -212,6 +212,8 @@ const styles = StyleSheet.create({
   content: {
     paddingVertical: 10,
     minHeight: 200,
+    lineHeight: 20,
+    fontSize: 16,
   },
   submit: {
     marginTop: 100,
