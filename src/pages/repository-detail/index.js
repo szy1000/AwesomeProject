@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   ScrollView,
+  Dimensions,
   Platform,
   ActivityIndicator,
   StyleSheet,
@@ -15,6 +16,8 @@ import {bindActionCreators} from 'redux';
 import {repositoryDetailInit} from './redux';
 import {queryItemReq} from './api';
 import HTMLView from 'react-native-htmlview';
+
+var {width, height} = Dimensions.get('window');
 
 class HtmlContent extends React.Component {
   state = {
@@ -33,11 +36,29 @@ class HtmlContent extends React.Component {
     });
   }
 
+  _renderNode(node, index, siblings, parent, defaultRenderer) {
+    if (node.name === 'img') {
+      const data = node.attribs;
+      return (
+        <Image
+          key={index}
+          source={{uri: data.src}}
+          resizeMode="cover"
+          style={{height: 100, width: width}}
+        />
+      );
+    }
+  }
+
   render() {
     const {html} = this.state;
     return (
       <ScrollView>
-        <HTMLView value={html} style={{color: '#000'}} />
+        <HTMLView
+          value={html}
+          renderNode={this._renderNode}
+          style={{color: '#000', paddingHorizontal: 15}}
+        />
       </ScrollView>
     );
   }
@@ -73,6 +94,7 @@ class RepositoryDetail extends React.Component {
         id,
         imageUrl,
         jiaotongRanking,
+        logoUrl,
         name,
         nameEn,
         qsRanking,
@@ -118,7 +140,7 @@ class RepositoryDetail extends React.Component {
             <Banner imageUrl={[imageUrl]} />
             <View style={styles.school}>
               <View>
-                <Image style={styles.logo} source={{uri: imageUrl}} />
+                <Image style={styles.logo} source={{uri: logoUrl}} />
               </View>
               <View style={styles.msgBox}>
                 <Text style={styles.name}>{name}</Text>

@@ -75,7 +75,7 @@ class FindDetail extends React.Component {
       starCount,
       user,
     } = data.noteDetail;
-    console.log(data.userAll)
+    console.log(data.userAll);
     return (
       <View style={styles.findDetail}>
         <SafeAreaView style={{flex: 1}}>
@@ -90,7 +90,7 @@ class FindDetail extends React.Component {
             style={{flex: 1}}>
             <Banner files={files} />
             <View style={{padding: 15}}>
-              <Text style={{fontSize: 18}}>{title}</Text>
+              <Text style={{fontSize: 20, marginBottom: 15}}>{title}</Text>
               <Text style={{fontSize: 16, lineHeight: 20}}>{content}</Text>
             </View>
             <WhiteSpace />

@@ -35,7 +35,7 @@ export const findAllInit = (params, callback) => async (dispatch, getState) => {
   console.log('res', res);
 
   let _res = res;
-  if (!params.refresh) {
+  if (!params.init && !params.refresh) {
     if (note.data) {
       let temp = note.data.concat(res.data);
       res.data = [...temp];

@@ -28,9 +28,15 @@ export default class Header extends React.Component {
           </View>
         </View>
         <TouchableOpacity onPress={() => this.props.followFn()}>
-          <View style={styles.focus}>
-            {follow ? <Text>取消关注</Text> : <Text>关注</Text>}
-          </View>
+          {follow ? (
+            <View style={styles.focus}>
+              <Text style={styles.txt}>取消关注</Text>
+            </View>
+          ) : (
+            <View style={styles.unfocus}>
+              <Text style={styles.fTxt}>关注</Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
     );
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 20,
     // height: 40,
-    // alignItems: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
   },
   avatar: {
@@ -71,6 +77,24 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   focus: {
-
-  }
+    borderColor: '#12a8cd',
+    borderWidth: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    backgroundColor: '#12a8cd',
+  },
+  txt: {
+    color: '#fff',
+  },
+  unfocus: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    borderColor: '#12a8cd',
+    borderWidth: 1,
+  },
+  fTxt: {
+    color: '#12a8cd',
+  },
 });

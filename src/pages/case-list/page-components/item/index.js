@@ -7,6 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import Jump from '../../../../utils/jump';
+import HTMLView from 'react-native-htmlview';
+
 export default class Item extends React.Component {
   linkToDetail = id => {
     const {navigation} = this.props;
@@ -27,9 +29,10 @@ export default class Item extends React.Component {
             <Text style={_styles.name} numberOfLines={1}>
               {title}
             </Text>
-            <Text style={_styles.eng_name} numberOfLines={1}>
-              {description}
-            </Text>
+            <HTMLView
+              style={_styles.eng_name}
+              value={description}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -57,5 +60,7 @@ const _styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 3,
     color: '#999999',
+    height: 40,
+    overflow: 'hidden',
   },
 });

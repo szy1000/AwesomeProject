@@ -81,6 +81,7 @@ class FindAll extends React.Component {
       this.props.findAllInit({
         pageSize: this.pageSize,
         pageNum: this.currIndex,
+        init: true,
       });
       console.log('find did focus');
     });
@@ -88,7 +89,7 @@ class FindAll extends React.Component {
 
   componentWillUnmount() {
     this.didFocusListener.removeEventListener &&
-    this.didFocusListener.removeEventListener();
+      this.didFocusListener.removeEventListener();
   }
 
   render() {
@@ -127,7 +128,7 @@ class FindAll extends React.Component {
                         : require('../../assets/images/logo.jpeg')
                     }
                   />
-                  <Text style={styles.title} numberOfLines={2}>
+                  <Text style={styles.title} numberOfLines={1}>
                     {item.title}
                   </Text>
                 </View>

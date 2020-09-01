@@ -6,6 +6,8 @@ import {Tab} from '../../components';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {caseListInit} from './redux';
+import HTMLView from 'react-native-htmlview';
+
 
 class CaseList extends React.Component {
   componentDidMount(): void {
@@ -26,6 +28,7 @@ class CaseList extends React.Component {
       navigation,
       route: {params},
     } = this.props;
+    console.log(data)
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }

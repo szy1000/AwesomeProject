@@ -48,10 +48,10 @@ export default class Item extends React.Component {
               <Text style={_styles.eng_name} numberOfLines={1}>
                 {nameEn}
               </Text>
-              <Text style={_styles.address}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image source={require('./address.png')} style={_styles.addr} />
-                {country}
-              </Text>
+                <Text style={_styles.address}>{country}</Text>
+              </View>
             </View>
             <View style={_styles.ranking}>
               <View style={_styles.ranking_item}>
@@ -85,6 +85,7 @@ const _styles = StyleSheet.create({
   logo: {
     width: 60,
     height: 60,
+    resizeMode: 'cover',
   },
   school_wrapper: {
     paddingBottom: 5,
@@ -101,9 +102,11 @@ const _styles = StyleSheet.create({
     color: '#999999',
   },
   addr: {
-    paddingRight: 10,
-    width: 5,
+    marginRight: 5,
+    // paddingRight: 10,
+    width: 10,
     height: 12,
+    resizeMode: 'cover',
   },
   address: {
     color: '#666666',
@@ -122,6 +125,7 @@ const _styles = StyleSheet.create({
   icon: {
     width: 14,
     height: 14,
+    // resizeMode: 'contain',
   },
   desc: {
     marginHorizontal: 8,
