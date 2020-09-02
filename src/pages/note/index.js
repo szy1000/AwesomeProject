@@ -189,7 +189,7 @@ class Note extends React.Component {
             multiline={true}
             value={content}
             onChangeText={e => this.handleChange('content', e)}
-            placeholder={'填写正文'}
+            placeholder={'添加正文'}
           />
         </View>
         <TouchableWithoutFeedback onPress={this.getPos}>

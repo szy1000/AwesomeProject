@@ -155,7 +155,7 @@ class GroupEdit extends React.Component {
             style={styles.content}
             multiline
             value={content}
-            placeholder={'填加正文'}
+            placeholder={'添加正文'}
             onChangeText={e => this.handleChange('content', e)}
           />
         </View>
