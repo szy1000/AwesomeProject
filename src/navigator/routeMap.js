@@ -70,6 +70,21 @@ const router = [
     options: {
       title: '背景提升',
       // headerShown: false, //删除头部
+      headerRight: () => (
+        <Feather
+          style={{marginRight: 10}}
+          name="share"
+          color="#000"
+          size={20}
+          onPress={() => {
+            Share.share({
+              message: '留学帮',
+              url: 'http://www.ivyroutedu.com/contact.php',
+              title: '留学帮',
+            });
+          }}
+        />
+      ),
     },
   },
   {
@@ -105,7 +120,25 @@ const router = [
     name: 'RepositoryDetail',
     component: RepositoryDetail,
     options: {
-      headerShown: false, //删除头部
+      headerTransparent: true, //设置头部透明,
+      title: null,
+
+      // headerShown: false, //删除头部
+      headerRight: () => (
+        <Feather
+          style={{marginRight: 10}}
+          name="share"
+          color="#000"
+          size={20}
+          onPress={() => {
+            Share.share({
+              message: '留学帮',
+              url: 'http://www.ivyroutedu.com/contact.php',
+              title: '留学帮',
+            });
+          }}
+        />
+      ),
     },
   },
   {
@@ -148,6 +181,21 @@ const router = [
     component: CaseDetail,
     options: {
       title: '案例详情',
+      headerRight: () => (
+        <Feather
+          style={{marginRight: 10}}
+          name="share"
+          color="#000"
+          size={20}
+          onPress={() => {
+            Share.share({
+              message: '留学帮',
+              url: 'http://www.ivyroutedu.com/contact.php',
+              title: '留学帮',
+            });
+          }}
+        />
+      ),
     },
   },
 
@@ -163,6 +211,21 @@ const router = [
     component: SummerDetail,
     options: {
       title: '暑假项目详情',
+      headerRight: () => (
+        <Feather
+          style={{marginRight: 10}}
+          name="share"
+          color="#000"
+          size={20}
+          onPress={() => {
+            Share.share({
+              message: '留学帮',
+              url: 'http://www.ivyroutedu.com/contact.php',
+              title: '留学帮',
+            });
+          }}
+        />
+      ),
     },
   },
 
@@ -183,7 +246,7 @@ const router = [
           onPress={() => {
             Share.share({
               message: '留学帮',
-              url: 'http://facebook.github.io/react-native/',
+              url: 'http://www.ivyroutedu.com/contact.php',
               title: '留学帮',
             });
           }}
@@ -332,6 +395,21 @@ const router = [
       title: '专业详情',
       // headerBackTitle: null,
       // headerTruncatedBackTitle: null,
+      headerRight: () => (
+        <Feather
+          style={{marginRight: 10}}
+          name="share"
+          color="#000"
+          size={20}
+          onPress={() => {
+            Share.share({
+              message: '留学帮',
+              url: 'http://www.ivyroutedu.com/contact.php',
+              title: '留学帮',
+            });
+          }}
+        />
+      )
     },
   },
 
@@ -344,7 +422,6 @@ const router = [
       // headerTruncatedBackTitle: null,
     },
   },
-
 
   {
     name: 'Test',
