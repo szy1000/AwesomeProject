@@ -23,7 +23,15 @@ class Group extends React.Component {
     const {
       route: {params},
     } = this.props;
-    this.props.groupInit(params.id);
+    this.didFocusListener = this.props.navigation.addListener('focus', () => {
+      this.props.groupInit(params.id);
+      console.log('bbs did focus');
+    });
+  }
+
+  componentWillUnmount() {
+    this.didFocusListener.removeEventListener &&
+      this.didFocusListener.removeEventListener();
   }
 
   toggleJoin = _ => {

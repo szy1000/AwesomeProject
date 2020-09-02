@@ -203,7 +203,7 @@ const router = [
     name: 'GroupDetail',
     component: GroupDetail,
     options: {
-      title: '小组详情',
+      title: '话题详情',
     },
   },
   {

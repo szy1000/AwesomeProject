@@ -72,9 +72,8 @@ class GroupDetail extends React.Component {
             style={styles.groupDetail}>
             <Item {...groupDetail} />
             <WhiteSpace size={'big'} />
-            {comment.length > 0 && (
-              comment.map(v => <Leave key={v.id} {...v} />)
-            )}
+            {comment.length > 0 &&
+              comment.map(v => <Leave key={v.id} {...v} />)}
           </ScrollView>
           <Comment
             {...groupDetail}

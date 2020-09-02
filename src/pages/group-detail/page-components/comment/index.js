@@ -34,8 +34,10 @@ export default class GroupDetail extends React.Component {
         <TextInput
           style={styles.ipt}
           onEndEditing={() => {
-            this.setState({content: ''});
-            this.props.makeComment(content);
+            if (content) {
+              this.setState({content: ''});
+              this.props.makeComment(content);
+            }
           }}
           placeholder={'写回复'}
           returnKeyType="send"
