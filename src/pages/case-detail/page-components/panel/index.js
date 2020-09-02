@@ -21,7 +21,7 @@ export default class Panel extends React.Component {
   render() {
     const {title, children} = this.props;
     return (
-      <View>
+      <View style={styles.panelBox}>
         <View style={styles.header}>
           <Text style={styles.title} numberOfLines={1}>
             {title}
@@ -34,12 +34,18 @@ export default class Panel extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  panelBox: {
+    marginTop: 15,
+    marginHorizontal: 15,
+    backgroundColor: '#fff',
+  },
   header: {
-    marginTop: 20,
+    paddingTop: 15,
     paddingHorizontal: 15,
   },
   title: {fontSize: 18, fontWeight: '500'},
   content: {
     padding: 15,
+    minHeight: 200,
   },
 });

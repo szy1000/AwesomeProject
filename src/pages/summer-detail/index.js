@@ -140,6 +140,9 @@ class SummerDetail extends React.Component {
               <Text style={styles.word}>点击报名</Text>
             </View>
           )}
+          <View style={styles.moreDetail}>
+            <Text style={styles.txt}>查看详细活动介绍</Text>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -222,5 +225,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 44,
     backgroundColor: 'red',
+  },
+
+  moreDetail: {
+    position: 'absolute',
+    zIndex: 2,
+    right: 0,
+    bottom: 100,
+    paddingVertical: 5,
+    paddingLeft: 30,
+    paddingRight: 10,
+    width: 100,
+    borderBottomLeftRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: 'red',
+    // backgroundColor: 'linear-gradient(to right,#d3959b,#bfe6ba)',
+  },
+  txt: {
+    color: '#fff',
+    lineHeight: 16,
+    fontSize: 12,
   },
 });

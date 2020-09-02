@@ -28,14 +28,18 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: 40,
+    paddingVertical: 15,
+    marginHorizontal: 15,
+    paddingHorizontal: 15,
     flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderRadius: 10,
   },
   img: {
     width: 100,
     height: 120,
-    resizeMode: 'contain',
-    backgroundColor: '#ccc',
+    resizeMode: 'cover',
+    // backgroundColor: '#ccc',
   },
   txt_wrapper: {
     paddingLeft: 15,
