@@ -39,7 +39,6 @@ export const summerInit = (params, callback) => async (dispatch, getState) => {
   const {listData} = getState().summer._data;
   const rankArr = await queryRankingReq({});
   const categoryArr = await queryCategoryReq({});
-  console.log('categoryArr _res', categoryArr);
   const res = await querySummerProjectReq(params || {});
   const _subject = await getSubjectReq({});
   const _grade = await getGradeReq({});

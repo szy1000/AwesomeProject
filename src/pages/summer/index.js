@@ -82,17 +82,18 @@ class Summer extends React.Component {
     }
   };
 
-  componentDidMount(): void {
+  componentDidMount() {
     this.props.summerInit({
       init: true,
       pageSize: 8,
       pageNumber: 1,
+      query: '',
     });
   }
 
   search = () => {
     const {keys, grade, subject, category} = this.state;
-    console.log(this.state)
+    console.log(this.state);
     this.props.summerInit({
       init: true,
       pageSize: 500,
@@ -126,7 +127,7 @@ class Summer extends React.Component {
       _grade,
       categoryArr = [],
     } = _data;
-    console.log(categoryArr);
+    console.log('_data.listData', _data.listData);
 
     const item =
       currentOpen === 'grade'
