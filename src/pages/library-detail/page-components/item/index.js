@@ -19,16 +19,16 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {styles, title, description, id} = this.props;
+    const {styles, name, nameEn, id} = this.props;
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
           <View>
             <Text style={_styles.name} numberOfLines={1}>
-              {title}
+              {name}
             </Text>
             <Text style={_styles.eng_name} numberOfLines={1}>
-              {description}
+              {nameEn}
             </Text>
           </View>
         </View>

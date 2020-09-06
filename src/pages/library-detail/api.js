@@ -8,7 +8,7 @@ const queryContentReq = params =>
   Https.get('/api/app/infoItem/content', params);
 
 const queryRecommendSchoolReq = params =>
-  Https.get('/api/app/subject/5/university', params);
+  Https.get(`/api/app/subject/${params.id}/university`, params);
 
 export {
   querySubjectDetailReq,

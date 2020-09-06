@@ -45,6 +45,7 @@ export default class RecommendSchool extends React.Component {
       pageNumber: 1,
       pageSize: 10,
       refreshLoading: false,
+      id: this.props.id,
     });
     console.log('resres', res);
     this.setState({res});
