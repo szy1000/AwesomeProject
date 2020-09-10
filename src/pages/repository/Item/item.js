@@ -27,6 +27,7 @@ export default class Item extends React.Component {
       country,
       admission,
       imageUrl,
+      logoUrl,
       styles,
     } = this.props;
     return (
@@ -35,8 +36,8 @@ export default class Item extends React.Component {
           <Image
             style={_styles.logo}
             source={
-              imageUrl
-                ? {uri: imageUrl}
+              logoUrl
+                ? {uri: logoUrl}
                 : require('../../../assets/images/logo.jpeg')
             }
           />

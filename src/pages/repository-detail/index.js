@@ -140,7 +140,7 @@ class RepositoryDetail extends React.Component {
             <Banner imageUrl={[imageUrl]} />
             <View style={styles.school}>
               <View>
-                <Image style={styles.logo} source={{uri: logoUrl}} />
+                <Image style={styles.logo} source={logoUrl ? {uri: logoUrl} : require('../../assets/images/logo.jpeg')} />
               </View>
               <View style={styles.msgBox}>
                 <Text style={styles.name}>{name}</Text>
