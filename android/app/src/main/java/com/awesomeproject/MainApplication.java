@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.lingxuiglobal;
 
 import android.app.Application;
 import android.content.Context;
