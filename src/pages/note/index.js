@@ -187,6 +187,7 @@ class Note extends React.Component {
           <TextInput
             style={styles.content}
             multiline={true}
+            textAlignVertical="top"
             value={content}
             onChangeText={e => this.handleChange('content', e)}
             placeholder={'添加正文'}

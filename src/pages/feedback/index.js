@@ -98,6 +98,7 @@ class Feedback extends React.Component {
         <TextInput
           value={content}
           multiline={true}
+          textAlignVertical="top"
           style={styles.ipt}
           onChangeText={e => this.onChange('content', e)}
           placeholder={'请输入反馈内容...'}
