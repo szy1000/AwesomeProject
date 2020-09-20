@@ -80,6 +80,7 @@ class FindMy extends React.Component {
     this.props.findMyInit({
       pageSize: this.pageSize,
       pageNum: this.currIndex,
+      refresh: true,
     });
   }
 
