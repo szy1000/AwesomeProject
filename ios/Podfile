@@ -88,6 +88,8 @@ target 'AwesomeProject' do
 
 
 
+  pod 'RCTWeChat', :path => '../node_modules/react-native-wechat-lib'
+
   target 'AwesomeProjectTests' do
     inherit! :complete
     # Pods for testing
