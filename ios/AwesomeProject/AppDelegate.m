@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <React/RCTLinkingManager.h>
 
 #if DEBUG && TARGET_OS_SIMULATOR
 #import <FlipperKit/FlipperClient.h>
@@ -12,7 +13,7 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
-#import <React/RCTLinkingManager.h>
+
 
 
 

@@ -492,12 +492,4 @@ const router = [
   },
 ];
 
-const styles = StyleSheet.create({
-  back: {
-    marginLeft: 10,
-    width: 18,
-    height: 17,
-    resizeMode: 'cover',
-  },
-});
 export default router;

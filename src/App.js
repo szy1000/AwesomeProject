@@ -5,6 +5,7 @@ import store from './sotre/index';
 import * as WeChat from 'react-native-wechat';
 
 WeChat.registerApp('wx0ac6d9fb4e5c06f3');
+
 export default class App extends React.Component {
   render() {
     return (
