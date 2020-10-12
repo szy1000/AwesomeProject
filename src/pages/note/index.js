@@ -94,7 +94,6 @@ class Note extends React.Component {
     });
 
 
-
     await axios({
       method: 'post',
       url: 'http://47.114.151.211:8081/api/common/file',
