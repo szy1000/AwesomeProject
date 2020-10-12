@@ -31,7 +31,7 @@
 		8E122C1B24FCC83C004CE743 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8E122C1924FCC83C004CE743 /* assets */; };
 		8E122C1C24FCC83C004CE743 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E122C1A24FCC83C004CE743 /* main.jsbundle */; };
 		8E8C3CFB250A1F43004F9644 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C3CFA250A1F43004F9644 /* AppIcon.appiconset */; };
-		8EB4E7382521006900333F18 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E7372521006900333F18 /* libRCTWeChat.a */; };
+		8E9BA7B12534BBD6002D67F5 /* libWeChatSDK.a in Sources */ = {isa = PBXBuildFile; fileRef = 8E9BA7B02534BBD6002D67F5 /* libWeChatSDK.a */; };
 		8EB4E73A2521007300333F18 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E7392521007300333F18 /* SystemConfiguration.framework */; };
 		8EB4E73C2521007C00333F18 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E73B2521007C00333F18 /* CoreTelephony.framework */; };
 		8EB4E73E2521008500333F18 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E73D2521008500333F18 /* libsqlite3.0.tbd */; };
@@ -44,9 +44,6 @@
 		8EB4E74E252100A500333F18 /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E748252100A500333F18 /* libz.1.1.3.tbd */; };
 		8EB4E74F252100A500333F18 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E749252100A500333F18 /* libz.1.tbd */; };
 		8EB4E750252100A500333F18 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E74A252100A500333F18 /* libz.tbd */; };
-		8EB4E75B252104C200333F18 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB4E7582521047100333F18 /* libRCTWeChat.a */; };
-		8EB4E7742524338500333F18 /* libRCTWeChat.a in Resources */ = {isa = PBXBuildFile; fileRef = 8EB4E7372521006900333F18 /* libRCTWeChat.a */; };
-		8EB4E7752524338E00333F18 /* libRCTWeChat.a in Sources */ = {isa = PBXBuildFile; fileRef = 8EB4E7372521006900333F18 /* libRCTWeChat.a */; };
 		98C3E68D30A84CB187874F3A /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CCC0F0ED3B04D929667EE5B /* FontAwesome5_Regular.ttf */; };
 		A79323A701BF4E538E061B3C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAA5623EDB5B42779074AD31 /* Octicons.ttf */; };
 		AD35C5E8AB744BC9B3E094DC /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D71DF45461D4383AD1900FC /* Roboto.ttf */; };
@@ -124,6 +121,8 @@
 		8E122C1924FCC83C004CE743 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
 		8E122C1A24FCC83C004CE743 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
 		8E8C3CFA250A1F43004F9644 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = ../../../../Downloads/icons/ios/AppIcon.appiconset; sourceTree = "<group>"; };
+		8E9BA7B02534BBD6002D67F5 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = "../node_modules/react-native-wechat/ios/libWeChatSDK.a"; sourceTree = "<group>"; };
+		8E9BA7B52534BFFB002D67F5 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWeChat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EB4E7372521006900333F18 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWeChat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EB4E7392521007300333F18 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8EB4E73B2521007C00333F18 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -177,13 +176,11 @@
 				8EB4E74F252100A500333F18 /* libz.1.tbd in Frameworks */,
 				8EB4E750252100A500333F18 /* libz.tbd in Frameworks */,
 				8EB4E7422521009800333F18 /* libc++abi.tbd in Frameworks */,
-				8EB4E75B252104C200333F18 /* libRCTWeChat.a in Frameworks */,
 				8EB4E7432521009800333F18 /* libc++.tbd in Frameworks */,
 				8EB4E7442521009800333F18 /* libc++.1.tbd in Frameworks */,
 				8EB4E73E2521008500333F18 /* libsqlite3.0.tbd in Frameworks */,
 				8EB4E73C2521007C00333F18 /* CoreTelephony.framework in Frameworks */,
 				8EB4E73A2521007300333F18 /* SystemConfiguration.framework in Frameworks */,
-				8EB4E7382521006900333F18 /* libRCTWeChat.a in Frameworks */,
 				0008F7481F1A8DA67D401846 /* libPods-AwesomeProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +255,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E9BA7B52534BFFB002D67F5 /* libRCTWeChat.a */,
 				8EB4E748252100A500333F18 /* libz.1.1.3.tbd */,
 				8EB4E747252100A500333F18 /* libz.1.2.5.tbd */,
 				8EB4E746252100A500333F18 /* libz.1.2.8.tbd */,
@@ -292,6 +290,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8E9BA7B02534BBD6002D67F5 /* libWeChatSDK.a */,
 				8E122C0C24F376D5004CE743 /* Images.xcassets */,
 				13B07FAE1A68108700A75B9A /* AwesomeProject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -520,7 +519,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EB4E7742524338500333F18 /* libRCTWeChat.a in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				8E122C1B24FCC83C004CE743 /* assets in Resources */,
@@ -831,9 +829,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EB4E7752524338E00333F18 /* libRCTWeChat.a in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				8E9BA7B12534BBD6002D67F5 /* libWeChatSDK.a in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

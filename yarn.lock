@@ -2657,6 +2657,11 @@ eventemitter3@^3.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
+events@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/events/-/events-1.0.2.tgz#75849dcfe93d10fb057c30055afdbd51d06a8e24"
+  integrity sha1-dYSdz+k9EPsFfDAFWv29UdBqjiQ=
+
 exec-sh@^0.3.2:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.4.tgz#3a018ceb526cc6f6df2bb504b2bfe8e3a4934ec5"
@@ -5341,6 +5346,11 @@ react-devtools-core@^4.0.6:
     shell-quote "^1.6.1"
     ws "^7"
 
+react-format@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/react-format/-/react-format-1.2.0.tgz#22ca7a8f073ecafcfaac4839893056f3b61bd145"
+  integrity sha512-u0leuWbfz1RVIhAbNr8JcnT+eKPQ5ICqhnnfHG/Tv2k8a7yJ1JLSIQdvRJqLqprbAxT03YtYAPHbxKTiei2flw==
+
 react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6, react-is@^16.9.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -5507,6 +5517,13 @@ react-native-vector-icons@^7.0.0:
     lodash "^4.17.15"
     prop-types "^15.7.2"
     yargs "^15.0.2"
+
+react-native-wechat@^1.9.12:
+  version "1.9.12"
+  resolved "https://registry.npmjs.org/react-native-wechat/-/react-native-wechat-1.9.12.tgz#db75ab594373685c6097f3024a78e0b293ba0a5d"
+  integrity sha512-GpLRdmNmQd3pWSQG9O38e3+CfVGH67IcXMgTlOzTYsvxjUhLb3WpvAzveJ3ykdQMxB1mx3s3IJnQcbY9UBld9g==
+  dependencies:
+    events "1.0.2"
 
 react-native@0.62.2:
   version "0.62.2"
