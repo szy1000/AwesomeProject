@@ -10,6 +10,8 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import axios from 'axios';
+
 import ImagePicker from 'react-native-image-picker';
 
 import {connect} from 'react-redux';
@@ -34,7 +36,7 @@ class Note extends React.Component {
     });
     const options = {
       // todo
-      mediaType: 'mixed',
+      mediaType: 'video',
       durationLimit: '120',
       title: '选择照片',
       quality: 0.1,
@@ -46,7 +48,7 @@ class Note extends React.Component {
         path: 'images',
       },
     };
-    await ImagePicker.showImagePicker(options, response => {
+    await ImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -61,25 +63,56 @@ class Note extends React.Component {
         const {avatarSourceMap} = this.state;
         avatarSourceMap.push(source);
 
-        console.log('Response = ', response);
-
-        this.props.uploadFileFn(
-          {
-            fileName: uri.split('images/')[1],
-            dataUrl: `data:${type};base64,${data}`,
-          },
-          () => {
-            console.log('this', this);
-            this.setState({
-              avatarSourceMap: [...avatarSourceMap],
-            });
-          },
-        );
+        this.uploadMixedFile(response);
+        // this.props.uploadFileFn(
+        //   {
+        //     fileName: uri.split('images/')[1],
+        //     dataUrl: `data:${type};base64,${data}`,
+        //   },
+        //   () => {
+        //     console.log('this', this);
+        //     this.setState({
+        //       avatarSourceMap: [...avatarSourceMap],
+        //     });
+        //   },
+        // );
       }
       this.setState({
         loading: false,
       });
     });
+  };
+
+  uploadMixedFile = async response => {
+    const {fileName, uri} = response;
+
+    const uploadMediaData = new FormData();
+    uploadMediaData.append('file', {
+      uri: response.uri,
+      type: 'multipart/form-data',
+      name: response.fileName,
+    });
+
+
+
+    await axios({
+      method: 'post',
+      url: 'http://47.114.151.211:8081/api/common/file',
+      headers: {
+        Accept: 'application/json',
+        // 'Content-Type': 'application/json',
+        // 'Content-Type': 'application/octet-stream',
+        'Content-Type': 'multipart/form-data',
+      },
+      data: uploadMediaData,
+    })
+      .then(res => {
+        console.log('res====', res.data);
+      })
+      .catch(err => console.log('err==>', err));
+    console.log('================');
+    // console.log('response =', response);
+    // console.log('uploadMediaData = ', uploadMediaData);
   };
 
   handleChange = (key, value) => {
