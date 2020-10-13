@@ -5,9 +5,6 @@ import Video from 'react-native-video';
 
 export default class Index extends React.Component {
   render() {
-    console.log(
-      this.props.files[0].split('.')[this.props.files[0].split('.').length - 1],
-    );
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
@@ -15,7 +12,7 @@ export default class Index extends React.Component {
             this.props.files.map(item => (
               <View style={styles.slide} key={item}>
                 {item.split('.')[item.split('.').length - 1] === 'mp4' ? (
-                  <Video style={styles.item} source={{uri: item}} />
+                  <Video style={styles.item} source={{uri: item}} controls />
                 ) : (
                   <Image style={styles.item} source={{uri: item}} />
                 )}
@@ -45,7 +42,7 @@ const styles = StyleSheet.create({
   wrapper: {
     // paddingTop: 48,
     backgroundColor: '#e6fffe',
-    height: 150,
+    height: 200,
   },
   item: {
     width: '100%',

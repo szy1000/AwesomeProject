@@ -15,6 +15,7 @@ import {bindActionCreators} from 'redux';
 import {findAllInit} from './redux';
 
 import Jump from '../../utils/jump';
+import Video from 'react-native-video';
 
 class FindAll extends React.Component {
   pageSize = 8;
@@ -95,11 +96,11 @@ class FindAll extends React.Component {
   render() {
     const {refreshLoading, loading} = this.state;
     const {init, data, navigation} = this.props;
-    console.log(this.props);
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {note} = data;
+    console.log(note);
     return (
       <View style={styles.find}>
         <FlatList
@@ -120,14 +121,31 @@ class FindAll extends React.Component {
                       source={require('./pinned.png')}
                     />
                   )}
-                  <Image
-                    style={styles.pic}
-                    source={
-                      item.thumbnail
-                        ? {uri: item.thumbnail}
-                        : require('../../assets/images/logo.jpeg')
-                    }
-                  />
+                  {item.thumbnail.indexOf('mp4') > -1 ? (
+                    <Video
+                      style={{
+                        height: 150,
+                        width: '100%',
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        // overflow: 'hidden',
+                      }}
+                      source={
+                        item.thumbnail
+                          ? {uri: item.thumbnail}
+                          : require('../../assets/images/logo.jpeg')
+                      }
+                    />
+                  ) : (
+                    <Image
+                      style={styles.pic}
+                      source={
+                        item.thumbnail
+                          ? {uri: item.thumbnail}
+                          : require('../../assets/images/logo.jpeg')
+                      }
+                    />
+                  )}
                   <Text style={styles.title} numberOfLines={1}>
                     {item.title}
                   </Text>

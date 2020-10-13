@@ -37,7 +37,7 @@ class Note extends React.Component {
     });
     const options = {
       // todo
-      mediaType: 'mixed',
+      mediaType: 'video',
       durationLimit: 120,
       videoQuality: 'low',
       title: '选择照片',
@@ -92,13 +92,27 @@ class Note extends React.Component {
     let uploadMediaData = null;
     if (Platform.OS !== 'ios') {
       uploadMediaData = new FormData();
-      uploadMediaData.append('file', {
+      uploadMediaData.append('videoFile', {
         // uri: path.replace('file://', ''),
-        uri: `file://${path}`,
+        // uri: `file://${path}`,
+        uri: path,
         type: 'video/mp4',
         // type: 'multipart/form-data',
         name: path,
       });
+      uploadMediaData.append('id', '1234567');
+
+      await fetch('http://47.114.151.211:8081/api/common/file', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: uploadMediaData,
+      })
+        .then(res => {
+          console.log('fetch res', res);
+        })
+        .catch(err => console.log('fetch', err));
     } else {
       uploadMediaData = new FormData();
       uploadMediaData.append('file', {
@@ -140,12 +154,6 @@ class Note extends React.Component {
             });
           },
         );
-
-        // this.setState({
-        //   avatarSourceMap: [...avatarSourceMap],
-        // });
-        // console.log('uploadMixedFile====', res.data);
-        // console.log('avatarSourceMap====', avatarSourceMap);
       })
       .catch(err => {
         console.log('err==>', err);

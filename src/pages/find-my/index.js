@@ -15,6 +15,7 @@ import {bindActionCreators} from 'redux';
 import {findMyInit} from './redux';
 
 import Jump from '../../utils/jump';
+import Video from 'react-native-video';
 
 class FindMy extends React.Component {
   pageSize = 8;
@@ -113,14 +114,31 @@ class FindMy extends React.Component {
                     />
                   )}
 
-                  <Image
-                    style={styles.pic}
-                    source={
-                      item.thumbnail
-                        ? {uri: item.thumbnail}
-                        : require('../../assets/images/logo.jpeg')
-                    }
-                  />
+                  {item.thumbnail.indexOf('mp4') > -1 ? (
+                    <Video
+                      style={{
+                        height: 150,
+                        width: '100%',
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        // overflow: 'hidden',
+                      }}
+                      source={
+                        item.thumbnail
+                          ? {uri: item.thumbnail}
+                          : require('../../assets/images/logo.jpeg')
+                      }
+                    />
+                  ) : (
+                    <Image
+                      style={styles.pic}
+                      source={
+                        item.thumbnail
+                          ? {uri: item.thumbnail}
+                          : require('../../assets/images/logo.jpeg')
+                      }
+                    />
+                  )}
                   <Text style={styles.title} numberOfLines={2}>
                     {item.title}
                   </Text>
