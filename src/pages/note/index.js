@@ -9,9 +9,9 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   Alert,
+  Platform,
 } from 'react-native';
 import axios from 'axios';
-
 import ImagePicker from 'react-native-image-picker';
 
 import {connect} from 'react-redux';
@@ -19,6 +19,7 @@ import {bindActionCreators} from 'redux';
 import {uploadFileFn, submitNote, posInit} from './redux';
 import Jump from '../../utils/jump';
 import GetLocation from 'react-native-get-location';
+import Video from 'react-native-video';
 
 class Note extends React.Component {
   location = '点击添加地址';
@@ -36,8 +37,9 @@ class Note extends React.Component {
     });
     const options = {
       // todo
-      mediaType: 'video',
-      durationLimit: '120',
+      mediaType: 'mixed',
+      durationLimit: 120,
+      videoQuality: 'low',
       title: '选择照片',
       quality: 0.1,
       cancelButtonTitle: '取消',
@@ -60,22 +62,24 @@ class Note extends React.Component {
         const {uri, type, data} = response;
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        const {avatarSourceMap} = this.state;
-        avatarSourceMap.push(source);
-
-        this.uploadMixedFile(response);
-        // this.props.uploadFileFn(
-        //   {
-        //     fileName: uri.split('images/')[1],
-        //     dataUrl: `data:${type};base64,${data}`,
-        //   },
-        //   () => {
-        //     console.log('this', this);
-        //     this.setState({
-        //       avatarSourceMap: [...avatarSourceMap],
-        //     });
-        //   },
-        // );
+        console.log(response);
+        if (data) {
+          const {avatarSourceMap} = this.state;
+          avatarSourceMap.push(source);
+          this.props.uploadFileFn(
+            {
+              fileName: uri.split('images/')[1],
+              dataUrl: `data:${type};base64,${data}`,
+            },
+            () => {
+              this.setState({
+                avatarSourceMap: [...avatarSourceMap],
+              });
+            },
+          );
+        } else {
+          this.uploadMixedFile(response);
+        }
       }
       this.setState({
         loading: false,
@@ -84,34 +88,68 @@ class Note extends React.Component {
   };
 
   uploadMixedFile = async response => {
-    const {fileName, uri} = response;
-
-    const uploadMediaData = new FormData();
-    uploadMediaData.append('file', {
-      uri: response.uri,
-      type: 'multipart/form-data',
-      name: response.fileName,
-    });
-
+    const {fileName, uri, path} = response;
+    let uploadMediaData = null;
+    if (Platform.OS !== 'ios') {
+      uploadMediaData = new FormData();
+      uploadMediaData.append('file', {
+        // uri: path.replace('file://', ''),
+        uri: `file://${path}`,
+        type: 'video/mp4',
+        // type: 'multipart/form-data',
+        name: path,
+      });
+    } else {
+      uploadMediaData = new FormData();
+      uploadMediaData.append('file', {
+        uri,
+        name: fileName,
+      });
+    }
+    console.log('机型====》', Platform.OS);
+    console.log('uploadMediaData', uploadMediaData);
 
     await axios({
       method: 'post',
       url: 'http://47.114.151.211:8081/api/common/file',
       headers: {
         Accept: 'application/json',
-        // 'Content-Type': 'application/json',
-        // 'Content-Type': 'application/octet-stream',
+        mimeType: 'multipart/form-data',
         'Content-Type': 'multipart/form-data',
       },
       data: uploadMediaData,
     })
       .then(res => {
-        console.log('res====', res.data);
+        const baseUrl = 'http://47.114.151.211:8081';
+        const {avatarSourceMap} = this.state;
+        avatarSourceMap.push({
+          type: 'video',
+          uri: baseUrl + res.data.data.src,
+        });
+
+        this.props.uploadFileFn(
+          {
+            type: 'upVideo',
+            item: res.data.data,
+            // dataUrl: baseUrl + .src,
+            // id: baseUrl + res.data.data.id,
+          },
+          () => {
+            this.setState({
+              avatarSourceMap: [...avatarSourceMap],
+            });
+          },
+        );
+
+        // this.setState({
+        //   avatarSourceMap: [...avatarSourceMap],
+        // });
+        // console.log('uploadMixedFile====', res.data);
+        // console.log('avatarSourceMap====', avatarSourceMap);
       })
-      .catch(err => console.log('err==>', err));
-    console.log('================');
-    // console.log('response =', response);
-    // console.log('uploadMediaData = ', uploadMediaData);
+      .catch(err => {
+        console.log('err==>', err);
+      });
   };
 
   handleChange = (key, value) => {
@@ -180,7 +218,22 @@ class Note extends React.Component {
           {avatarSourceMap.map((v, index) => {
             return (
               <View key={index} keys={index}>
-                <Image style={styles.pic} source={v} />
+                {v.type === 'video' ? (
+                  <Video
+                    source={{
+                      uri: v.uri,
+                    }} // Can be a URL or a local file.
+                    controls
+                    ref={ref => {
+                      this.player = ref;
+                    }} // Store reference
+                    onBuffer={this.onBuffer} // Callback when remote video is buffering
+                    onError={this.videoError} // Callback when video cannot be loaded
+                    style={styles.pic}
+                  />
+                ) : (
+                  <Image style={styles.pic} source={v} />
+                )}
               </View>
             );
           })}

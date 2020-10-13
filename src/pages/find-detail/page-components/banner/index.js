@@ -1,16 +1,24 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import Swiper from 'react-native-swiper';
+import Video from 'react-native-video';
 
 export default class Index extends React.Component {
   render() {
+    console.log(
+      this.props.files[0].split('.')[this.props.files[0].split('.').length - 1],
+    );
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
           {this.props.files.length > 0 ? (
             this.props.files.map(item => (
               <View style={styles.slide} key={item}>
-                <Image style={styles.item} source={{uri: item}} />
+                {item.split('.')[item.split('.').length - 1] === 'mp4' ? (
+                  <Video style={styles.item} source={{uri: item}} />
+                ) : (
+                  <Image style={styles.item} source={{uri: item}} />
+                )}
               </View>
             ))
           ) : (

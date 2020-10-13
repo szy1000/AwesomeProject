@@ -5,9 +5,9 @@ import Video from 'react-native-video';
 
 export default class WelcomePage extends React.Component {
   componentDidMount() {
-    // this.timer = setTimeout(() => {
-    //   Jump.resetToHome(this.props);
-    // }, 2000);
+    this.timer = setTimeout(() => {
+      Jump.resetToHome(this.props);
+    }, 2000);
   }
 
   componentWillUnmount() {

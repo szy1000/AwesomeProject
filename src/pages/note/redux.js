@@ -69,14 +69,22 @@ export const uploadFileFn = (params, callback) => async (
   getState,
 ) => {
   const {data} = getState().note;
-  const imageFile = await uploadImageFileReq(params || {});
-  console.log('callback', callback);
+  let imageFile = '';
+  if (params.type !== 'upVideo') {
+    imageFile = await uploadImageFileReq(params || {});
+  } else {
+    imageFile = params.item;
+  }
+  data.imageFileArr.push(imageFile)
+  console.log('imageFile', imageFile);
+  console.log('imageFileArr======>', data);
+
   callback && callback();
   dispatch(
     noteUpdate({
       data: {
         ...data,
-        imageFileArr: [...data.imageFileArr.push(imageFile)],
+        imageFileArr: [...data.imageFileArr],
       },
     }),
   );
