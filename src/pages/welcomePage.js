@@ -19,6 +19,7 @@ export default class WelcomePage extends React.Component {
       <View style={styles.container}>
         <Text>Welcome</Text>
         <Video
+          resizeMode="contain"
           source={{
             uri:
               'http://47.114.151.211:8081/static//43f462a3-9e6e-4815-be7e-097d5a93057e-1600617839215023.mp4',

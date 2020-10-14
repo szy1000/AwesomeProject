@@ -116,6 +116,7 @@ class FindMy extends React.Component {
 
                   {item.thumbnail.indexOf('mp4') > -1 ? (
                     <Video
+                      resizeMode="contain"
                       style={{
                         height: 150,
                         width: '100%',

@@ -12,7 +12,7 @@ export default class Index extends React.Component {
             this.props.files.map(item => (
               <View style={styles.slide} key={item}>
                 {item.split('.')[item.split('.').length - 1] === 'mp4' ? (
-                  <Video style={styles.item} source={{uri: item}} controls />
+                  <Video resizeMode="contain" style={styles.item} source={{uri: item}} controls />
                 ) : (
                   <Image style={styles.item} source={{uri: item}} />
                 )}

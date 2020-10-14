@@ -238,6 +238,7 @@ class Note extends React.Component {
               <View key={index} keys={index}>
                 {v.type === 'video' ? (
                   <Video
+                    resizeMode="contain"
                     source={{
                       uri: v.uri,
                     }} // Can be a URL or a local file.
