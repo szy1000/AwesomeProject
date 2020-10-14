@@ -31,17 +31,40 @@ class Note extends React.Component {
     loading: false,
   };
 
-  getPhoto = async () => {
+  getPhotoType = () => {
+    Alert.alert('操作提示', '请选择要上传的文件类型', [
+      {
+        text: '取消',
+        onPress: async () => {},
+      },
+      {
+        text: '照片',
+        onPress: async () => {
+          this.getPhoto({
+            mediaType: 'photo',
+            quality: 0.1,
+          });
+        },
+      },
+      {
+        text: '视频',
+        onPress: async () => {
+          this.getPhoto({
+            mediaType: 'video',
+            durationLimit: 120,
+            videoQuality: 'low',
+          });
+        },
+      },
+    ]);
+  };
+
+  getPhoto = async _ => {
     this.setState({
       loading: true,
     });
-    const options = {
-      // todo
-      mediaType: 'video',
-      durationLimit: 120,
-      videoQuality: 'low',
+    const defaultOptions = {
       title: '选择照片',
-      quality: 0.1,
       cancelButtonTitle: '取消',
       takePhotoButtonTitle: '相机',
       chooseFromLibraryButtonTitle: '图库',
@@ -49,6 +72,10 @@ class Note extends React.Component {
         skipBackup: true,
         path: 'images',
       },
+    };
+    const options = {
+      ...defaultOptions,
+      ..._,
     };
     await ImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {
@@ -92,27 +119,12 @@ class Note extends React.Component {
     let uploadMediaData = null;
     if (Platform.OS !== 'ios') {
       uploadMediaData = new FormData();
-      uploadMediaData.append('videoFile', {
-        // uri: path.replace('file://', ''),
-        // uri: `file://${path}`,
-        uri: path,
-        type: 'video/mp4',
-        // type: 'multipart/form-data',
+      const file = {
+        uri: 'file://' + path,
         name: path,
-      });
-      uploadMediaData.append('id', '1234567');
-
-      await fetch('http://47.114.151.211:8081/api/common/file', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: uploadMediaData,
-      })
-        .then(res => {
-          console.log('fetch res', res);
-        })
-        .catch(err => console.log('fetch', err));
+        type: 'multipart/form-data',
+      };
+      uploadMediaData.append('file', file);
     } else {
       uploadMediaData = new FormData();
       uploadMediaData.append('file', {
@@ -120,20 +132,18 @@ class Note extends React.Component {
         name: fileName,
       });
     }
-    console.log('机型====》', Platform.OS);
-    console.log('uploadMediaData', uploadMediaData);
 
     await axios({
       method: 'post',
       url: 'http://47.114.151.211:8081/api/common/file',
       headers: {
         Accept: 'application/json',
-        mimeType: 'multipart/form-data',
         'Content-Type': 'multipart/form-data',
       },
       data: uploadMediaData,
     })
       .then(res => {
+        console.log('resres', res);
         const baseUrl = 'http://47.114.151.211:8081';
         const {avatarSourceMap} = this.state;
         avatarSourceMap.push({
@@ -260,7 +270,7 @@ class Note extends React.Component {
                   source={require('./loading.gif')}
                 />
               ) : (
-                <TouchableOpacity onPress={this.getPhoto}>
+                <TouchableOpacity onPress={this.getPhotoType}>
                   <Image style={styles.pic} source={require('./png.png')} />
                 </TouchableOpacity>
               )}
