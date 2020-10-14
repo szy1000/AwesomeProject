@@ -14,7 +14,8 @@ import {
 import {loginReq} from './api';
 import {Link} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
-
+import * as Wechat from 'react-native-wechat';
+import * as WeChat from "react-native-wechat";
 export default class Login extends React.Component {
   state = {
     phoneNumber: '',
@@ -58,6 +59,19 @@ export default class Login extends React.Component {
     }
 
     console.log('login res', res);
+  };
+
+  loginByWechat = async () => {
+    if (!(await WeChat.isWXAppInstalled())) {
+      Alert.alert('操作提示', '微信未安装，改功能无法使用', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
+      return;
+    }
+    alert('ok')
   };
 
   render() {
@@ -112,17 +126,19 @@ export default class Login extends React.Component {
             </Link>
           </View>
 
-          {/*<View style={styles.loginWays}>*/}
-          {/*  <View style={styles.way}>*/}
-          {/*    <Image style={styles.icon} source={require('./pic47.png')} />*/}
-          {/*    <Text style={styles.wayName}>QQ登录</Text>*/}
-          {/*  </View>*/}
-          {/*  <View style={styles.line} />*/}
-          {/*  <View style={styles.way}>*/}
-          {/*    <Image style={styles.icon} source={require('./pic48.png')} />*/}
-          {/*    <Text style={styles.wayName}>微信登录</Text>*/}
-          {/*  </View>*/}
-          {/*</View>*/}
+          <View style={styles.loginWays}>
+            {/*<View style={styles.way}>*/}
+            {/*  <Image style={styles.icon} source={require('./pic47.png')} />*/}
+            {/*  <Text style={styles.wayName}>QQ登录</Text>*/}
+            {/*</View>*/}
+            {/*<View style={styles.line} />*/}
+            <TouchableOpacity onPress={this.loginByWechat}>
+              <View style={styles.way}>
+                <Image style={styles.icon} source={require('./pic48.png')} />
+                <Text style={styles.wayName}>微信登录</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
