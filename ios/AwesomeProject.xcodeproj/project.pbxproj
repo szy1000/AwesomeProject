@@ -28,14 +28,15 @@
 		71DEAAF6CF0F4296BD224F3A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73D151C78494416A901577E1 /* SimpleLineIcons.ttf */; };
 		7B04A979C100491287BB32D4 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDA7B54B0761431D8A642369 /* Ionicons.ttf */; };
 		85462CE499DE481E90854B13 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C332F331EA724D0AA41159CE /* Roboto_medium.ttf */; };
-		8E122C1B24FCC83C004CE743 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8E122C1924FCC83C004CE743 /* assets */; };
-		8E122C1C24FCC83C004CE743 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E122C1A24FCC83C004CE743 /* main.jsbundle */; };
 		8E5B5F29252F540D00CD48AD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B5F28252F540D00CD48AD /* WebKit.framework */; };
 		8E5B5F2B252F541400CD48AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B5F2A252F541400CD48AD /* SystemConfiguration.framework */; };
 		8E5B5F2D252F541C00CD48AD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B5F2C252F541C00CD48AD /* CoreTelephony.framework */; };
 		8E5B5F2F252F542400CD48AD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B5F2E252F542400CD48AD /* libsqlite3.0.tbd */; };
 		8E5B5F31252F542F00CD48AD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B5F30252F542F00CD48AD /* libc++.tbd */; };
 		8E5B5F33252F543700CD48AD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5B5F32252F543700CD48AD /* libz.tbd */; };
+		8E72C389253C12B9002B0257 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E72C383253C1285002B0257 /* libWeChatSDK.a */; };
+		8E72C39A253C2FCF002B0257 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E72C398253C2FCF002B0257 /* main.jsbundle */; };
+		8E72C39B253C2FCF002B0257 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 8E72C399253C2FCF002B0257 /* assets */; };
 		8E8C3CFB250A1F43004F9644 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C3CFA250A1F43004F9644 /* AppIcon.appiconset */; };
 		98C3E68D30A84CB187874F3A /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CCC0F0ED3B04D929667EE5B /* FontAwesome5_Regular.ttf */; };
 		A79323A701BF4E538E061B3C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAA5623EDB5B42779074AD31 /* Octicons.ttf */; };
@@ -64,6 +65,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "AwesomeProject-tvOS";
+		};
+		8E72C390253C1962002B0257 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E72C38A253C1962002B0257 /* RCTWeChat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 86D238421BD0BB9E00C75D01;
+			remoteInfo = RCTWeChat;
+		};
+		8E72C392253C1962002B0257 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E72C38A253C1962002B0257 /* RCTWeChat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 10D6D7A41F160C250066F0F3;
+			remoteInfo = RCTWeChatTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -97,14 +112,18 @@
 		8489975526B81E7DEC3BE8EC /* libPods-AwesomeProject-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AwesomeProject-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB9B283D95B5E85C91640DE /* Pods-AwesomeProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject/Pods-AwesomeProject.debug.xcconfig"; sourceTree = "<group>"; };
 		8E122C0C24F376D5004CE743 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AwesomeProject/Images.xcassets; sourceTree = "<group>"; };
-		8E122C1924FCC83C004CE743 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
-		8E122C1A24FCC83C004CE743 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
 		8E5B5F28252F540D00CD48AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8E5B5F2A252F541400CD48AD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8E5B5F2C252F541C00CD48AD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8E5B5F2E252F542400CD48AD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		8E5B5F30252F542F00CD48AD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8E5B5F32252F543700CD48AD /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8E72C383253C1285002B0257 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = "../node_modules/react-native-wechat-lib/ios/libWeChatSDK.a"; sourceTree = "<group>"; };
+		8E72C384253C1285002B0257 /* WeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = WeChatSDK.a; path = "../node_modules/react-native-wechat-lib/ios/WeChatSDK.a"; sourceTree = "<group>"; };
+		8E72C385253C1285002B0257 /* lWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lWeChatSDK.a; path = "../node_modules/react-native-wechat-lib/ios/lWeChatSDK.a"; sourceTree = "<group>"; };
+		8E72C38A253C1962002B0257 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat-lib/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
+		8E72C398253C2FCF002B0257 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../bundles/main.jsbundle; sourceTree = "<group>"; };
+		8E72C399253C2FCF002B0257 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../bundles/assets; sourceTree = "<group>"; };
 		8E8C3CFA250A1F43004F9644 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = ../../../../Downloads/icons/ios/AppIcon.appiconset; sourceTree = "<group>"; };
 		913DC088B91D41EFB723A90C /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		A53058B3347E17A7E58ACD71 /* Pods-AwesomeProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject-tvOSTests/Pods-AwesomeProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E72C389253C12B9002B0257 /* libWeChatSDK.a in Frameworks */,
 				8E5B5F33252F543700CD48AD /* libz.tbd in Frameworks */,
 				8E5B5F31252F542F00CD48AD /* libc++.tbd in Frameworks */,
 				8E5B5F2F252F542400CD48AD /* libsqlite3.0.tbd in Frameworks */,
@@ -187,9 +207,9 @@
 		13B07FAE1A68108700A75B9A /* AwesomeProject */ = {
 			isa = PBXGroup;
 			children = (
+				8E72C399253C2FCF002B0257 /* assets */,
+				8E72C398253C2FCF002B0257 /* main.jsbundle */,
 				8E8C3CFA250A1F43004F9644 /* AppIcon.appiconset */,
-				8E122C1924FCC83C004CE743 /* assets */,
-				8E122C1A24FCC83C004CE743 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -237,6 +257,10 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8E72C38A253C1962002B0257 /* RCTWeChat.xcodeproj */,
+				8E72C383253C1285002B0257 /* libWeChatSDK.a */,
+				8E72C385253C1285002B0257 /* lWeChatSDK.a */,
+				8E72C384253C1285002B0257 /* WeChatSDK.a */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -293,6 +317,15 @@
 				FCD899C445DA4E1E8AA4B04C /* Zocial.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		8E72C38B253C1962002B0257 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E72C391253C1962002B0257 /* libRCTWeChat.a */,
+				8E72C393253C1962002B0257 /* RCTWeChatTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,6 +451,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8E72C38B253C1962002B0257 /* Products */;
+					ProjectRef = 8E72C38A253C1962002B0257 /* RCTWeChat.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* AwesomeProject */,
@@ -427,6 +466,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8E72C391253C1962002B0257 /* libRCTWeChat.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWeChat.a;
+			remoteRef = 8E72C390253C1962002B0257 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8E72C393253C1962002B0257 /* RCTWeChatTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RCTWeChatTests.xctest;
+			remoteRef = 8E72C392253C1962002B0257 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -442,19 +498,19 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				8E122C1B24FCC83C004CE743 /* assets in Resources */,
+				8E72C39A253C2FCF002B0257 /* main.jsbundle in Resources */,
 				EDD68674A6044F42903E7EDB /* AntDesign.ttf in Resources */,
 				2BDF48ADBB4C4257A8196074 /* Entypo.ttf in Resources */,
 				1FAF9968035F416DB773EB76 /* EvilIcons.ttf in Resources */,
 				24F6877903E9499BA4926B47 /* Feather.ttf in Resources */,
 				E9E9B066EB7B4232A41EB648 /* FontAwesome.ttf in Resources */,
 				391C5B7679694DD2A5744509 /* FontAwesome5_Brands.ttf in Resources */,
+				8E72C39B253C2FCF002B0257 /* assets in Resources */,
 				98C3E68D30A84CB187874F3A /* FontAwesome5_Regular.ttf in Resources */,
 				D0D1F111BAAD43BEB88428BC /* FontAwesome5_Solid.ttf in Resources */,
 				1D0553C3D8E34A3280573B9D /* Fontisto.ttf in Resources */,
 				E719424969B24AB29E0A9B9D /* Foundation.ttf in Resources */,
 				7B04A979C100491287BB32D4 /* Ionicons.ttf in Resources */,
-				8E122C1C24FCC83C004CE743 /* main.jsbundle in Resources */,
 				CD9827C4C9904225BE0B0241 /* MaterialCommunityIcons.ttf in Resources */,
 				8E8C3CFB250A1F43004F9644 /* AppIcon.appiconset in Resources */,
 				F222A4274AF547FEB7C5FD24 /* MaterialIcons.ttf in Resources */,
@@ -886,8 +942,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTBlob\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTImage\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTLinking\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/WeChatSDK\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTWeChat\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTNetwork\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTSettings\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTText\"",
@@ -900,12 +954,14 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactNativeGetLocation\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Yoga\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTWeChat\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/glog\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-geolocation-service\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-image-picker\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
+					"\"${PODS_ROOT}/../../node_modules/react-native-wechat-lib/ios\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (
@@ -962,8 +1018,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTAnimation\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTBlob\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTImage\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/WeChatSDK\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTWeChat\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTLinking\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTNetwork\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTSettings\"",
@@ -973,6 +1027,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTWeChat\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactNativeGetLocation\"",
@@ -984,6 +1039,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
+					"\"${PODS_ROOT}/../../node_modules/react-native-wechat-lib/ios\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (

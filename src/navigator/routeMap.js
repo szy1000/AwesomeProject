@@ -47,7 +47,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 const shareToFriend = async () => {
   if (!(await WeChat.isWXAppInstalled())) {
-    Alert.alert('操作提示', '微信未安装，改功能无法使用', [
+    Alert.alert('操作提示', '微信未安装，该功能无法使用', [
       {
         text: '确认',
         onPress: async () => {},
@@ -55,14 +55,16 @@ const shareToFriend = async () => {
     ]);
     return;
   }
-  WeChat.shareToSession({
+  WeChat.ShareWebpage({
     type: 'news',
+    thumbImageUrl: '',
     webpageUrl: 'http://www.ivyroutedu.com/contact.php',
     title: '留学帮',
     description: '一个专业的留学辅导机构',
+    scene: 1,
   })
     .then(response => {
-      console.log(response);
+      alert(response);
       Alert.alert('操作提示', '分享成功', [
         {
           text: '确认',
