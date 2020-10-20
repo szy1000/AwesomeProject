@@ -238,6 +238,8 @@ class Note extends React.Component {
               <View key={index} keys={index}>
                 {v.type === 'video' ? (
                   <Video
+                    paused={true}
+                    poster={require('../../assets/images/logo.jpeg')}
                     resizeMode="contain"
                     source={{
                       uri: v.uri,

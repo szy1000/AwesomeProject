@@ -113,6 +113,8 @@ class FindFocus extends React.Component {
                   )}
                   {item.thumbnail.indexOf('mp4') > -1 ? (
                     <Video
+                      paused={true}
+                      poster={require('../../assets/images/logo.jpeg')}
                       resizeMode="contain"
                       style={{
                         height: 150,

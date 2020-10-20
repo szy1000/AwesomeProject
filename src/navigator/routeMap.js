@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   TouchableWithoutFeedback,
+  Platform,
   StyleSheet,
 } from 'react-native';
 import Login from '../pages/login';
@@ -44,6 +45,17 @@ import Jump from '../utils/jump';
 
 import Feather from 'react-native-vector-icons/Feather';
 
+const ShareToFriend = () => {
+  Share.share({
+    message:
+      Platform.os === 'ios'
+        ? '留学帮'
+        : 'http://www.ivyroutedu.com/contact.php',
+    url: 'http://www.ivyroutedu.com/contact.php',
+    title: '留学帮',
+  });
+};
+
 const router = [
   {
     name: 'Login',
@@ -77,11 +89,7 @@ const router = [
           color="#000"
           size={20}
           onPress={() => {
-            Share.share({
-              message: '留学帮',
-              url: 'http://www.ivyroutedu.com/contact.php',
-              title: '留学帮',
-            });
+            ShareToFriend();
           }}
         />
       ),
@@ -131,11 +139,7 @@ const router = [
           color="#000"
           size={20}
           onPress={() => {
-            Share.share({
-              message: '留学帮',
-              url: 'http://www.ivyroutedu.com/contact.php',
-              title: '留学帮',
-            });
+            ShareToFriend();
           }}
         />
       ),
@@ -188,11 +192,7 @@ const router = [
           color="#000"
           size={20}
           onPress={() => {
-            Share.share({
-              message: '留学帮',
-              url: 'http://www.ivyroutedu.com/contact.php',
-              title: '留学帮',
-            });
+            ShareToFriend();
           }}
         />
       ),
@@ -218,11 +218,7 @@ const router = [
           color="#000"
           size={20}
           onPress={() => {
-            Share.share({
-              message: '留学帮',
-              url: 'http://www.ivyroutedu.com/contact.php',
-              title: '留学帮',
-            });
+            ShareToFriend();
           }}
         />
       ),
@@ -244,11 +240,7 @@ const router = [
           color="#000"
           size={20}
           onPress={() => {
-            Share.share({
-              message: '留学帮',
-              url: 'http://www.ivyroutedu.com/contact.php',
-              title: '留学帮',
-            });
+            ShareToFriend();
           }}
         />
       ),
@@ -402,14 +394,10 @@ const router = [
           color="#000"
           size={20}
           onPress={() => {
-            Share.share({
-              message: '留学帮',
-              url: 'http://www.ivyroutedu.com/contact.php',
-              title: '留学帮',
-            });
+            ShareToFriend();
           }}
         />
-      )
+      ),
     },
   },
 
