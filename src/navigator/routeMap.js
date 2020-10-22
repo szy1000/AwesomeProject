@@ -20,6 +20,7 @@ import RepositoryDetail from '../pages/repository-detail';
 import Note from '../pages/note';
 import Setting from '../pages/setting';
 import About from '../pages/about';
+import Bind from '../pages/bind';
 
 import Summer from '../pages/summer';
 import SummerDetail from '../pages/summer-detail';
@@ -456,6 +457,16 @@ const router = [
     component: FindPsd,
     options: {
       title: '找回密码',
+      // headerBackTitle: null,
+      // headerTruncatedBackTitle: null,
+    },
+  },
+
+  {
+    name: 'Bind',
+    component: Bind,
+    options: {
+      title: '绑定微信',
       // headerBackTitle: null,
       // headerTruncatedBackTitle: null,
     },

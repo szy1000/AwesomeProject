@@ -73,15 +73,15 @@ export default class Login extends React.Component {
 
   checkBind = async unionId => {
     const {data} = await loginByWechatReq({unionId});
+    console.log('errorMessage', data);
     const {success, errorMessage} = data;
     if (success) {
     } else {
-      Alert.alert('操作提示', errorMessage, [
-        {
-          text: '确认',
-          onPress: async () => {},
-        },
-      ]);
+      Jump.linkToPage({
+        url: 'Bind',
+        params: {unionId},
+        navigation: this.props.navigation,
+      });
     }
   };
 
