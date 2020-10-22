@@ -124,7 +124,7 @@ class FindAll extends React.Component {
                   {item.thumbnail.indexOf('mp4') > -1 ? (
                     <Video
                       paused={true}
-                      poster={require('../../assets/images/logo.jpeg')}
+                      poster={'http://47.114.151.211/logo.png'}
                       resizeMode="contain"
                       style={{
                         height: 150,

@@ -1,4 +1,4 @@
-package com.lingxuiglobal;
+package com.lingxuiglobal.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -162,7 +162,6 @@ class Register extends React.Component {
 
   registerReq = () => {
     const {nickName, phoneNumber, repeatPassword, password} = this.state;
-
     if (!nickName) {
       Alert.alert(
         '操作提示',
@@ -174,7 +173,7 @@ class Register extends React.Component {
           },
         ],
         {cancelable: false},
-      )
+      );
       return;
     }
 
@@ -189,7 +188,7 @@ class Register extends React.Component {
           },
         ],
         {cancelable: false},
-      )
+      );
       return;
     }
 
@@ -204,7 +203,7 @@ class Register extends React.Component {
           },
         ],
         {cancelable: false},
-      )
+      );
       return;
     }
 

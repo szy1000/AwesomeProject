@@ -11,9 +11,10 @@ import {
   StyleSheet,
   ImageBackground,
 } from 'react-native';
-import {loginReq} from './api';
+import {loginReq, loginByWechatReq} from './api';
 import {Link} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
+import * as WeChat from 'react-native-wechat';
 
 export default class Login extends React.Component {
   state = {
@@ -58,6 +59,30 @@ export default class Login extends React.Component {
     }
 
     console.log('login res', res);
+  };
+
+  loginByWechat = () => {
+    WeChat.sendAuthRequest('snsapi_userinfo')
+      .then(async res => {
+        const {code} = res;
+        console.log(res);
+        this.checkBind(res.code);
+      })
+      .catch(err => console.log(err));
+  };
+
+  checkBind = async unionId => {
+    const {data} = await loginByWechatReq({unionId});
+    const {success, errorMessage} = data;
+    if (success) {
+    } else {
+      Alert.alert('操作提示', errorMessage, [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
+    }
   };
 
   render() {
@@ -112,17 +137,17 @@ export default class Login extends React.Component {
             </Link>
           </View>
 
-          {/*<View style={styles.loginWays}>*/}
-          {/*  <View style={styles.way}>*/}
-          {/*    <Image style={styles.icon} source={require('./pic47.png')} />*/}
-          {/*    <Text style={styles.wayName}>QQ登录</Text>*/}
-          {/*  </View>*/}
-          {/*  <View style={styles.line} />*/}
-          {/*  <View style={styles.way}>*/}
-          {/*    <Image style={styles.icon} source={require('./pic48.png')} />*/}
-          {/*    <Text style={styles.wayName}>微信登录</Text>*/}
-          {/*  </View>*/}
-          {/*</View>*/}
+          <View style={styles.loginWays}>
+            {/*<View style={styles.way}>*/}
+            {/*  <Image style={styles.icon} source={require('./pic47.png')} />*/}
+            {/*  <Text style={styles.wayName}>QQ登录</Text>*/}
+            {/*</View>*/}
+            {/*<View style={styles.line} />*/}
+            <TouchableOpacity style={styles.way} onPress={this.loginByWechat}>
+              <Image style={styles.icon} source={require('./pic48.png')} />
+              <Text style={styles.wayName}>微信登录</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );

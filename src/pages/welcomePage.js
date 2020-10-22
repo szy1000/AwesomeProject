@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet, Button, Alert} from 'react-native';
 import {Jump} from '../utils/index';
 import Video from 'react-native-video';
-import * as WeChat from 'react-native-wechat-lib';
+import * as WeChat from 'react-native-wechat';
 
 const shareToFriend = async () => {
   if (!(await WeChat.isWXAppInstalled())) {
@@ -14,11 +14,16 @@ const shareToFriend = async () => {
     ]);
     return;
   }
-  WeChat.shareWebpage({
+  WeChat.shareToSession({
+    // type: 'news',
+    // webpageUrl: 'http://www.ivyroutedu.com/contact.php',
+    // title: '留学帮',
+    // description: '一个专业的留学辅导机构',
+    title: 'playground',
+    description: '微信分享测试',
+    thumbImage: 'http://47.114.151.211/logo.png',
     type: 'news',
-    webpageUrl: 'http://www.ivyroutedu.com/contact.php',
-    title: '留学帮',
-    description: '一个专业的留学辅导机构',
+    webpageUrl: 'https://github.com/little-snow-fox/react-native-wechat-lib',
   })
     .then(response => {
       console.log(response);
@@ -53,7 +58,6 @@ const shareToFriend = async () => {
 
 export default class WelcomePage extends React.Component {
   componentDidMount() {
-    WeChat.registerApp('wx0ac6d9fb4e5c06f3');
 
     // this.timer = setTimeout(() => {
     //   Jump.resetToHome(this.props);
@@ -68,14 +72,19 @@ export default class WelcomePage extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Welcome</Text>
-        <Button title="22" onPress={() => shareToFriend()} />
-        <Button title="eee" onPress={async () => await WeChat.shareText()} />
+        <Button title="2233" onPress={() => shareToFriend()} />
+        {/*<Button title="eee" onPress={async () => await WeChat.shareText()} />*/}
 
         <Button
-          title="23332"
+          title="登录"
           onPress={async () => {
-            const res = await WeChat.sendAuthRequest('snsapi_userinfo')
-              console.log(res)
+            console.log('ssss');
+            WeChat.sendAuthRequest('snsapi_userinfo')
+              .then(res => {
+                const {code} = res;
+                console.log(code);
+              })
+              .catch(err => console.log(err));
             alert('fins');
           }}
         />

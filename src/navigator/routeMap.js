@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import Login from '../pages/login';
 import Register from '../pages/register';
@@ -44,16 +45,65 @@ import Test from '../pages/test';
 import Jump from '../utils/jump';
 
 import Feather from 'react-native-vector-icons/Feather';
+import * as WeChat from 'react-native-wechat';
 
-const ShareToFriend = () => {
-  Share.share({
-    message:
-      Platform.os === 'ios'
-        ? '留学帮'
-        : 'http://www.ivyroutedu.com/contact.php',
-    url: 'http://www.ivyroutedu.com/contact.php',
+// const ShareToFriend = () => {
+//   Share.share({
+//     message:
+//       Platform.os === 'ios'
+//         ? '留学帮'
+//         : 'http://www.ivyroutedu.com/contact.php',
+//     url: 'http://www.ivyroutedu.com/contact.php',
+//     title: '留学帮',
+//   });
+// };
+
+const ShareToFriend = async () => {
+  if (!(await WeChat.isWXAppInstalled())) {
+    Alert.alert('操作提示', '微信未安装，改功能无法使用', [
+      {
+        text: '确认',
+        onPress: async () => {},
+      },
+    ]);
+    return;
+  }
+  WeChat.shareToSession({
     title: '留学帮',
-  });
+    description: '一个专业的留学辅导机构',
+    thumbImage: 'http://47.114.151.211/logo.png',
+    type: 'news',
+    webpageUrl: 'http://www.ivyroutedu.com/contact.php',
+  })
+    .then(response => {
+      console.log(response);
+      Alert.alert('操作提示', '分享成功', [
+        {
+          text: '确认',
+          onPress: async () => {},
+        },
+      ]);
+      return;
+    })
+    .catch(error => {
+      alert(error);
+      let errorCode = Number(error.code);
+      if (errorCode === -2) {
+        Alert.alert('操作提示', '分享已取消', [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ]);
+      } else {
+        Alert.alert('操作提示', '分享失败', [
+          {
+            text: '确认',
+            onPress: async () => {},
+          },
+        ]);
+      }
+    });
 };
 
 const router = [
