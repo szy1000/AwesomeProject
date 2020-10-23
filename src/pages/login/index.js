@@ -11,7 +11,13 @@ import {
   StyleSheet,
   ImageBackground,
 } from 'react-native';
-import {loginReq, loginByWechatReq} from './api';
+import {
+  loginReq,
+  getWechatInfo,
+  loginByWechatReq,
+  getWechatTokenReq,
+  getWechatReq,
+} from './api';
 import {Link} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import * as WeChat from 'react-native-wechat';
@@ -62,24 +68,40 @@ export default class Login extends React.Component {
   };
 
   loginByWechat = () => {
-    WeChat.sendAuthRequest('snsapi_userinfo')
+    WeChat.sendAuthRequest(
+      'snsapi_userinfo',
+      'fccc843bc01f061a0d7f1e467a87079a',
+    )
       .then(async res => {
         const {code} = res;
-        console.log(res);
-        this.checkBind(res.code);
+        this.getWechatInfo(res.code);
       })
       .catch(err => console.log(err));
   };
 
-  checkBind = async unionId => {
-    const {data} = await loginByWechatReq({unionId});
-    console.log('errorMessage', data);
-    const {success, errorMessage} = data;
+  getWechatInfo = async code => {
+    const tokenMsg = await getWechatTokenReq({
+      appid: 'wx0ac6d9fb4e5c06f3',
+      secret: 'fccc843bc01f061a0d7f1e467a87079a',
+      code,
+      grant_type: 'authorization_code',
+    });
+    this.checkBind(tokenMsg);
+  };
+
+  checkBind = async tokenMsg => {
+    const {unionid} = tokenMsg;
+    const {data} = await loginByWechatReq({unionId: unionid});
+    const {success, accessToken, profile, errorMessage} = data;
     if (success) {
+      await AsyncStorage.setItem('token', accessToken);
+      await AsyncStorage.setItem('name', profile.name);
+      await AsyncStorage.setItem('sid', profile.sid.toString());
+      Jump.resetToHome(this.props);
     } else {
       Jump.linkToPage({
         url: 'Bind',
-        params: {unionId},
+        params: tokenMsg,
         navigation: this.props.navigation,
       });
     }

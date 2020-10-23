@@ -21,7 +21,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {bindByWechatReq, getWechatReq, getWechatTokenReq} from '../login/api';
 
 class Bind extends React.Component {
-  unionId = '';
+  tokenMsg = '';
   state = {
     phoneNumber: '',
     nickName: '',
@@ -33,25 +33,21 @@ class Bind extends React.Component {
   time = null;
 
   componentDidMount(): void {
-    this.unionId = this.props.route.params.unionId;
-    this.getWechatInfo(this.unionId);
+    this.tokenMsg = this.props.route.params;
+    this.getWechatInfo(this.tokenMsg);
   }
 
-  getWechatInfo = async code => {
-    const res = await getWechatTokenReq({
-      appid: 'wx0ac6d9fb4e5c06f3',
-      secret: 'fccc843bc01f061a0d7f1e467a87079a',
-      code,
-      grant_type: 'authorization_code',
-    });
-    const {access_token, openid} = res;
-    // console.log('res2=====>', res2);
+  getWechatInfo = async tokenMsg => {
+    const {access_token, openid} = tokenMsg;
     const data = await getWechatReq({
       access_token,
       openid,
     });
     this.setState({
-      wechatObj: data,
+      wechatObj: {
+        ...data,
+        ...tokenMsg,
+      },
     });
   };
 
@@ -156,19 +152,20 @@ class Bind extends React.Component {
       );
       return;
     }
-    console.log({
+    console.log('wechat_bind入参数', {
       ...wechatObj,
       code,
       phoneNumber,
-      unionId: this.unionId,
+      nickName: wechatObj.nickname,
+      unionId: wechatObj.unionid,
     });
     const res = await bindByWechatReq({
       ...wechatObj,
       code,
       phoneNumber,
-      unionId: this.unionId,
+      nickName: wechatObj.nickname,
+      unionId: wechatObj.unionid,
     });
-    console.log(res);
 
     const {success, error, data} = res;
 
