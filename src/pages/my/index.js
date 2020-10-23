@@ -24,7 +24,6 @@ class My extends React.Component {
     this.didFocusListener = this.props.navigation.addListener(
       'focus',
       async () => {
-        // this.getPos();
         this.isLogin = await Tools.isLogin();
         console.log(console.log(this.isLogin))
         if (this.isLogin) {

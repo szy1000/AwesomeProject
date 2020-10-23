@@ -1,4 +1,6 @@
 import {getUserInfoReq, getUserStatReq} from './api';
+import AsyncStorage from '@react-native-community/async-storage';
+
 // Actions
 const UPDATE = 'MY_UPDATE';
 
@@ -32,6 +34,8 @@ export const myUpdate = params => ({
 export const myInit = (params, callback) => async dispatch => {
   const userInfo = await getUserInfoReq(params || {});
   const userStat = await getUserStatReq(params || {});
+  console.log(userInfo)
+  await AsyncStorage.setItem('phoneNumber', userInfo.phoneNumber)
   dispatch(
     myUpdate({
       init: true,

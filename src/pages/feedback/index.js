@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Item} from '../../components';
 import ImagePicker from 'react-native-image-picker';
+import AsyncStorage from '@react-native-community/async-storage';
 import Jump from '../../utils/jump';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -19,6 +20,7 @@ class Feedback extends React.Component {
     avatarSource: '',
     error: 'erroree',
     avatarSourceMap: [],
+    phoneNumber: '',
   };
   getPhoto = async () => {
     const options = {
@@ -69,6 +71,13 @@ class Feedback extends React.Component {
     });
   };
 
+  async componentDidMount(): void {
+    const phoneNumber = await AsyncStorage.getItem('phoneNumber');
+    this.setState({
+      phoneNumber,
+    });
+  }
+
   submitFeed = () => {
     const {content, contact = ''} = this.state;
     this.props.submitFeedback(
@@ -91,8 +100,7 @@ class Feedback extends React.Component {
 
   render() {
     // const {navigation} = this.props;
-    const {content, avatarSourceMap, contact} = this.state;
-    console.log(avatarSourceMap);
+    const {content, avatarSourceMap, phoneNumber, contact} = this.state;
     return (
       <View style={styles.feedback}>
         <TextInput
@@ -126,7 +134,7 @@ class Feedback extends React.Component {
         <Item title={'联系方式'} more={false}>
           <TextInput
             style={styles.contact}
-            placeholder="QQ、邮箱、手机(选填)"
+            placeholder={phoneNumber || 'QQ、邮箱、手机(选填)'}
             value={contact}
             returnKeyType="done"
             returnKeyLabel="done"
