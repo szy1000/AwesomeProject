@@ -86,9 +86,8 @@ target 'AwesomeProject' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-video', :path => '../node_modules/react-native-video/react-native-video.podspec'
 
-  pod 'RCTWeChat', :path => '../node_modules/react-native-wechat-lib/RCTWeChat.podspec'
+  pod 'RCTWeChat', :path => '../node_modules/react-native-wechat/RCTWeChat.podspec'
 
   target 'AwesomeProjectTests' do
     inherit! :complete

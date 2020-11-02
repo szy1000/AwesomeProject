@@ -48,18 +48,19 @@ static void InitializeFlipper(UIApplication *application) {
   return YES;
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return  [WXApi handleOpenURL:url delegate:self];
+// ios 8.x or older
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application openURL:url
+                            sourceApplication:sourceApplication annotation:annotation];
 }
 
-- (BOOL)application:(UIApplication *)application
-  continueUserActivity:(NSUserActivity *)userActivity
-  restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable
-  restorableObjects))restorationHandler {
-  // 触发回调方法
-  [RCTLinkingManager application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
-  return [WXApi handleOpenUniversalLink:userActivity
-  delegate:self];
+// ios 9.0+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+            options:(NSDictionary<NSString*, id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

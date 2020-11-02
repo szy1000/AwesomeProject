@@ -13,8 +13,8 @@ export default class Index extends React.Component {
               <View style={styles.slide} key={item}>
                 {item.split('.')[item.split('.').length - 1] === 'mp4' ? (
                   <Video
-                    paused={true}
-                    poster={'http://47.114.151.211/logo.png'}
+                    // paused={true}
+                    // poster={'http://47.114.151.211/logo.png'}
                     resizeMode="contain"
                     style={styles.item}
                     source={{uri: item}}

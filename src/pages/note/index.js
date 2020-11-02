@@ -239,7 +239,7 @@ class Note extends React.Component {
                 {v.type === 'video' ? (
                   <Video
                     paused={true}
-                    poster={'http://47.114.151.211/logo.png'}
+                    // poster={'http://47.114.151.211/logo.png'}
                     resizeMode="contain"
                     source={{
                       uri: v.uri,
