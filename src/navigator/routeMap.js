@@ -170,7 +170,6 @@ const router = [
     options: {
       headerTransparent: true, //设置头部透明,
       title: null,
-
       // headerShown: false, //删除头部
       headerRight: () => (
         <Feather
@@ -312,6 +311,7 @@ const router = [
     name: 'FindDetail',
     component: FindDetail,
     options: {
+      headerShown: false,
       title: null,
       headerBackTitle: null,
       headerTruncatedBackTitle: null,

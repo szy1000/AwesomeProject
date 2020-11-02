@@ -5,13 +5,17 @@ import {
   Platform,
   ActivityIndicator,
   SafeAreaView,
+  Dimensions,
   Text,
   StyleSheet,
 } from 'react-native';
 import {Header, Banner, Leave, Comment} from './page-components';
 
+const {height} = Dimensions.get('window');
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {Container, Content, Footer} from 'native-base';
 import {
   findDetailInit,
   commentNote,
@@ -19,6 +23,7 @@ import {
   favoriteNote,
   starNote,
 } from './redux';
+
 import {WhiteSpace} from '../../components';
 
 class FindDetail extends React.Component {
@@ -62,7 +67,8 @@ class FindDetail extends React.Component {
     this.props.starNote(this.noteId, this.initPage);
   };
   render() {
-    const {init, data} = this.props;
+    const {init, data, navigation} = this.props;
+    console.log('navigation===>', this.props.navigation);
     if (!init) {
       return <ActivityIndicator />;
     }
@@ -75,15 +81,15 @@ class FindDetail extends React.Component {
       starCount,
       user,
     } = data.noteDetail;
-    console.log(data.userAll);
     return (
-      <View style={styles.findDetail}>
-        <SafeAreaView style={{flex: 1}}>
-          <Header
-            user={user}
-            followFn={() => this.follow(user.id)}
-            follow={data.userAll.follow}
-          />
+      <Container style={styles.findDetail}>
+        <Header
+          user={user}
+          navigation={navigation}
+          followFn={() => this.follow(user.id)}
+          follow={data.userAll.follow}
+        />
+        <Content style={{flex: 1, position: 'relative'}}>
           <ScrollView
             onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
             ref="scrollView"
@@ -103,6 +109,8 @@ class FindDetail extends React.Component {
             {data.commentList.length > 0 &&
               data.commentList.map(v => <Leave key={v.id} {...v} />)}
           </ScrollView>
+        </Content>
+        <Footer>
           <View style={styles.control}>
             <Comment
               actionAll={data.actionAll}
@@ -114,8 +122,8 @@ class FindDetail extends React.Component {
               favoriteNoteFn={this.favoriteNoteFn}
             />
           </View>
-        </SafeAreaView>
-      </View>
+        </Footer>
+      </Container>
     );
   }
 }
@@ -138,6 +146,9 @@ const styles = StyleSheet.create({
   },
   control: {
     // position: 'absolute',
+    width: '100%',
     // bottom: 0,
+
+    backgroundColor: '#fff',
   },
 });

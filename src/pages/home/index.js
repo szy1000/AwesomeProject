@@ -140,7 +140,6 @@ class Home extends React.Component {
           <TextInput
             style={styles.ipt}
             ref="ipt"
-            // editable={false}
             maxLenth={100}
             placeholder="请输入关键词搜索"
             returnKeyLabel="do"

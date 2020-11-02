@@ -1,15 +1,24 @@
 import React from 'react';
 import {View, Image, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {Icon} from 'native-base';
+import Jump from '../../../../utils/jump';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default class Header extends React.Component {
   render() {
     const {
       user: {avatarUrl, userName, address},
+      navigation,
       follow,
     } = this.props;
-
     return (
       <View style={styles.header}>
+        <MaterialIcons
+          onPress={() => Jump.goBack({navigation})}
+          size={30}
+          style={{marginRight: 10}}
+          name="arrow-back"
+        />
         <Image
           style={styles.avatar}
           source={
@@ -24,7 +33,7 @@ export default class Header extends React.Component {
           </Text>
           <View style={styles.addressWrapper} numberOfLines={1}>
             <Image style={styles.icon} source={require('./address.png')} />
-            <Text style={styles.address}>{address}</Text>
+            <Text style={styles.address}>{address || '火星'}</Text>
           </View>
         </View>
         <TouchableOpacity onPress={() => this.props.followFn()}>
@@ -34,6 +43,14 @@ export default class Header extends React.Component {
             </View>
           ) : (
             <View style={styles.unfocus}>
+              <Icon
+                type="AntDesign"
+                style={{
+                  color: '#12a8cd',
+                  fontSize: 14,
+                }}
+                name="plus"
+              />
               <Text style={styles.fTxt}>关注</Text>
             </View>
           )}
@@ -46,11 +63,12 @@ export default class Header extends React.Component {
 const styles = StyleSheet.create({
   header: {
     // position: 'relative',
-    paddingLeft: 40,
-    paddingRight: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     // height: 40,
     alignItems: 'center',
     flexDirection: 'row',
+    // backgroundColor: 'red',
   },
   avatar: {
     marginRight: 10,
@@ -88,6 +106,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   unfocus: {
+    flexDirection: 'row',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 30,

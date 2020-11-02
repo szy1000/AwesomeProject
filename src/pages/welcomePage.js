@@ -1,7 +1,16 @@
 import React from 'react';
-import {Text, View, StyleSheet, Button, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  Button,
+  Alert,
+} from 'react-native';
 import {Jump} from '../utils/index';
 import Video from 'react-native-video';
+import {Container, Content, Footer} from 'native-base';
 import * as WeChat from 'react-native-wechat';
 
 const shareToFriend = async () => {
@@ -57,8 +66,10 @@ const shareToFriend = async () => {
 };
 
 export default class WelcomePage extends React.Component {
+  state = {
+    visible: false,
+  };
   componentDidMount() {
-
     // this.timer = setTimeout(() => {
     //   Jump.resetToHome(this.props);
     // }, 2000);
@@ -69,26 +80,68 @@ export default class WelcomePage extends React.Component {
   }
 
   render() {
+    const {visible} = this.state;
     return (
-      <View style={styles.container}>
-        <Text>Welcome</Text>
-        <Button title="2233" onPress={() => shareToFriend()} />
-        {/*<Button title="eee" onPress={async () => await WeChat.shareText()} />*/}
+      <Container style={styles.container}>
+        <Content>
+          <Text>Welcome</Text>
+          <ScrollView style={{flex: 1}}>
+            <Text>sss</Text>
+          </ScrollView>
+          <Button
+            style={styles.ssss}
+            title="2233"
+            onPress={() => shareToFriend()}
+          />
+          {/*<Button title="eee" onPress={async () => await WeChat.shareText()} />*/}
 
-        <Button
-          title="登录"
-          onPress={async () => {
-            console.log('ssss');
-            WeChat.sendAuthRequest('snsapi_userinfo')
-              .then(res => {
-                const {code} = res;
-                console.log(code);
-              })
-              .catch(err => console.log(err));
-            alert('fins');
-          }}
-        />
-      </View>
+          {/*<Button*/}
+          {/*  title="登录"*/}
+          {/*  onPress={async () => {*/}
+          {/*    console.log('ssss');*/}
+          {/*    WeChat.sendAuthRequest('snsapi_userinfo')*/}
+          {/*      .then(res => {*/}
+          {/*        const {code} = res;*/}
+          {/*        console.log(code);*/}
+          {/*      })*/}
+          {/*      .catch(err => console.log(err));*/}
+          {/*    alert('fins');*/}
+          {/*  }}*/}
+          {/*/>*/}
+          <View style={{height: 800}}>
+            <Text>holder</Text>
+          </View>
+          {visible && (
+            <View style={styles.btnBox}>
+              <TextInput
+                placeholder="请输入"
+                // ref="ipt"
+                autoFocus
+                onBlur={() =>
+                  this.setState({
+                    visible: false,
+                  })
+                }
+              />
+            </View>
+          )}
+        </Content>
+        {!visible && (
+          <Footer>
+            <TextInput
+              placeholder="请输入"
+              ref="ipt_bottom"
+              onFocus={() => {
+                // this.refs.ipt.focus();
+                this.refs.ipt_bottom.blur();
+                this.setState({
+                  visible: true,
+                });
+              }}
+            />
+          </Footer>
+        )}
+      </Container>
     );
   }
 }
@@ -96,10 +149,22 @@ export default class WelcomePage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // backgroundColor: '',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  ssss: {
+    position: 'absolute',
+    bottom: 0,
   },
 
+  btnBox: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    height: 40,
+    backgroundColor: 'red',
+  },
   backgroundVideo: {
     position: 'absolute',
     top: 0,
