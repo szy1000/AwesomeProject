@@ -14,16 +14,15 @@ export default class GroupDetail extends React.Component {
     content: '',
   };
   changeValue = e => {
-    this.setState({
-      content: e,
-    });
+    this.props.handleContent(e);
+    // this.setState({
+    //   content: e,
+    // });
   };
 
   blurFn = () => {
-    this.setState({
-      content: '',
-    });
-    this.props.commentNoteFn(this.state.content);
+    this.props.commentNoteFn(this.props.content);
+    this.props.handleContent('');
   };
 
   render() {
@@ -31,6 +30,9 @@ export default class GroupDetail extends React.Component {
       starCount,
       favoriteCount,
       actionAll: {favorite, star},
+      getFocus,
+      toggleFocus,
+      content,
     } = this.props;
 
     return (
@@ -38,11 +40,22 @@ export default class GroupDetail extends React.Component {
         <SearchInput
           style={styles.ipt}
           placeholder="写回复"
-          value={this.state.content}
+          autoFocus={getFocus}
+          onFocus={() => {
+            if (!getFocus) {
+              toggleFocus();
+            }
+          }}
+          value={content}
           onChangeText={e => this.changeValue(e)}
           returnKeyLabel="send"
           returnKeyType="send"
           onSubmitEditing={this.blurFn}
+          onBlur={() => {
+            if (getFocus) {
+              toggleFocus();
+            }
+          }}
         />
         <TouchableWithoutFeedback onPress={this.props.starNoteFn}>
           <Image
@@ -50,7 +63,7 @@ export default class GroupDetail extends React.Component {
             source={star ? require('./thumb-on.png') : require('./zan.png')}
           />
         </TouchableWithoutFeedback>
-        <Text>{starCount}</Text>
+        <Text style={styles.txt}>{starCount}</Text>
         <TouchableWithoutFeedback onPress={this.props.favoriteNoteFn}>
           <Image
             style={styles.img}
@@ -59,7 +72,7 @@ export default class GroupDetail extends React.Component {
             }
           />
         </TouchableWithoutFeedback>
-        <Text>{favoriteCount}</Text>
+        <Text style={styles.txt}>{favoriteCount}</Text>
       </View>
     );
   }
@@ -71,8 +84,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     flexDirection: 'row',
     borderTopColor: '#ddd',
+    alignContent: 'center',
     borderWidth: 1,
     borderColor: 'transparent',
+    // backgroundColor: 'red',
   },
   ipt: {
     marginRight: 15,
@@ -80,13 +95,17 @@ const styles = StyleSheet.create({
     borderColor: '#f7f7f7',
     borderWidth: 1,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    // paddingVertical: 10,
     borderRadius: 15,
+    fontSize: 14,
   },
   img: {
     marginHorizontal: 15,
     width: 26,
     height: 26,
     resizeMode: 'contain',
+  },
+  txt: {
+    lineHeight: 28,
   },
 });

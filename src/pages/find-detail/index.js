@@ -30,6 +30,10 @@ class FindDetail extends React.Component {
   constructor(props) {
     super(props);
     this.noteId = '';
+    this.state = {
+      keyboard: false,
+      content: '',
+    };
   }
   componentDidMount(): void {
     const {
@@ -44,6 +48,11 @@ class FindDetail extends React.Component {
   };
 
   commentNoteFn = content => {
+    console.warn(
+      'this.refs.scrollView',
+      this.refs.scrollView.scrollResponderScrollToEnd(),
+    );
+    this.refs.scrollView.scrollToEnd();
     if (connect !== '') {
       this.props.commentNote(
         {
@@ -53,6 +62,16 @@ class FindDetail extends React.Component {
         this.initPage,
       );
     }
+  };
+
+  toggleKey = () => {
+    this.setState(({keyboard}) => ({keyboard: !keyboard}));
+  };
+
+  handleContent = content => {
+    this.setState({
+      content,
+    });
   };
 
   follow = id => {
@@ -68,7 +87,7 @@ class FindDetail extends React.Component {
   };
   render() {
     const {init, data, navigation} = this.props;
-    console.log('navigation===>', this.props.navigation);
+    const {keyboard} = this.state;
     if (!init) {
       return <ActivityIndicator />;
     }
@@ -89,10 +108,12 @@ class FindDetail extends React.Component {
           followFn={() => this.follow(user.id)}
           follow={data.userAll.follow}
         />
-        <Content style={{flex: 1, position: 'relative'}}>
+        <Content scrollEnabled style={{flex: 1}}>
           <ScrollView
-            onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
             ref="scrollView"
+            // onContentSizeChange={() =>
+            //   setTimeout(() => , 300)
+            // }
             style={{flex: 1}}>
             <Banner files={files} />
             <View style={{padding: 15}}>
@@ -109,20 +130,42 @@ class FindDetail extends React.Component {
             {data.commentList.length > 0 &&
               data.commentList.map(v => <Leave key={v.id} {...v} />)}
           </ScrollView>
+          {keyboard && (
+            <View style={styles.control}>
+              <Comment
+                actionAll={data.actionAll}
+                starCount={starCount}
+                getFocus={true}
+                commentCount={commentCount}
+                favoriteCount={favoriteCount}
+                toggleFocus={this.toggleKey}
+                commentNoteFn={e => this.commentNoteFn(e)}
+                starNoteFn={this.starNoteFn}
+                content={this.state.content}
+                handleContent={e => this.handleContent(e)}
+                favoriteNoteFn={this.favoriteNoteFn}
+              />
+            </View>
+          )}
         </Content>
-        <Footer>
-          <View style={styles.control}>
-            <Comment
-              actionAll={data.actionAll}
-              starCount={starCount}
-              commentCount={commentCount}
-              favoriteCount={favoriteCount}
-              commentNoteFn={e => this.commentNoteFn(e)}
-              starNoteFn={this.starNoteFn}
-              favoriteNoteFn={this.favoriteNoteFn}
-            />
-          </View>
-        </Footer>
+        {!keyboard && (
+          <Footer>
+            <View style={styles.control}>
+              <Comment
+                actionAll={data.actionAll}
+                starCount={starCount}
+                getFocus={false}
+                commentCount={commentCount}
+                content={this.state.content}
+                favoriteCount={favoriteCount}
+                toggleFocus={this.toggleKey}
+                commentNoteFn={e => this.commentNoteFn(e)}
+                starNoteFn={this.starNoteFn}
+                favoriteNoteFn={this.favoriteNoteFn}
+              />
+            </View>
+          </Footer>
+        )}
       </Container>
     );
   }

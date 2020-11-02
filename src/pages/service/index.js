@@ -7,8 +7,10 @@ import {
   SafeAreaView,
   ActivityIndicator,
   StyleSheet,
-  Image, Alert,
+  Image,
+  Alert,
 } from 'react-native';
+import {Container, Content, Footer} from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {Button} from '../../components';
@@ -20,26 +22,29 @@ import {serviceInit, sendMsg} from './redux';
 class Service extends React.Component {
   state = {
     value: '',
+    keyboard: false,
   };
   id = 0;
   time = null;
-  sendMessage = () => {
+  sendMessage = async () => {
     const {value} = this.state;
+    this.setState({
+      value: '',
+      keyboard: false,
+    });
     if (!value) {
       Alert.alert('操作提示', '不能为空', [
         {
           text: '确认',
           onPress: async () => {},
         },
-      ])
+      ]);
       return;
     }
-    this.props.sendMsg({
+    await this.props.sendMsg({
       message: value,
     });
-    this.setState({
-      value: '',
-    });
+    this._content._root.scrollToEnd();
   };
 
   changeText = e => {
@@ -58,7 +63,7 @@ class Service extends React.Component {
   }
 
   render() {
-    const {value} = this.state;
+    const {value, keyboard} = this.state;
     const {init, _data} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
@@ -66,10 +71,8 @@ class Service extends React.Component {
     const {data} = _data;
     console.log(_data);
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <ScrollView
-          onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
-          ref="scrollView">
+      <Container style={{flex: 1}}>
+        <Content style={{flex: 1}} ref={content => (this._content = content)}>
           <View style={styles.main}>
             {data.map(({message, user: {id, avatarUrl}}, i) => {
               if (id === this.id) {
@@ -109,20 +112,45 @@ class Service extends React.Component {
               }
             })}
           </View>
-        </ScrollView>
-        <View style={styles.wrapper}>
-          <TextInput
-            style={styles.ipt}
-            value={value}
-            onChangeText={e => this.changeText(e)}
-            returnKeyLabel="send"
-            returnKeyType="send"
-            onSubmitEditing={this.sendMessage}
-            placeholder={'请输入你想咨询的问题'}
-          />
-          <Button onClick={this.sendMessage}>发送</Button>
-        </View>
-      </SafeAreaView>
+          {keyboard && (
+            <View style={styles.wrapper}>
+              <TextInput
+                style={styles.ipt}
+                value={value}
+                autoFocus={true}
+                onChangeText={e => this.changeText(e)}
+                returnKeyLabel="send"
+                returnKeyType="send"
+                onBlur={() =>
+                  this.setState({
+                    keyboard: false,
+                  })
+                }
+                onSubmitEditing={this.sendMessage}
+                placeholder={'请输入你想咨询的问题'}
+              />
+              <Button onClick={this.sendMessage}>发送</Button>
+            </View>
+          )}
+        </Content>
+        {!keyboard && (
+          <Footer>
+            <View style={styles.wrapper}>
+              <TextInput
+                style={styles.ipt}
+                value={value}
+                onFocus={() => this.setState({keyboard: true})}
+                // onChangeText={e => this.changeText(e)}
+                // returnKeyLabel="send"
+                // returnKeyType="send"
+                // onSubmitEditing={this.sendMessage}
+                placeholder={'请输入你想咨询的问题'}
+              />
+              <Button onClick={this.sendMessage}>发送</Button>
+            </View>
+          </Footer>
+        )}
+      </Container>
     );
   }
 }
@@ -209,6 +237,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
+    width: '100%',
   },
   ipt: {
     marginRight: 15,
