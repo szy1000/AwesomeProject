@@ -48,17 +48,6 @@ import Jump from '../utils/jump';
 import Feather from 'react-native-vector-icons/Feather';
 import * as WeChat from 'react-native-wechat';
 
-// const ShareToFriend = () => {
-//   Share.share({
-//     message:
-//       Platform.os === 'ios'
-//         ? '留学帮'
-//         : 'http://www.ivyroutedu.com/contact.php',
-//     url: 'http://www.ivyroutedu.com/contact.php',
-//     title: '留学帮',
-//   });
-// };
-
 const ShareToFriend = async () => {
   if (!(await WeChat.isWXAppInstalled())) {
     Alert.alert('操作提示', '微信未安装，改功能无法使用', [
@@ -136,7 +125,7 @@ const router = [
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}
-          name="share"
+          name="share-2"
           color="#000"
           size={20}
           onPress={() => {
@@ -186,7 +175,7 @@ const router = [
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}
-          name="share"
+          name="share-2"
           color="#000"
           size={20}
           onPress={() => {
@@ -239,7 +228,7 @@ const router = [
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}
-          name="share"
+          name="share-2"
           color="#000"
           size={20}
           onPress={() => {
@@ -265,7 +254,7 @@ const router = [
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}
-          name="share"
+          name="share-2"
           color="#000"
           size={20}
           onPress={() => {
@@ -287,7 +276,7 @@ const router = [
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}
-          name="share"
+          name="share-2"
           color="#000"
           size={20}
           onPress={() => {
@@ -441,7 +430,7 @@ const router = [
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}
-          name="share"
+          name="share-2"
           color="#000"
           size={20}
           onPress={() => {
