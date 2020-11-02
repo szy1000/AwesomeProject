@@ -25,11 +25,14 @@ class My extends React.Component {
       'focus',
       async () => {
         this.isLogin = await Tools.isLogin();
-        console.log(console.log(this.isLogin))
+        console.log('sssss=>', console.log(this.isLogin));
         if (this.isLogin) {
-          this.userName = await AsyncStorage.getItem('name');
           const id = await AsyncStorage.getItem('sid');
           this.props.myInit(id);
+          this.setState({
+            userName: await AsyncStorage.getItem('name'),
+          });
+          this.userName = await AsyncStorage.getItem('name');
         }
       },
     );
@@ -69,7 +72,7 @@ class My extends React.Component {
                   style={styles.avatar}
                 />
                 <View style={{flex: 1}}>
-                  <Text style={styles.link}>{this.userName}</Text>
+                  <Text style={styles.link}>{userInfo.userName}</Text>
                   <Text style={styles.text}>
                     手机号: {userInfo.phoneNumber}
                   </Text>
@@ -101,7 +104,7 @@ class My extends React.Component {
               </View>
             </TouchableWithoutFeedback>
           )}
-          <Statistics {...this.props} userStat={userStat} />
+          <Statistics {...this.props} userStat={this.isLogin ? userStat : {}} />
         </View>
         <Item {...this.props} isLogin={this.isLogin} />
       </ScrollView>
