@@ -188,10 +188,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   control: {
-    // position: 'absolute',
     width: '100%',
-    // bottom: 0,
-
     backgroundColor: '#fff',
   },
 });

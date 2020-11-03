@@ -80,11 +80,12 @@ export default class GroupDetail extends React.Component {
 
 const styles = StyleSheet.create({
   comment: {
-    paddingVertical: 15,
+    paddingVertical: 5,
     paddingHorizontal: 15,
     flexDirection: 'row',
     borderTopColor: '#ddd',
     alignContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: 'transparent',
     // backgroundColor: 'red',
@@ -92,10 +93,11 @@ const styles = StyleSheet.create({
   ipt: {
     marginRight: 15,
     flex: 1,
+    color: 'red',
     borderColor: '#f7f7f7',
     borderWidth: 1,
     paddingHorizontal: 15,
-    // paddingVertical: 10,
+    paddingVertical: 5,
     borderRadius: 15,
     fontSize: 14,
   },
@@ -104,8 +106,5 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     resizeMode: 'contain',
-  },
-  txt: {
-    lineHeight: 28,
   },
 });
