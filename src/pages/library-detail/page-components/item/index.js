@@ -7,11 +7,12 @@ import {
   StyleSheet,
 } from 'react-native';
 import Jump from '../../../../utils/jump';
+
 export default class Item extends React.Component {
   linkToDetail = id => {
     const {navigation} = this.props;
     Jump.linkToPage({
-      url: 'CaseDetail',
+      url: 'RepositoryDetail',
       navigation,
       params: {
         id,
@@ -19,11 +20,21 @@ export default class Item extends React.Component {
     });
   };
   render() {
-    const {styles, name, nameEn, id} = this.props;
+    const {styles, name, nameEn, logoUrl, imageUrl, id} = this.props;
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
           <View>
+            <Image
+              style={_styles.logo}
+              source={
+                logoUrl
+                  ? {uri: logoUrl}
+                  : require('../../../../assets/images/logo.jpeg')
+              }
+            />
+          </View>
+          <View style={{flex: 1}}>
             <Text style={_styles.name} numberOfLines={1}>
               {name}
             </Text>
@@ -47,6 +58,12 @@ const _styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 5,
+  },
+  logo: {
+    marginRight: 15,
+    borderRadius: 4,
+    width: 60,
+    height: 60,
   },
 
   name: {

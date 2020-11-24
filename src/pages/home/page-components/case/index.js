@@ -8,24 +8,26 @@ import {
 } from 'react-native';
 import Jump from '../../../../utils/jump';
 export default class Case extends React.Component {
-  linkTo = (id, navigation) => {
+  linkTo = (id, navigation, title) => {
     Jump.linkToPage({
       navigation,
       url: 'CaseDetail',
       params: {
         id,
+        title,
       },
     });
   };
 
   render() {
     const {data, navigation} = this.props;
+    console.log(data);
     return (
       <View style={styles.case}>
         {data.map(item => (
           <TouchableWithoutFeedback
             key={item.id}
-            onPress={() => this.linkTo(item.id, navigation)}>
+            onPress={() => this.linkTo(item.id, navigation, item.title)}>
             <View style={styles.item}>
               <Image
                 style={styles.pic}

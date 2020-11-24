@@ -18,7 +18,13 @@ class CaseDetail extends React.Component {
     const {
       route: {params},
       caseDetailInit,
+      navigation,
     } = this.props;
+    if (params.title) {
+      navigation.setOptions({
+        title: params.title,
+      });
+    }
     this.id = params.id;
     caseDetailInit(this.id);
   }

@@ -105,7 +105,9 @@ class LibraryDetail extends Component {
     } else if (infoItem.length === 0) {
       infoItem.push({
         name: '推荐院校',
-        component: () => <RecommendSchool id={this.id} />,
+        component: () => (
+          <RecommendSchool id={this.id} navigation={navigation} />
+        ),
       });
     }
 

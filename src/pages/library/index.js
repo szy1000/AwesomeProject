@@ -195,7 +195,6 @@ class Library extends Component {
                 headerBackButtonText="返回"
                 selectedValue={this.state.countryId || this.countryId}
                 onValueChange={e => {
-                  console.log('countryId', e);
                   this.props.libraryInit({countryId: e});
                   this.onValueChange('countryId', e);
                 }}>
