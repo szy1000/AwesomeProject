@@ -92,7 +92,6 @@ class Library extends Component {
       data: {subjectList},
       navigation,
     } = this.props;
-    console.log('index', index);
     if (index === 0) {
       return (
         <>
@@ -176,6 +175,7 @@ class Library extends Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
+    console.log('11111111')
     const {country, rank, subjectItem, subjectList} = data;
     const {query} = this.state;
     return (

@@ -42,7 +42,7 @@ export default class Tab extends React.Component {
             tabBarOptions={Object.assign(
               {
                 labelStyle: {
-                  fontSize: 16,
+                  fontSize: 14,
                 },
                 activeTintColor: '#12a8cd',
                 inactiveTintColor: '#000',
