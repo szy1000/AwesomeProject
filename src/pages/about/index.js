@@ -13,7 +13,7 @@ export default class About extends React.Component {
             source={require('../../assets/images/logo.jpeg')}
           />
         </View>
-        <Item title={'当前版本'} extra="1.0.3" more={false} />
+        <Item title="当前版本" extra="1.0.3" more={false} />
         <WhiteSpace size="middle" />
         <Item title={'使用许可协议'} />
         <Item title={'当前版本'} />
