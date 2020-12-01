@@ -118,7 +118,6 @@ class Cases extends React.Component {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
     const {listData, _degree, _subject} = data;
-    console.log(listData);
 
     const item = currentOpen === 'degree' ? _degree : _subject;
     return (

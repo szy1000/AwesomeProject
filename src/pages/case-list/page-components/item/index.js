@@ -11,17 +11,19 @@ import HTMLView from 'react-native-htmlview';
 
 export default class Item extends React.Component {
   linkToDetail = id => {
-    const {navigation} = this.props;
+    const {navigation, title} = this.props;
     Jump.linkToPage({
       url: 'CaseDetail',
       navigation,
       params: {
         id,
+        title,
       },
     });
   };
   render() {
     const {styles, title, description, id} = this.props;
+    console.log(this.props);
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
@@ -29,10 +31,7 @@ export default class Item extends React.Component {
             <Text style={_styles.name} numberOfLines={1}>
               {title}
             </Text>
-            <HTMLView
-              style={_styles.eng_name}
-              value={description}
-            />
+            <HTMLView style={_styles.eng_name} value={description} />
           </View>
         </View>
       </TouchableWithoutFeedback>

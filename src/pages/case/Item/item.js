@@ -16,6 +16,7 @@ export default class Item extends React.Component {
       params: {
         id,
         name,
+        title: name,
         nameEn,
         jiaotongRanking,
         imageUrl,

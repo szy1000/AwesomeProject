@@ -7,11 +7,14 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {Jump} from '../utils/index';
 import Video from 'react-native-video';
 import {Container, Content, Footer} from 'native-base';
 import * as WeChat from 'react-native-wechat';
+// import Address from 'react-native-city-picker';
+// var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const shareToFriend = async () => {
   if (!(await WeChat.isWXAppInstalled())) {
@@ -93,6 +96,16 @@ export default class WelcomePage extends React.Component {
             title="2233"
             onPress={() => shareToFriend()}
           />
+
+          <Button
+            style={styles.ssss}
+            title="modal"
+            onPress={() =>
+              this.setState({
+                visible: true,
+              })
+            }
+          />
           {/*<Button title="eee" onPress={async () => await WeChat.shareText()} />*/}
 
           {/*<Button*/}
@@ -111,35 +124,58 @@ export default class WelcomePage extends React.Component {
           <View style={{height: 800}}>
             <Text>holder</Text>
           </View>
-          {visible && (
-            <View style={styles.btnBox}>
-              <TextInput
-                placeholder="请输入"
-                // ref="ipt"
-                autoFocus
-                onBlur={() =>
-                  this.setState({
-                    visible: false,
-                  })
-                }
-              />
-            </View>
-          )}
+          {/*{visible && (*/}
+          {/*  <View style={styles.btnBox}>*/}
+          {/*    <TextInput*/}
+          {/*      placeholder="请输入"*/}
+          {/*      // ref="ipt"*/}
+          {/*      autoFocus*/}
+          {/*      onBlur={() =>*/}
+          {/*        this.setState({*/}
+          {/*          visible: false,*/}
+          {/*        })*/}
+          {/*      }*/}
+          {/*    />*/}
+          {/*  </View>*/}
+          {/*)}*/}
         </Content>
-        {!visible && (
-          <Footer>
-            <TextInput
-              placeholder="请输入"
-              ref="ipt_bottom"
-              onFocus={() => {
-                // this.refs.ipt.focus();
-                this.refs.ipt_bottom.blur();
-                this.setState({
-                  visible: true,
-                });
-              }}
-            />
-          </Footer>
+        <Footer>
+          <TextInput
+            placeholder="请输入"
+            ref="ipt_bottom"
+            onFocus={() => {
+              // this.refs.ipt.focus();
+              // this.refs.ipt_bottom.blur();
+              this.setState({
+                visible: true,
+              });
+            }}
+          />
+        </Footer>
+        {visible && (
+          <View style={styles.overlay}>
+            <TouchableWithoutFeedback
+              onPress={() => this.setState({visible: false})}>
+              <View style={styles.bg} />
+            </TouchableWithoutFeedback>
+            <View style={styles.content}>
+              <Text>title</Text>
+              <ScrollView style={{flex: 1}}>
+                <View>
+                  <Text>1</Text>
+                </View>
+                <View>
+                  <Text>2</Text>
+                </View>
+                <View>
+                  <Text>3</Text>
+                </View>
+                <View>
+                  <Text>4</Text>
+                </View>
+              </ScrollView>
+            </View>
+          </View>
         )}
       </Container>
     );
@@ -147,6 +183,33 @@ export default class WelcomePage extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  overlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(178,178,178,0.8)',
+  },
+
+  bg: {
+    position: 'absolute',
+    zIndex: 1,
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'red',
+  },
+  content: {
+    position: 'absolute',
+    zIndex: 10,
+    width: '100%',
+    bottom: 0,
+    height: 500,
+    backgroundColor: '#fff',
+  },
+
   container: {
     flex: 1,
     // backgroundColor: '',

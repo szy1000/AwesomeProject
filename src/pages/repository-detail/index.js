@@ -133,72 +133,78 @@ class RepositoryDetail extends React.Component {
     }
 
     return (
-      <Tab
-        common={
-          <View style={styles.repositoryDetail}>
-            <Banner imageUrl={[imageUrl]} />
-            <View style={styles.school}>
-              <View>
-                <Image
-                  style={styles.logo}
-                  source={
-                    logoUrl
-                      ? {uri: logoUrl}
-                      : require('../../assets/images/logo.jpeg')
-                  }
-                />
-              </View>
-              <View style={styles.msgBox}>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.enName}>{nameEn}</Text>
-                <View style={styles.msgItem}>
-                  <Image
-                    style={styles.icon}
-                    source={require('./images/link.png')}
-                  />
-                  <Text style={styles.link} numberOfLines={1}>
-                    {website}
-                  </Text>
-                </View>
-                <View style={styles.msgItem}>
-                  <Image
-                    style={styles.icon}
-                    source={require('./images/address.png')}
-                  />
-                  <Text style={styles.link} numberOfLines={1}>
-                    {country}
-                    {address && `- ${address}`}
-                  </Text>
-                </View>
+      <ScrollView>
+        <View style={{paddingBottom: 30}}>
+          <Tab
+            common={
+              <View style={styles.repositoryDetail}>
+                <Banner imageUrl={[imageUrl]} />
+                <View style={styles.school}>
+                  <View>
+                    <Image
+                      style={styles.logo}
+                      source={
+                        logoUrl
+                          ? {uri: logoUrl}
+                          : require('../../assets/images/logo.jpeg')
+                      }
+                    />
+                  </View>
+                  <View style={styles.msgBox}>
+                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.enName}>{nameEn}</Text>
+                    <View style={styles.msgItem}>
+                      <Image
+                        style={styles.icon}
+                        source={require('./images/link.png')}
+                      />
+                      <Text style={styles.link} numberOfLines={1}>
+                        {website}
+                      </Text>
+                    </View>
+                    <View style={styles.msgItem}>
+                      <Image
+                        style={styles.icon}
+                        source={require('./images/address.png')}
+                      />
+                      <Text style={styles.link} numberOfLines={1}>
+                        {country}
+                        {address && `- ${address}`}
+                      </Text>
+                    </View>
 
-                <View style={styles.rankItem}>
-                  <Text style={styles.rank} numberOfLines={1}>
-                    <Text style={styles.qs}>QS 排名</Text>
-                    <Text style={styles.qsValue}>{qsRanking}</Text>
-                  </Text>
-                  <Text style={styles.rank} numberOfLines={1}>
-                    <Text style={styles.usnews}>USNEW 排名</Text>
-                    <Text style={styles.usnewsValue}>{usnewsRanking}</Text>
-                  </Text>
-                </View>
-                <View style={styles.rankItem}>
-                  <Text style={styles.rank} numberOfLines={1}>
-                    <Text style={styles.thames}>泰晤士排名</Text>
-                    <Text style={styles.thamesValue}>{thamesRanking}</Text>
-                  </Text>
+                    <View style={styles.rankItem}>
+                      <Text style={styles.rank} numberOfLines={1}>
+                        <Text style={styles.qs}>QS 排名</Text>
+                        <Text style={styles.qsValue}>{qsRanking}</Text>
+                      </Text>
+                      <Text style={styles.rank} numberOfLines={1}>
+                        <Text style={styles.usnews}>USNEW 排名</Text>
+                        <Text style={styles.usnewsValue}>{usnewsRanking}</Text>
+                      </Text>
+                    </View>
+                    <View style={styles.rankItem}>
+                      <Text style={styles.rank} numberOfLines={1}>
+                        <Text style={styles.thames}>泰晤士排名</Text>
+                        <Text style={styles.thamesValue}>{thamesRanking}</Text>
+                      </Text>
 
-                  <Text style={styles.rank} numberOfLines={1}>
-                    <Text style={styles.jiaotong}>上海交大排名</Text>
-                    <Text style={styles.jiaotongValue}>{jiaotongRanking}</Text>
-                  </Text>
+                      <Text style={styles.rank} numberOfLines={1}>
+                        <Text style={styles.jiaotong}>上海交大排名</Text>
+                        <Text style={styles.jiaotongValue}>
+                          {jiaotongRanking}
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
-        }
-        navigation={navigation}
-        tabContent={infoItem}
-      />
+            }
+            navigation={navigation}
+            tabContent={infoItem}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
