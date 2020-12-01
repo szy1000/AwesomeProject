@@ -21,7 +21,6 @@ export default class Case extends React.Component {
 
   render() {
     const {data, navigation} = this.props;
-    console.log(data);
     return (
       <View style={styles.case}>
         {data.map(item => (

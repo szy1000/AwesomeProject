@@ -68,8 +68,6 @@ export const homeInit = (params, callback) => async (dispatch, getState) => {
       id = country[i].id;
     }
   }
-  console.log(country);
-  console.log(id);
 
   const countyParams = {
     country_id: params.id || id || country[0].id,

@@ -45,12 +45,16 @@ class Repository extends React.Component {
   };
 
   handleSelect = (key, value) => {
-    this.setState({
-      select: value,
-      [key]: value,
-    });
-    this.toggleModal(key);
-    this.search();
+    this.setState(
+      {
+        select: value,
+        [key]: value,
+      },
+      () => {
+        this.toggleModal(key);
+        this.search();
+      },
+    );
   };
 
   getDate = () => {
