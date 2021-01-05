@@ -66,12 +66,13 @@ class LibraryDetail extends Component {
       detail: {subjectCategory},
       infoItem = [],
     } = data;
-
     if (infoItem.length > 0) {
       if (infoItem[infoItem.length - 1].name !== '推荐院校') {
         infoItem.push({
           name: '推荐院校',
-          component: () => <RecommendSchool id={this.id} />,
+          component: () => (
+            <RecommendSchool id={this.id} navigation={this.props.navigation} />
+          ),
         });
       }
 

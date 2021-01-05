@@ -52,7 +52,7 @@ export default class RecommendSchool extends React.Component {
   };
   render() {
     const {navigation} = this.props;
-    console.log('navigation===>',navigation)
+    console.log('navigation===>', this.props)
     const {res, refreshLoading} = this.state;
     console.log(res);
     if (!res.data) {

@@ -117,9 +117,12 @@ class Cases extends React.Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
+    console.log(this.props)
+
     const {listData, _degree, _subject} = data;
 
     const item = currentOpen === 'degree' ? _degree : _subject;
+
     return (
       <View style={styles.repository}>
         <View style={styles.selectArea}>

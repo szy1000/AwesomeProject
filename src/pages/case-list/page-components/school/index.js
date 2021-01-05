@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 export default class Item extends React.Component {
   render() {
-    const {styles, name, nameEn, jiaotongRanking, imageUrl} = this.props;
+    const {styles, name, nameEn, jiaotongRanking, logoUrl} = this.props;
     return (
       <View style={[_styles.school, styles]}>
-        <Image style={_styles.logo} source={{uri: imageUrl}} />
+        <Image style={_styles.logo} source={{uri: logoUrl}} />
         <View style={{flex: 1}}>
           <View style={_styles.school_wrapper}>
             <Text style={_styles.name} numberOfLines={1}>

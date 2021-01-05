@@ -16,8 +16,11 @@ class BackgroundDetail extends React.Component {
   componentDidMount(): void {
     const {
       route: {params},
+      navigation,
     } = this.props;
-    // this.noteId = params.id;
+    navigation.setOptions({
+      title: params.title || '背景提升',
+    });
     this.props.backgroundDetailInit(params.id);
   }
 
@@ -40,7 +43,6 @@ class BackgroundDetail extends React.Component {
       title,
       website,
     } = data.detail;
-    console.log(data);
     return (
       <ScrollView style={styles.repositoryDetail}>
         <Item {...data.detail} />

@@ -9,7 +9,14 @@ import {
 import Jump from '../../../utils/jump';
 export default class Item extends React.Component {
   linkToDetail = id => {
-    const {navigation, name, nameEn, jiaotongRanking, imageUrl} = this.props;
+    const {
+      navigation,
+      name,
+      nameEn,
+      jiaotongRanking,
+      imageUrl,
+      logoUrl,
+    } = this.props;
     Jump.linkToPage({
       url: 'CaseList',
       navigation,
@@ -20,15 +27,30 @@ export default class Item extends React.Component {
         nameEn,
         jiaotongRanking,
         imageUrl,
+        logoUrl,
       },
     });
   };
   render() {
-    const {styles, id, name, nameEn, jiaotongRanking, imageUrl} = this.props;
+    const {
+      styles,
+      id,
+      name,
+      nameEn,
+      jiaotongRanking,
+      logoUrl,
+      imageUrl,
+    } = this.props;
+
+    console.log(this.props.logoUrl);
+
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
         <View style={[_styles.school, styles]}>
-          <Image style={_styles.logo} source={{uri: imageUrl}} />
+          <Image
+            style={_styles.logo}
+            source={{uri: logoUrl ? logoUrl : imageUrl}}
+          />
           <View style={{flex: 1}}>
             <View style={_styles.school_wrapper}>
               <Text style={_styles.name} numberOfLines={1}>

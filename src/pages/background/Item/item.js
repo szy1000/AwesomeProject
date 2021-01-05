@@ -10,12 +10,13 @@ import Jump from '../../../utils/jump';
 export default class Item extends React.Component {
   star = 0;
   linkToDetail = id => {
-    const {navigation} = this.props;
+    const {navigation, title} = this.props;
     Jump.linkToPage({
       url: 'BackgroundDetail',
       navigation,
       params: {
         id,
+        title,
       },
     });
   };

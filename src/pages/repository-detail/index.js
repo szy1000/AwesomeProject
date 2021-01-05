@@ -39,12 +39,20 @@ class HtmlContent extends React.Component {
   _renderNode(node, index, siblings, parent, defaultRenderer) {
     if (node.name === 'img') {
       const data = node.attribs;
+      // Image.getSize(data.src, async (w, h) => {
+      //   //这里的w和h就是图片的宽高
+      //   return (
+      //     <View style={{width: w, height: h, backgroundColor: 'red'}}>
+      //       <Text>ss</Text>
+      //     </View>
+      //   );
+      // });
       return (
         <Image
           key={index}
           source={{uri: data.src}}
-          resizeMode="cover"
-          style={{height: 100, width: width}}
+          resizeMode="center"
+          style={{minHeight: 200, width: width}}
         />
       );
     }
@@ -56,8 +64,8 @@ class HtmlContent extends React.Component {
       <ScrollView>
         <HTMLView
           value={html}
-          renderNode={this._renderNode}
-          style={{color: '#000', paddingHorizontal: 15}}
+          // renderNode={this._renderNode}
+          style={{color: '#000'}}
         />
       </ScrollView>
     );
@@ -84,6 +92,8 @@ class RepositoryDetail extends React.Component {
       navigation,
       route: {params},
     } = this.props;
+    console.log(this.props.data);
+
     if (!init) {
       return <ActivityIndicator />;
     }
@@ -92,7 +102,7 @@ class RepositoryDetail extends React.Component {
         address,
         country,
         id,
-        imageUrl,
+        imageUrl = '',
         jiaotongRanking,
         logoUrl,
         name,
@@ -104,7 +114,6 @@ class RepositoryDetail extends React.Component {
       },
       infoItem,
     } = data;
-
     for (let i = 0; i < infoItem.length; i++) {
       infoItem[i].component = () => {
         if (infoItem[i].infoItem) {
@@ -132,6 +141,7 @@ class RepositoryDetail extends React.Component {
       };
     }
 
+    console.log('imageUrl', imageUrl);
     return (
       <ScrollView>
         <View style={{paddingBottom: 30}}>

@@ -4,15 +4,24 @@ import Swiper from 'react-native-swiper';
 
 export default class Index extends React.Component {
   render() {
-    const {imageUrl} = this.props;
+    const {imageUrl = []} = this.props;
+    console.log(imageUrl);
     return (
       <View style={styles.banner}>
         <Swiper style={styles.wrapper}>
-          {imageUrl.map((v, k) => (
-            <View style={styles.slide} key={k}>
-              <Image style={styles.item} source={{uri: v}} />
-            </View>
-          ))}
+          {imageUrl &&
+            imageUrl.map((v, k) => (
+              <View style={styles.slide} key={k}>
+                <Image
+                  style={styles.item}
+                  source={
+                    v
+                      ? {uri: v}
+                      : require('../../../../assets/images/logo.jpeg')
+                  }
+                />
+              </View>
+            ))}
         </Swiper>
       </View>
     );
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
     // zIndex: -1,
     marginTop: -90,
     height: 300,
-    backgroundColor: 'red',
+    backgroundColor: '#ccc',
   },
   wrapper: {
     paddingTop: 50,
