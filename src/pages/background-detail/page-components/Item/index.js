@@ -31,14 +31,18 @@ export default class Index extends React.Component {
 
   render() {
     const {styles} = this.props;
-    const {description, gold} = this.props;
+    const {subject, gold} = this.props;
 
     return (
       <View style={[_styles.school, styles]}>
         <View style={_styles.school_wrapper}>
           <View style={_styles.content}>
             <Image source={require('./address.png')} style={_styles.addr} />
-            <Text style={_styles.crowd}>{description}</Text>
+            <View style={{paddingRight: 30}}>
+              <Text style={_styles.crowd}>{subject}</Text>
+            </View>
+
+            {/*<View></View>*/}
           </View>
           <View style={_styles.content}>
             <Image source={require('./zan.png')} style={_styles.addr} />
@@ -67,7 +71,7 @@ const _styles = StyleSheet.create({
     alignItems: 'center',
   },
   crowd: {
-    marginLeft: 10,
+    paddingLeft: 10,
     color: '#666666',
     fontSize: 14,
   },

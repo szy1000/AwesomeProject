@@ -126,6 +126,8 @@ class Background extends React.Component {
       item = currentOpen === 'category' ? _category : _subject;
     }
 
+    console.log(this.props.data);
+
     return (
       <View style={styles.background}>
         <View style={styles.selectArea}>

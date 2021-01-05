@@ -32,6 +32,7 @@ class BackgroundDetail extends React.Component {
       examinationContent,
       examinationForm,
       examinationResource,
+      description,
       expectedResult,
       grade,
       image,
@@ -48,7 +49,7 @@ class BackgroundDetail extends React.Component {
             <Text style={styles.title}>简介</Text>
           </View>
           <View style={styles.content}>
-            <Text style={styles.desc}>{title}</Text>
+            <Text style={styles.desc}>{description}</Text>
           </View>
         </View>
         <View style={styles.panel}>

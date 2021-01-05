@@ -57,13 +57,17 @@ export default class Item extends React.Component {
             <View style={_styles.ranking}>
               <View style={_styles.ranking_item}>
                 <Image style={_styles.icon} source={require('./pic20.png')} />
-                <Text style={_styles.desc}>国内排名:</Text>
-                <Text style={_styles.China}>{jiaotongRanking}</Text>
+                <Text style={{paddingLeft: 5}}>
+                  <Text style={_styles.desc}>国内排名:</Text>
+                  <Text style={_styles.China}>{jiaotongRanking}</Text>
+                </Text>
               </View>
               <View style={_styles.ranking_item}>
                 <Image style={_styles.icon} source={require('./pic21.png')} />
-                <Text style={_styles.desc}>平均录取率：</Text>
-                <Text style={_styles.average}>{admission}%</Text>
+                <Text style={{paddingLeft: 5}}>
+                  <Text style={_styles.desc}>平均录取率：</Text>
+                  <Text style={_styles.average}>{admission}%</Text>
+                </Text>
               </View>
             </View>
           </View>

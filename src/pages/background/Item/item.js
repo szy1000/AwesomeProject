@@ -48,7 +48,7 @@ export default class Item extends React.Component {
     return res;
   };
   render() {
-    const {styles, id, description, gold, title} = this.props;
+    const {styles, id, subject, gold, title} = this.props;
 
     return (
       <TouchableWithoutFeedback onPress={() => this.linkToDetail(id)}>
@@ -59,7 +59,9 @@ export default class Item extends React.Component {
             </Text>
             <View style={_styles.content}>
               <Image source={require('./address.png')} style={_styles.addr} />
-              <Text style={_styles.crowd}>{description}</Text>
+              <View style={{paddingRight: 15}}>
+                <Text style={_styles.crowd}>{subject}</Text>
+              </View>
             </View>
             <View style={_styles.content}>
               <Image source={require('./zan.png')} style={_styles.addr} />
@@ -102,6 +104,7 @@ const _styles = StyleSheet.create({
     marginLeft: 10,
     color: '#666666',
     fontSize: 14,
+    lineHeight: 18,
   },
 
   addr: {
