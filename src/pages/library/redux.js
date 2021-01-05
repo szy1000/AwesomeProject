@@ -51,6 +51,8 @@ export const libraryInit = (params, callback) => async (dispatch, getState) => {
     countryId: countryId || country[0].id,
     hot: true,
   });
+
+  console.log('subjectItem==>', subjectItem);
   dispatch(
     libraryUpdate({
       init: true,

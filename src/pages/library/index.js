@@ -166,16 +166,17 @@ class Library extends Component {
   };
 
   onValueChange = (key, value) => {
+    console.log(key, value);
     this.setState({
       [key]: value,
     });
   };
+
   render() {
     const {init, data} = this.props;
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    console.log('11111111')
     const {country, rank, subjectItem, subjectList} = data;
     const {query} = this.state;
     return (
