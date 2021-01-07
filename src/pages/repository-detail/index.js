@@ -16,8 +16,10 @@ import {bindActionCreators} from 'redux';
 import {repositoryDetailInit} from './redux';
 import {queryItemReq} from './api';
 import HTMLView from 'react-native-htmlview';
+import WebView from 'react-native-webview';
+import AutoSizedImage from './AutoSizedImage';
 
-var {width, height} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 class HtmlContent extends React.Component {
   state = {
@@ -37,23 +39,37 @@ class HtmlContent extends React.Component {
   }
 
   _renderNode(node, index, siblings, parent, defaultRenderer) {
+    console.log(node.name);
     if (node.name === 'img') {
       const data = node.attribs;
-      // Image.getSize(data.src, async (w, h) => {
-      //   //这里的w和h就是图片的宽高
-      //   return (
-      //     <View style={{width: w, height: h, backgroundColor: 'red'}}>
-      //       <Text>ss</Text>
-      //     </View>
-      //   );
-      // });
+      Image.getSize(data.src, (w, h) => {
+        //这里的w和h就是图片的宽高
+        // console.log(w, h);
+        return <Text>hello</Text>;
+        // return (
+        //     <Image
+        //       key={index}
+        //       source={{uri: data.src}}
+        //       resizeMode="cover"
+        //       style={{height: h, width: width}}
+        //     />
+        // );
+      });
+      console.log('sssss');
       return (
         <Image
           key={index}
           source={{uri: data.src}}
-          resizeMode="center"
-          style={{minHeight: 200, width: width}}
+          resizeMode="contain"
+          style={{height: 500, width: width}}
         />
+
+        // <AutoSizedImage
+        //   key={index}
+        //   source={{uri: data.src}}
+        //   resizeMode="contain"
+        //   style={{height: 0, width: width}}
+        // />
       );
     }
   }
@@ -62,10 +78,38 @@ class HtmlContent extends React.Component {
     const {html} = this.state;
     return (
       <ScrollView>
-        <HTMLView
-          value={html}
-          // renderNode={this._renderNode}
-          style={{color: '#000'}}
+        {/*<HTMLView*/}
+        {/*  value={html}*/}
+        {/*  renderNode={this._renderNode}*/}
+        {/*  style={{color: '#000'}}*/}
+        {/*  stylesheet={{*/}
+        {/*    image: {*/}
+        {/*      width: 200,*/}
+        {/*    },*/}
+        {/*  }}*/}
+        {/*/>*/}
+
+        <WebView
+          style={{height: height - 40}}
+          originWhitelist={['*']}
+          source={{
+            html: `
+              <html>
+                <head>
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <style>
+                  img{
+                    width: 100%;
+                  }
+                </style>
+            
+                <body>
+                  ${html}
+                </body>
+              </html>
+             `,
+          }}
         />
       </ScrollView>
     );

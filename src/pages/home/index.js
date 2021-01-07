@@ -90,6 +90,7 @@ class Home extends React.Component {
     if (!init) {
       return <ActivityIndicator />;
     }
+    console.log(data)
     const {
       country,
       hotSchool,
