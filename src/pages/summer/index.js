@@ -45,12 +45,16 @@ class Summer extends React.Component {
   };
 
   handleSelect = (key, value) => {
-    this.setState({
-      select: value,
-      [key]: value,
-    });
-    this.toggleModal(key);
-    this.search();
+    this.setState(
+      {
+        select: value,
+        [key]: value,
+      },
+      () => {
+        this.toggleModal(key);
+        this.search();
+      },
+    );
   };
 
   getDate = () => {
@@ -93,7 +97,6 @@ class Summer extends React.Component {
 
   search = () => {
     const {keys, grade, subject, category} = this.state;
-    console.log(this.state);
     this.props.summerInit({
       init: true,
       pageSize: 500,
@@ -127,7 +130,6 @@ class Summer extends React.Component {
       _grade,
       categoryArr = [],
     } = _data;
-    console.log('_data.listData', _data.listData);
 
     const item =
       currentOpen === 'grade'

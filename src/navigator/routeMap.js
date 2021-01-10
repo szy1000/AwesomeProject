@@ -242,14 +242,14 @@ const router = [
     name: 'Summer',
     component: Summer,
     options: {
-      title: '暑假项目',
+      title: '暑期项目',
     },
   },
   {
     name: 'SummerDetail',
     component: SummerDetail,
     options: {
-      title: '暑假项目详情',
+      title: '暑期项目详情',
       headerRight: () => (
         <Feather
           style={{marginRight: 10}}

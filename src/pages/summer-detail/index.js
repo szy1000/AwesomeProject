@@ -61,16 +61,12 @@ class SummerDetail extends React.Component {
             <Text style={styles.title}>{title}</Text>
             <View style={styles.tips}>
               <View style={[styles.item, {justifyContent: 'flex-start'}]}>
-                <Image style={styles.icon} source={require('./time.png')} />
-                <Text>全年招生</Text>
-              </View>
-              <View style={styles.item}>
                 <Image style={styles.icon} source={require('./address.png')} />
                 <Text numberOfLines={1}>{place}</Text>
               </View>
-              {/*<View style={[styles.item, {justifyContent: 'flex-end'}]}>*/}
-              {/*  <Text>{place}</Text>*/}
-              {/*</View>*/}
+              <View style={[styles.item, {justifyContent: 'flex-end'}]}>
+                <Text style={{color: 'green'}}>报名中</Text>
+              </View>
             </View>
             <Text style={styles.result}>预期成果：{expectedResult}</Text>
 
@@ -92,27 +88,40 @@ class SummerDetail extends React.Component {
                 <Text style={styles.header}>适合学科</Text>
               </View>
               <View style={styles.content}>
-                <Text>{description}</Text>
+                {grade.map(v => (
+                  <Text key={v}>{v}</Text>
+                ))}
+                {/*<Text>{description}</Text>*/}
               </View>
             </View>
             <View style={styles.panel}>
               <View>
-                <Text style={styles.header}>适合专业</Text>
+                <Text style={styles.header}>适合人群</Text>
               </View>
               <View style={styles.content}>
                 <Text>{subject}</Text>
               </View>
             </View>
+            {/*<View style={styles.panel}>*/}
+            {/*  <View>*/}
+            {/*    <Text style={styles.header}>适合学科</Text>*/}
+            {/*  </View>*/}
+            {/*  <View style={styles.content}>*/}
+            {/*    {grade.map(v => (*/}
+            {/*      <Text key={v}>{v}</Text>*/}
+            {/*    ))}*/}
+            {/*  </View>*/}
+            {/*</View>*/}
+
             <View style={styles.panel}>
               <View>
-                <Text style={styles.header}>适合学科</Text>
+                <Text style={styles.header}>活动地点</Text>
               </View>
               <View style={styles.content}>
-                {grade.map(v => (
-                  <Text key={v}>{v}</Text>
-                ))}
+                <Text>{place}</Text>
               </View>
             </View>
+
             <View style={styles.panel}>
               <View>
                 <Text style={styles.header}>活动时间</Text>
@@ -137,9 +146,13 @@ class SummerDetail extends React.Component {
             </View>
           ) : (
             <View style={styles.regBtn}>
-              <Text style={styles.word}>点击报名</Text>
+              <Text style={styles.word}>活动进行中</Text>
             </View>
           )}
+
+          {/*<View style={styles.regBtn}>*/}
+          {/*  <Text style={styles.word}>点击报名</Text>*/}
+          {/*</View>*/}
           <View style={styles.moreDetail}>
             <Text style={styles.txt}>查看详细活动介绍</Text>
           </View>
@@ -224,7 +237,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 44,
-    backgroundColor: 'red',
+    backgroundColor: 'green',
   },
 
   moreDetail: {

@@ -46,8 +46,7 @@ export default class Item extends React.Component {
                 <View style={_styles.ranking_item}>
                   <Image style={_styles.icon} source={require('./time.png')} />
                   <Text numberOfLines={1} style={_styles.desc}>
-                    {registrationEndTime && registrationEndTime.split(' ')[0]}
-                    截止
+                    全年招生
                   </Text>
                 </View>
                 <View style={_styles.ranking_item}>

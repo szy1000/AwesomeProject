@@ -157,7 +157,6 @@ class Library extends Component {
       data: {country},
     } = this.props;
     const {countryId, rankId, query} = this.state;
-    console.log(this.state);
     this.props.searchList({
       query,
       countryId: countryId || this.countryId,
