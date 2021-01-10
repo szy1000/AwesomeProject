@@ -52,11 +52,15 @@ class Background extends React.Component {
   };
 
   handleSelect = (key, value) => {
-    this.setState({
-      [key]: value,
-    });
-    this.toggleModal(key);
-    this.search();
+    this.setState(
+      {
+        [key]: value,
+      },
+      () => {
+        this.toggleModal(key);
+        this.search();
+      },
+    );
   };
 
   getDate = () => {

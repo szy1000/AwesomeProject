@@ -78,20 +78,18 @@ class SummerDetail extends React.Component {
                 />
               </View>
 
-              <HTMLView
-                value={content}
-                style={{paddingHorizontal: 15, lineHeight: 25, color: '#000'}}
-              />
+              {/*<HTMLView*/}
+              {/*  value={content}*/}
+              {/*  style={{paddingHorizontal: 15, lineHeight: 25, color: '#000'}}*/}
+              {/*/>*/}
+              <Text style={{paddingLeft: 15}}>{description}</Text>
             </View>
             <View style={styles.panel}>
               <View>
-                <Text style={styles.header}>适合学科</Text>
+                <Text style={styles.header}>涵盖学科</Text>
               </View>
               <View style={styles.content}>
-                {grade.map(v => (
-                  <Text key={v}>{v}</Text>
-                ))}
-                {/*<Text>{description}</Text>*/}
+                <Text>{subject}</Text>
               </View>
             </View>
             <View style={styles.panel}>
@@ -99,7 +97,10 @@ class SummerDetail extends React.Component {
                 <Text style={styles.header}>适合人群</Text>
               </View>
               <View style={styles.content}>
-                <Text>{subject}</Text>
+                {grade.map(v => (
+                  <Text key={v}>{v}</Text>
+                ))}
+                {/*<Text>{subject}</Text>*/}
               </View>
             </View>
             {/*<View style={styles.panel}>*/}
