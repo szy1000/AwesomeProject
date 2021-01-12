@@ -73,6 +73,7 @@ export const searchList = (params, callback) => async (dispatch, getState) => {
   const country = await getCountryReq({});
   const {countryId, categoryId} = params;
   console.log('params', params);
+  console.log('categoryId', categoryId);
 
   let hotSubject = null;
   if (categoryId === -1) {
