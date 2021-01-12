@@ -161,10 +161,7 @@ class FindMy extends React.Component {
                     <Text style={styles.name}>{item.user.userName}</Text>
                   </View>
                   <View style={styles.auth}>
-                    <Image
-                      style={styles.icon}
-                      source={require('./collect.png')}
-                    />
+                    <Image style={styles.icon} source={require('./zan.png')} />
                     <Text style={styles.count}>{item.stars}</Text>
                   </View>
                 </View>
@@ -274,8 +271,8 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   icon: {
-    width: 15,
-    height: 15,
+    width: 20,
+    height: 20,
   },
   count: {
     marginLeft: 5,

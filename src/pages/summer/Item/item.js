@@ -43,12 +43,12 @@ export default class Item extends React.Component {
             </View>
             <View>
               <View style={_styles.ranking}>
-                <View style={_styles.ranking_item}>
-                  <Image style={_styles.icon} source={require('./time.png')} />
-                  <Text numberOfLines={1} style={_styles.desc}>
-                    全年招生
-                  </Text>
-                </View>
+                {/*<View style={_styles.ranking_item}>*/}
+                {/*  <Image style={_styles.icon} source={require('./time.png')} />*/}
+                {/*  <Text numberOfLines={1} style={_styles.desc}>*/}
+                {/*    全年招生*/}
+                {/*  </Text>*/}
+                {/*</View>*/}
                 <View style={_styles.ranking_item}>
                   <Image
                     style={_styles.icon}
@@ -104,7 +104,7 @@ const _styles = StyleSheet.create({
   },
   ranking_item: {
     flexDirection: 'row',
-    width: '48%',
+    // width: '48%',
   },
   icon: {
     width: 14,

@@ -160,7 +160,7 @@ class FindFocus extends React.Component {
                   <View style={styles.auth}>
                     <Image
                       style={styles.icon}
-                      source={require('./collect.png')}
+                      source={require('./zan.png')}
                     />
                     <Text style={styles.count}>{item.stars}</Text>
                   </View>
@@ -260,8 +260,8 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   icon: {
-    width: 15,
-    height: 15,
+    width: 20,
+    height: 20,
   },
   count: {
     marginLeft: 5,

@@ -36,19 +36,19 @@ export default class Case extends React.Component {
                     : require('../../../../assets/images/logo.jpeg')
                 }
               />
-              <Text style={styles.title} numberOfLines={2}>
+              <Text style={styles.title} numberOfLines={1}>
                 {item.title}
               </Text>
               <View style={styles.auth}>
                 <View style={styles.auth}>
-                  <Image
-                    style={styles.avatar}
-                    source={
-                      item.image
-                        ? {uri: item.image}
-                        : require('../../../../assets/images/logo.jpeg')
-                    }
-                  />
+                  {/*<Image*/}
+                  {/*  style={styles.avatar}*/}
+                  {/*  source={*/}
+                  {/*    item.image*/}
+                  {/*      ? {uri: item.image}*/}
+                  {/*      : require('../../../../assets/images/logo.jpeg')*/}
+                  {/*  }*/}
+                  {/*/>*/}
                   <Text style={styles.name}>{item.name}</Text>
                 </View>
                 <View style={styles.auth}>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   name: {
-    marginLeft: 10,
+    // marginLeft: 10,
     color: '#666666',
   },
   icon: {

@@ -65,7 +65,11 @@ class SummerDetail extends React.Component {
                 <Text numberOfLines={1}>{place}</Text>
               </View>
               <View style={[styles.item, {justifyContent: 'flex-end'}]}>
-                <Text style={{color: 'green'}}>报名中</Text>
+                {isEnd ? (
+                  <Text style={{color: 'gray'}}>已结束</Text>
+                ) : (
+                  <Text style={{color: 'green'}}>报名中</Text>
+                )}
               </View>
             </View>
             <Text style={styles.result}>预期成果：{expectedResult}</Text>
