@@ -66,7 +66,6 @@ class Library extends Component {
   };
 
   cellAction = item => {
-    console.log(item);
     this.setState({
       cell: item.index,
     });
@@ -166,9 +165,16 @@ class Library extends Component {
 
   onValueChange = (key, value) => {
     console.log(key, value);
-    this.setState({
-      [key]: value,
-    });
+    this.setState(
+      {
+        [key]: value,
+      },
+      () => {
+        if (key === 'rankId') {
+          this.search();
+        }
+      },
+    );
   };
 
   render() {
