@@ -220,26 +220,26 @@ class Background extends React.Component {
                 />
               </View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-              onPress={() => this.toggleModal('subject')}>
-              <View style={styles.filterItem}>
-                <Text
-                  style={[
-                    styles.area,
-                    currentOpen === 'subject' && styles.active,
-                  ]}>
-                  {subject.name || '学科'}
-                </Text>
-                <Image
-                  style={styles.filterIcon}
-                  source={
-                    currentOpen === 'subject'
-                      ? require('./typerow.png')
-                      : require('./typerow_pre.png')
-                  }
-                />
-              </View>
-            </TouchableWithoutFeedback>
+            {/*<TouchableWithoutFeedback*/}
+            {/*  onPress={() => this.toggleModal('subject')}>*/}
+            {/*  <View style={styles.filterItem}>*/}
+            {/*    <Text*/}
+            {/*      style={[*/}
+            {/*        styles.area,*/}
+            {/*        currentOpen === 'subject' && styles.active,*/}
+            {/*      ]}>*/}
+            {/*      {subject.name || '学科'}*/}
+            {/*    </Text>*/}
+            {/*    <Image*/}
+            {/*      style={styles.filterIcon}*/}
+            {/*      source={*/}
+            {/*        currentOpen === 'subject'*/}
+            {/*          ? require('./typerow.png')*/}
+            {/*          : require('./typerow_pre.png')*/}
+            {/*      }*/}
+            {/*    />*/}
+            {/*  </View>*/}
+            {/*</TouchableWithoutFeedback>*/}
           </View>
           <FlatList
             style={styles.list}
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '33.33%',
+    width: '50%',
   },
   filterIcon: {
     width: 11,
