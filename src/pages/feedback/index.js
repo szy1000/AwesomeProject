@@ -16,6 +16,9 @@ import {bindActionCreators} from 'redux';
 import {submitFeedback, uploadFileFn} from './redux';
 
 class Feedback extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     avatarSource: '',
     error: 'erroree',
@@ -79,11 +82,12 @@ class Feedback extends React.Component {
   }
 
   submitFeed = () => {
-    const {content, contact = ''} = this.state;
+    const {content, phoneNumber, contact = ''} = this.state;
     this.props.submitFeedback(
       {
         content,
         contact,
+        phoneNumber,
       },
       () =>
         Jump.linkToPage({
