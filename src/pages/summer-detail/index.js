@@ -46,6 +46,8 @@ class SummerDetail extends React.Component {
         remarks,
         subject,
         title,
+        suitable_people,
+        project_cost = '面议',
       },
     } = data;
     const isEnd =
@@ -81,13 +83,9 @@ class SummerDetail extends React.Component {
                   source={image ? {uri: image} : require('./pic19.png')}
                 />
               </View>
-
-              {/*<HTMLView*/}
-              {/*  value={content}*/}
-              {/*  style={{paddingHorizontal: 15, lineHeight: 25, color: '#000'}}*/}
-              {/*/>*/}
               <Text style={{paddingLeft: 15}}>{description}</Text>
             </View>
+
             <View style={styles.panel}>
               <View>
                 <Text style={styles.header}>涵盖学科</Text>
@@ -101,10 +99,7 @@ class SummerDetail extends React.Component {
                 <Text style={styles.header}>适合人群</Text>
               </View>
               <View style={styles.content}>
-                {grade.map(v => (
-                  <Text key={v}>{v}</Text>
-                ))}
-                {/*<Text>{subject}</Text>*/}
+                <Text>{suitable_people}</Text>
               </View>
             </View>
             {/*<View style={styles.panel}>*/}
@@ -117,6 +112,15 @@ class SummerDetail extends React.Component {
             {/*    ))}*/}
             {/*  </View>*/}
             {/*</View>*/}
+
+            <View style={styles.panel}>
+              <View>
+                <Text style={styles.header}>项目费用</Text>
+              </View>
+              <View style={styles.content}>
+                <Text>{project_cost}</Text>
+              </View>
+            </View>
 
             <View style={styles.panel}>
               <View>
@@ -144,6 +148,18 @@ class SummerDetail extends React.Component {
                 <Text>{remarks}</Text>
               </View>
             </View>
+
+            <View style={styles.panel}>
+              <View>
+                <Text style={styles.header}>活动详细</Text>
+              </View>
+              <View style={styles.content}>
+                <HTMLView
+                  value={content}
+                  style={{paddingHorizontal: 15, lineHeight: 25, color: '#000'}}
+                />
+              </View>
+            </View>
           </ScrollView>
           {isEnd ? (
             <View style={styles.btn}>
@@ -158,9 +174,9 @@ class SummerDetail extends React.Component {
           {/*<View style={styles.regBtn}>*/}
           {/*  <Text style={styles.word}>点击报名</Text>*/}
           {/*</View>*/}
-          <View style={styles.moreDetail}>
-            <Text style={styles.txt}>查看详细活动介绍</Text>
-          </View>
+          {/*<View style={styles.moreDetail}>*/}
+          {/*  <Text style={styles.txt}>查看详细活动介绍</Text>*/}
+          {/*</View>*/}
         </SafeAreaView>
       </View>
     );

@@ -52,6 +52,11 @@ export const summerInit = (params, callback) => async (dispatch, getState) => {
     _res = res;
   }
 
+  console.log('rankArr==>', rankArr);
+  console.log('categoryArr==>', categoryArr);
+  _grade.unshift({name: '全部', id: ''})
+  categoryArr.unshift({name: '全部', id: ''})
+
   dispatch(
     summerUpdate({
       init: true,

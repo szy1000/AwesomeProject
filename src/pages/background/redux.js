@@ -54,6 +54,9 @@ export const backgroundInit = (params, callback) => async (
   }
   console.log('background _res', _res);
 
+  _grade.unshift({name: '全部', id: ''})
+  _category.unshift({name: '全部', id: ''})
+
   dispatch(
     backgroundUpdate({
       init: true,
