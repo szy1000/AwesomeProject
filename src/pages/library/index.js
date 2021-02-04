@@ -27,6 +27,7 @@ class Library extends Component {
   state = {
     cell: 0,
     query: '',
+    categoryId: -1,
   };
 
   componentDidMount() {
@@ -66,13 +67,18 @@ class Library extends Component {
   };
 
   cellAction = item => {
-    this.setState({
-      cell: item.index,
-    });
-    this.props.searchList({
-      countryId: this.state.countryId || this.countryId,
-      categoryId: item.item.id,
-    });
+    this.setState(
+      {
+        cell: item.index,
+        categoryId: item.item.id,
+      },
+      () => {
+        this.props.searchList({
+          countryId: this.state.countryId || this.countryId,
+          categoryId: item.item.id,
+        });
+      },
+    );
   };
 
   itemChange = info => {
@@ -155,11 +161,12 @@ class Library extends Component {
     const {
       data: {country},
     } = this.props;
-    const {countryId, rankId, query} = this.state;
+    const {countryId, rankId, categoryId, query} = this.state;
     this.props.searchList({
       query,
       countryId: countryId || this.countryId,
       order: rankId,
+      categoryId,
     });
   };
 

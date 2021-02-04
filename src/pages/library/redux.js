@@ -80,6 +80,7 @@ export const searchList = (params, callback) => async (dispatch, getState) => {
     hotSubject = await getSubjectListReq({
       countryId: countryId || country[0].id,
       hot: true,
+      query: params.query,
     });
   } else {
     hotSubject = await getSubjectListReq(params);
