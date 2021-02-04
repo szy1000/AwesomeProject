@@ -112,7 +112,7 @@ class GroupEdit extends React.Component {
     const {title, content, loading, avatarSourceMap} = this.state;
     console.log('GroupEdit', loading);
     return (
-      <ScrollView style={styles.note}>
+      <ScrollView style={styles.note} scrollIndicatorInsets={{right: 1}}>
         <View style={styles.imgWrapper}>
           {avatarSourceMap.map((v, index) => {
             return (

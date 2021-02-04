@@ -59,7 +59,7 @@ class BBS extends React.Component {
 
     return (
       <View style={styles.bbs}>
-        <ScrollView>
+        <ScrollView scrollIndicatorInsets={{right: 1}}>
           <ImageBackground style={styles.bg} source={require('./pic54.png')} />
           {/*<Image style={styles.bg} source={{uri: 'pic54'}} />*/}
           <View style={styles.content}>

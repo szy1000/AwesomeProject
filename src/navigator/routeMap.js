@@ -66,14 +66,14 @@ const ShareToFriend = async () => {
     webpageUrl: 'http://www.ivyroutedu.com/contact.php',
   })
     .then(response => {
-      console.log(response);
-      Alert.alert('操作提示', '分享成功', [
-        {
-          text: '确认',
-          onPress: async () => {},
-        },
-      ]);
-      return;
+      // console.log('response===》', response);
+      // Alert.alert('操作提示', '分享成功', [
+      //   {
+      //     text: '确认',
+      //     onPress: async () => {},
+      //   },
+      // ]);
+      // return;
     })
     .catch(error => {
       alert(error);

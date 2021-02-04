@@ -117,7 +117,7 @@ class Cases extends React.Component {
     if (!init) {
       return <ActivityIndicator style={{marginTop: 30}} />;
     }
-    console.log(this.props)
+    console.log(this.props);
 
     const {listData, _degree, _subject} = data;
 
@@ -203,6 +203,7 @@ class Cases extends React.Component {
           <FlatList
             style={styles.list}
             data={listData.data}
+            scrollIndicatorInsets={{right: 1}}
             renderItem={({item, index}) => (
               <Item
                 key={index}

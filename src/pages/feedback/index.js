@@ -88,6 +88,7 @@ class Feedback extends React.Component {
         content,
         contact,
         phoneNumber,
+        phone: phoneNumber,
       },
       () =>
         Jump.linkToPage({

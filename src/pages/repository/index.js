@@ -149,7 +149,9 @@ class Repository extends React.Component {
           item={
             <Fragment>
               {currentOpen === 'country' ? (
-                <ScrollView style={{maxHeight: 500}}>
+                <ScrollView
+                  style={{maxHeight: 500}}
+                  scrollIndicatorInsets={{right: 1}}>
                   {item.map((v, i) => (
                     <TouchableWithoutFeedback
                       key={i}

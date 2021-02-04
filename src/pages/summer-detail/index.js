@@ -46,8 +46,8 @@ class SummerDetail extends React.Component {
         remarks,
         subject,
         title,
-        suitable_people,
-        project_cost = '面议',
+        suitablePeople,
+        projectCost = '面议',
       },
     } = data;
     const isEnd =
@@ -59,7 +59,7 @@ class SummerDetail extends React.Component {
     return (
       <View style={styles.summerDetail}>
         <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-          <ScrollView>
+          <ScrollView scrollIndicatorInsets={{right: 1}}>
             <Text style={styles.title}>{title}</Text>
             <View style={styles.tips}>
               <View style={[styles.item, {justifyContent: 'flex-start'}]}>
@@ -99,7 +99,7 @@ class SummerDetail extends React.Component {
                 <Text style={styles.header}>适合人群</Text>
               </View>
               <View style={styles.content}>
-                <Text>{suitable_people}</Text>
+                <Text>{suitablePeople}</Text>
               </View>
             </View>
             {/*<View style={styles.panel}>*/}
@@ -118,7 +118,7 @@ class SummerDetail extends React.Component {
                 <Text style={styles.header}>项目费用</Text>
               </View>
               <View style={styles.content}>
-                <Text>{project_cost}</Text>
+                <Text>{projectCost}</Text>
               </View>
             </View>
 

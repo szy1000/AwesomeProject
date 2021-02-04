@@ -250,6 +250,7 @@ class Library extends Component {
             <FlatList
               ref="sectionList"
               style={styles.rightList}
+              scrollIndicatorInsets={{right: 1}}
               renderItem={section => this.renderRRow(section)}
               data={subjectItem}
               keyExtractor={item => item.name}

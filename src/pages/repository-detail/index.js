@@ -187,7 +187,7 @@ class RepositoryDetail extends React.Component {
 
     console.log('imageUrl', imageUrl);
     return (
-      <ScrollView>
+      <ScrollView scrollIndicatorInsets={{right: 1}}>
         <View style={{paddingBottom: 30}}>
           <Tab
             common={

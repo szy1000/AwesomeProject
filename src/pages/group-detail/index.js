@@ -67,6 +67,7 @@ class GroupDetail extends React.Component {
       <KeyboardAwareScrollView>
         <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
           <ScrollView
+            scrollIndicatorInsets={{right: 1}}
             onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}
             ref="scrollView"
             style={styles.groupDetail}>

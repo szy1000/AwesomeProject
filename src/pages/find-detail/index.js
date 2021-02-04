@@ -110,6 +110,7 @@ class FindDetail extends React.Component {
         />
         <Content scrollEnabled style={{flex: 1}}>
           <ScrollView
+            scrollIndicatorInsets={{right: 1}}
             ref="scrollView"
             // onContentSizeChange={() =>
             //   setTimeout(() => , 300)

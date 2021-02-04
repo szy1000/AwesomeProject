@@ -39,7 +39,7 @@ class CaseDetail extends React.Component {
     } = data;
     console.log(data);
     return (
-      <ScrollView style={styles.caseDetail}>
+      <ScrollView style={styles.caseDetail} scrollIndicatorInsets={{ right: 1 }}>
         <Header {...data.detail} />
         <Panel title={'申请信息'}>
           <View style={styles.table}>

@@ -44,7 +44,7 @@ class BackgroundDetail extends React.Component {
       website,
     } = data.detail;
     return (
-      <ScrollView style={styles.repositoryDetail}>
+      <ScrollView style={styles.repositoryDetail} scrollIndicatorInsets={{right: 1}}>
         <Item {...data.detail} />
         <View style={styles.panel}>
           <View style={styles.header}>

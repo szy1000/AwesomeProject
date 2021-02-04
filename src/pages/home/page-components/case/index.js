@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Jump from '../../../../utils/jump';
+
 export default class Case extends React.Component {
   linkTo = (id, navigation, title) => {
     Jump.linkToPage({
@@ -21,6 +22,7 @@ export default class Case extends React.Component {
 
   render() {
     const {data, navigation} = this.props;
+    console.log('data==>', data);
     return (
       <View style={styles.case}>
         {data.map(item => (
@@ -71,6 +73,7 @@ const styles = StyleSheet.create({
   case: {
     paddingHorizontal: 7,
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   item: {
     paddingHorizontal: 8,
@@ -90,6 +93,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   auth: {
+    marginBottom: 7,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
