@@ -14,7 +14,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {groupAllInit, searchGroupReq, toggleJoin} from './redux';
 import Jump from '../../utils/jump';
-import ParcelData from './ParcelData.json';
 var {width, height} = Dimensions.get('window');
 
 let Headers = [];
@@ -30,10 +29,6 @@ class GroupAll extends Component {
       route: {params},
     } = this.props;
     groupAllInit({id: params.id});
-
-    ParcelData.map((item, i) => {
-      Headers.push(item.section);
-    });
   }
 
   componentWillUnmount() {

@@ -17,7 +17,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {libraryInit, searchList} from './redux';
 import Jump from '../../utils/jump';
-import ParcelData from './ParcelData.json';
 
 var {width, height} = Dimensions.get('window');
 

@@ -135,7 +135,7 @@ class Note extends React.Component {
 
     await axios({
       method: 'post',
-      url: 'http://47.114.151.211:8081/api/common/file',
+      url: 'http://112.80.30.130:5456/api/common/file',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
@@ -144,7 +144,7 @@ class Note extends React.Component {
     })
       .then(res => {
         console.log('resres', res);
-        const baseUrl = 'http://47.114.151.211:8081';
+        const baseUrl = 'http://112.80.30.130:5456';
         const {avatarSourceMap} = this.state;
         avatarSourceMap.push({
           type: 'video',
@@ -239,7 +239,6 @@ class Note extends React.Component {
                 {v.type === 'video' ? (
                   <Video
                     paused={true}
-                    // poster={'http://47.114.151.211/logo.png'}
                     resizeMode="contain"
                     source={{
                       uri: v.uri,

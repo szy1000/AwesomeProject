@@ -5,7 +5,7 @@ import Jump from './jump';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const instance = axios.create({
-  baseURL: 'http://47.114.151.211:8081',
+  baseURL: 'http://112.80.30.130:5456',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
