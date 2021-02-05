@@ -239,6 +239,7 @@ class Repository extends React.Component {
           <FlatList
             data={data}
             styles={styles.list}
+            scrollIndicatorInsets={{right: 1}}
             renderItem={({item, index}, k) => (
               <Item
                 keys={k}

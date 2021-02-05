@@ -86,7 +86,7 @@ class Feedback extends React.Component {
     this.props.submitFeedback(
       {
         content,
-        contact,
+        contact: contact || phoneNumber,
         phoneNumber,
         phone: phoneNumber,
       },
