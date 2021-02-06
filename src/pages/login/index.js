@@ -46,9 +46,10 @@ export default class Login extends React.Component {
       ]);
       return;
     }
+    console.log('login req', this.state)
     const res = await loginReq(this.state);
+    console.log('login res=>>>', res);
     const {success, error, data} = res;
-    console.log(res);
     if (success) {
       const {accessToken, profile} = data;
       await AsyncStorage.setItem('token', accessToken);

@@ -160,18 +160,17 @@ class FindAll extends React.Component {
                     <Image
                       style={styles.avatar}
                       source={
-                        item.user.avatarUrl
+                        item.user && item.user.avatarUrl
                           ? {uri: item.user.avatarUrl}
                           : require('../../assets/images/logo.jpeg')
                       }
                     />
-                    <Text style={styles.name}>{item.user.userName}</Text>
+                    <Text style={styles.name}>
+                      {item.user && item.user.userName}
+                    </Text>
                   </View>
                   <View style={styles.auth}>
-                    <Image
-                      style={styles.icon}
-                      source={require('./zan.png')}
-                    />
+                    <Image style={styles.icon} source={require('./zan.png')} />
                     <Text style={styles.count}>{item.stars}</Text>
                   </View>
                 </View>
